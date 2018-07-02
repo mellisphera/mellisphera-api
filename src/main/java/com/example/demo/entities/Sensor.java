@@ -1,0 +1,108 @@
+package com.example.demo.entities;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
+
+@Document(collection = "Sensor")
+public class Sensor {
+	@Id
+	public String id;
+	public String reference;
+	public String name;
+	public String type;
+	public String description;
+	public String idHive ;
+	public String idApiary;
+	public String username;
+	
+	
+	public Sensor() {
+		super();
+	}
+
+	public Sensor(String id, String reference, String name, String type, String description, String idHive,
+			String idApiary, String username) {
+		super();
+		this.id = id;
+		this.reference = reference;
+		this.name = name;
+		this.type = type;
+		this.description = description;
+		this.idHive = idHive;
+		this.idApiary = idApiary;
+		this.username = username;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getIdHive() {
+		return idHive;
+	}
+
+	public void setIdHive(String idHive) {
+		this.idHive = idHive;
+	}
+
+	public String getIdApiary() {
+		return idApiary;
+	}
+
+	public void setIdApiary(String idApiary) {
+		this.idApiary = idApiary;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@Override
+	public String toString() {
+		return "Sensor [id=" + id + ", reference=" + reference + ", name=" + name + ", type=" + type + ", description="
+				+ description + ", idHive=" + idHive + ", idApiary=" + idApiary + ", username=" + username + "]";
+	}
+	
+	
+	
+}
