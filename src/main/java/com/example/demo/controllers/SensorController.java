@@ -28,15 +28,15 @@ import com.example.demo.entities.Hive;
 import com.example.demo.entities.Sensor;
 import com.example.demo.entities.User;
 import com.example.demo.repositories.SensorRepository;
+import com.example.demo.repositories.HivesRepository;
 
 @RestController
 @RequestMapping("/sensors")
 @CrossOrigin(origins = {"http://localhost:4200", "http://54.38.183.109:4200"})
 public class SensorController {
 	
-	@Autowired
-    private SensorRepository SensorRepository;
-	
+	@Autowired private SensorRepository SensorRepository;
+	@Autowired private HivesRepository HivesRepository;
     public SensorController() {
 	    }
 
@@ -69,14 +69,33 @@ public class SensorController {
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Sensor> getUserSensors(@PathVariable String username){
     List<Sensor> allSensors=this.SensorRepository.findAll();
+    List<Hive> allHives= this.HivesRepository.findAll();
     List<Sensor> apiarySensors = new ArrayList<>();
-    
-	    for(Sensor a : allSensors) {
-	    	if(a.getUsername().equals(username)) {
-	    		apiarySensors.add(a);
-	    	}
-	    }
-	    return apiarySensors;
+        
+
+    	for(Sensor s : allSensors) {
+    		for(Hive h : allHives)
+    		{
+    			if(s.getIdHive()==h.getId()) {
+	    			s.setHiveName(h.getName());
+	    			if(s.getUsername().equals(username)) {
+	    	    		apiarySensors.add(s);
+	    	    	}
+	    		}
+    			
+    			if(s.getIdHive().equals("stock")) {
+	    			s.setHiveName("stock");
+	    			if(s.getUsername().equals(username)) {
+	    	    		apiarySensors.add(s);
+	    	    		break;
+	    	    	}
+	    		}
+    		}
+	    	
+    	
+    }
+      
+    return apiarySensors;
     }
     
     @RequestMapping(value = "/weight/{username}", method = RequestMethod.GET, produces={"application/json"})
