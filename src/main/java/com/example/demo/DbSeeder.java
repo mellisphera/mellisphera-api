@@ -11,6 +11,8 @@ import com.example.demo.entities.ObservedFlower;
 import com.example.demo.entities.Flower;
 import com.example.demo.entities.Hive;
 import com.example.demo.entities.FlowerAPI;
+import com.example.demo.entities.FlowerITSAP;
+import com.example.demo.entities.FlowerTest;
 import com.example.demo.entities.User;
 import com.example.demo.entities.Sensor;
 import com.example.demo.entities.SoldDevice;
@@ -23,10 +25,13 @@ import com.example.demo.repositories.PostRepository;
 import com.example.demo.repositories.SensorRepository;
 import com.example.demo.repositories.DailyWeatherRepository;
 import com.example.demo.repositories.SoldDeviceRepository;
+import com.example.demo.repositories.FlowerTestRepository;
+import com.example.demo.repositories.ObservedFlowerRepository;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -41,7 +46,8 @@ public class DbSeeder implements CommandLineRunner{
 	@Autowired private HourlyWeatherRepository HourlyWeatherRepository;
 	@Autowired private DailyWeatherRepository DailyWeatherRepository;
 	@Autowired private SoldDeviceRepository SoldDeviceRepository;
-	
+	@Autowired private FlowerTestRepository FlowerTestRepository;
+	@Autowired private ObservedFlowerRepository ObservedFlowerRepository;
 	@Autowired private FlowerAPIController fleurTheoController;
 	
 	
@@ -69,6 +75,8 @@ public class DbSeeder implements CommandLineRunner{
     	this.HourlyWeatherRepository.deleteAll();
     	this.DailyWeatherRepository.deleteAll();
     	this.SoldDeviceRepository.deleteAll();
+    	this.FlowerTestRepository.deleteAll();
+    	this.ObservedFlowerRepository.deleteAll();
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     	
     	
@@ -209,6 +217,300 @@ public class DbSeeder implements CommandLineRunner{
 		Date u1Date = new Date();
 		u4.setCreatedAt(u1Date);
 		
+
+		Flower f4 = new Flower();
+		f4.setAutre("");
+		f4.setButineur("Bourdons et abeilles");
+		f4.setFamille("Malvacées");
+		f4.setFlomax(31);
+		f4.setFlomin(20);
+		f4.setFlomind("2018-05-14");
+		f4.setFlomaxd("2018-07-30");
+		f4.setForme("oblate");
+		f4.setFrancais("Tilleul commun");
+		f4.setLatin("Tilia x europaea");
+		f4.setIdplante(164);
+		f4.setGenre("Tilia");
+		f4.setPol_equ(33);
+		f4.setPol_pol(24);
+		f4.setRemarq("");
+		f4.setRessource("Nectar");
+		
+		FlowerITSAP f4b = new FlowerITSAP();
+		f4b.setPeriodemin(22);
+		f4b.setPeriodemax(30);
+		f4b.setPeriodemind("2018-05-28");
+		f4b.setPeriodemaxd("2018-07-23");
+		f4b.setIndice_confiance("3");
+		f4b.setInteret_nectar("3");
+		f4b.setInteret_pollen("2");
+		
+		FlowerTest f4T = new FlowerTest();
+		f4T.setFlowerApi(f4);
+		f4T.setFlowerIstap(f4b);
+		f4T.setType("Arbres");
+		f4T.setPhoto("https://kyle.sig.inra.fr/FLEURS/1150883980tilleul_5.jpg");
+		
+		
+		Flower f5 = new Flower();
+		f5.setAutre("");
+		f5.setButineur("Abeilles");
+		f5.setFamille("Rosacées");
+		f5.setFlomax(21);
+		f5.setFlomin(11);
+		f5.setFlomind("2018-03-12");
+		f5.setFlomaxd("2018-06-21");
+		f5.setForme("oblate");
+		f5.setFrancais("Cerisier");
+		f5.setLatin("Prunus cerasus");
+		f5.setIdplante(165);
+		f5.setGenre("Prunus");
+		f5.setPol_equ(32);
+		f5.setPol_pol(28);
+		f5.setRemarq("");
+		f5.setRessource("Pollen");
+		
+		FlowerITSAP f5b = new FlowerITSAP();
+		f5b.setPeriodemin(14);
+		f5b.setPeriodemax(21);
+		f5b.setPeriodemind("2018-04-02");
+		f5b.setPeriodemaxd("2018-06-21");
+		f5b.setIndice_confiance("3");
+		f5b.setInteret_nectar("2");
+		f5b.setInteret_pollen("3");
+		
+		FlowerTest f5T = new FlowerTest();
+		f5T.setFlowerApi(f5);
+		f5T.setType("Arbres");
+		f5T.setFlowerIstap(f5b);
+		f5T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Cerisier4.jpg");
+
+		Flower f6 = new Flower();
+		f6.setAutre("");
+		f6.setButineur("Abeilles");
+		f6.setFamille("Brassicacées");
+		f6.setFlomax(22);
+		f6.setFlomin(10);
+		f6.setFlomind("2018-03-05");
+		f6.setFlomaxd("2018-05-28");
+		f6.setForme("oblate");
+		f6.setFrancais("Colza");
+		f6.setLatin("Brassica napus");
+		f6.setIdplante(18);
+		f6.setGenre("Brassica");
+		f6.setPol_equ(25);
+		f6.setPol_pol(24);
+		f6.setRemarq("Grande culture");
+		f6.setRessource("Pollen et nectar");
+		
+		FlowerITSAP f6b = new FlowerITSAP();
+		f6b.setPeriodemin(14);
+		f6b.setPeriodemax(35);
+		f6b.setPeriodemind("2018-04-02");
+		f6b.setPeriodemaxd("2018-08-26");
+		f6b.setIndice_confiance("3");
+		f6b.setInteret_nectar("3");
+		f6b.setInteret_pollen("3");
+		
+		FlowerTest f6T = new FlowerTest();
+		f6T.setFlowerApi(f6);
+		f6T.setType("Herbacées");
+		f6T.setFlowerIstap(f6b);
+		f6T.setPhoto("https://kyle.sig.inra.fr/FLEURS/colza4.jpg");
+		
+		
+		Flower f7 = new Flower();
+		f7.setAutre("");
+		f7.setButineur("Tous hymenoptères");
+		f7.setFamille("Boraginacées");
+		f7.setFlomax(51);
+		f7.setFlomin(12);
+		f7.setFlomind("2018-03-19");
+		f7.setFlomaxd("2018-12-17");
+		f7.setForme("sphéroïdale");
+		f7.setFrancais("Bourrache officinale");
+		f7.setLatin("Borago officinalis");
+		f7.setIdplante(109);
+		f7.setGenre("Borago");
+		f7.setPol_equ(39);
+		f7.setPol_pol(38);
+		f7.setRemarq("Médicinale");
+		f7.setRessource("Nectar");
+		
+		FlowerITSAP f7b = new FlowerITSAP();
+		f7b.setPeriodemin(14);
+		f7b.setPeriodemax(39);
+		f7b.setPeriodemind("2018-04-02");
+		f7b.setPeriodemaxd("2018-09-24");
+		f7b.setIndice_confiance("3");
+		f7b.setInteret_nectar("3");
+		f7b.setInteret_pollen("1");
+		
+		FlowerTest f7T = new FlowerTest();
+		f7T.setFlowerApi(f7);
+		f7T.setType("Herbacées");
+		f7T.setFlowerIstap(f7b);
+		f7T.setPhoto("https://kyle.sig.inra.fr/FLEURS/bourrache5.jpg");
+		
+		Flower f8 = new Flower();
+		f8.setAutre("");
+		f8.setButineur("Abeilles");
+		f8.setFamille("Amaryllidacées");
+		f8.setFlomax(21);
+		f8.setFlomin(13);
+		f8.setFlomind("2018-03-26");
+		f8.setFlomaxd("2018-05-21");
+		f8.setForme("oblate");
+		f8.setFrancais("Ail des ours");
+		f8.setLatin("Allium ursinum");
+		f8.setIdplante(568);
+		f8.setGenre("Allium");
+		f8.setPol_equ(29);
+		f8.setPol_pol(20);
+		f8.setRemarq("");
+		f8.setRessource("Réputé");
+		
+		FlowerITSAP f8b = new FlowerITSAP();
+		f8b.setPeriodemin(18);
+		f8b.setPeriodemax(26);
+		f8b.setPeriodemind("2018-04-30");
+		f8b.setPeriodemaxd("2018-06-25");
+		f8b.setIndice_confiance("3");
+		f8b.setInteret_nectar("3");
+		f8b.setInteret_pollen("2");
+		
+		FlowerTest f8T = new FlowerTest();
+		f8T.setFlowerApi(f8);
+		f8T.setType("Bulbes");
+		f8T.setFlowerIstap(f8b);
+		f8T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Allium_ursinum2213.jpg");
+		
+		Flower f9 = new Flower();
+		f9.setAutre("");
+		f9.setButineur("Pas d'observations d'insectes");
+		f9.setFamille("Renonculacées");
+		f9.setFlomax(21);
+		f9.setFlomin(3);
+		f9.setFlomind("2018-01-15");
+		f9.setFlomaxd("2018-05-21");
+		f9.setForme("oblate");
+		f9.setFrancais("Hellébore noir");
+		f9.setLatin("Helleborus niger");
+		f9.setIdplante(198);
+		f9.setGenre("Helleborus");
+		f9.setPol_equ(27);
+		f9.setPol_pol(23);
+		f9.setRemarq("ornemental");
+		f9.setRessource("Réputé");
+		
+		FlowerITSAP f9b = new FlowerITSAP();
+		f9b.setPeriodemin(13);
+		f9b.setPeriodemax(49);
+		f9b.setPeriodemind("2018-03-26");
+		f9b.setPeriodemaxd("2018-12-03");
+		f9b.setIndice_confiance("2");
+		f9b.setInteret_nectar("2");
+		f9b.setInteret_pollen("2");
+		
+		FlowerTest f9T = new FlowerTest();
+		f9T.setFlowerApi(f9);
+		f9T.setType("Herbacées");
+		f9T.setFlowerIstap(f8b);
+		f9T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Hellebore_Noire2.jpg");
+		
+		Flower f10 = new Flower();
+		f10.setAutre("Epine blanche, Noble épine, Bois de mai");
+		f10.setButineur("Tous hymenoptères");
+		f10.setFamille("Rosacées");
+		f10.setFlomax(24);
+		f10.setFlomin(14);
+		f10.setFlomind("2018-04-01");
+		f10.setFlomaxd("2018-06-11");
+		f10.setForme("sphéroïdale");
+		f10.setFrancais("Aubépine à un style");
+		f10.setLatin("Crataegus monogyna");
+		f10.setIdplante(27);
+		f10.setGenre("Crataegus");
+		f10.setPol_equ(39);
+		f10.setPol_pol(37);
+		f10.setRemarq("Ornemental, porte greffe poirier, tonicardiaque");
+		f10.setRessource("Pollen");
+		
+		FlowerITSAP f10b = new FlowerITSAP();
+		f10b.setPeriodemin(14);
+		f10b.setPeriodemax(21);
+		f10b.setPeriodemind("2018-04-02");
+		f10b.setPeriodemaxd("2018-05-21");
+		f10b.setIndice_confiance("1");
+		f10b.setInteret_nectar("2");
+		f10b.setInteret_pollen("0");
+		
+		FlowerTest f10T = new FlowerTest();
+		f10T.setFlowerApi(f10);
+		f10T.setType("Arbustres");
+		f10T.setFlowerIstap(f10b);
+		f10T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Aubepine6.jpg");
+		
+		Flower f11 = new Flower();
+		f11.setAutre("Carouge, Cassie");
+		f11.setButineur("Abeilles");
+		f11.setFamille("Fabacées");
+		f11.setFlomax(24);
+		f11.setFlomin(16);
+		f11.setFlomind("2018-04-16");
+		f11.setFlomaxd("2018-06-11");
+		f11.setForme("oblate");
+		f11.setFrancais("Robinier faux-acacia");
+		f11.setLatin("Robinia pseudoacacia");
+		f11.setIdplante(24);
+		f11.setGenre("Robinia");
+		f11.setPol_equ(30);
+		f11.setPol_pol(24);
+		f11.setRemarq("");
+		f11.setRessource("Nectar");
+		
+		FlowerITSAP f11b = new FlowerITSAP();
+		f11b.setPeriodemin(18);
+		f11b.setPeriodemax(26);
+		f11b.setPeriodemind("2018-04-30");
+		f11b.setPeriodemaxd("2018-06-25");
+		f11b.setIndice_confiance("3");
+		f11b.setInteret_nectar("3");
+		f11b.setInteret_pollen("2");
+		
+		FlowerTest f11T = new FlowerTest();
+		f11T.setFlowerApi(f11);
+		f11T.setType("Arbres");
+		f11T.setFlowerIstap(f11b);
+		f11T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Robinier_Faux_Acacia4.jpg");
+		
+		
+		ObservedFlower fl1 = new ObservedFlower();
+		fl1.setId("1");
+		fl1.setNom(f5.getFrancais());
+		fl1.setDateThDebut(f5.getFlomin());
+		fl1.setDateThFin(f5.getFlomax());
+		fl1.setDateThDebutd(f5.getFlomind());
+		fl1.setDateThFind(f5.getFlomaxd());
+		fl1.setPresence(" ");
+		fl1.dateDebut = new HashMap<String, Integer>();
+		fl1.setDateDebut("2018",5);
+		fl1.setDateDebut("2019",6);
+		fl1.dateFin = new HashMap<String, Integer>();
+		fl1.setDateFin("2018",8);		
+		fl1.setDateFin("2019",10);
+		fl1.dateDebutd = new HashMap<String, String>();
+		fl1.setDateDebutd("2018","2018-02-02");
+		fl1.setDateDebutd("2019","0");
+		fl1.setDateDebutd("2020","0");
+		fl1.dateFind = new HashMap<String, String>();
+		fl1.setDateFind("2018","2018-05-02");
+		fl1.setDateFind("2019","0");
+		fl1.setDateFind("2020","0");
+		fl1.setUsername("jhe");
+		fl1.setIdApiary("4");
+		fl1.setPhoto(f5T.getPhoto());
+		
 		List<User> users = Arrays.asList(u1,u2,u3,u4);
 		
 		System.out.println(users);
@@ -239,6 +541,17 @@ public class DbSeeder implements CommandLineRunner{
 		//this.SensorRepository.save(s3);
 		
 	    this.userRepository.saveAll(users);
+	    
+	    this.FlowerTestRepository.save(f4T);
+	    this.FlowerTestRepository.save(f5T);
+	    this.FlowerTestRepository.save(f6T);
+	    this.FlowerTestRepository.save(f7T);
+	    this.FlowerTestRepository.save(f8T);
+	    this.FlowerTestRepository.save(f9T);
+	    this.FlowerTestRepository.save(f10T);
+	    this.FlowerTestRepository.save(f11T);
+	    
+	    this.ObservedFlowerRepository.save(fl1);
 	   
     }
 }
