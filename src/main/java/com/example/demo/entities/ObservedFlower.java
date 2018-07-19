@@ -57,19 +57,12 @@ public class ObservedFlower {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
-	public HashMap<String,Integer> getDateDebut() {
-		return dateDebut;
-	}
-	public void setDateDebut(String annee,int dateDebut) {
-		this.dateDebut.put(annee, dateDebut);
-	}
-	public HashMap<String,Integer> getDateFin() {
-		return dateFin;
-	}
 	public void setDateFin(String annee,int dateFin) {
 			this.dateFin.put(annee, dateFin);
 	}
+	public void setDateDebut(String annee,int dateDebut) {
+		this.dateFin.put(annee, dateDebut);
+}
 	public String getUsername() {
 		return username;
 	}
@@ -99,16 +92,6 @@ public class ObservedFlower {
 	}
 	public int getDateThDebut() {
 		return dateThDebut;
-	}
-
-	public void setDateDebut(HashMap<String, Integer> dateDebut2) {
-		this.dateDebut.putAll(dateDebut2);
-		
-	}
-	
-	public void setDateFin(HashMap<String, Integer> dateFin2) {
-		this.dateFin.putAll(dateFin2);
-		
 	}
 
 	public String getPhoto() {
@@ -160,18 +143,16 @@ public class ObservedFlower {
 		this.dateFind.put(annee, dateFin);
 	}
 
-	public String getDateDebut() {
+
+	public HashMap<String, Integer> getDateDebut() {
 		return dateDebut;
 	}
-	public void setDateDebut(String dateDebut) {
-		this.dateDebut = dateDebut;
-	}
-	public String getDateFin() {
+
+
+	public HashMap<String, Integer> getDateFin() {
 		return dateFin;
 	}
-	public void setDateFin(String dateFin) {
-		this.dateFin = dateFin;
-	}
+
 	
 
 	

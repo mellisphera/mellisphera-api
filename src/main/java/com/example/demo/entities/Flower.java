@@ -6,9 +6,9 @@ public class Flower {
 	public String butineur;
 	public String famille;
 	public int flomax;
+	public int flomin;
 	public String flomind;
 	public String flomaxd;
-	public int flomin;
 	public String forme;
 	public String francais;
 	public String genre;
