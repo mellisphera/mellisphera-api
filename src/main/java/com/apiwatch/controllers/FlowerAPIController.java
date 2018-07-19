@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.apiwatch.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,16 +22,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.demo.entities.Flower;
-import com.example.demo.entities.FlowerAPI;
-import com.example.demo.entities.weather.WeatherAPI;
-import com.example.demo.repositories.FleurTheoriqueRepository;
+import com.apiwatch.entities.Flower;
+import com.apiwatch.entities.FlowerAPI;
+import com.apiwatch.repositories.FleurTheoriqueRepository;
+import com.apiwatch.weather.WeatherAPI;
 
 
 
 @RestController
 @RequestMapping("/fleurs-theoriques")
-@CrossOrigin(origins = {"http://localhost:4200", "http://54.38.183.109:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class FlowerAPIController {
 
 	@Autowired

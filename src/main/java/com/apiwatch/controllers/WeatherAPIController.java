@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.apiwatch.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.demo.entities.weather.WeatherAPI;
-import com.example.demo.repositories.WeatherAPIRepository;
+import com.apiwatch.repositories.WeatherAPIRepository;
+import com.apiwatch.weather.WeatherAPI;
 
 @RestController
 @RequestMapping("/weather")
-@CrossOrigin(origins = {"http://localhost:4200", "http://54.38.183.109:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class WeatherAPIController {
 	
 	@Autowired WeatherAPIRepository MeteoRepository;

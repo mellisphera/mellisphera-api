@@ -1,4 +1,4 @@
-package com.example.demo.entities.weather;
+package com.apiwatch.weather;
 
 import java.util.Date;
 import java.util.List;

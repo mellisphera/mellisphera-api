@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.apiwatch;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.entities.Apiary;
-import com.example.demo.entities.weather.HourlyWeather;
-import com.example.demo.entities.weather.WeatherAPI;
-import com.example.demo.repositories.ApiaryRepository;
-import com.example.demo.repositories.HourlyWeatherRepository;
-import com.example.demo.controllers.WeatherAPIController;
-import com.example.demo.controllers.DailyWeatherController;
+import com.apiwatch.controllers.DailyWeatherController;
+import com.apiwatch.controllers.WeatherAPIController;
+import com.apiwatch.entities.Apiary;
+import com.apiwatch.repositories.ApiaryRepository;
+import com.apiwatch.repositories.HourlyWeatherRepository;
+import com.apiwatch.weather.HourlyWeather;
+import com.apiwatch.weather.WeatherAPI;
 
 @Component
 public class ScheduledTasks {

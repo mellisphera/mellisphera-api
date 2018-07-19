@@ -1,9 +1,10 @@
-package com.example.demo.repositories;
+package com.apiwatch.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import com.example.demo.entities.Apiary;
+
+import com.apiwatch.entities.Apiary;
 
 
 @Service

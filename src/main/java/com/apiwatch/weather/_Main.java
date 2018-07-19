@@ -1,4 +1,4 @@
-package com.example.demo.entities.weather;
+package com.apiwatch.weather;
 
 public class _Main {
 	public float temp;

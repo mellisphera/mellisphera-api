@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.apiwatch.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entities.Record;
-import com.example.demo.entities.Post;
-import com.example.demo.repositories.PostRepository;
+import com.apiwatch.entities.Post;
+import com.apiwatch.entities.Record;
+import com.apiwatch.repositories.PostRepository;
 
 
 
 @Service
 @RestController
 @RequestMapping("posts")
-@CrossOrigin(origins = {"http://localhost:4200", "http://54.38.183.109:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class PostController {
 	
 	@Autowired

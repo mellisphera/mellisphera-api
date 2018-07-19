@@ -1,8 +1,8 @@
-package com.example.demo.repositories;
+package com.apiwatch.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.example.demo.entities.Flower;
+import com.apiwatch.entities.Flower;
 
 public interface TheoricalFlowerRepository extends MongoRepository<Flower,String>{ 
 
