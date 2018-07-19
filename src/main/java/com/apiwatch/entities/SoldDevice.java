@@ -1,4 +1,4 @@
-package com.example.demo.entities;
+package com.apiwatch.entities;
 
 import java.util.Date;
 

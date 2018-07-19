@@ -1,7 +1,8 @@
-package com.example.demo.repositories;
+package com.apiwatch.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import com.example.demo.entities.weather.HourlyWeather;
+
+import com.apiwatch.weather.HourlyWeather;
 
 public interface HourlyWeatherRepository extends MongoRepository<HourlyWeather,String>{
 

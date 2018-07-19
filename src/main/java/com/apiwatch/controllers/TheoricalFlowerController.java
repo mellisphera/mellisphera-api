@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.apiwatch.controllers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,14 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entities.Flower;
-import com.example.demo.entities.ObservedFlower;
-import com.example.demo.entities.User;
-import com.example.demo.repositories.TheoricalFlowerRepository;
+import com.apiwatch.entities.Flower;
+import com.apiwatch.entities.ObservedFlower;
+import com.apiwatch.entities.User;
+import com.apiwatch.repositories.TheoricalFlowerRepository;
 
 @RestController
 @RequestMapping("/flowersth")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class TheoricalFlowerController {
 	@Autowired
     private TheoricalFlowerRepository thFlowerRepository;

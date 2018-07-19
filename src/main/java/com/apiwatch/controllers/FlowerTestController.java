@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.apiwatch.controllers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,9 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.example.demo.entities.FlowerTest;
-import com.example.demo.repositories.FlowerTestRepository;
+import com.apiwatch.entities.FlowerTest;
+import com.apiwatch.repositories.FlowerTestRepository;
 
 
 @RestController

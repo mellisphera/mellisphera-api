@@ -4,8 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.lemabkr</groupId>
-	<artifactId>lemabkr</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>lemabkr</name>
@@ -68,4 +67,5 @@
 	</build>
 
 
+	<artifactId>apiwatch</artifactId>
 </project>

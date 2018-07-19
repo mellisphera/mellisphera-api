@@ -1,32 +1,33 @@
-package com.example.demo;
+package com.apiwatch;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.controllers.FlowerAPIController;
-import com.example.demo.entities.Record;
-import com.example.demo.entities.Apiary;
-import com.example.demo.entities.ObservedFlower;
-import com.example.demo.entities.Flower;
-import com.example.demo.entities.Hive;
-import com.example.demo.entities.FlowerAPI;
-import com.example.demo.entities.FlowerITSAP;
-import com.example.demo.entities.FlowerTest;
-import com.example.demo.entities.User;
-import com.example.demo.entities.Sensor;
-import com.example.demo.entities.SoldDevice;
-import com.example.demo.repositories.UserRepository;
-import com.example.demo.repositories.ApiaryRepository;
-import com.example.demo.repositories.FleurTheoriqueRepository;
-import com.example.demo.repositories.HivesRepository;
-import com.example.demo.repositories.HourlyWeatherRepository;
-import com.example.demo.repositories.PostRepository;
-import com.example.demo.repositories.SensorRepository;
-import com.example.demo.repositories.DailyWeatherRepository;
-import com.example.demo.repositories.SoldDeviceRepository;
-import com.example.demo.repositories.FlowerTestRepository;
-import com.example.demo.repositories.ObservedFlowerRepository;
+import com.apiwatch.controllers.FlowerAPIController;
+import com.apiwatch.entities.Apiary;
+import com.apiwatch.entities.Flower;
+import com.apiwatch.entities.FlowerAPI;
+import com.apiwatch.entities.FlowerITSAP;
+import com.apiwatch.entities.FlowerTest;
+import com.apiwatch.entities.Hive;
+import com.apiwatch.entities.ObservedFlower;
+import com.apiwatch.entities.Record;
+import com.apiwatch.entities.Sensor;
+import com.apiwatch.entities.SoldDevice;
+import com.apiwatch.entities.User;
+import com.apiwatch.repositories.ApiaryRepository;
+import com.apiwatch.repositories.DailyWeatherRepository;
+import com.apiwatch.repositories.FleurTheoriqueRepository;
+import com.apiwatch.repositories.FlowerTestRepository;
+import com.apiwatch.repositories.HivesRepository;
+import com.apiwatch.repositories.HourlyWeatherRepository;
+import com.apiwatch.repositories.ObservedFlowerRepository;
+import com.apiwatch.repositories.PostRepository;
+import com.apiwatch.repositories.SensorRepository;
+import com.apiwatch.repositories.SoldDeviceRepository;
+import com.apiwatch.repositories.UserRepository;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -48,9 +49,8 @@ public class DbSeeder implements CommandLineRunner{
 	@Autowired private SoldDeviceRepository SoldDeviceRepository;
 	@Autowired private FlowerTestRepository FlowerTestRepository;
 	@Autowired private ObservedFlowerRepository ObservedFlowerRepository;
-
 	@Autowired private FlowerAPIController fleurTheoController;
-	
+
 	
 	//WeatherController wc;
 	
@@ -65,7 +65,8 @@ public class DbSeeder implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-    	
+    	/*
+    	cette partie du code est a commenter pour le déploiement en mode PRODUCTION   	
     	this.userRepository.deleteAll();
     	this.fleurTheoriqueRepository.deleteAll();
     	this.apiaryRepository.deleteAll();
@@ -78,6 +79,7 @@ public class DbSeeder implements CommandLineRunner{
     	this.SoldDeviceRepository.deleteAll();
     	this.FlowerTestRepository.deleteAll();
     	this.ObservedFlowerRepository.deleteAll();
+    	*/
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     	
     	
@@ -110,7 +112,7 @@ public class DbSeeder implements CommandLineRunner{
       	sd4.setSensorRef("43:0A:C7");
       	sd4.setType("weight");
       	sd4.setSoldTo("clo");
-
+/*
     	
     	Apiary ap1 = new Apiary();
     	ap1.setId("1");
@@ -194,7 +196,7 @@ public class DbSeeder implements CommandLineRunner{
     	s3.setIdHive("1");
     	s3.setIdApiary("1");
     	s3.setUsername("jcp");
-    	
+ */   	
     	
     	User u1 = new User();
 		u1.setUsername("blg");	
@@ -218,7 +220,7 @@ public class DbSeeder implements CommandLineRunner{
 		Date u1Date = new Date();
 		u4.setCreatedAt(u1Date);
 		
-
+/*
 		Flower f4 = new Flower();
 		f4.setAutre("");
 		f4.setButineur("Bourdons et abeilles");
@@ -514,7 +516,7 @@ public class DbSeeder implements CommandLineRunner{
 		fl1.setIdApiary("4");
 		fl1.setPhoto(f5T.getPhoto());
 		
-		List<User> users = Arrays.asList(u1,u2,u3,u4);
+	
 		
 		System.out.println(users);
 		
@@ -527,25 +529,26 @@ public class DbSeeder implements CommandLineRunner{
 		this.apiaryRepository.save(ap2);
 		this.apiaryRepository.save(ap3);
 		this.apiaryRepository.save(ap4);
-		
+		*/
 
 		this.SoldDeviceRepository.save(sd1);
 		this.SoldDeviceRepository.save(sd2);
 		this.SoldDeviceRepository.save(sd3);
 		this.SoldDeviceRepository.save(sd4);
 
-		
+	/*	
 		this.HivesRepository.save(h1);
 		this.HivesRepository.save(h2);
 		this.HivesRepository.save(h3);
 		
 		this.SensorRepository.save(s1);
 		this.SensorRepository.save(s2);
-		//this.SensorRepository.save(s3);
 		
+		*/
+		List<User> users = Arrays.asList(u1,u2,u3,u4);
 	    this.userRepository.saveAll(users);
 
-	    
+	 /*   
 	    this.FlowerTestRepository.save(f4T);
 	    this.FlowerTestRepository.save(f5T);
 	    this.FlowerTestRepository.save(f6T);
@@ -556,6 +559,6 @@ public class DbSeeder implements CommandLineRunner{
 	    this.FlowerTestRepository.save(f11T);
 	    
 	    this.ObservedFlowerRepository.save(fl1);
-	   
+	   */
     }
 }
