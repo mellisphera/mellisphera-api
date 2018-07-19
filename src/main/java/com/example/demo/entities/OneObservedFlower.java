@@ -1,19 +1,18 @@
 package com.example.demo.entities;
 
-import java.util.HashMap;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Fleur")
-public class ObservedFlower {
+@Document(collection = "OneFlower")
+public class OneObservedFlower {
+
 	@Id
 	public String id;
 	public String nom;
-	public HashMap<String,Integer> dateDebut;
-	public HashMap<String,Integer> dateFin; 
-	public HashMap<String,String> dateDebutd;
-	public HashMap<String,String> dateFind;
+	public int dateDebut; //A transformer en date
+	public int dateFin;   //A transformer en date
+	public String dateDebutd; 
+	public String dateFind;
 	public int dateThDebut;
 	public int dateThFin;
 	public String dateThDebutd;
@@ -23,11 +22,7 @@ public class ObservedFlower {
 	public String idApiary;
 	public String photo;
 	
-	public ObservedFlower() {
-		super();
-	}
-	
-	public ObservedFlower(String id, String nom, HashMap<String,Integer> dateDebut, HashMap<String,Integer> dateFin, int dateThDebut, int dateThFin,
+	public OneObservedFlower(String id, String nom, int dateDebut, int dateFin, int dateThDebut, int dateThFin,
 			String presence, String username, String idApiary) {
 		super();
 		this.id = id;
@@ -40,69 +35,87 @@ public class ObservedFlower {
 		this.username = username;
 		this.idApiary = idApiary;
 	}
+
+	public OneObservedFlower() {
+	}
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getNom() {
 		return nom;
 	}
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public HashMap<String,Integer> getDateDebut() {
+
+	public int getDateDebut() {
 		return dateDebut;
 	}
-	public void setDateDebut(String annee,int dateDebut) {
-		this.dateDebut.put(annee, dateDebut);
+
+	public void setDateDebut(int dateDebut) {
+		this.dateDebut = dateDebut;
 	}
-	public HashMap<String,Integer> getDateFin() {
+
+	public int getDateFin() {
 		return dateFin;
 	}
-	public void setDateFin(String annee,int dateFin) {
-			this.dateFin.put(annee, dateFin);
+
+	public void setDateFin(int dateFin) {
+		this.dateFin = dateFin;
 	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getIdApiary() {
-		return idApiary;
-	}
-	public void setIdApiary(String idApiary) {
-		this.idApiary = idApiary;
-	}
-	public void setDateThDebut(int dateThDebut) {
-		this.dateThDebut = dateThDebut;
-	}
-	public int getDateThFin() {
-		return dateThFin;
-	}
-	public void setDateThFin(int dateThFin) {
-		this.dateThFin = dateThFin;
-	}
-	public String getPresence() {
-		return presence;
-	}
-	public void setPresence(String presence) {
-		this.presence = presence;
-	}
+
 	public int getDateThDebut() {
 		return dateThDebut;
 	}
 
-	public void setDateDebut(HashMap<String, Integer> dateDebut2) {
-		this.dateDebut.putAll(dateDebut2);
-		
+	public void setDateThDebut(int dateThDebut) {
+		this.dateThDebut = dateThDebut;
 	}
-	
-	public void setDateFin(HashMap<String, Integer> dateFin2) {
-		this.dateFin.putAll(dateFin2);
-		
+
+	public int getDateThFin() {
+		return dateThFin;
+	}
+
+	public void setDateThFin(int dateThFin) {
+		this.dateThFin = dateThFin;
+	}
+
+	public String getPresence() {
+		return presence;
+	}
+
+	public void setPresence(String presence) {
+		this.presence = presence;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getIdApiary() {
+		return idApiary;
+	}
+
+	public void setIdApiary(String idApiary) {
+		this.idApiary = idApiary;
+	}
+
+	@Override
+	public String toString() {
+		return "OneObservedFlower [id=" + id + ", nom=" + nom + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin
+				+ ", dateThDebut=" + dateThDebut + ", dateThFin=" + dateThFin + ", presence=" + presence + ", username="
+				+ username + ", idApiary=" + idApiary + "]";
 	}
 
 	public String getPhoto() {
@@ -113,24 +126,24 @@ public class ObservedFlower {
 		this.photo = photo;
 	}
 
-	public HashMap<String, String> getDateDebutd() {
+	public String getDateDebutd() {
 		return dateDebutd;
 	}
 
-	public void setDateDebutd(HashMap<String, String> dateDebutd) {
+	public void setDateDebutd(String dateDebutd) {
 		this.dateDebutd = dateDebutd;
 	}
 
-	public HashMap<String, String> getDateFind() {
+	public String getDateFind() {
 		return dateFind;
 	}
 
-	public void setDateFind(HashMap<String, String> dateFind) {
-		this.dateFind = dateFind;
+	public void setDateFind(String dateDebutf) {
+		this.dateFind = dateDebutf;
 	}
 
 	public String getDateThDebutd() {
-		return this.dateThDebutd;
+		return dateThDebutd;
 	}
 
 	public void setDateThDebutd(String dateThDebutd) {
@@ -138,7 +151,7 @@ public class ObservedFlower {
 	}
 
 	public String getDateThFind() {
-		return this.dateThFind;
+		return dateThFind;
 	}
 
 	public void setDateThFind(String dateThFind) {
@@ -146,12 +159,5 @@ public class ObservedFlower {
 	}
 	
 	
-	public void setDateDebutd(String annee,String dateDebut) {
-		this.dateDebutd.put(annee, dateDebut);
-	}
-	
-	public void setDateFind(String annee,String dateFin) {
-		this.dateFind.put(annee, dateFin);
-	}
 	
 }

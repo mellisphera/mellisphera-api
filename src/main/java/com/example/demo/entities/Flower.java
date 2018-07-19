@@ -6,6 +6,8 @@ public class Flower {
 	public String butineur;
 	public String famille;
 	public int flomax;
+	public String flomind;
+	public String flomaxd;
 	public int flomin;
 	public String forme;
 	public String francais;
@@ -141,8 +143,20 @@ public class Flower {
 				+ ", remarq=" + remarq + ", ressource=" + ressource + "]";
 	}
 
-	
-	
-	
+	public String getFlomind() {
+		return flomind;
+	}
+
+	public void setFlomind(String flomind) {
+		this.flomind = flomind;
+	}
+
+	public String getFlomaxd() {
+		return flomaxd;
+	}
+
+	public void setFlomaxd(String flomaxd) {
+		this.flomaxd = flomaxd;
+	}
 	
 }
