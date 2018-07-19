@@ -1,5 +1,6 @@
 package com.example.demo.entities;
 
+
 import java.util.HashMap;
 
 import org.springframework.data.annotation.Id;
@@ -7,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Fleur")
 public class ObservedFlower {
+
 	@Id
 	public String id;
 	public String nom;
@@ -22,10 +24,12 @@ public class ObservedFlower {
 	public String username;
 	public String idApiary;
 	public String photo;
+
 	
 	public ObservedFlower() {
 		super();
 	}
+
 	
 	public ObservedFlower(String id, String nom, HashMap<String,Integer> dateDebut, HashMap<String,Integer> dateFin, int dateThDebut, int dateThFin,
 			String presence, String username, String idApiary) {
@@ -39,6 +43,7 @@ public class ObservedFlower {
 		this.presence = presence;
 		this.username = username;
 		this.idApiary = idApiary;
+
 	}
 	public String getId() {
 		return id;
@@ -52,6 +57,7 @@ public class ObservedFlower {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
 	public HashMap<String,Integer> getDateDebut() {
 		return dateDebut;
 	}
@@ -153,5 +159,20 @@ public class ObservedFlower {
 	public void setDateFind(String annee,String dateFin) {
 		this.dateFind.put(annee, dateFin);
 	}
+
+	public String getDateDebut() {
+		return dateDebut;
+	}
+	public void setDateDebut(String dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+	public String getDateFin() {
+		return dateFin;
+	}
+	public void setDateFin(String dateFin) {
+		this.dateFin = dateFin;
+	}
+	
+
 	
 }

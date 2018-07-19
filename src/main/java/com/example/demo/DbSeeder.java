@@ -48,6 +48,7 @@ public class DbSeeder implements CommandLineRunner{
 	@Autowired private SoldDeviceRepository SoldDeviceRepository;
 	@Autowired private FlowerTestRepository FlowerTestRepository;
 	@Autowired private ObservedFlowerRepository ObservedFlowerRepository;
+
 	@Autowired private FlowerAPIController fleurTheoController;
 	
 	
@@ -541,6 +542,7 @@ public class DbSeeder implements CommandLineRunner{
 		//this.SensorRepository.save(s3);
 		
 	    this.userRepository.saveAll(users);
+
 	    
 	    this.FlowerTestRepository.save(f4T);
 	    this.FlowerTestRepository.save(f5T);
