@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -109,19 +111,22 @@ public class ObservedFlowerController {
 			String dateIntD[] = new String[2];
 			String dateIntF[] = new String[2];
 			List< String[] > dates = new ArrayList<>();
-			int i = 0;
+			Date date = new Date(); // your date
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			int year = cal.get(Calendar.YEAR);
+			
 			for (ObservedFlower f : allFlowers) {
 				if (f.getNom().equals(name)) {
 					dateIntD[1] = name;
-					dateIntD[0] = f.getDateThDebutd();
+					dateIntD[0] = year+"-"+f.getDateThDebutd();
 					
 					dateIntF[1] = name;
-					dateIntF[0] = f.getDateThFind();
+					dateIntF[0] = year+"-"+f.getDateThFind();
 					
 					dates.add(dateIntD);
 					dates.add(dateIntF);
 				}
-				i++;
 			}
 			
 			return dates;
@@ -168,24 +173,26 @@ public class ObservedFlowerController {
 		String dateIntD[] = new String[2];
 		String dateIntF[] = new String[2];
 		List< String[] > dates = new ArrayList<>();
-		int i = 0;
+		Date date = new Date(); // your date
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		int year = cal.get(Calendar.YEAR);
 
 		for (ObservedFlower f : allFlowers) {
 			if (f.getNom().equals(name)) {
 					if(!(f.getDateDebutd().get(annee).equals("0"))) {
 						dateIntD[1] = name;
-						dateIntD[0] = f.getDateDebutd().get(annee);
+						dateIntD[0] = year+"-"+f.getDateDebutd().get(annee);
 						
 						dates.add(dateIntD);
 					}
 					if (!(f.getDateFind().get(annee).equals("0"))) {
 						dateIntF[1] = name;
-						dateIntF[0] = f.getDateFind().get(annee);
+						dateIntF[0] = year+"-"+f.getDateFind().get(annee);
 						
 						dates.add(dateIntF);
 					}
 			}
-			i++;
 		}
 		return dates;
 	}
