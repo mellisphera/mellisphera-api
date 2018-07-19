@@ -1,4 +1,4 @@
-package com.example.demo.entities;
+package com.apiwatch.entities;
 
 public class FlowerTest {
 	public Flower flowerApi;

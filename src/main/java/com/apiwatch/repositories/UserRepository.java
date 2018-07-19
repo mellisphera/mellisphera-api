@@ -1,4 +1,4 @@
-package com.example.demo.repositories;
+package com.apiwatch.repositories;
 
 import java.util.List;
 
@@ -6,7 +6,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import com.example.demo.entities.User;
+
+import com.apiwatch.entities.User;
 
 @Service
 @Repository

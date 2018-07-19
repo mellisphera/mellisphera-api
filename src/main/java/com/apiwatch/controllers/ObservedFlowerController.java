@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.apiwatch.controllers;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entities.ObservedFlower;
-import com.example.demo.entities.OneObservedFlower;
-import com.example.demo.repositories.ObservedFlowerRepository;
+import com.apiwatch.entities.ObservedFlower;
+import com.apiwatch.entities.OneObservedFlower;
+import com.apiwatch.repositories.ObservedFlowerRepository;
 
 @Service
 @RestController
 @RequestMapping("/flowers")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class ObservedFlowerController {
 
 	@Autowired

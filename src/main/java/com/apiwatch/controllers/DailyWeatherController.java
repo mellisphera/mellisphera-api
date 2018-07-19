@@ -1,15 +1,17 @@
-package com.example.demo.controllers;
+package com.apiwatch.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.entities.Apiary;
-import com.example.demo.entities.weather.DailyWeather;
-import com.example.demo.entities.weather._Weather;
-import com.example.demo.entities.weather.HourlyWeather;
-import com.example.demo.repositories.DailyWeatherRepository;
-import com.example.demo.repositories.HourlyWeatherRepository;
-import com.example.demo.repositories.ApiaryRepository;
+
+import com.apiwatch.entities.Apiary;
+import com.apiwatch.repositories.ApiaryRepository;
+import com.apiwatch.repositories.DailyWeatherRepository;
+import com.apiwatch.repositories.HourlyWeatherRepository;
+import com.apiwatch.weather.DailyWeather;
+import com.apiwatch.weather.HourlyWeather;
+import com.apiwatch.weather._Weather;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import java.util.Map;
 @Service
 @RestController
 @RequestMapping("/dailyweather")
-@CrossOrigin(origins = {"http://localhost:4200", "http://54.38.183.109:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class DailyWeatherController {
 	@Autowired private DailyWeatherRepository DailyWeatherRepository;
 	@Autowired private HourlyWeatherRepository HourlyWeatherRepository;

@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.apiwatch.controllers;
 
 import java.text.DateFormat;
 import java.text.Format;
@@ -25,16 +25,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entities.Apiary;
-import com.example.demo.entities.Hive;
-import com.example.demo.entities.Record;
-import com.example.demo.entities.Sensor;
-import com.example.demo.entities.User;
-import com.example.demo.repositories.RecordRepository;
+import com.apiwatch.entities.Apiary;
+import com.apiwatch.entities.Hive;
+import com.apiwatch.entities.Record;
+import com.apiwatch.entities.Sensor;
+import com.apiwatch.entities.User;
+import com.apiwatch.repositories.RecordRepository;
 
 @RestController
 @RequestMapping("/records")
-@CrossOrigin(origins = {"http://localhost:4200", "http://54.38.183.109:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class RecordController {
 	
 	@Autowired private RecordRepository RecordRepository;

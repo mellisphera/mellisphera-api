@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.apiwatch.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,16 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.example.demo.entities.weather.HourlyWeather;
-import com.example.demo.repositories.HourlyWeatherRepository;
+import com.apiwatch.repositories.HourlyWeatherRepository;
+import com.apiwatch.weather.HourlyWeather;
 
 
 
 @Service
 @RestController
 @RequestMapping("hourlyweather")
-@CrossOrigin(origins = {"http://localhost:4200", "http://54.38.183.109:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class HourlyWeatherController {
 	
 	@Autowired

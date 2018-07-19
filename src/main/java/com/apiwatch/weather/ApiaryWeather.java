@@ -1,10 +1,10 @@
-package com.example.demo.entities.weather;
+package com.apiwatch.weather;
 
 import java.util.Date;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.example.demo.entities.Apiary;
+import com.apiwatch.entities.Apiary;
 
 @Document(collection = "ApiaryWeather")
 public class ApiaryWeather {
