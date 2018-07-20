@@ -66,7 +66,7 @@ public class DbSeeder implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
     	/*
-    	cette partie du code est a commenter pour le déploiement en mode PRODUCTION   	
+    	Cette partie du code est a commenter pour le déploiement en mode PRODUCTION
     	this.userRepository.deleteAll();
     	this.fleurTheoriqueRepository.deleteAll();
     	this.apiaryRepository.deleteAll();
@@ -142,7 +142,6 @@ public class DbSeeder implements CommandLineRunner{
     	ap3.setCodePostal("Toulouse");
     	ap3.setUsername("jcp");
     	
-    	
     	Apiary ap4 = new Apiary();
     	ap4.setId("4");
     	ap4.setLatitude(11.3f);
@@ -180,7 +179,6 @@ public class DbSeeder implements CommandLineRunner{
     	s1.setIdApiary("1");
     	s1.setUsername("jcp");
     	
-
     	Sensor s2 = new Sensor();
     	s2.setReference("43:10:A2");
     	s2.setType("T_HR");
@@ -213,14 +211,18 @@ public class DbSeeder implements CommandLineRunner{
 		u3.setPassword("apis123");
 		u3.setCreatedAt(df.parse("09/03/2018 00:00"));
 		
-		
 		User u4 = new User();
 		u4.setUsername("jhe");
 		u4.setPassword("apis123");
 		Date u1Date = new Date();
 		u4.setCreatedAt(u1Date);
+	
+		User u5 = new User();
+		u5.setUsername("lpo");
+		u5.setPassword("apis123");
+		u5.setCreatedAt(df.parse("20/07/2018 00:00"));
 		
-/*
+		
 		Flower f4 = new Flower();
 		f4.setAutre("");
 		f4.setButineur("Bourdons et abeilles");
@@ -516,8 +518,7 @@ public class DbSeeder implements CommandLineRunner{
 		fl1.setIdApiary("4");
 		fl1.setPhoto(f5T.getPhoto());
 		
-	
-		
+	    /*
 		System.out.println(users);
 		
 		//Load the list of FleurTheoriques in the database
@@ -536,7 +537,7 @@ public class DbSeeder implements CommandLineRunner{
 		this.SoldDeviceRepository.save(sd3);
 		this.SoldDeviceRepository.save(sd4);
 
-	/*	
+	    /*	
 		this.HivesRepository.save(h1);
 		this.HivesRepository.save(h2);
 		this.HivesRepository.save(h3);
@@ -548,7 +549,7 @@ public class DbSeeder implements CommandLineRunner{
 		List<User> users = Arrays.asList(u1,u2,u3,u4);
 	    this.userRepository.saveAll(users);
 
-	 /*   
+	 
 	    this.FlowerTestRepository.save(f4T);
 	    this.FlowerTestRepository.save(f5T);
 	    this.FlowerTestRepository.save(f6T);
@@ -558,7 +559,7 @@ public class DbSeeder implements CommandLineRunner{
 	    this.FlowerTestRepository.save(f10T);
 	    this.FlowerTestRepository.save(f11T);
 	    
-	    this.ObservedFlowerRepository.save(fl1);
-	   */
+	   // this.ObservedFlowerRepository.save(fl1);
+	  
     }
 }

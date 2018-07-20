@@ -57,11 +57,11 @@ public class ObservedFlower {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public void setDateFin(String annee,int dateFin) {
+	public void setDateFin(String annee,Integer dateFin) {
 			this.dateFin.put(annee, dateFin);
 	}
-	public void setDateDebut(String annee,int dateDebut) {
-		this.dateFin.put(annee, dateDebut);
+	public void setDateDebut(String annee,Integer dateDebut) {
+		this.dateDebut.put(annee, dateDebut);
 }
 	public String getUsername() {
 		return username;
