@@ -20,8 +20,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
+import java.util.stream.Collectors;
 
 @Service
 @RestController
@@ -50,16 +50,16 @@ public class DailyWeatherController {
     //int tempMin, tempMax;
     List<DailyWeather> apiaries=this.DailyWeatherRepository.findAll();
     List<Float> mintemps = new ArrayList<>();
-    for(DailyWeather ap : apiaries ) {
-    	mintemps.add(ap.getMinTempDay());
-    }
+	    for(DailyWeather ap : apiaries ) {
+	    	mintemps.add(ap.getMinTempDay());
+	    }
     
     return mintemps;
     }
 
     //Service to retrieve daily weather in every Apiary
     @RequestMapping(value = "", method = RequestMethod.GET, produces={"application/json"})
-    public List<DailyWeather> maxTempPerApiary(){
+    public List<DailyWeather> maxTempPerApiary() {
     	
     	List<DailyWeather> dailyWeather = new ArrayList<>();
     	
@@ -88,11 +88,11 @@ public class DailyWeatherController {
 			    		}
 	    		}
 	    	}
-     
+
      	//Group Hourly Weather Per Apiary
      	Map<String, List<HourlyWeather>> hourlyWeatherPerApiary = hourlyWeatherToday.stream()
      			  .collect(Collectors.groupingBy(hw -> hw.getIdApiary()));
-     	
+
 
      	//loop every HourlyWeather recorded in DB
      	for(Map.Entry<String, List<HourlyWeather>> entry : hourlyWeatherPerApiary.entrySet()) {
@@ -209,6 +209,7 @@ public class DailyWeatherController {
 	 	    						day.setIcons(icons);
 	 	    					}
 
+
 					else {
 							icons.clear();
 							icons.add("?");
@@ -231,8 +232,5 @@ public class DailyWeatherController {
      	return dailyWeather;
     }
     
-    	
-  	
-   	
-  	
+
 }
