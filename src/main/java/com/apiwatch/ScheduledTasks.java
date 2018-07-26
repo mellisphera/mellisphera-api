@@ -18,6 +18,9 @@ import com.apiwatch.repositories.ApiaryRepository;
 import com.apiwatch.repositories.HourlyWeatherRepository;
 import com.apiwatch.weather.HourlyWeather;
 import com.apiwatch.weather.WeatherAPI;
+//***********************************************
+//Current implementation : request hourly weather
+//***********************************************
 
 @Component
 public class ScheduledTasks {
@@ -43,8 +46,8 @@ public class ScheduledTasks {
     // 1 hour = 600 000 ms
    
     // this function update the value of weather in apiaries in the DB
-   
-    @Scheduled(fixedRate = 100000 )
+    // request is carried every 100000 milliseconds
+    @Scheduled(fixedRate = 5000 )
     public void apiaryWeatherNow() {
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     	
@@ -52,10 +55,12 @@ public class ScheduledTasks {
 	   	
 	    log.info("The time is now {}", dateFormat.format(new Date()));
 	    
+	    //for each apiary request actualweather on OWM and save into HourlyWeather collection
 	    for(Apiary ap: apiaries) {
 	    	  WeatherAPI weather = new WeatherAPI();
 	    	  HourlyWeather h= new HourlyWeather();
 	    	  
+	    	  //WARNING : getcodepostal is actually the city name 
 	    	  weather = this.WeatherController.getActualWeather(ap.getCodePostal());
 	    	  System.out.println("ID : "+ap.getId() + " | City : " + weather.getName()+ "|  Temp :"+ weather.getMain().getTemp());
 	    	  h.setWeather(weather);
