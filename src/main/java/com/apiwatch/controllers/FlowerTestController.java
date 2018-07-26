@@ -28,7 +28,7 @@ import com.apiwatch.repositories.FlowerTestRepository;
 
 @RestController
 @RequestMapping("/flowerstest")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class FlowerTestController {
 
 	@Autowired
