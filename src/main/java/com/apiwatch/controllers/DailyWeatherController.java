@@ -19,7 +19,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+//***********************************************
+//Current implementation :
+//from sunrise to sunset calculate mean averages of local Tmin and Tmax given by hourly weather
+//TminMoy and TmaxMoy are used to calculate TminDay and TmaxDay
+//***********************************************
 
 @Service
 @RestController
@@ -123,6 +127,7 @@ public class DailyWeatherController {
 	    			dw.setDay(new Date());
 	    			dw.setMaxTempDay(0.0f);
 	    			dw.setMinTempDay(0.0f);
+	    			dw.setAvgTempDay(0.0f);
 	    			myMap.put(hwt.getIdApiary(),dw);
 	    		}
 	    		
@@ -135,10 +140,12 @@ public class DailyWeatherController {
 	    			if(n!=0) {
 	    				DailyWeather existingDw= new DailyWeather();
 	    					    	
-	    				Float newMaxTempValue = ( tempNow.getMaxTempDay() + hwt.getWeather().getMain().getTemp_max() / n);
+	    				Float newMaxTempValue = (tempNow.getMaxTempDay() + hwt.getWeather().getMain().getTemp_max() / n);
 	    				Float newMinTempvalue = (tempNow.getMinTempDay()+ hwt.getWeather().getMain().getTemp_min()/ n);
+	    				Float newAvgTempValue = (tempNow.getAvgTempDay() + hwt.getWeather().getMain().getTemp() / n);
 	    				existingDw.setMaxTempDay(newMaxTempValue); 
 	    				existingDw.setMinTempDay(newMinTempvalue);
+	    				existingDw.setAvgTempDay(newAvgTempValue);
 	    				//existingDw.setIcons(tempNow.getIcons().add(hwt.getWeather().getWeather().));
 	    				
 	    				//pour récupérer l'icone actuelle
@@ -172,8 +179,6 @@ public class DailyWeatherController {
 	    	return myMap;
     }
 
-    	
-  	
-   	
+
   	
 }

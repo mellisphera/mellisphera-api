@@ -112,8 +112,7 @@ public class DbSeeder implements CommandLineRunner{
       	sd4.setSensorRef("43:0A:C7");
       	sd4.setType("weight");
       	sd4.setSoldTo("clo");
-/*
-    	
+
     	Apiary ap1 = new Apiary();
     	ap1.setId("1");
     	ap1.setLatitude(11.3f);
@@ -122,6 +121,7 @@ public class DbSeeder implements CommandLineRunner{
     	ap1.setDescription("Le rucher qui se situe à Tunis");
     	ap1.setCodePostal("Tunis");
     	ap1.setUsername("jcp");
+    	/*
     	
     	Apiary ap2 = new Apiary();
     	
@@ -526,11 +526,12 @@ public class DbSeeder implements CommandLineRunner{
 			this.fleurTheoriqueRepository.save(fth);
 		}
 
-		this.apiaryRepository.save(ap1);
+	
 		this.apiaryRepository.save(ap2);
 		this.apiaryRepository.save(ap3);
 		this.apiaryRepository.save(ap4);
 		*/
+		this.apiaryRepository.save(ap1);
 
 		this.SoldDeviceRepository.save(sd1);
 		this.SoldDeviceRepository.save(sd2);
