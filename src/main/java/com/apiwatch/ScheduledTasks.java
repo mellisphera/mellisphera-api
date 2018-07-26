@@ -44,7 +44,7 @@ public class ScheduledTasks {
    
     // this function update the value of weather in apiaries in the DB
    
-    @Scheduled(fixedRate = 100000 )
+    @Scheduled(fixedRate = 300000 )
     public void apiaryWeatherNow() {
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     	

@@ -69,7 +69,7 @@ public class DbSeeder implements CommandLineRunner{
     	Cette partie du code est a commenter pour le déploiement en mode PRODUCTION
     	this.userRepository.deleteAll();
     	this.fleurTheoriqueRepository.deleteAll();
-    	this.apiaryRepository.deleteAll();
+    	
     	this.HivesRepository.deleteAll();
     	this.SensorRepository.deleteAll();
     	this.SensorRepository.deleteAll();
@@ -80,6 +80,10 @@ public class DbSeeder implements CommandLineRunner{
     	this.FlowerTestRepository.deleteAll();
     	this.ObservedFlowerRepository.deleteAll();
     	*/
+    	this.fleurTheoriqueRepository.deleteAll();
+    	this.DailyWeatherRepository.deleteAll();
+    	this.HourlyWeatherRepository.deleteAll();
+    	this.apiaryRepository.deleteAll();
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     	
     	
@@ -112,7 +116,7 @@ public class DbSeeder implements CommandLineRunner{
       	sd4.setSensorRef("43:0A:C7");
       	sd4.setType("weight");
       	sd4.setSoldTo("clo");
-/*
+
     	
     	Apiary ap1 = new Apiary();
     	ap1.setId("1");
@@ -143,14 +147,14 @@ public class DbSeeder implements CommandLineRunner{
     	ap3.setUsername("jcp");
     	
     	Apiary ap4 = new Apiary();
-    	ap4.setId("4");
+    	ap4.setId("18");
     	ap4.setLatitude(11.3f);
     	ap4.setLongitude(11.3f);
     	ap4.setName("Mon 2eme Rucher");
     	ap4.setDescription("Le rucher qui se situe à Toronto");
     	ap4.setCodePostal("Toronto");
     	ap4.setUsername("jhe");
-    	
+    	/*
     	Hive h1 = new Hive();
     	h1.setId("1");
     	h1.setName("Ma premiere ruche");
@@ -518,19 +522,19 @@ public class DbSeeder implements CommandLineRunner{
 		fl1.setIdApiary("4");
 		fl1.setPhoto(f5T.getPhoto());
 		
-	    /*
-		System.out.println(users);
+	    
+		//System.out.println(users);
 		
 		//Load the list of FleurTheoriques in the database
 		for (Flower fth : result.getResult()) {
 			this.fleurTheoriqueRepository.save(fth);
 		}
-
+	
 		this.apiaryRepository.save(ap1);
 		this.apiaryRepository.save(ap2);
 		this.apiaryRepository.save(ap3);
 		this.apiaryRepository.save(ap4);
-		*/
+	
 
 		this.SoldDeviceRepository.save(sd1);
 		this.SoldDeviceRepository.save(sd2);
