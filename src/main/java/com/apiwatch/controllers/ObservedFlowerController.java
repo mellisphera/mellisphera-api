@@ -251,8 +251,11 @@ public class ObservedFlowerController {
 	 @RequestMapping(value = "/updateFind/{id}/{annee}", method = RequestMethod.PUT) 
 	 public void updateFind(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateFin){ 
 	 	 List<ObservedFlower> flowers= this.ObservedFlowerRepository.findAll();
+	 	
 	 	 for(ObservedFlower f : flowers){
+	 		System.out.println("id  : "+id+"  fl : "+f.getId());
 	    	 if(f.getId().equals(id)) {
+	    		 System.out.println(dateFin);
 	    		 f.setDateFind(annee,dateFin);
 	         	this.ObservedFlowerRepository.save(f);
 	         }
