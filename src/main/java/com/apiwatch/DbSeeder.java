@@ -77,9 +77,10 @@ public class DbSeeder implements CommandLineRunner{
     	this.HourlyWeatherRepository.deleteAll();
     	this.DailyWeatherRepository.deleteAll();
     	this.SoldDeviceRepository.deleteAll();
+    	*/
     	this.FlowerTestRepository.deleteAll();
     	this.ObservedFlowerRepository.deleteAll();
-    	*/
+    	
     	this.fleurTheoriqueRepository.deleteAll();
     	this.DailyWeatherRepository.deleteAll();
     	this.HourlyWeatherRepository.deleteAll();
