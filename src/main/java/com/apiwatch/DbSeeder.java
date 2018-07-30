@@ -67,7 +67,7 @@ public class DbSeeder implements CommandLineRunner{
     public void run(String... args) throws Exception {
     	/*
     	Cette partie du code est a commenter pour le déploiement en mode PRODUCTION
-    	this.userRepository.deleteAll();
+    	this.userRepository.deleteAll();*/
     	this.fleurTheoriqueRepository.deleteAll();
     	
     	this.HivesRepository.deleteAll();
@@ -77,7 +77,7 @@ public class DbSeeder implements CommandLineRunner{
     	this.HourlyWeatherRepository.deleteAll();
     	this.DailyWeatherRepository.deleteAll();
     	this.SoldDeviceRepository.deleteAll();
-    	*/
+    	
     	this.FlowerTestRepository.deleteAll();
     	this.ObservedFlowerRepository.deleteAll();
     	
@@ -237,6 +237,8 @@ public class DbSeeder implements CommandLineRunner{
 		f4.setFlomin(20);
 		f4.setFlomind("05-14");
 		f4.setFlomaxd("07-30");
+		f4.setFlomindate("14 mai");
+		f4.setFlomaxdate("30 juillet");
 		f4.setForme("oblate");
 		f4.setFrancais("Tilleul commun");
 		f4.setLatin("Tilia x europaea");
@@ -271,6 +273,8 @@ public class DbSeeder implements CommandLineRunner{
 		f5.setFlomin(11);
 		f5.setFlomind("03-12");
 		f5.setFlomaxd("06-21");
+		f5.setFlomindate("12 mars");
+		f5.setFlomaxdate("21 juin");
 		f5.setForme("oblate");
 		f5.setFrancais("Cerisier");
 		f5.setLatin("Prunus cerasus");
@@ -304,6 +308,8 @@ public class DbSeeder implements CommandLineRunner{
 		f6.setFlomin(10);
 		f6.setFlomind("03-05");
 		f6.setFlomaxd("05-28");
+		f6.setFlomindate("5 mars");
+		f6.setFlomaxdate("28 mai");
 		f6.setForme("oblate");
 		f6.setFrancais("Colza");
 		f6.setLatin("Brassica napus");
@@ -338,6 +344,8 @@ public class DbSeeder implements CommandLineRunner{
 		f7.setFlomin(12);
 		f7.setFlomind("03-19");
 		f7.setFlomaxd("12-17");
+		f7.setFlomindate("19 mars");
+		f7.setFlomaxdate("17 décembre");
 		f7.setForme("sphéroïdale");
 		f7.setFrancais("Bourrache officinale");
 		f7.setLatin("Borago officinalis");
@@ -371,6 +379,8 @@ public class DbSeeder implements CommandLineRunner{
 		f8.setFlomin(13);
 		f8.setFlomind("03-26");
 		f8.setFlomaxd("05-21");
+		f8.setFlomindate("26 mars");
+		f8.setFlomaxdate("21 mai");
 		f8.setForme("oblate");
 		f8.setFrancais("Ail des ours");
 		f8.setLatin("Allium ursinum");
@@ -404,6 +414,8 @@ public class DbSeeder implements CommandLineRunner{
 		f9.setFlomin(3);
 		f9.setFlomind("01-15");
 		f9.setFlomaxd("05-21");
+		f9.setFlomindate("15 janvier");
+		f9.setFlomaxdate("21 mai");
 		f9.setForme("oblate");
 		f9.setFrancais("Hellébore noir");
 		f9.setLatin("Helleborus niger");
@@ -437,6 +449,8 @@ public class DbSeeder implements CommandLineRunner{
 		f10.setFlomin(14);
 		f10.setFlomind("04-01");
 		f10.setFlomaxd("06-11");
+		f10.setFlomindate("4 janvier");
+		f10.setFlomaxdate("11 juin");
 		f10.setForme("sphéroïdale");
 		f10.setFrancais("Aubépine à un style");
 		f10.setLatin("Crataegus monogyna");
@@ -470,6 +484,8 @@ public class DbSeeder implements CommandLineRunner{
 		f11.setFlomin(16);
 		f11.setFlomind("04-16");
 		f11.setFlomaxd("06-11");
+		f11.setFlomindate("16 avril");
+		f11.setFlomaxdate("11 juin");
 		f11.setForme("oblate");
 		f11.setFrancais("Robinier faux-acacia");
 		f11.setLatin("Robinia pseudoacacia");

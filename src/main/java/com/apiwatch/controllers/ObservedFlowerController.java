@@ -286,6 +286,8 @@ public class ObservedFlowerController {
 			 f.setDateThFin(flower.getDateThFin());
 			 f.setDateThDebutd(flower.getDateThDebutd());
 			 f.setDateThFind(flower.getDateThFind());
+			 f.setDateThDebutdate(flower.getDateThDebutdate());
+			 f.setDateThFindate(flower.getDateThFindate());
 			 f.setUsername(flower.getUsername());
 			 f.setPhoto(flower.getPhoto());
 			 f.setPresence(" ");
