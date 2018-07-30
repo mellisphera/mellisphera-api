@@ -20,6 +20,8 @@ public class ObservedFlower {
 	public int dateThFin;
 	public String dateThDebutd;
 	public String dateThFind;
+	public String dateThDebutdate;
+	public String dateThFindate;
 	public String presence;
 	public String username;
 	public String idApiary;
@@ -27,24 +29,32 @@ public class ObservedFlower {
 
 	
 	public ObservedFlower() {
-		super();
 	}
 
-	
-	public ObservedFlower(String id, String nom, HashMap<String,Integer> dateDebut, HashMap<String,Integer> dateFin, int dateThDebut, int dateThFin,
-			String presence, String username, String idApiary) {
+	public ObservedFlower(String id, String nom, HashMap<String, Integer> dateDebut, HashMap<String, Integer> dateFin,
+			HashMap<String, String> dateDebutd, HashMap<String, String> dateFind, int dateThDebut, int dateThFin,
+			String dateThDebutd, String dateThFind, String dateThDebutdate, String dateThFindate, String presence,
+			String username, String idApiary, String photo) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
+		this.dateDebutd = dateDebutd;
+		this.dateFind = dateFind;
 		this.dateThDebut = dateThDebut;
 		this.dateThFin = dateThFin;
+		this.dateThDebutd = dateThDebutd;
+		this.dateThFind = dateThFind;
+		this.dateThDebutdate = dateThDebutdate;
+		this.dateThFindate = dateThFindate;
 		this.presence = presence;
 		this.username = username;
 		this.idApiary = idApiary;
-
+		this.photo = photo;
 	}
+	
+	
 	public String getId() {
 		return id;
 	}
@@ -151,6 +161,36 @@ public class ObservedFlower {
 
 	public HashMap<String, Integer> getDateFin() {
 		return dateFin;
+	}
+
+
+	public String getDateThDebutdate() {
+		return dateThDebutdate;
+	}
+
+
+	public void setDateThDebutdate(String dateThDebutdate) {
+		this.dateThDebutdate = dateThDebutdate;
+	}
+
+
+	public String getDateThFindate() {
+		return dateThFindate;
+	}
+
+
+	public void setDateThFindate(String dateThFindate) {
+		this.dateThFindate = dateThFindate;
+	}
+
+
+	public void setDateDebut(HashMap<String, Integer> dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+
+	public void setDateFin(HashMap<String, Integer> dateFin) {
+		this.dateFin = dateFin;
 	}
 
 	
