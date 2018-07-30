@@ -59,34 +59,10 @@ public class FlowerTestController {
     }
 	
     //On récupère les fleursTest qui correspondent aux filtres
-    @RequestMapping(value = "/recherche", method = RequestMethod.PUT)
-    public List<FlowerTest> getRecherche(@RequestBody FlowerTest flower){
+    @RequestMapping(value = "/rechercheVar", method = RequestMethod.PUT)
+    public List<FlowerTest> getRechercheVar(@RequestBody FlowerTest flower){
 	    List<FlowerTest> flowers =  this.FlowerTestRepository.findAll();
-	    List<FlowerTest> resFlowers = new ArrayList<>();
-	    
-	    //On cherche les fleurs qui correspondent au flomin et flomax
-	    //mettre un if si non null 
-	    for (FlowerTest f :flowers) {
-	   		if ( (flower.flowerApi.getFlomin() <= f.flowerApi.getFlomin()) && (flower.flowerApi.getFlomax() >= f.flowerApi.getFlomax()) ) {
-	   			resFlowers.add(f);
-	   		}
-	   	}
-	   	flowers.clear();
-	   	flowers = new ArrayList<>(resFlowers);
-		Collections.copy(flowers,resFlowers);
-	    
-	    //On cherche les fleurs qui correspondent à la famille demandé
-	    if (!(flower.getType().equals(""))) {
-	    	resFlowers.clear();
-	    	for (FlowerTest f :flowers) {
-	    		if ( flower.getType().equals(f.getType()) ) {
-	    			resFlowers.add(f);
-	    		}
-	    	}
-	    	flowers.clear();
-	    	flowers = new ArrayList<>(resFlowers);
-			Collections.copy(flowers,resFlowers);
-	    }
+	    List<FlowerTest> resFlowers = new ArrayList<>(flowers);
 	    
 	    //On cherche les fleurs qui contient la chaine de caractère rentrée dans le nom francais
 	    if (!(flower.flowerApi.getFrancais().equals(""))) {
@@ -101,11 +77,20 @@ public class FlowerTestController {
 			Collections.copy(flowers,resFlowers);
 	    }
 	    
-	    //On cherche les fleurs qui contient la chaine de caractère rentrée dans le nom latin
-	    if (!(flower.flowerApi.getLatin().equals(""))) {
+	    return resFlowers;
+    } 
+    
+    //On récupère les fleursTest qui correspondent aux filtres
+    @RequestMapping(value = "/recherchePer", method = RequestMethod.PUT)
+    public List<FlowerTest> getRecherchePer(@RequestBody FlowerTest flower){
+	    List<FlowerTest> flowers =  this.FlowerTestRepository.findAll();
+	    List<FlowerTest> resFlowers = new ArrayList<>(flowers);
+	    
+	    //On cherche les fleurs qui correspondent au type cherché
+	    if (!(flower.getType().equals(""))) {
 	    	resFlowers.clear();
 	    	for (FlowerTest f :flowers) {
-	    		if ( f.flowerApi.getLatin().toLowerCase().contains(flower.flowerApi.getLatin().toLowerCase())) {
+	    		if ( f.getType().toLowerCase().contains(flower.getType().toLowerCase())) {
 	    			resFlowers.add(f);
 	    		}
 	    	}
@@ -115,6 +100,6 @@ public class FlowerTestController {
 	    }
 	    
 	    return resFlowers;
-    } 
+    }
 	
 }
