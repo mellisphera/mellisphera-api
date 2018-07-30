@@ -85,12 +85,29 @@ public class FlowerTestController {
     public List<FlowerTest> getRecherchePer(@RequestBody FlowerTest flower){
 	    List<FlowerTest> flowers =  this.FlowerTestRepository.findAll();
 	    List<FlowerTest> resFlowers = new ArrayList<>(flowers);
+	    String[] datemin = new String[2];
+	    String[] datemax = new String[2];
 	    
-	    //On cherche les fleurs qui correspondent au type cherché
+	    //On cherche les fleurs qui correspondent à la famille demandé
 	    if (!(flower.getType().equals(""))) {
 	    	resFlowers.clear();
 	    	for (FlowerTest f :flowers) {
-	    		if ( f.getType().toLowerCase().contains(flower.getType().toLowerCase())) {
+	    		if ( flower.getType().equals(f.getType()) ) {
+	    			resFlowers.add(f);
+	    		}
+	    	}
+	    	flowers.clear();
+	    	flowers = new ArrayList<>(resFlowers);
+			Collections.copy(flowers,resFlowers);
+	    }	    
+	    
+	  //On cherche les fleurs qui correspondent fleurisse à un certain mois
+	    if (!(flower.flowerApi.getFlomind().equals("0"))) {
+	    	resFlowers.clear();
+	    	for (FlowerTest f :flowers) {
+	    		datemin = f.flowerApi.getFlomind().split("-");
+	    		datemax = f.flowerApi.getFlomaxd().split("-");
+	    		if ( (Integer.parseInt(datemin[0]) <= Integer.parseInt(flower.flowerApi.getFlomind())) && (Integer.parseInt(datemax[0]) >= Integer.parseInt(flower.flowerApi.getFlomind())) ) {
 	    			resFlowers.add(f);
 	    		}
 	    	}
@@ -100,6 +117,6 @@ public class FlowerTestController {
 	    }
 	    
 	    return resFlowers;
-    }
+    } 
 	
 }
