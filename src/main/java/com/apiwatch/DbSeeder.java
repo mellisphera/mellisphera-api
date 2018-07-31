@@ -66,8 +66,8 @@ public class DbSeeder implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
     	/*
-    	Cette partie du code est a commenter pour le déploiement en mode PRODUCTION
-    	this.userRepository.deleteAll();*/
+    	Cette partie du code est a commenter pour le déploiement en mode PRODUCTION*/
+    	this.userRepository.deleteAll();
     	this.fleurTheoriqueRepository.deleteAll();
     	
     	this.HivesRepository.deleteAll();
@@ -260,7 +260,7 @@ public class DbSeeder implements CommandLineRunner{
 		
 		FlowerTest f4T = new FlowerTest();
 		f4T.setFlowerApi(f4);
-		f4T.setFlowerIstap(f4b);
+		f4T.setFlowerItsap(f4b);
 		f4T.setType("Arbres");
 		f4T.setPhoto("https://kyle.sig.inra.fr/FLEURS/1150883980tilleul_5.jpg");
 		
@@ -297,7 +297,7 @@ public class DbSeeder implements CommandLineRunner{
 		FlowerTest f5T = new FlowerTest();
 		f5T.setFlowerApi(f5);
 		f5T.setType("Arbres");
-		f5T.setFlowerIstap(f5b);
+		f5T.setFlowerItsap(f5b);
 		f5T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Cerisier4.jpg");
 
 		Flower f6 = new Flower();
@@ -332,7 +332,7 @@ public class DbSeeder implements CommandLineRunner{
 		FlowerTest f6T = new FlowerTest();
 		f6T.setFlowerApi(f6);
 		f6T.setType("Herbacées");
-		f6T.setFlowerIstap(f6b);
+		f6T.setFlowerItsap(f6b);
 		f6T.setPhoto("https://kyle.sig.inra.fr/FLEURS/colza4.jpg");
 		
 		
@@ -368,7 +368,7 @@ public class DbSeeder implements CommandLineRunner{
 		FlowerTest f7T = new FlowerTest();
 		f7T.setFlowerApi(f7);
 		f7T.setType("Herbacées");
-		f7T.setFlowerIstap(f7b);
+		f7T.setFlowerItsap(f7b);
 		f7T.setPhoto("https://kyle.sig.inra.fr/FLEURS/bourrache5.jpg");
 		
 		Flower f8 = new Flower();
@@ -403,7 +403,7 @@ public class DbSeeder implements CommandLineRunner{
 		FlowerTest f8T = new FlowerTest();
 		f8T.setFlowerApi(f8);
 		f8T.setType("Bulbes");
-		f8T.setFlowerIstap(f8b);
+		f8T.setFlowerItsap(f8b);
 		f8T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Allium_ursinum2213.jpg");
 		
 		Flower f9 = new Flower();
@@ -438,7 +438,7 @@ public class DbSeeder implements CommandLineRunner{
 		FlowerTest f9T = new FlowerTest();
 		f9T.setFlowerApi(f9);
 		f9T.setType("Herbacées");
-		f9T.setFlowerIstap(f8b);
+		f9T.setFlowerItsap(f8b);
 		f9T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Hellebore_Noire2.jpg");
 		
 		Flower f10 = new Flower();
@@ -473,7 +473,7 @@ public class DbSeeder implements CommandLineRunner{
 		FlowerTest f10T = new FlowerTest();
 		f10T.setFlowerApi(f10);
 		f10T.setType("Arbustres");
-		f10T.setFlowerIstap(f10b);
+		f10T.setFlowerItsap(f10b);
 		f10T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Aubepine6.jpg");
 		
 		Flower f11 = new Flower();
@@ -508,7 +508,7 @@ public class DbSeeder implements CommandLineRunner{
 		FlowerTest f11T = new FlowerTest();
 		f11T.setFlowerApi(f11);
 		f11T.setType("Arbres");
-		f11T.setFlowerIstap(f11b);
+		f11T.setFlowerItsap(f11b);
 		f11T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Robinier_Faux_Acacia4.jpg");
 		
 		
@@ -543,9 +543,17 @@ public class DbSeeder implements CommandLineRunner{
 	    
 		//System.out.println(users);
 		
+		//FlowerITSAP f = new FlowerITSAP();
+		
+		//FlowerTest fT = new FlowerTest();
+		//fT.setFlowerItsap(f);
+		
+		
 		//Load the list of FleurTheoriques in the database
 		for (Flower fth : result.getResult()) {
 			this.fleurTheoriqueRepository.save(fth);
+			//fT.setFlowerApi(fth);
+			//this.FlowerTestRepository.save(fT);
 		}
 
 		this.apiaryRepository.save(ap1);
