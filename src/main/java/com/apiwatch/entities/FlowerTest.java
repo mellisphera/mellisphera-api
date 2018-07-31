@@ -27,12 +27,6 @@ public class FlowerTest {
 	public void setFlowerApi(Flower flowerApi) {
 		this.flowerApi = flowerApi;
 	}
-	public FlowerITSAP getFlowerIstap() {
-		return flowerItsap;
-	}
-	public void setFlowerIstap(FlowerITSAP flowerItsap) {
-		this.flowerItsap = flowerItsap;
-	}
 	
 	@Override
 	public String toString() {
