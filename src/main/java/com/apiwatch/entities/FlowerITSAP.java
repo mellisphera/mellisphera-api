@@ -1,6 +1,5 @@
 package com.apiwatch.entities;
 
-
 public class FlowerITSAP {
 	
 	public int periodemin;
