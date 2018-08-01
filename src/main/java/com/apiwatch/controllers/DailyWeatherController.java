@@ -59,7 +59,7 @@ public class DailyWeatherController {
 
     //Service to retrieve daily weather in every Apiary
     @RequestMapping(value = "", method = RequestMethod.GET, produces={"application/json"})
-    public List<DailyWeather> maxTempPerApiary() {
+    public List<DailyWeather> dailyWeatherCompute() {
     	
     	List<DailyWeather> dailyWeather = new ArrayList<>();
     	
@@ -144,7 +144,7 @@ public class DailyWeatherController {
 	   		  avgTemp= cumTemp / i ;
 	   
 	   		  System.out.println("icons.size() : " + icons.size());
-	   		  // loop icons and decide which icon to store and display	    		
+	   		  // loop icons and decides which icon to store and display	    		
 					if(icons.size()==1) {
 						//icons.addAll(icons);
 						day.setIcons(icons);
@@ -208,8 +208,7 @@ public class DailyWeatherController {
 	 	    						icons.remove("03d");
 	 	    						day.setIcons(icons);
 	 	    					}
-
-
+					
 					else {
 							icons.clear();
 							icons.add("?");
@@ -228,6 +227,10 @@ public class DailyWeatherController {
 	   		  //Affect the min temp to its Apiary
 	   		//maxtempPerApiary.put(key,maxTemp);
    		}
+     	
+     	for(DailyWeather dw : dailyWeather) {
+     		this.DailyWeatherRepository.save(dw);
+     	}
      	
      	return dailyWeather;
     }
