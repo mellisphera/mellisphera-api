@@ -71,8 +71,8 @@ public class DbSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-    	/*
-    	Cette partie du code est a commenter pour le déploiement en mode PRODUCTION*/
+
+    	/*Cette partie du code est a commenter pour le déploiement en mode PRODUCTION*/
     	this.userRepository.deleteAll();
     	this.fleurTheoriqueRepository.deleteAll();
     	
