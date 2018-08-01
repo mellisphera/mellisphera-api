@@ -1,6 +1,5 @@
 package com.apiwatch.entities;
 
-
 import java.util.HashMap;
 
 import org.springframework.data.annotation.Id;

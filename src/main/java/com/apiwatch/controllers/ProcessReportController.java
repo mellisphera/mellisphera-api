@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apiwatch.entities.ProcessReport;
 import com.apiwatch.repositories.ProcessReportRepository;
 
-
-
 @RestController
 @RequestMapping("/report")
 @CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
