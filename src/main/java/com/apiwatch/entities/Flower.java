@@ -1,7 +1,7 @@
 package com.apiwatch.entities;
 
 public class Flower {
-	
+
 	public String autre;
 	public String butineur;
 	public String famille;
@@ -9,6 +9,8 @@ public class Flower {
 	public int flomin;
 	public String flomind;
 	public String flomaxd;
+	public String flomindate;
+	public String flomaxdate;
 	public String forme;
 	public String francais;
 	public String genre;
@@ -20,7 +22,30 @@ public class Flower {
 	public String ressource;
 	
 	public Flower() {
+	}
+	
+	public Flower(String autre, String butineur, String famille, int flomax, int flomin, String flomind, String flomaxd,
+			String flomindate, String flomaxdate, String forme, String francais, String genre, int idplante,
+			String latin, int pol_equ, int pol_pol, String remarq, String ressource) {
 		super();
+		this.autre = autre;
+		this.butineur = butineur;
+		this.famille = famille;
+		this.flomax = flomax;
+		this.flomin = flomin;
+		this.flomind = flomind;
+		this.flomaxd = flomaxd;
+		this.flomindate = flomindate;
+		this.flomaxdate = flomaxdate;
+		this.forme = forme;
+		this.francais = francais;
+		this.genre = genre;
+		this.idplante = idplante;
+		this.latin = latin;
+		this.pol_equ = pol_equ;
+		this.pol_pol = pol_pol;
+		this.remarq = remarq;
+		this.ressource = ressource;
 	}
 
 	public String getAutre() {
@@ -157,6 +182,22 @@ public class Flower {
 
 	public void setFlomaxd(String flomaxd) {
 		this.flomaxd = flomaxd;
+	}
+
+	public String getFlomindate() {
+		return flomindate;
+	}
+
+	public void setFlomindate(String flomindate) {
+		this.flomindate = flomindate;
+	}
+
+	public String getFlomaxdate() {
+		return flomaxdate;
+	}
+
+	public void setFlomaxdate(String flomaxdate) {
+		this.flomaxdate = flomaxdate;
 	}
 
 	

@@ -1,17 +1,20 @@
 package com.apiwatch.entities;
 
 public class FlowerTest {
+
 	public Flower flowerApi;
 	public FlowerITSAP flowerItsap;
 	public String type;
 	public String commentaire;
 	public String photo;
 	
-	public FlowerTest(Flower flowerApi, FlowerITSAP flowerIstap, String type) {
+	public FlowerTest(Flower flowerApi, FlowerITSAP flowerItsap, String type, String commentaire, String photo) {
 		super();
 		this.flowerApi = flowerApi;
-		this.flowerItsap = flowerIstap;
+		this.flowerItsap = flowerItsap;
 		this.type = type;
+		this.commentaire = commentaire;
+		this.photo = photo;
 	}
 	
 	public FlowerTest() {
@@ -23,12 +26,6 @@ public class FlowerTest {
 	}
 	public void setFlowerApi(Flower flowerApi) {
 		this.flowerApi = flowerApi;
-	}
-	public FlowerITSAP getFlowerIstap() {
-		return flowerItsap;
-	}
-	public void setFlowerIstap(FlowerITSAP flowerItsap) {
-		this.flowerItsap = flowerItsap;
 	}
 	
 	@Override
