@@ -35,6 +35,8 @@ public class ScheduledTasks {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
+    
+    
     //fixed rate is in ms
     /*
     @Scheduled(fixedRate = 5000)
@@ -46,8 +48,8 @@ public class ScheduledTasks {
     // 1 hour = 600 000 ms
    
     // this function update the value of weather in apiaries in the DB
+    
     @Scheduled(fixedRate = 300000 )
-
     public void apiaryWeatherNow() {
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     	
@@ -66,11 +68,17 @@ public class ScheduledTasks {
 	    	  h.setWeather(weather);
 	    	  h.setIdApiary(ap.getId());
 	    	  h.setRecordDate(new Date());
-	    	  //System.out.println("Apiary ID " + h.getIdApiary());
-	    	 
+	    	  
+	    	  
 	    	  this.HourlyWeatherRepository.save(h);
 	    	  
 	    }	
+   	}
+    
+    //Fires at 11 PM every day:
+    @Scheduled(cron = "0 0 11 * * ?")
+    public void dailyWeather() {
+    	DailyWeatherController.dailyWeatherCompute();
    	}
     
     

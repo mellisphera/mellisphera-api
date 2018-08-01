@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,6 +30,7 @@ import com.apiwatch.entities.Sensor;
 import com.apiwatch.entities.User;
 import com.apiwatch.repositories.HivesRepository;
 import com.apiwatch.repositories.SensorRepository;
+import com.apiwatch.repositories.ApiaryRepository;
 
 @RestController
 @RequestMapping("/sensors")
@@ -37,6 +39,7 @@ public class SensorController {
 	
 	@Autowired private SensorRepository SensorRepository;
 	@Autowired private HivesRepository HivesRepository;
+	@Autowired private ApiaryRepository ApiaryRepository;
     public SensorController() {
 	    }
 
@@ -69,33 +72,48 @@ public class SensorController {
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Sensor> getUserSensors(@PathVariable String username){
     List<Sensor> allSensors=this.SensorRepository.findAll();
+    
     List<Hive> allHives= this.HivesRepository.findAll();
-    List<Sensor> apiarySensors = new ArrayList<>();
-        
+    List<Apiary> allApiaries= this.ApiaryRepository.findAll();
+    List<Sensor> userSensors = new ArrayList<>();
 
-    	for(Sensor s : allSensors) {
-    		for(Hive h : allHives)
-    		{
-    			if(s.getIdHive()==h.getId()) {
-	    			s.setHiveName(h.getName());
-	    			if(s.getUsername().equals(username)) {
-	    	    		apiarySensors.add(s);
-	    	    	}
-	    		}
-    			
-    			if(s.getIdHive().equals("stock")) {
-	    			s.setHiveName("stock");
-	    			if(s.getUsername().equals(username)) {
-	    	    		apiarySensors.add(s);
-	    	    		break;
-	    	    	}
-	    		}
-    		}
-	    	
-    	
+    
+    for(Apiary a : allApiaries) {
+    	System.out.println("a.name : "+ a.getName());
     }
-      
-    return apiarySensors;
+    
+    for(Sensor s : allSensors) {
+    	if(username!=null && s.getUsername().equals(username)) {
+    		for(Apiary a : allApiaries){
+    			System.out.println("id Apiary in Sensor : "+ s.getIdApiary()+" id apiary in Apiary : "+a.getId());
+    			if(s.getIdApiary()==a.getId()) {
+    				System.out.println( "--------------------------------------");
+    				//System.out.println("s.getIdApiary() : " + s.getIdApiary() + " a.getId() " + a.getId());
+    				//System.out.println( "s.getApiaryName()  : " + s.getApiaryName());
+        			s.setApiaryName(a.getName());
+        			//System.out.println( "s.getApiaryName()  : " + s.getApiaryName());
+        			System.out.println( "--------------------------------------");
+        			
+    			}
+    		}
+	    	for(Hive h : allHives)
+			{	System.out.println( "--------------------------------------");
+					System.out.println("id hive in Sensor : "+ s.getIdHive()+" id hive in HIVE : "+h.getId());
+					if(s.getIdHive()==h.getId()) {
+	    				
+	    				System.out.println("s.getIdHive() : " + s.getIdHive() + " h.getId() " + h.getId());
+	    				s.setHiveName(h.getName());
+	    				//System.out.println( "s.getHiveName()  : " + s.getHiveName());
+	    				System.out.println( "--------------------------------------");
+	    				
+	    	    	}    		
+			}
+    		userSensors.add(s);
+    	}
+    }
+    
+    return userSensors;
+    
     }
     
     @RequestMapping(value = "/weight/{username}", method = RequestMethod.GET, produces={"application/json"})
@@ -123,26 +141,7 @@ public class SensorController {
          }
     }
     
-    
-    
-    /*
-    @RequestMapping(value="/test", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
-    public List<Sensor> sensors(@RequestBody User u ){    
-    	List<Sensor> sensors = this.SensorRepository.findAll();
-    	List<Sensor> userSensors = new ArrayList<Sensor>();
-    	String username = u.getUsername();
-    	  for(Sensor a : sensors) {
-  	    	if(a.getUsername().equals(username) ){
-  	    		userSensors.add(a);
-  	    		System.out.println("a.getUsername() : " + a.getUsername());
-  	    		System.out.println("Username : " + u.getUsername());
-  	    		//return userSensors;
-  	    	}
-  	    	//return userSensors;
-  	    }
-  	    return userSensors;
-    }
-    */
+
     
     
 }

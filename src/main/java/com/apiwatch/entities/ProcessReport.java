@@ -2,11 +2,10 @@ package com.apiwatch.entities;
 
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "processReportTemp")
-public class ProcessReportTemp {
+@Document(collection = "processReport")
+public class ProcessReport {
 
 	public String sentence;
 	public List<String> ruche;
@@ -14,7 +13,7 @@ public class ProcessReportTemp {
 	public String type;
 	public String date;
 	
-	public ProcessReportTemp() {
+	public ProcessReport() {
 		super();
 	}
 	public String getSentence() {
@@ -51,5 +50,4 @@ public class ProcessReportTemp {
 	
 	
 	
-
 }
