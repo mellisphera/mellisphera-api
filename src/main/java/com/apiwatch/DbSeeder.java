@@ -65,149 +65,168 @@ public class DbSeeder implements CommandLineRunner {
 
 	// WeatherController wc;
 
-	public DbSeeder() {
-	}
 
-	public DbSeeder(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
+    
+   
 
-	@Override
-	public void run(String... args) throws Exception {
-
-		this.userRepository.deleteAll();
-		this.fleurTheoriqueRepository.deleteAll();
-
-		this.HivesRepository.deleteAll();
-		this.SensorRepository.deleteAll();
-		this.SensorRepository.deleteAll();
-		this.PostsRepository.deleteAll();
-		this.HourlyWeatherRepository.deleteAll();
-		this.DailyWeatherRepository.deleteAll();
-		this.SoldDeviceRepository.deleteAll();
-		this.FlowerTestRepository.deleteAll();
-		this.ObservedFlowerRepository.deleteAll();
-		this.SensorRepository.deleteAll();
-		this.fleurTheoriqueRepository.deleteAll();
-		this.DailyWeatherRepository.deleteAll();
-		this.HourlyWeatherRepository.deleteAll();
-		this.apiaryRepository.deleteAll();
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
-		FlowerAPI result = fleurTheoController.getListFleur();
-
-		// final List<Ruche> listeRuches= Arrays.asList(ruche1);
-		// rucher1.setListeRuches(Arrays.asList(ruche1));
-
-		SoldDevice sd1 = new SoldDevice();
-		sd1.setDateSold(new Date());
-		sd1.setSensorRef("43:10:DA");
-		sd1.setType("weight");
-		sd1.setSoldTo("jhe");
-
-		SoldDevice sd2 = new SoldDevice();
-		sd2.setDateSold(new Date());
-		sd2.setSensorRef("43:10:A2");
-		sd2.setType("T_HR");
-		sd2.setSoldTo("jcp");
-
-		SoldDevice sd3 = new SoldDevice();
-		sd3.setDateSold(new Date());
-		sd3.setSensorRef("43:10:7E");
-		sd3.setType("weight");
-		sd3.setSoldTo("blg");
-
-		SoldDevice sd4 = new SoldDevice();
-		sd4.setDateSold(new Date());
-		sd4.setSensorRef("43:0A:C7");
-		sd4.setType("weight");
-		sd4.setSoldTo("clo");
-
-		Apiary ap1 = new Apiary();
-		ap1.setId("1");
-		ap1.setLatitude(11.3f);
-		ap1.setLongitude(11.3f);
-		ap1.setName("Mon 1er rucher");
-		ap1.setDescription("Le rucher qui se situe à Tunis");
-		ap1.setCodePostal("Tunis");
-		ap1.setUsername("jcp");
-
-		Apiary ap2 = new Apiary();
-
-		ap2.setId("2");
-		ap2.setLatitude(11.3f);
-		ap2.setLongitude(11.3f);
-		ap2.setName("Mon 2eme Rucher");
-		ap2.setDescription("Le rucher qui se situe à Pau");
-		ap2.setCodePostal("Pau");
-		ap2.setUsername("jcp");
-
-		Apiary ap3 = new Apiary();
-		ap3.setId("3");
-		ap3.setLatitude(11.3f);
-		ap3.setLongitude(11.3f);
-		ap3.setName("Mon 3eme Rucher");
-		ap3.setDescription("Le rucher qui se situe à Toulouse");
-		ap3.setCodePostal("Toulouse");
-		ap3.setUsername("jcp");
-
-		Apiary ap4 = new Apiary();
-		ap4.setId("18");
-		ap4.setLatitude(11.3f);
-		ap4.setLongitude(11.3f);
-		ap4.setName("Mon 2eme Rucher");
-		ap4.setDescription("Le rucher qui se situe à Toronto");
-		ap4.setCodePostal("Toronto");
-		ap4.setUsername("jhe");
-
-		Hive h1 = new Hive();
-		h1.setId("1");
-		h1.setName("Ma premiere ruche");
-		h1.setDescription("C'est ma première ruche qui contient près de 1000 abeilles");
-		h1.setIdApiary("1");
-		h1.setUsername("jcp");
-
-		Hive h2 = new Hive();
-		h2.setId("2");
-		h2.setName("Ruche 2");
-		h2.setDescription("C'est ma 2eme ruche qui contient près de 600 abeilles");
-		h2.setIdApiary("2");
-		h2.setUsername("jcp");
-
-		Hive h3 = new Hive();
-		h3.setName("Ruche dhay3a");
-		h3.setIdApiary(ap2.getId());
-		h3.setUsername("Ali chouereb");
-
-		Sensor s1 = new Sensor();
-		s1.setId("1");
-		s1.setReference("43:10:DA");
-		s1.setType("weight");
-		s1.setDescription("Capteur de poids de la ruche 1");
-		s1.setIdHive("1");
-		s1.setIdApiary("1");
-		s1.setUsername("jcp");
-	
-
-		Sensor s2 = new Sensor();
-		s2.setReference("43:10:A2");
-		s2.setType("T_HR");
-		s2.setDescription("Capteur 2 temp");
-		s2.setIdHive("2");
-		s2.setIdApiary("1");
-		s2.setUsername("jcp");
+    @Override
+    public void run(String... args) throws Exception {
+    	/*
+    	Cette partie du code est a commenter pour le déploiement en mode PRODUCTION*/
+    	this.userRepository.deleteAll();
+    	this.fleurTheoriqueRepository.deleteAll();
+    	
+    	this.HivesRepository.deleteAll();
+    	this.SensorRepository.deleteAll();
+    	this.SensorRepository.deleteAll();
+    	this.PostsRepository.deleteAll();
+    	this.HourlyWeatherRepository.deleteAll();
+    	this.DailyWeatherRepository.deleteAll();
+    	this.SoldDeviceRepository.deleteAll();
+    	
+    	this.FlowerTestRepository.deleteAll();
+    	this.ObservedFlowerRepository.deleteAll();
+    	
+    	this.fleurTheoriqueRepository.deleteAll();
+    	this.DailyWeatherRepository.deleteAll();
+    	this.HourlyWeatherRepository.deleteAll();
+    	this.apiaryRepository.deleteAll();
+    	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    	
+    	
+    	
+    	FlowerAPI result = fleurTheoController.getListFleur();
+    	
+    	//final List<Ruche> listeRuches= Arrays.asList(ruche1);
+    	//rucher1.setListeRuches(Arrays.asList(ruche1));
+		
+    	SoldDevice sd1 = new SoldDevice();
+    	sd1.setDateSold(new Date());
+    	sd1.setSensorRef("43:10:DA");
+    	sd1.setType("weight");
+    	sd1.setSoldTo("jhe");
+		
+    	SoldDevice sd2 = new SoldDevice();
+    	sd2.setDateSold(new Date());
+    	sd2.setSensorRef("43:10:A2");
+    	sd2.setType("T_HR");
+    	sd2.setSoldTo("jcp");
+    	
+    	SoldDevice sd3 = new SoldDevice();
+    	sd3.setDateSold(new Date());
+    	sd3.setSensorRef("43:10:7E");
+    	sd3.setType("weight");
+    	sd3.setSoldTo("blg");
+       	    	
+      	SoldDevice sd4 = new SoldDevice();
+      	sd4.setDateSold(new Date());
+      	sd4.setSensorRef("43:0A:C7");
+      	sd4.setType("weight");
+      	sd4.setSoldTo("clo");
 
 
-		Sensor s3 = new Sensor();
-		s3.setReference("0X:12:DA");
-		s3.setType("weight");
-		s3.setDescription("Capteur 3");
-		s3.setIdHive("1");
-		s3.setIdApiary("1");
-		s3.setUsername("jcp");
-
-		User u1 = new User();
-		u1.setUsername("blg");
+    	Apiary ap1 = new Apiary();
+    	ap1.setId("1");
+    	ap1.setLatitude(11.3f);
+    	ap1.setLongitude(11.3f);
+    	ap1.setName("Mon 1er rucher");
+    	ap1.setDescription("Le rucher qui se situe à Tunis");
+    	ap1.setCodePostal("Tunis");
+    	ap1.setUsername("jcp");
+    	/*
+    	
+    	Apiary ap2 = new Apiary();
+    	
+    	ap2.setId("2");
+    	ap2.setLatitude(11.3f);
+    	ap2.setLongitude(11.3f);
+    	ap2.setName("Mon 2eme Rucher");
+    	ap2.setDescription("Le rucher qui se situe à Pau");
+    	ap2.setCodePostal("Pau");
+    	ap2.setUsername("jcp");
+    	
+    	Apiary ap3 = new Apiary();
+    	ap3.setId("3");
+    	ap3.setLatitude(11.3f);
+    	ap3.setLongitude(11.3f);
+    	ap3.setName("Mon 3eme Rucher");
+    	ap3.setDescription("Le rucher qui se situe à Toulouse");
+    	ap3.setCodePostal("Toulouse");
+    	ap3.setUsername("jcp");
+    	
+    	Apiary ap4 = new Apiary();
+    	ap4.setId("18");
+    	ap4.setLatitude(11.3f);
+    	ap4.setLongitude(11.3f);
+    	ap4.setName("Mon 2eme Rucher");
+    	ap4.setDescription("Le rucher qui se situe à Toronto");
+    	ap4.setCodePostal("Toronto");
+    	ap4.setUsername("jhe");
+    	/*
+    	Hive h1 = new Hive();
+    	h1.setId("1");
+    	h1.setName("Ma premiere ruche");
+    	h1.setDescription("C'est ma première ruche qui contient près de 1000 abeilles");
+    	h1.setIdApiary("1");
+    	h1.setUsername("jcp");
+    	
+    	Hive h2 = new Hive();
+    	h2.setId("2");
+    	h2.setName("Ruche 2");
+    	h2.setDescription("C'est ma 2eme ruche qui contient près de 600 abeilles");
+    	h2.setIdApiary("1");
+    	h2.setUsername("jcp");
+    
+    	Hive h3 = new Hive();
+    	h3.setName("Ruche dhay3a");
+    	h3.setIdApiary(ap2.getId());
+    	h3.setUsername("Ali chouereb");
+    	
+    	Sensor s1 = new Sensor();
+    	s1.setId("1");
+    	s1.setReference("43:10:DA");
+    	s1.setType("weight");
+    	s1.setDescription("Capteur de poids de la ruche 1");
+    	s1.setIdHive("1");
+    	s1.setIdApiary("1");
+    	s1.setUsername("jcp");
+    	
+    	Sensor s2 = new Sensor();
+    	s2.setReference("43:10:A2");
+    	s2.setType("T_HR");
+    	s2.setDescription("Capteur 2 temp");
+    	s2.setIdHive("2");
+    	s2.setIdApiary("1");
+    	s2.setUsername("jcp");
+    	
+    	Sensor s3 = new Sensor();
+    	s3.setReference("0X:12:DA");
+    	s3.setType("weight");
+    	s3.setDescription("Capteur 3");
+    	s3.setIdHive("1");
+    	s3.setIdApiary("1");
+    	s3.setUsername("jcp");
+ */   	
+    	
+    	Sensor s1 = new Sensor();
+    	s1.setId("1");
+    	s1.setReference("43:10:DA");
+    	s1.setType("weight");
+    	s1.setDescription("Capteur de poids de la ruche 1");
+    	s1.setIdHive("1");
+    	s1.setIdApiary("1");
+    	s1.setUsername("jcp");
+    	
+    	Sensor s2 = new Sensor();
+    	s2.setReference("43:10:A2");
+    	s2.setType("T_HR");
+    	s2.setDescription("Capteur 2 temp");
+    	s2.setIdHive("2");
+    	s2.setIdApiary("1");
+    	s2.setUsername("jcp");
+    	
+    	User u1 = new User();
+		u1.setUsername("blg");	
 		u1.setPassword("apis123");
 		u1.setCreatedAt(df.parse("12/03/2018 00:00"));
 
@@ -240,6 +259,8 @@ public class DbSeeder implements CommandLineRunner {
 		f4.setFlomin(20);
 		f4.setFlomind("05-14");
 		f4.setFlomaxd("07-30");
+		f4.setFlomindate("14 mai");
+		f4.setFlomaxdate("30 juillet");
 		f4.setForme("oblate");
 		f4.setFrancais("Tilleul commun");
 		f4.setLatin("Tilia x europaea");
@@ -261,7 +282,7 @@ public class DbSeeder implements CommandLineRunner {
 
 		FlowerTest f4T = new FlowerTest();
 		f4T.setFlowerApi(f4);
-		f4T.setFlowerIstap(f4b);
+		f4T.setFlowerItsap(f4b);
 		f4T.setType("Arbres");
 		f4T.setPhoto("https://kyle.sig.inra.fr/FLEURS/1150883980tilleul_5.jpg");
 
@@ -273,6 +294,8 @@ public class DbSeeder implements CommandLineRunner {
 		f5.setFlomin(11);
 		f5.setFlomind("03-12");
 		f5.setFlomaxd("06-21");
+		f5.setFlomindate("12 mars");
+		f5.setFlomaxdate("21 juin");
 		f5.setForme("oblate");
 		f5.setFrancais("Cerisier");
 		f5.setLatin("Prunus cerasus");
@@ -295,7 +318,7 @@ public class DbSeeder implements CommandLineRunner {
 		FlowerTest f5T = new FlowerTest();
 		f5T.setFlowerApi(f5);
 		f5T.setType("Arbres");
-		f5T.setFlowerIstap(f5b);
+		f5T.setFlowerItsap(f5b);
 		f5T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Cerisier4.jpg");
 
 		Flower f6 = new Flower();
@@ -306,6 +329,8 @@ public class DbSeeder implements CommandLineRunner {
 		f6.setFlomin(10);
 		f6.setFlomind("03-05");
 		f6.setFlomaxd("05-28");
+		f6.setFlomindate("5 mars");
+		f6.setFlomaxdate("28 mai");
 		f6.setForme("oblate");
 		f6.setFrancais("Colza");
 		f6.setLatin("Brassica napus");
@@ -328,7 +353,7 @@ public class DbSeeder implements CommandLineRunner {
 		FlowerTest f6T = new FlowerTest();
 		f6T.setFlowerApi(f6);
 		f6T.setType("Herbacées");
-		f6T.setFlowerIstap(f6b);
+		f6T.setFlowerItsap(f6b);
 		f6T.setPhoto("https://kyle.sig.inra.fr/FLEURS/colza4.jpg");
 
 		Flower f7 = new Flower();
@@ -339,6 +364,8 @@ public class DbSeeder implements CommandLineRunner {
 		f7.setFlomin(12);
 		f7.setFlomind("03-19");
 		f7.setFlomaxd("12-17");
+		f7.setFlomindate("19 mars");
+		f7.setFlomaxdate("17 décembre");
 		f7.setForme("sphéroïdale");
 		f7.setFrancais("Bourrache officinale");
 		f7.setLatin("Borago officinalis");
@@ -361,7 +388,7 @@ public class DbSeeder implements CommandLineRunner {
 		FlowerTest f7T = new FlowerTest();
 		f7T.setFlowerApi(f7);
 		f7T.setType("Herbacées");
-		f7T.setFlowerIstap(f7b);
+		f7T.setFlowerItsap(f7b);
 		f7T.setPhoto("https://kyle.sig.inra.fr/FLEURS/bourrache5.jpg");
 
 		Flower f8 = new Flower();
@@ -372,6 +399,8 @@ public class DbSeeder implements CommandLineRunner {
 		f8.setFlomin(13);
 		f8.setFlomind("03-26");
 		f8.setFlomaxd("05-21");
+		f8.setFlomindate("26 mars");
+		f8.setFlomaxdate("21 mai");
 		f8.setForme("oblate");
 		f8.setFrancais("Ail des ours");
 		f8.setLatin("Allium ursinum");
@@ -394,7 +423,7 @@ public class DbSeeder implements CommandLineRunner {
 		FlowerTest f8T = new FlowerTest();
 		f8T.setFlowerApi(f8);
 		f8T.setType("Bulbes");
-		f8T.setFlowerIstap(f8b);
+		f8T.setFlowerItsap(f8b);
 		f8T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Allium_ursinum2213.jpg");
 
 		Flower f9 = new Flower();
@@ -405,6 +434,8 @@ public class DbSeeder implements CommandLineRunner {
 		f9.setFlomin(3);
 		f9.setFlomind("01-15");
 		f9.setFlomaxd("05-21");
+		f9.setFlomindate("15 janvier");
+		f9.setFlomaxdate("21 mai");
 		f9.setForme("oblate");
 		f9.setFrancais("Hellébore noir");
 		f9.setLatin("Helleborus niger");
@@ -427,7 +458,7 @@ public class DbSeeder implements CommandLineRunner {
 		FlowerTest f9T = new FlowerTest();
 		f9T.setFlowerApi(f9);
 		f9T.setType("Herbacées");
-		f9T.setFlowerIstap(f8b);
+		f9T.setFlowerItsap(f8b);
 		f9T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Hellebore_Noire2.jpg");
 
 		Flower f10 = new Flower();
@@ -438,6 +469,8 @@ public class DbSeeder implements CommandLineRunner {
 		f10.setFlomin(14);
 		f10.setFlomind("04-01");
 		f10.setFlomaxd("06-11");
+		f10.setFlomindate("4 janvier");
+		f10.setFlomaxdate("11 juin");
 		f10.setForme("sphéroïdale");
 		f10.setFrancais("Aubépine à un style");
 		f10.setLatin("Crataegus monogyna");
@@ -460,7 +493,7 @@ public class DbSeeder implements CommandLineRunner {
 		FlowerTest f10T = new FlowerTest();
 		f10T.setFlowerApi(f10);
 		f10T.setType("Arbustres");
-		f10T.setFlowerIstap(f10b);
+		f10T.setFlowerItsap(f10b);
 		f10T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Aubepine6.jpg");
 
 		Flower f11 = new Flower();
@@ -471,6 +504,8 @@ public class DbSeeder implements CommandLineRunner {
 		f11.setFlomin(16);
 		f11.setFlomind("04-16");
 		f11.setFlomaxd("06-11");
+		f11.setFlomindate("16 avril");
+		f11.setFlomaxdate("11 juin");
 		f11.setForme("oblate");
 		f11.setFrancais("Robinier faux-acacia");
 		f11.setLatin("Robinia pseudoacacia");
@@ -493,7 +528,7 @@ public class DbSeeder implements CommandLineRunner {
 		FlowerTest f11T = new FlowerTest();
 		f11T.setFlowerApi(f11);
 		f11T.setType("Arbres");
-		f11T.setFlowerIstap(f11b);
+		f11T.setFlowerItsap(f11b);
 		f11T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Robinier_Faux_Acacia4.jpg");
 
 		ObservedFlower fl1 = new ObservedFlower();
@@ -524,11 +559,27 @@ public class DbSeeder implements CommandLineRunner {
 		fl1.setIdApiary("4");
 		fl1.setPhoto(f5T.getPhoto());
 
+
 		// System.out.println(users);
 
 		// Load the list of FleurTheoriques in the database
+
+		
+	    
+		//System.out.println(users);
+		
+		//FlowerITSAP f = new FlowerITSAP();
+		
+		//FlowerTest fT = new FlowerTest();
+		//fT.setFlowerItsap(f);
+		
+		
+		//Load the list of FleurTheoriques in the database
+
 		for (Flower fth : result.getResult()) {
 			this.fleurTheoriqueRepository.save(fth);
+			//fT.setFlowerApi(fth);
+			//this.FlowerTestRepository.save(fT);
 		}
 
 		/*
@@ -537,15 +588,15 @@ public class DbSeeder implements CommandLineRunner {
 		 */
 
 		this.apiaryRepository.save(ap1);
-		this.apiaryRepository.save(ap2); 
+		//this.apiaryRepository.save(ap2); 
 		this.SoldDeviceRepository.save(sd1);
 		this.SoldDeviceRepository.save(sd2);
 		this.SoldDeviceRepository.save(sd3);
 		this.SoldDeviceRepository.save(sd4);
 
-		this.HivesRepository.save(h1);
-		this.HivesRepository.save(h2);
-		this.HivesRepository.save(h3);
+		//this.HivesRepository.save(h1);
+		//this.HivesRepository.save(h2);
+		//this.HivesRepository.save(h3);
 
 		List<User> users = Arrays.asList(u1, u2, u3, u4);
 		this.userRepository.saveAll(users);
