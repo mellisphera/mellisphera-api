@@ -91,10 +91,5 @@ public class ApiaryController {
          	}
          }
     }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") String id){
-      this.ApiaryRepository.deleteById(id);
-    }
    
 }

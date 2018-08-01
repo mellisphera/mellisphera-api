@@ -251,6 +251,7 @@ public class ObservedFlowerController {
 	 @RequestMapping(value = "/updateFind/{id}/{annee}", method = RequestMethod.PUT) 
 	 public void updateFind(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateFin){ 
 	 	 List<ObservedFlower> flowers= this.ObservedFlowerRepository.findAll();
+	 	
 	 	 for(ObservedFlower f : flowers){
 	    	 if(f.getId().equals(id)) {
 	    		 f.setDateFind(annee,dateFin);
@@ -275,8 +276,8 @@ public class ObservedFlowerController {
 	 
 	 
 	 //ajoute une plante à un rucher s'il elle n'existe pas encore 
-	 @RequestMapping(value = "/add/{id}/{annee}", method = RequestMethod.PUT) 
-	 public void addFlower(@PathVariable("id") String id, @RequestBody OneObservedFlower flower,@PathVariable String annee){ 
+	 @RequestMapping(value = "/add/{id}", method = RequestMethod.PUT) 
+	 public void addFlower(@PathVariable("id") String id, @RequestBody OneObservedFlower flower){ 
 		 List<String> flowers = getNamesFlowers(flower.getUsername(),id);
 		 ObservedFlower f = new ObservedFlower();
 		 if (!(flowers.contains(flower.getNom()))) {
@@ -285,9 +286,12 @@ public class ObservedFlowerController {
 			 f.setDateThFin(flower.getDateThFin());
 			 f.setDateThDebutd(flower.getDateThDebutd());
 			 f.setDateThFind(flower.getDateThFind());
+			 f.setDateThDebutdate(flower.getDateThDebutdate());
+			 f.setDateThFindate(flower.getDateThFindate());
 			 f.setUsername(flower.getUsername());
 			 f.setPhoto(flower.getPhoto());
-			 f.setPresence(" ");
+			 //Par défault on attribut la présence "faible"
+			 f.setPresence("Faible");
 			 f.setIdApiary(id);
 			 f.dateDebut = new HashMap<String, Integer>();
 			 //On initialise les années de flo début présenté sur le graph

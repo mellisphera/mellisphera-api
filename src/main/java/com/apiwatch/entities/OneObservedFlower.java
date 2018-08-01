@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "OneFlower")
 public class OneObservedFlower {
-
+	
 	@Id
 	public String id;
 	public String nom;
@@ -17,27 +17,40 @@ public class OneObservedFlower {
 	public int dateThFin;
 	public String dateThDebutd;
 	public String dateThFind;
+	public String dateThDebutdate;
+	public String dateThFindate;
 	public String presence;
 	public String username;
 	public String idApiary;
 	public String photo;
 	
-	public OneObservedFlower(String id, String nom, int dateDebut, int dateFin, int dateThDebut, int dateThFin,
-			String presence, String username, String idApiary) {
+	
+
+	public OneObservedFlower() {
+	}
+	
+	public OneObservedFlower(String id, String nom, int dateDebut, int dateFin, String dateDebutd, String dateFind,
+			int dateThDebut, int dateThFin, String dateThDebutd, String dateThFind, String dateThDebutdate,
+			String dateThFindate, String presence, String username, String idApiary, String photo) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
+		this.dateDebutd = dateDebutd;
+		this.dateFind = dateFind;
 		this.dateThDebut = dateThDebut;
 		this.dateThFin = dateThFin;
+		this.dateThDebutd = dateThDebutd;
+		this.dateThFind = dateThFind;
+		this.dateThDebutdate = dateThDebutdate;
+		this.dateThFindate = dateThFindate;
 		this.presence = presence;
 		this.username = username;
 		this.idApiary = idApiary;
+		this.photo = photo;
 	}
 
-	public OneObservedFlower() {
-	}
 
 	public String getId() {
 		return id;
@@ -156,6 +169,22 @@ public class OneObservedFlower {
 
 	public void setDateThFind(String dateThFind) {
 		this.dateThFind = dateThFind;
+	}
+
+	public String getDateThDebutdate() {
+		return dateThDebutdate;
+	}
+
+	public void setDateThDebutdate(String dateThDebutdate) {
+		this.dateThDebutdate = dateThDebutdate;
+	}
+
+	public String getDateThFindate() {
+		return dateThFindate;
+	}
+
+	public void setDateThFindate(String dateThFindate) {
+		this.dateThFindate = dateThFindate;
 	}
 	
 	
