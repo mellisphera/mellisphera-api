@@ -27,8 +27,6 @@ import com.apiwatch.entities.FlowerAPI;
 import com.apiwatch.repositories.FleurTheoriqueRepository;
 import com.apiwatch.weather.WeatherAPI;
 
-
-
 @RestController
 @RequestMapping("/fleurs-theoriques")
 @CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})

@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apiwatch.repositories.HourlyWeatherRepository;
 import com.apiwatch.weather.HourlyWeather;
 
-
-
 @Service
 @RestController
 @RequestMapping("hourlyweather")

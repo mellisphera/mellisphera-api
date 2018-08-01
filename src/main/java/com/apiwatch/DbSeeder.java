@@ -130,13 +130,12 @@ public class DbSeeder implements CommandLineRunner {
     	ap1.setLatitude(11.3f);
     	ap1.setLongitude(11.3f);
     	ap1.setName("Mon 1er rucher");
-    	ap1.setDescription("Le rucher qui se situe à Tunis");
-    	ap1.setCodePostal("Tunis");
+    	ap1.setDescription("Le rucher qui se situe à Bizanos");
+    	ap1.setCodePostal("Bizanos");
     	ap1.setUsername("jcp");
     	/*
     	
     	Apiary ap2 = new Apiary();
-    	
     	ap2.setId("2");
     	ap2.setLatitude(11.3f);
     	ap2.setLongitude(11.3f);
@@ -162,7 +161,7 @@ public class DbSeeder implements CommandLineRunner {
     	ap4.setDescription("Le rucher qui se situe à Toronto");
     	ap4.setCodePostal("Toronto");
     	ap4.setUsername("jhe");
-    	/*
+    	
     	Hive h1 = new Hive();
     	h1.setId("1");
     	h1.setName("Ma premiere ruche");
@@ -565,11 +564,7 @@ public class DbSeeder implements CommandLineRunner {
 		// Load the list of FleurTheoriques in the database
 
 		
-	    
-		//System.out.println(users);
-		
-		//FlowerITSAP f = new FlowerITSAP();
-		
+		//FlowerITSAP f = new FlowerITSAP();		
 		//FlowerTest fT = new FlowerTest();
 		//fT.setFlowerItsap(f);
 		

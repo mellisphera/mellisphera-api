@@ -20,8 +20,6 @@ import com.apiwatch.entities.Post;
 import com.apiwatch.entities.Record;
 import com.apiwatch.repositories.PostRepository;
 
-
-
 @Service
 @RestController
 @RequestMapping("posts")
