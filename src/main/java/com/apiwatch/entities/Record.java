@@ -13,6 +13,7 @@ public class Record {
 	public Float humidity_ext;
 	public Float humidity_int;
 	public String recordDate;
+	public Float weight_icome;
 	public String recordsType;
 	public String sensorRef;
 	public Float temp_ext;
@@ -25,10 +26,9 @@ public class Record {
 		super();
 	}
 
-
 	public Record(String id, Float battery_ext, Float battery_int, Float humidity_ext, Float humidity_int,
-			String recordDate, String recordsType, String sensorRef, Float temp_ext, Float temp_int, Float weight,
-			String idHive) {
+			String recordDate, Float weight_icome, String recordsType, String sensorRef, Float temp_ext, Float temp_int,
+			Float weight, String idHive) {
 		super();
 		this.id = id;
 		this.battery_ext = battery_ext;
@@ -36,6 +36,7 @@ public class Record {
 		this.humidity_ext = humidity_ext;
 		this.humidity_int = humidity_int;
 		this.recordDate = recordDate;
+		this.weight_icome = weight_icome;
 		this.recordsType = recordsType;
 		this.sensorRef = sensorRef;
 		this.temp_ext = temp_ext;
@@ -43,7 +44,6 @@ public class Record {
 		this.weight = weight;
 		this.idHive = idHive;
 	}
-
 
 	public String getId() {
 		return id;
@@ -105,6 +105,16 @@ public class Record {
 	}
 
 
+	public Float getWeight_icome() {
+		return weight_icome;
+	}
+
+
+	public void setWeight_icome(Float weight_icome) {
+		this.weight_icome = weight_icome;
+	}
+
+
 	public String getRecordsType() {
 		return recordsType;
 	}
@@ -163,6 +173,11 @@ public class Record {
 	public void setIdHive(String idHive) {
 		this.idHive = idHive;
 	}
+	
+	
+
+
+	
 	
 	
 	

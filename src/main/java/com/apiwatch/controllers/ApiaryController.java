@@ -10,7 +10,9 @@ import com.apiwatch.entities.Post;
 import com.apiwatch.repositories.ApiaryRepository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -45,6 +47,20 @@ public class ApiaryController {
 	    	}
 	    }
 	    return userApiaries;
+    }
+    
+    @RequestMapping(value = "/name/{id}", method = RequestMethod.GET, produces={"application/json"})
+    public Map<String,String>getRucherCity(@PathVariable String id){
+	    List<Apiary> allApiaries=this.ApiaryRepository.findAll();
+	    
+	    Map<String,String> rucherName = new HashMap<>();
+	    for(Apiary ap : allApiaries) {
+		    if(ap.getId().equals(id)) {
+		    	rucherName.put("name", ap.getCodePostal());
+		    }
+    	}
+	    
+	    return rucherName;
     }
    
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})

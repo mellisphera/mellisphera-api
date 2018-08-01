@@ -13,6 +13,7 @@ public class Sensor {
 	public String description;
 	public String idHive ;
 	public String idApiary;
+	public String apiaryName;
 	public String hiveName;
 	public String username;
 	
@@ -21,8 +22,9 @@ public class Sensor {
 		super();
 	}
 
+
 	public Sensor(String id, String reference, String name, String type, String description, String idHive,
-			String idApiary, String hiveName, String username) {
+			String idApiary, String apiaryName, String hiveName, String username) {
 		super();
 		this.id = id;
 		this.reference = reference;
@@ -31,6 +33,7 @@ public class Sensor {
 		this.description = description;
 		this.idHive = idHive;
 		this.idApiary = idApiary;
+		this.apiaryName = apiaryName;
 		this.hiveName = hiveName;
 		this.username = username;
 	}
@@ -106,6 +109,16 @@ public class Sensor {
 	}
 
 
+	public String getApiaryName() {
+		return apiaryName;
+	}
+
+
+	public void setApiaryName(String apiaryName) {
+		this.apiaryName = apiaryName;
+	}
+
+
 	public String getHiveName() {
 		return hiveName;
 	}
@@ -124,5 +137,7 @@ public class Sensor {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-		
+
+	
+	
 }

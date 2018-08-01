@@ -65,53 +65,20 @@ public class HiveController {
          }
     }
     
+    @RequestMapping(value = "/details/{idHive}", method = RequestMethod.GET, produces={"application/json"})
+    public Hive getHiveDetails(@PathVariable String idHive){
+    List<Hive> hives = this.HivesRepository.findAll();
+    	    for(Hive h : hives) {
+    	    	if(h.getId().equals(idHive)) {
+    	      		return h;
+    	    	}
+    	    }
+    	    return null;
+    }
+    
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id){
       this.HivesRepository.deleteById(id);
     }
 
-    /*
-    @RequestMapping(value = "/", method = RequestMethod.POST, produces={"application/json"})
-    public List<Hive> getAllHives(){
-    List<Hive> hives = this.HivesRepository.find
-    return hives;
-    }
-  
-  
-    
-   
-/*
-    @GetMapping("/notes/{id}")
-    public List<Note> getNoteRucheById(@PathVariable("id") String id){
-    	List<Ruche> ruches =  this.RucheRepository.findAll();
-    	List<Note> notes= new ArrayList<>();
-    	for(Ruche r : ruches) {
-    		if(r.getId().equals(id)) {
-    			notes=r.getNotesRuches();
-    		}
-    	}
-        return notes;
-    }
-  */
-    /*
-    @GetMapping("/captures/{id}")
-    public List<Record> getCaptureRucheById(@PathVariable("id") String id){
-    	List<Ruche> ruches =  this.HiveRepository.findAll();
-    	List<Record> captures= new ArrayList<>();
-    	for(Ruche r : ruches) {
-    		if(r.getId().equals(id)) {
-    			captures=r.getCapturesRuches();
-    		}
-    	}
-        return captures;
-    }
- */
-    //update notes to develop
-    /*
-    @GetMapping("/{id}")
-    public Optional<Ruche> getRucheById(@PathVariable("id") String id){
-        Optional<Ruche> Ruche = this.RucheRepository.findById(id);
-        return Ruche;
-    }
-    */
 }
