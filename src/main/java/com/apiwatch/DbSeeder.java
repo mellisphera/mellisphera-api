@@ -599,12 +599,12 @@ public class DbSeeder implements CommandLineRunner {
 		this.SensorRepository.save(s1);
 		this.SensorRepository.save(s2);
 
-		/*
-		 * this.FlowerTestRepository.save(f4T); this.FlowerTestRepository.save(f5T);
-		 * this.FlowerTestRepository.save(f6T); this.FlowerTestRepository.save(f7T);
-		 * this.FlowerTestRepository.save(f8T); this.FlowerTestRepository.save(f9T);
-		 * this.FlowerTestRepository.save(f10T); this.FlowerTestRepository.save(f11T);
-		 */
+	
+		this.FlowerTestRepository.save(f4T); this.FlowerTestRepository.save(f5T);
+		this.FlowerTestRepository.save(f6T); this.FlowerTestRepository.save(f7T);
+		this.FlowerTestRepository.save(f8T); this.FlowerTestRepository.save(f9T);
+		this.FlowerTestRepository.save(f10T); this.FlowerTestRepository.save(f11T);
+		 
 		// this.ObservedFlowerRepository.save(fl1);
 
 	}
