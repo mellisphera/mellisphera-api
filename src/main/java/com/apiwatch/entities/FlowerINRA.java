@@ -1,6 +1,6 @@
 package com.apiwatch.entities;
 
-public class Flower {
+public class FlowerINRA {
 
 	public String autre;
 	public String butineur;
@@ -21,10 +21,10 @@ public class Flower {
 	public String remarq;
 	public String ressource;
 	
-	public Flower() {
+	public FlowerINRA() {
 	}
 	
-	public Flower(String autre, String butineur, String famille, int flomax, int flomin, String flomind, String flomaxd,
+	public FlowerINRA(String autre, String butineur, String famille, int flomax, int flomin, String flomind, String flomaxd,
 			String flomindate, String flomaxdate, String forme, String francais, String genre, int idplante,
 			String latin, int pol_equ, int pol_pol, String remarq, String ressource) {
 		super();
