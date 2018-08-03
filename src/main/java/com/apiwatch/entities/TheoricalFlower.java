@@ -1,14 +1,14 @@
 package com.apiwatch.entities;
 
-public class FlowerTest {
+public class TheoricalFlower {
 
-	public Flower flowerApi;
+	public FlowerINRA flowerApi;
 	public FlowerITSAP flowerItsap;
 	public String type;
 	public String commentaire;
 	public String photo;
 	
-	public FlowerTest(Flower flowerApi, FlowerITSAP flowerItsap, String type, String commentaire, String photo) {
+	public TheoricalFlower(FlowerINRA flowerApi, FlowerITSAP flowerItsap, String type, String commentaire, String photo) {
 		super();
 		this.flowerApi = flowerApi;
 		this.flowerItsap = flowerItsap;
@@ -17,14 +17,14 @@ public class FlowerTest {
 		this.photo = photo;
 	}
 	
-	public FlowerTest() {
+	public TheoricalFlower() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Flower getFlowerApi() {
+	public FlowerINRA getFlowerApi() {
 		return flowerApi;
 	}
-	public void setFlowerApi(Flower flowerApi) {
+	public void setFlowerApi(FlowerINRA flowerApi) {
 		this.flowerApi = flowerApi;
 	}
 	

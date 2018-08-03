@@ -8,17 +8,17 @@ import java.util.List;
 //this class is made for storing the result from the query of API Botanica
 //via the ResTemplate 
 public class FlowerAPI {
-	public List<Flower> result;
+	public List<FlowerINRA> result;
 
 	public FlowerAPI() {
 		super();
 	}
 
-	public List<Flower> getResult() {
+	public List<FlowerINRA> getResult() {
 		return result;
 	}
 
-	public void setResult(List<Flower> result) {
+	public void setResult(List<FlowerINRA> result) {
 		this.result = result;
 	}
 
