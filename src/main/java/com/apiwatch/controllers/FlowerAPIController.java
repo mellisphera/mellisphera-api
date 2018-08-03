@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.apiwatch.entities.Flower;
+import com.apiwatch.entities.FlowerINRA;
 import com.apiwatch.entities.FlowerAPI;
-import com.apiwatch.repositories.FleurTheoriqueRepository;
+import com.apiwatch.repositories.FlowerINRARepository;
 import com.apiwatch.weather.WeatherAPI;
 
 @RestController
@@ -33,7 +33,7 @@ import com.apiwatch.weather.WeatherAPI;
 public class FlowerAPIController {
 
 	@Autowired
-	FleurTheoriqueRepository FleurTheoriqueRepository;
+	FlowerINRARepository FleurTheoriqueRepository;
 
 	
 	
@@ -41,7 +41,7 @@ public class FlowerAPIController {
 
 	}
 
-	public FlowerAPIController(FleurTheoriqueRepository fleurTheoriqueRepository) {
+	public FlowerAPIController(FlowerINRARepository fleurTheoriqueRepository) {
 		FleurTheoriqueRepository = fleurTheoriqueRepository;
 	}
 
@@ -59,7 +59,7 @@ public class FlowerAPIController {
 	       headers.setContentType( MediaType.APPLICATION_JSON );
 	       HttpEntity request= new HttpEntity( obj, headers );
 	       
-		   List<Flower> listeFleurs = new ArrayList<>();
+		   List<FlowerINRA> listeFleurs = new ArrayList<>();
 		   RestTemplate restTemplate = new RestTemplate();
 		   
 		   FlowerAPI r= new FlowerAPI();

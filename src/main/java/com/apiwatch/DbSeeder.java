@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 import com.apiwatch.controllers.FlowerAPIController;
 import com.apiwatch.entities.Apiary;
-import com.apiwatch.entities.Flower;
+import com.apiwatch.entities.FlowerINRA;
 import com.apiwatch.entities.FlowerAPI;
 import com.apiwatch.entities.FlowerITSAP;
-import com.apiwatch.entities.FlowerTest;
+import com.apiwatch.entities.TheoricalFlower;
 import com.apiwatch.entities.Hive;
 import com.apiwatch.entities.ObservedFlower;
 import com.apiwatch.entities.Record;
@@ -18,8 +18,8 @@ import com.apiwatch.entities.SoldDevice;
 import com.apiwatch.entities.User;
 import com.apiwatch.repositories.ApiaryRepository;
 import com.apiwatch.repositories.DailyWeatherRepository;
-import com.apiwatch.repositories.FleurTheoriqueRepository;
-import com.apiwatch.repositories.FlowerTestRepository;
+import com.apiwatch.repositories.FlowerINRARepository;
+import com.apiwatch.repositories.TheoricalFlowerRepository;
 import com.apiwatch.repositories.HivesRepository;
 import com.apiwatch.repositories.HourlyWeatherRepository;
 import com.apiwatch.repositories.ObservedFlowerRepository;
@@ -41,25 +41,25 @@ public class DbSeeder implements CommandLineRunner {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private FleurTheoriqueRepository fleurTheoriqueRepository;
+	private FlowerINRARepository flowerINRARepository;
 	@Autowired
 	private ApiaryRepository apiaryRepository;
 	@Autowired
-	private HivesRepository HivesRepository;
+	private HivesRepository hivesRepository;
 	@Autowired
-	private SensorRepository SensorRepository;
+	private SensorRepository sensorRepository;
 	@Autowired
-	private PostRepository PostsRepository;
+	private PostRepository postsRepository;
 	@Autowired
-	private HourlyWeatherRepository HourlyWeatherRepository;
+	private HourlyWeatherRepository hourlyWeatherRepository;
 	@Autowired
-	private DailyWeatherRepository DailyWeatherRepository;
+	private DailyWeatherRepository dailyWeatherRepository;
 	@Autowired
-	private SoldDeviceRepository SoldDeviceRepository;
+	private SoldDeviceRepository soldDeviceRepository;
 	@Autowired
-	private FlowerTestRepository FlowerTestRepository;
+	private TheoricalFlowerRepository theoricalFlowerRepository;
 	@Autowired
-	private ObservedFlowerRepository ObservedFlowerRepository;
+	private ObservedFlowerRepository observedFlowerRepository;
 	@Autowired
 	private FlowerAPIController fleurTheoController;
 
@@ -74,22 +74,20 @@ public class DbSeeder implements CommandLineRunner {
 
     	/*Cette partie du code est a commenter pour le déploiement en mode PRODUCTION*/
     	this.userRepository.deleteAll();
-    	this.fleurTheoriqueRepository.deleteAll();
     	
-    	this.HivesRepository.deleteAll();
-    	this.SensorRepository.deleteAll();
-    	this.SensorRepository.deleteAll();
-    	this.PostsRepository.deleteAll();
-    	this.HourlyWeatherRepository.deleteAll();
-    	this.DailyWeatherRepository.deleteAll();
-    	this.SoldDeviceRepository.deleteAll();
+    	this.hivesRepository.deleteAll();
+    	this.sensorRepository.deleteAll();
+    	this.postsRepository.deleteAll();
+    	this.hourlyWeatherRepository.deleteAll();
+    	this.dailyWeatherRepository.deleteAll();
+    	this.soldDeviceRepository.deleteAll();
     	
-    	this.FlowerTestRepository.deleteAll();
-    	this.ObservedFlowerRepository.deleteAll();
+    	this.theoricalFlowerRepository.deleteAll();
+    	this.observedFlowerRepository.deleteAll();
     	
-    	this.fleurTheoriqueRepository.deleteAll();
-    	this.DailyWeatherRepository.deleteAll();
-    	this.HourlyWeatherRepository.deleteAll();
+    	this.flowerINRARepository.deleteAll();
+    	this.dailyWeatherRepository.deleteAll();
+    	this.hourlyWeatherRepository.deleteAll();
     	this.apiaryRepository.deleteAll();
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     	
@@ -250,7 +248,7 @@ public class DbSeeder implements CommandLineRunner {
 		u5.setPassword("apis123");
 		u5.setCreatedAt(df.parse("20/07/2018 00:00"));
 
-		Flower f4 = new Flower();
+		FlowerINRA f4 = new FlowerINRA();
 		f4.setAutre("");
 		f4.setButineur("Bourdons et abeilles");
 		f4.setFamille("Malvacées");
@@ -279,13 +277,13 @@ public class DbSeeder implements CommandLineRunner {
 		f4b.setInteret_nectar("3");
 		f4b.setInteret_pollen("2");
 
-		FlowerTest f4T = new FlowerTest();
+		TheoricalFlower f4T = new TheoricalFlower();
 		f4T.setFlowerApi(f4);
 		f4T.setFlowerItsap(f4b);
 		f4T.setType("Arbres");
 		f4T.setPhoto("https://kyle.sig.inra.fr/FLEURS/1150883980tilleul_5.jpg");
 
-		Flower f5 = new Flower();
+		FlowerINRA f5 = new FlowerINRA();
 		f5.setAutre("");
 		f5.setButineur("Abeilles");
 		f5.setFamille("Rosacées");
@@ -314,13 +312,13 @@ public class DbSeeder implements CommandLineRunner {
 		f5b.setInteret_nectar("2");
 		f5b.setInteret_pollen("3");
 
-		FlowerTest f5T = new FlowerTest();
+		TheoricalFlower f5T = new TheoricalFlower();
 		f5T.setFlowerApi(f5);
 		f5T.setType("Arbres");
 		f5T.setFlowerItsap(f5b);
 		f5T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Cerisier4.jpg");
 
-		Flower f6 = new Flower();
+		FlowerINRA f6 = new FlowerINRA();
 		f6.setAutre("");
 		f6.setButineur("Abeilles");
 		f6.setFamille("Brassicacées");
@@ -349,13 +347,13 @@ public class DbSeeder implements CommandLineRunner {
 		f6b.setInteret_nectar("3");
 		f6b.setInteret_pollen("3");
 
-		FlowerTest f6T = new FlowerTest();
+		TheoricalFlower f6T = new TheoricalFlower();
 		f6T.setFlowerApi(f6);
 		f6T.setType("Herbacées");
 		f6T.setFlowerItsap(f6b);
 		f6T.setPhoto("https://kyle.sig.inra.fr/FLEURS/colza4.jpg");
 
-		Flower f7 = new Flower();
+		FlowerINRA f7 = new FlowerINRA();
 		f7.setAutre("");
 		f7.setButineur("Tous hymenoptères");
 		f7.setFamille("Boraginacées");
@@ -384,13 +382,13 @@ public class DbSeeder implements CommandLineRunner {
 		f7b.setInteret_nectar("3");
 		f7b.setInteret_pollen("1");
 
-		FlowerTest f7T = new FlowerTest();
+		TheoricalFlower f7T = new TheoricalFlower();
 		f7T.setFlowerApi(f7);
 		f7T.setType("Herbacées");
 		f7T.setFlowerItsap(f7b);
 		f7T.setPhoto("https://kyle.sig.inra.fr/FLEURS/bourrache5.jpg");
 
-		Flower f8 = new Flower();
+		FlowerINRA f8 = new FlowerINRA();
 		f8.setAutre("");
 		f8.setButineur("Abeilles");
 		f8.setFamille("Amaryllidacées");
@@ -419,13 +417,13 @@ public class DbSeeder implements CommandLineRunner {
 		f8b.setInteret_nectar("3");
 		f8b.setInteret_pollen("2");
 
-		FlowerTest f8T = new FlowerTest();
+		TheoricalFlower f8T = new TheoricalFlower();
 		f8T.setFlowerApi(f8);
 		f8T.setType("Bulbes");
 		f8T.setFlowerItsap(f8b);
 		f8T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Allium_ursinum2213.jpg");
 
-		Flower f9 = new Flower();
+		FlowerINRA f9 = new FlowerINRA();
 		f9.setAutre("");
 		f9.setButineur("Pas d'observations d'insectes");
 		f9.setFamille("Renonculacées");
@@ -454,13 +452,13 @@ public class DbSeeder implements CommandLineRunner {
 		f9b.setInteret_nectar("2");
 		f9b.setInteret_pollen("2");
 
-		FlowerTest f9T = new FlowerTest();
+		TheoricalFlower f9T = new TheoricalFlower();
 		f9T.setFlowerApi(f9);
 		f9T.setType("Herbacées");
 		f9T.setFlowerItsap(f8b);
 		f9T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Hellebore_Noire2.jpg");
 
-		Flower f10 = new Flower();
+		FlowerINRA f10 = new FlowerINRA();
 		f10.setAutre("Epine blanche, Noble épine, Bois de mai");
 		f10.setButineur("Tous hymenoptères");
 		f10.setFamille("Rosacées");
@@ -489,13 +487,13 @@ public class DbSeeder implements CommandLineRunner {
 		f10b.setInteret_nectar("2");
 		f10b.setInteret_pollen("0");
 
-		FlowerTest f10T = new FlowerTest();
+		TheoricalFlower f10T = new TheoricalFlower();
 		f10T.setFlowerApi(f10);
 		f10T.setType("Arbustres");
 		f10T.setFlowerItsap(f10b);
 		f10T.setPhoto("https://kyle.sig.inra.fr/FLEURS/Aubepine6.jpg");
 
-		Flower f11 = new Flower();
+		FlowerINRA f11 = new FlowerINRA();
 		f11.setAutre("Carouge, Cassie");
 		f11.setButineur("Abeilles");
 		f11.setFamille("Fabacées");
@@ -524,7 +522,7 @@ public class DbSeeder implements CommandLineRunner {
 		f11b.setInteret_nectar("3");
 		f11b.setInteret_pollen("2");
 
-		FlowerTest f11T = new FlowerTest();
+		TheoricalFlower f11T = new TheoricalFlower();
 		f11T.setFlowerApi(f11);
 		f11T.setType("Arbres");
 		f11T.setFlowerItsap(f11b);
@@ -571,10 +569,10 @@ public class DbSeeder implements CommandLineRunner {
 		
 		//Load the list of FleurTheoriques in the database
 
-		for (Flower fth : result.getResult()) {
-			this.fleurTheoriqueRepository.save(fth);
+		for (FlowerINRA fth : result.getResult()) {
+			this.flowerINRARepository.save(fth);
 			//fT.setFlowerApi(fth);
-			//this.FlowerTestRepository.save(fT);
+			//this.flowerTestRepository.save(fT);
 		}
 
 		/*
@@ -584,31 +582,31 @@ public class DbSeeder implements CommandLineRunner {
 
 		this.apiaryRepository.save(ap1);
 		//this.apiaryRepository.save(ap2); 
-		this.SoldDeviceRepository.save(sd1);
-		this.SoldDeviceRepository.save(sd2);
-		this.SoldDeviceRepository.save(sd3);
-		this.SoldDeviceRepository.save(sd4);
+		this.soldDeviceRepository.save(sd1);
+		this.soldDeviceRepository.save(sd2);
+		this.soldDeviceRepository.save(sd3);
+		this.soldDeviceRepository.save(sd4);
 
-		//this.HivesRepository.save(h1);
-		//this.HivesRepository.save(h2);
-		//this.HivesRepository.save(h3);
+		//this.hivesRepository.save(h1);
+		//this.hivesRepository.save(h2);
+		//this.hivesRepository.save(h3);
 
 		List<User> users = Arrays.asList(u1, u2, u3, u4);
 		this.userRepository.saveAll(users);
 
-		this.SensorRepository.save(s1);
-		this.SensorRepository.save(s2);
+		this.sensorRepository.save(s1);
+		this.sensorRepository.save(s2);
 
-		this.FlowerTestRepository.save(f4T); this.FlowerTestRepository.save(f4T);
-		this.FlowerTestRepository.save(f4T); this.FlowerTestRepository.save(f5T);
-		this.FlowerTestRepository.save(f4T); this.FlowerTestRepository.save(f6T);
-		this.FlowerTestRepository.save(f6T); this.FlowerTestRepository.save(f7T);
-		this.FlowerTestRepository.save(f8T); this.FlowerTestRepository.save(f9T);
-		this.FlowerTestRepository.save(f4T); this.FlowerTestRepository.save(f8T);
-		this.FlowerTestRepository.save(f4T); this.FlowerTestRepository.save(f10T);
-		this.FlowerTestRepository.save(f10T); this.FlowerTestRepository.save(f11T);
+		this.theoricalFlowerRepository.save(f4T);
+		this.theoricalFlowerRepository.save(f5T);
+		this.theoricalFlowerRepository.save(f6T);
+		this.theoricalFlowerRepository.save(f7T);
+		this.theoricalFlowerRepository.save(f8T); 
+		this.theoricalFlowerRepository.save(f9T);
+		this.theoricalFlowerRepository.save(f10T);
+		this.theoricalFlowerRepository.save(f11T);
 		 
-		// this.ObservedFlowerRepository.save(fl1);
+		// this.observedFlowerRepository.save(fl1);
 
 	}
 }
