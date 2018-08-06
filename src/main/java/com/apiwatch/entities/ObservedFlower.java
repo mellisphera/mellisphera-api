@@ -22,6 +22,7 @@ public class ObservedFlower {
 	public String dateThDebutdate;
 	public String dateThFindate;
 	public String presence;
+	public double poid;
 	public String username;
 	public String idApiary;
 	public String photo;
@@ -190,6 +191,14 @@ public class ObservedFlower {
 
 	public void setDateFin(HashMap<String, Integer> dateFin) {
 		this.dateFin = dateFin;
+	}
+
+	public double getPoid() {
+		return poid;
+	}
+
+	public void setPoid(double d) {
+		this.poid = d;
 	}
 
 	
