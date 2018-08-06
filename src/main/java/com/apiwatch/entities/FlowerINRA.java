@@ -1,5 +1,8 @@
 package com.apiwatch.entities;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "FlowerINRA")
 public class FlowerINRA {
 
 	public String autre;

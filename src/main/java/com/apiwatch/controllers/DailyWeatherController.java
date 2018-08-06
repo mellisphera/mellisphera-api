@@ -28,27 +28,29 @@ import java.util.stream.Collectors;
 @RequestMapping("/dailyweather")
 @CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class DailyWeatherController {
-	@Autowired private DailyWeatherRepository DailyWeatherRepository;
-	@Autowired private HourlyWeatherRepository HourlyWeatherRepository;
-	@Autowired private ApiaryRepository ApiaryRepository;
+	
+	@Autowired private DailyWeatherRepository dailyWeatherRepository;
+	@Autowired private HourlyWeatherRepository hourlyWeatherRepository;
+	@Autowired private ApiaryRepository apiaryRepository;
+	
     public DailyWeatherController() {
     }
 
-    public DailyWeatherController(DailyWeatherRepository DailyWeatherRepository) {
-        this.DailyWeatherRepository = DailyWeatherRepository;
+    public DailyWeatherController(DailyWeatherRepository dailyWeatherRepository) {
+        this.dailyWeatherRepository = dailyWeatherRepository;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<DailyWeather> getAll(){
     int tempMin, tempMax;
-    List<DailyWeather> apiaries=this.DailyWeatherRepository.findAll();
+    List<DailyWeather> apiaries=this.dailyWeatherRepository.findAll();
     return apiaries;
     }
     
     @RequestMapping(value = "/getMinTemps", method = RequestMethod.GET, produces={"application/json"})
     public List<Float> getMinTemps(){
     //int tempMin, tempMax;
-    List<DailyWeather> apiaries=this.DailyWeatherRepository.findAll();
+    List<DailyWeather> apiaries=this.dailyWeatherRepository.findAll();
     List<Float> mintemps = new ArrayList<>();
 	    for(DailyWeather ap : apiaries ) {
 	    	mintemps.add(ap.getMinTempDay());
@@ -63,7 +65,7 @@ public class DailyWeatherController {
     	
     	List<DailyWeather> dailyWeather = new ArrayList<>();
     	
-     	List<HourlyWeather> hourlyWeatherAll=this.HourlyWeatherRepository.findAll();
+     	List<HourlyWeather> hourlyWeatherAll=this.hourlyWeatherRepository.findAll();
      	List<HourlyWeather> hourlyWeatherToday = new ArrayList<>();
      	
      	DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -229,7 +231,7 @@ public class DailyWeatherController {
    		}
      	
      	for(DailyWeather dw : dailyWeather) {
-     		this.DailyWeatherRepository.save(dw);
+     		this.dailyWeatherRepository.save(dw);
      	}
      	
      	return dailyWeather;

@@ -20,24 +20,24 @@ import java.util.Optional;
 public class HiveController {
 	
 	@Autowired
-    private HivesRepository HivesRepository;
+    private HivesRepository hivesRepository;
 
     public HiveController() {
     }
 
-    public HiveController(HivesRepository HivesRepository) {
-        this.HivesRepository = HivesRepository;
+    public HiveController(HivesRepository hivesRepository) {
+        this.hivesRepository = hivesRepository;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAll(){
-    List<Hive> hives=this.HivesRepository.findAll();
+    List<Hive> hives=this.hivesRepository.findAll();
     return hives;
     }
     
     @RequestMapping(value = "/{username}/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllUserHives(@PathVariable String username, @PathVariable String idApiary){
-    List<Hive> allHives=this.HivesRepository.findAll();
+    List<Hive> allHives=this.hivesRepository.findAll();
     List<Hive> userApiaryHives = new ArrayList<>();
     
 	    for(Hive h : allHives) {
@@ -50,24 +50,24 @@ public class HiveController {
     
     @PostMapping
     public void insert(@RequestBody Hive Hive){
-        this.HivesRepository.insert(Hive);
+        this.hivesRepository.insert(Hive);
     }
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Hive hive){ 
-    	 List<Hive> hives= this.HivesRepository.findAll();
+    	 List<Hive> hives= this.hivesRepository.findAll();
          for(Hive h : hives){
          	if(h.getId().equals(id)) {
          		h.setName(hive.getName());
          		h.setDescription(hive.getDescription());
-         		this.HivesRepository.save(h);
+         		this.hivesRepository.save(h);
          	}
          }
     }
     
     @RequestMapping(value = "/details/{idHive}", method = RequestMethod.GET, produces={"application/json"})
     public Hive getHiveDetails(@PathVariable String idHive){
-    List<Hive> hives = this.HivesRepository.findAll();
+    List<Hive> hives = this.hivesRepository.findAll();
     	    for(Hive h : hives) {
     	    	if(h.getId().equals(idHive)) {
     	      		return h;
@@ -78,7 +78,7 @@ public class HiveController {
     
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id){
-      this.HivesRepository.deleteById(id);
+      this.hivesRepository.deleteById(id);
     }
 
 }
