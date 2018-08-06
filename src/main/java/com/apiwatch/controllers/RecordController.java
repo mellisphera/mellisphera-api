@@ -37,31 +37,31 @@ import com.apiwatch.repositories.RecordRepository;
 @CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class RecordController {
 	
-	@Autowired private RecordRepository RecordRepository;
+	@Autowired private RecordRepository recordRepository;
 	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
     public RecordController() {
 	    }
 
-    public RecordController(RecordRepository RecordRepository) {
-	        this.RecordRepository = RecordRepository;
+    public RecordController(RecordRepository recordRepository) {
+	        this.recordRepository = recordRepository;
 	        //this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
     
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
     public void insert(@RequestBody Record record){
-        this.RecordRepository.insert(record);
+        this.recordRepository.insert(record);
     }
     
     @GetMapping("/all")
     public List<Record> getAllSensors(){
-    List<Record> records=this.RecordRepository.findAll();
+    List<Record> records=this.recordRepository.findAll();
     return records;
     }
     
     @GetMapping("/weight")
     public Float[] getJCPWeightRecords(){
-    List<Record> records=this.RecordRepository.findAll();
+    List<Record> records=this.recordRepository.findAll();
     List<Float> weightList = new ArrayList<>();
     
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -81,7 +81,7 @@ public class RecordController {
     
     @GetMapping("/weightDates")
     public String[] getJCPWeightRecordDates(){
-    List<Record> records=this.RecordRepository.findAll();
+    List<Record> records=this.recordRepository.findAll();
     List<String> weightDates = new ArrayList<>();
     
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");

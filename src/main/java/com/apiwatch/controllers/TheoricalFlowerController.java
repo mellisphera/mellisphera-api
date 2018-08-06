@@ -39,6 +39,11 @@ public class TheoricalFlowerController {
     public TheoricalFlowerController() {
 	    }
     
+    public TheoricalFlowerController(TheoricalFlowerRepository theoricalFlowerRepository) {
+		this.theoricalFlowerRepository = theoricalFlowerRepository;
+	} 
+	
+    
     //On récupère toutes les plantes test
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
 	public List<TheoricalFlower> getAllFlowers() {
@@ -119,6 +124,6 @@ public class TheoricalFlowerController {
 	    }
 	    
 	    return resFlowers;
-    } 
-	
+    }
+
 }

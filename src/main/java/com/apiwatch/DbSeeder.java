@@ -61,7 +61,7 @@ public class DbSeeder implements CommandLineRunner {
 	@Autowired
 	private ObservedFlowerRepository observedFlowerRepository;
 	@Autowired
-	private FlowerAPIController fleurTheoController;
+	private FlowerAPIController flowerAPIController;
 
 	// WeatherController wc;
 
@@ -93,7 +93,7 @@ public class DbSeeder implements CommandLineRunner {
     	
     	
     	
-    	FlowerAPI result = fleurTheoController.getListFleur();
+    	FlowerAPI result = flowerAPIController.getListFleur();
     	
     	//final List<Ruche> listeRuches= Arrays.asList(ruche1);
     	//rucher1.setListeRuches(Arrays.asList(ruche1));
@@ -572,7 +572,7 @@ public class DbSeeder implements CommandLineRunner {
 		for (FlowerINRA fth : result.getResult()) {
 			this.flowerINRARepository.save(fth);
 			//fT.setFlowerApi(fth);
-			//this.flowerTestRepository.save(fT);
+			//this.theoricalFlowerRepository.save(fT);
 		}
 
 		/*
