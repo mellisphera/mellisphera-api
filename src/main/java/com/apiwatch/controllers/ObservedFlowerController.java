@@ -23,25 +23,25 @@ import com.apiwatch.repositories.ObservedFlowerRepository;
 
 @Service
 @RestController
-@RequestMapping("/flowers")
+@RequestMapping("/flowersOb")
 @CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class ObservedFlowerController {
 
 	@Autowired
-    private ObservedFlowerRepository ObservedFlowerRepository;
+    private ObservedFlowerRepository observedFlowerRepository;
 	
 	public ObservedFlowerController (){ 
 		
 	}
 	
-	public ObservedFlowerController(ObservedFlowerRepository FleurRepository) {
-        this.ObservedFlowerRepository = FleurRepository;
+	public ObservedFlowerController(ObservedFlowerRepository ObservedFlowerRepository) {
+        this.observedFlowerRepository = ObservedFlowerRepository;
     }
 
 	//Récupère toutes les plantes observées
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
 	public List<ObservedFlower> getAllFlowers() {
-		List<ObservedFlower> allFlowers=this.ObservedFlowerRepository.findAll();
+		List<ObservedFlower> allFlowers=this.observedFlowerRepository.findAll();
 		
 		return allFlowers;
 	}
@@ -49,7 +49,7 @@ public class ObservedFlowerController {
 	//Find all flowers for one Apiary 
 	@RequestMapping(value = "/{username}/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
 	public List<ObservedFlower> getAllUserFlowers(@PathVariable String username, @PathVariable String idApiary) {
-		List<ObservedFlower> allFlowers=this.ObservedFlowerRepository.findAll();
+		List<ObservedFlower> allFlowers=this.observedFlowerRepository.findAll();
 		List<ObservedFlower> userApiaryFlowers = new ArrayList<>();
 		for (ObservedFlower f : allFlowers) {
 			if(f.getUsername().equals(username) && f.getIdApiary().equals(idApiary)) {
@@ -201,23 +201,23 @@ public class ObservedFlowerController {
 		
 	 @DeleteMapping("/{id}")
 	 public void delete(@PathVariable("id") String id){
-	    this.ObservedFlowerRepository.deleteById(id);
+	    this.observedFlowerRepository.deleteById(id);
 	 }
 	
 
 	 @PostMapping
 	 public void insert(@RequestBody ObservedFlower Flower){
-	     this.ObservedFlowerRepository.insert(Flower);
+	     this.observedFlowerRepository.insert(Flower);
 	 }
 	 
 	 //Modifie la date de début floraison observée 
 	 @RequestMapping(value = "/updateDeb/{id}/{annee}", method = RequestMethod.PUT) 
 	 public void updateDebut(@PathVariable("id") String id, @PathVariable String annee, @RequestBody int dateDebut){ 
-		 List<ObservedFlower> flowers= this.ObservedFlowerRepository.findAll();
+		 List<ObservedFlower> flowers= this.observedFlowerRepository.findAll();
 	 	 for(ObservedFlower f : flowers){
 	    	 if(f.getId().equals(id)) {
 	    		 f.setDateDebut(annee,dateDebut);
-	         	this.ObservedFlowerRepository.save(f);
+	         	this.observedFlowerRepository.save(f);
 	         }
 	     }
 	 }
@@ -225,11 +225,11 @@ public class ObservedFlowerController {
 	//Modifie la date de début floraison observée 
 		 @RequestMapping(value = "/updateDebd/{id}/{annee}", method = RequestMethod.PUT) 
 		 public void updateDebudt(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateDebut){ 
-			 List<ObservedFlower> flowers= this.ObservedFlowerRepository.findAll();
+			 List<ObservedFlower> flowers= this.observedFlowerRepository.findAll();
 		 	 for(ObservedFlower f : flowers){
 		    	 if(f.getId().equals(id)) {
 		    		 f.setDateDebutd(annee,dateDebut);
-		         	this.ObservedFlowerRepository.save(f);
+		         	this.observedFlowerRepository.save(f);
 		         }
 		     }
 		 }
@@ -237,11 +237,11 @@ public class ObservedFlowerController {
 	 //Modifie la date de fin floraison observée 
 	 @RequestMapping(value = "/updateFin/{id}/{annee}", method = RequestMethod.PUT) 
 	 public void updateFin(@PathVariable("id") String id, @PathVariable String annee, @RequestBody int dateFin){ 
-	 	 List<ObservedFlower> flowers= this.ObservedFlowerRepository.findAll();
+	 	 List<ObservedFlower> flowers= this.observedFlowerRepository.findAll();
 	 	 for(ObservedFlower f : flowers){
 	    	 if(f.getId().equals(id)) {
 	    		 f.setDateFin(annee,dateFin);
-	         	this.ObservedFlowerRepository.save(f);
+	         	this.observedFlowerRepository.save(f);
 	         }
 	     }
 	     
@@ -250,12 +250,12 @@ public class ObservedFlowerController {
 	 //Modifie la date de fin floraison observée 
 	 @RequestMapping(value = "/updateFind/{id}/{annee}", method = RequestMethod.PUT) 
 	 public void updateFind(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateFin){ 
-	 	 List<ObservedFlower> flowers= this.ObservedFlowerRepository.findAll();
+	 	 List<ObservedFlower> flowers= this.observedFlowerRepository.findAll();
 	 	
 	 	 for(ObservedFlower f : flowers){
 	    	 if(f.getId().equals(id)) {
 	    		 f.setDateFind(annee,dateFin);
-	         	this.ObservedFlowerRepository.save(f);
+	         	this.observedFlowerRepository.save(f);
 	         }
 	     }
 	     
@@ -264,11 +264,11 @@ public class ObservedFlowerController {
 	 //Modifie la Presence d'une fleur dans un rucher
 	 @RequestMapping(value = "/updatePresence/{id}", method = RequestMethod.PUT) 
 	 public void updatePresence(@PathVariable("id") String id, @RequestBody String presence){ 
-	 	 List<ObservedFlower> flowers= this.ObservedFlowerRepository.findAll();
+	 	 List<ObservedFlower> flowers= this.observedFlowerRepository.findAll();
 	     for(ObservedFlower f : flowers){
 	    	 if(f.getId().equals(id)) {
 	         	f.setPresence(presence);
-	         	this.ObservedFlowerRepository.save(f);
+	         	this.observedFlowerRepository.save(f);
 	         }
 	     }
 	 }
@@ -311,7 +311,7 @@ public class ObservedFlowerController {
 			 f.setDateFind("2018","0");
 			 f.setDateFind("2019","0");
 			 f.setDateFind("2020","0");
-		 	 this.ObservedFlowerRepository.save(f);
+		 	 this.observedFlowerRepository.save(f);
 		 }
 	 }
 	 

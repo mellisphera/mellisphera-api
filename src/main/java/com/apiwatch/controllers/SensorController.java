@@ -37,44 +37,44 @@ import com.apiwatch.repositories.ApiaryRepository;
 @CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class SensorController {
 	
-	@Autowired private SensorRepository SensorRepository;
-	@Autowired private HivesRepository HivesRepository;
-	@Autowired private ApiaryRepository ApiaryRepository;
+	@Autowired private SensorRepository sensorRepository;
+	@Autowired private HivesRepository hivesRepository;
+	@Autowired private ApiaryRepository apiaryRepository;
     public SensorController() {
 	    }
 
-    public SensorController(SensorRepository SensorRepository) {
-	        this.SensorRepository = SensorRepository;
+    public SensorController(SensorRepository sensorRepository) {
+	        this.sensorRepository = sensorRepository;
 	        //this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
     
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
     public void insert(@RequestBody Sensor Sensor){
-        this.SensorRepository.insert(Sensor);
+        this.sensorRepository.insert(Sensor);
     }
     
     @GetMapping("/all")
     public List<Sensor> getAllSensors(){
-    List<Sensor> sensors=this.SensorRepository.findAll();
+    List<Sensor> sensors=this.sensorRepository.findAll();
     return sensors;
     }
     
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id){
-      this.SensorRepository.deleteById(id);
+      this.sensorRepository.deleteById(id);
     }
     
     @PutMapping
     public void update(@RequestBody Sensor Sensor){
-        this.SensorRepository.save(Sensor);
+        this.sensorRepository.save(Sensor);
     }
   
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Sensor> getUserSensors(@PathVariable String username){
-    List<Sensor> allSensors=this.SensorRepository.findAll();
+    List<Sensor> allSensors=this.sensorRepository.findAll();
     
-    List<Hive> allHives= this.HivesRepository.findAll();
-    List<Apiary> allApiaries= this.ApiaryRepository.findAll();
+    List<Hive> allHives= this.hivesRepository.findAll();
+    List<Apiary> allApiaries= this.apiaryRepository.findAll();
     List<Sensor> userSensors = new ArrayList<>();
 
     
@@ -118,7 +118,7 @@ public class SensorController {
     
     @RequestMapping(value = "/weight/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Sensor> getUserWeightSensors(@PathVariable String username){
-    List<Sensor> allSensors=this.SensorRepository.findAll();
+    List<Sensor> allSensors=this.sensorRepository.findAll();
     List<Sensor> apiarySensors = new ArrayList<>();
     
 	    for(Sensor a : allSensors) {
@@ -131,12 +131,12 @@ public class SensorController {
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Sensor Sensor){ 
-    	 List<Sensor> sensors= this.SensorRepository.findAll();
+    	 List<Sensor> sensors= this.sensorRepository.findAll();
          for(Sensor s : sensors){
          	if(s.getId().equals(id) && Sensor.getIdApiary()!=null && Sensor.getIdHive()!=null) {
          		s.setIdHive(Sensor.getIdHive());
          		s.setIdApiary(Sensor.getIdApiary());
-         		this.SensorRepository.save(s);
+         		this.sensorRepository.save(s);
          	}
          }
     }

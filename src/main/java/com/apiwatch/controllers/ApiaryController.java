@@ -21,24 +21,24 @@ import java.util.Optional;
 @CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class ApiaryController {
 	@Autowired
-    private ApiaryRepository ApiaryRepository;
+    private ApiaryRepository apiaryRepository;
 
     public ApiaryController() {
     }
 
     public ApiaryController(ApiaryRepository ApiaryRepository) {
-        this.ApiaryRepository = ApiaryRepository;
+        this.apiaryRepository = ApiaryRepository;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<Apiary> getAll(){
-    List<Apiary> apiaries=this.ApiaryRepository.findAll();
+    List<Apiary> apiaries=this.apiaryRepository.findAll();
     return apiaries;
     }
     
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Apiary> getAllUserApiaries(@PathVariable String username){
-	    List<Apiary> allApiaries=this.ApiaryRepository.findAll();
+	    List<Apiary> allApiaries=this.apiaryRepository.findAll();
 	    List<Apiary> userApiaries = new ArrayList<>();
 	    
 	    for(Apiary a : allApiaries) {
@@ -51,7 +51,7 @@ public class ApiaryController {
     
     @RequestMapping(value = "/name/{id}", method = RequestMethod.GET, produces={"application/json"})
     public Map<String,String>getRucherCity(@PathVariable String id){
-	    List<Apiary> allApiaries=this.ApiaryRepository.findAll();
+	    List<Apiary> allApiaries=this.apiaryRepository.findAll();
 	    
 	    Map<String,String> rucherName = new HashMap<>();
 	    for(Apiary ap : allApiaries) {
@@ -65,12 +65,12 @@ public class ApiaryController {
    
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
     public void insert(@RequestBody Apiary Apiary){
-        this.ApiaryRepository.insert(Apiary);
+        this.apiaryRepository.insert(Apiary);
     }
     
     @RequestMapping(value = "/details/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
     public Apiary getApiaryDetails(@PathVariable String idApiary){
-    List<Apiary> apiaries = this.ApiaryRepository.findAll();
+    List<Apiary> apiaries = this.apiaryRepository.findAll();
     	    for(Apiary a : apiaries) {
     	    	if(a.getId().equals(idApiary)) {
     	      		return a;
@@ -81,13 +81,13 @@ public class ApiaryController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Apiary Apiary){ 
-    	 List<Apiary> apiaries= this.ApiaryRepository.findAll();
+    	 List<Apiary> apiaries= this.apiaryRepository.findAll();
          for(Apiary a : apiaries){
          	if(a.getId().equals(id)) {
          		a.setName(Apiary.getName());
          		a.setCodePostal(Apiary.getCodePostal());
          		a.setDescription(Apiary.getDescription());
-         		this.ApiaryRepository.save(a);
+         		this.apiaryRepository.save(a);
          	}
          }
     }

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Fleur")
+@Document(collection = "ObservedFlower")
 public class ObservedFlower {
 
 	@Id
