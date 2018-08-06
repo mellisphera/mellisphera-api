@@ -106,7 +106,7 @@ public class ObservedFlowerController {
 	
 	//Récupères la date de début et de fin de floraison théorique d'une fleur dans un rucher
 		@RequestMapping(value = "/datesthflowersd/{username}/{idApiary}/{name}", method = RequestMethod.GET, produces={"application/json"})
-		public List< String[] > getDatesThFlowersD(@PathVariable String username, @PathVariable String idApiary, @PathVariable String name) {
+		public List< String[] > getDatesThFlowersd(@PathVariable String username, @PathVariable String idApiary, @PathVariable String name) {
 			List<ObservedFlower> allFlowers=getAllUserFlowers(username,idApiary);
 			String dateIntD[] = new String[2];
 			String dateIntF[] = new String[2];
@@ -206,8 +206,8 @@ public class ObservedFlowerController {
 	
 
 	 @PostMapping
-	 public void insert(@RequestBody ObservedFlower Flower){
-	     this.observedFlowerRepository.insert(Flower);
+	 public void insert(@RequestBody ObservedFlower flower){
+	     this.observedFlowerRepository.insert(flower);
 	 }
 	 
 	 //Modifie la date de début floraison observée 
@@ -224,7 +224,7 @@ public class ObservedFlowerController {
 	 
 	//Modifie la date de début floraison observée 
 		 @RequestMapping(value = "/updateDebd/{id}/{annee}", method = RequestMethod.PUT) 
-		 public void updateDebudt(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateDebut){ 
+		 public void updateDebutd(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateDebut){ 
 			 List<ObservedFlower> flowers= this.observedFlowerRepository.findAll();
 		 	 for(ObservedFlower f : flowers){
 		    	 if(f.getId().equals(id)) {
