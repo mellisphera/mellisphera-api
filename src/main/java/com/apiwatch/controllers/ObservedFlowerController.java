@@ -268,7 +268,16 @@ public class ObservedFlowerController {
 	     for(ObservedFlower f : flowers){
 	    	 if(f.getId().equals(id)) {
 	         	f.setPresence(presence);
-	         	this.observedFlowerRepository.save(f);
+	         	if (presence.equals("Faible")) {
+	         		f.setPoid(0.2);
+	         		this.observedFlowerRepository.save(f);
+	         	} else if (presence.equals("Moyen")) {
+	         		f.setPoid(0.6);
+	         		this.observedFlowerRepository.save(f);
+	         	} else {
+	         		f.setPoid(1);
+	         		this.observedFlowerRepository.save(f);
+	         	}
 	         }
 	     }
 	 }
@@ -292,6 +301,7 @@ public class ObservedFlowerController {
 			 f.setPhoto(flower.getPhoto());
 			 //Par défault on attribut la présence "faible"
 			 f.setPresence("Faible");
+			 f.setPoid(0.2);
 			 f.setIdApiary(id);
 			 f.dateDebut = new HashMap<String, Integer>();
 			 //On initialise les années de flo début présenté sur le graph
