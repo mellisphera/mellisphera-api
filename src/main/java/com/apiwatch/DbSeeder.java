@@ -64,8 +64,6 @@ public class DbSeeder implements CommandLineRunner {
 	@Autowired
 	private ObservedFlowerRepository observedFlowerRepository;
 	@Autowired
-	private DailyStockMielRepository dailyStockMielRepository;
-	@Autowired
 	private FlowerAPIController flowerAPIController;
 	
 	// WeatherController wc;
@@ -94,7 +92,6 @@ public class DbSeeder implements CommandLineRunner {
     	this.dailyWeatherRepository.deleteAll();
     	this.hourlyWeatherRepository.deleteAll();
     	this.apiaryRepository.deleteAll();
-    	this.dailyStockMielRepository.deleteAll();
     	
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     	
@@ -565,8 +562,7 @@ public class DbSeeder implements CommandLineRunner {
 		fl1.setUsername("jcp");
 		fl1.setIdApiary(ap1.getId());
 		fl1.setPhoto(f7T.getPhoto());
-
-
+		
 		// System.out.println(users);
 
 		// Load the list of FleurTheoriques in the database
@@ -615,6 +611,7 @@ public class DbSeeder implements CommandLineRunner {
 		this.theoricalFlowerRepository.save(f9T);
 		this.theoricalFlowerRepository.save(f10T);
 		this.theoricalFlowerRepository.save(f11T);
+		
 		 
 		this.observedFlowerRepository.save(fl1);
 
