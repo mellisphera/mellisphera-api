@@ -47,8 +47,8 @@ public class ObservedFlowerController {
 	}
 	
 	//Find all flowers for one Apiary 
-	@RequestMapping(value = "/{username}/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
-	public List<ObservedFlower> getAllUserFlowers(@PathVariable String username, @PathVariable String idApiary) {
+	@RequestMapping(value = "/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
+	public List<ObservedFlower> getAllUserFlowers(@PathVariable String idApiary) {
 		
 		List<ObservedFlower> test=this.observedFlowerRepository.findObservedFlowerByIdApiary(idApiary);
 		
@@ -58,9 +58,9 @@ public class ObservedFlowerController {
 	
 	
 	//Récupères les noms de fleurs du rucher
-	@RequestMapping(value = "/namesflowers/{username}/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
-	public List<String> getNamesFlowers(@PathVariable String username, @PathVariable String idApiary) {
-		List<ObservedFlower> allFlowers=getAllUserFlowers(username,idApiary);
+	@RequestMapping(value = "/namesflowers/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
+	public List<String> getNamesFlowers(@PathVariable String idApiary) {
+		List<ObservedFlower> allFlowers=getAllUserFlowers(idApiary);
 		List<String> noms = new ArrayList<>();
 				
 		for (ObservedFlower f : allFlowers) {
@@ -73,7 +73,7 @@ public class ObservedFlowerController {
 	//Récupères la date de début et de fin de floraison théorique d'une fleur dans un rucher
 	@RequestMapping(value = "/datesthflowers/{id}/{username}/{idApiary}/{name}", method = RequestMethod.GET, produces={"application/json"})
 	public List< int[] > getDatesThFlowers(@PathVariable String id,@PathVariable String username, @PathVariable String idApiary, @PathVariable String name) {
-		List<ObservedFlower> allFlowers=getAllUserFlowers(username,idApiary);
+		List<ObservedFlower> allFlowers=getAllUserFlowers(idApiary);
 		int dateIntD[] = new int[3];
 		int dateIntF[] = new int[3];
 		List< int[] > dates = new ArrayList<>();
@@ -98,8 +98,8 @@ public class ObservedFlowerController {
 	}
 	
 	//Récupères la date de début et de fin de floraison théorique d'une fleur dans un rucher
-		@RequestMapping(value = "/datesthflowersd/{id}/{username}/{idApiary}/{name}", method = RequestMethod.GET, produces={"application/json"})
-		public List< String[] > getDatesThFlowersd(@PathVariable String id,@PathVariable String username, @PathVariable String idApiary, @PathVariable String name) {
+		@RequestMapping(value = "/datesthflowersd/{id}", method = RequestMethod.GET, produces={"application/json"})
+		public List< String[] > getDatesThFlowersd(@PathVariable String id) {
 			List< String[] > dates = new ArrayList<>();
 			Date date = new Date(); // your date
 			Calendar cal = Calendar.getInstance();
@@ -109,10 +109,10 @@ public class ObservedFlowerController {
 			String dateIntF[] = new String[2];
 			
 			ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id);
-			dateIntD[1] = name;
+			dateIntD[1] = flower.getNom();
 			dateIntD[0] = year+"-"+flower.getDateThDebutd();
 			
-			dateIntF[1] = name;
+			dateIntF[1] = flower.getNom();;
 			dateIntF[0] = year+"-"+flower.getDateThFind();
 			
 			dates.add(dateIntD);
@@ -127,7 +127,7 @@ public class ObservedFlowerController {
 	//Retourne les dates de début et fin de floraison observées d'une plante pour un utilisateur ,un rucher et une année
 	@RequestMapping(value = "/datesobflowers/{id}/{username}/{idApiary}/{name}/{annee}", method = RequestMethod.GET, produces={"application/json"})
 	public List< int[] > getDatesObFlowers(@PathVariable String id,@PathVariable String username, @PathVariable String idApiary, @PathVariable String name,@PathVariable String annee) {
-		List<ObservedFlower> allFlowers=getAllUserFlowers(username,idApiary);
+		List<ObservedFlower> allFlowers=getAllUserFlowers(idApiary);
 		int dateIntD[] = new int[3];
 		int dateIntF[] = new int[3];
 		List< int[] > dates = new ArrayList<>();
@@ -156,8 +156,8 @@ public class ObservedFlowerController {
 	}
 	
 	//Retourne les dates de début et fin de floraison observées d'une plante pour un utilisateur ,un rucher et une année
-	@RequestMapping(value = "/datesobflowersd/{id}/{username}/{idApiary}/{name}/{annee}", method = RequestMethod.GET, produces={"application/json"})
-	public List< String[] > getDatesObFlowersd(@PathVariable String id,@PathVariable String username, @PathVariable String idApiary, @PathVariable String name,@PathVariable String annee) {
+	@RequestMapping(value = "/datesobflowersd/{id}/{annee}", method = RequestMethod.GET, produces={"application/json"})
+	public List< String[] > getDatesObFlowersd(@PathVariable String id, @PathVariable String annee) {
 		List< String[] > dates = new ArrayList<>();
 		Date date = new Date(); // your date
 		Calendar cal = Calendar.getInstance();
@@ -169,13 +169,13 @@ public class ObservedFlowerController {
 		ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id);
 		
 		if(!(flower.getDateDebutd().get(annee).equals("0"))) {
-			dateIntD[1] = name;
+			dateIntD[1] = flower.getNom();;
 			dateIntD[0] = year+"-"+flower.getDateDebutd().get(annee);
 			
 			dates.add(dateIntD);
 		}
 		if (!(flower.getDateFind().get(annee).equals("0"))) {
-			dateIntF[1] = name;
+			dateIntF[1] = flower.getNom();;
 			dateIntF[0] = year+"-"+flower.getDateFind().get(annee);
 			
 			dates.add(dateIntF);
@@ -205,6 +205,7 @@ public class ObservedFlowerController {
 		 ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id);
 	 	 flower.setDateDebut(annee,dateDebut);
 	 	 this.observedFlowerRepository.save(flower);
+
 	 }
 	 
 	//Modifie la date de début floraison observée 
@@ -266,7 +267,7 @@ public class ObservedFlowerController {
 	 //ajoute une plante à un rucher s'il elle n'existe pas encore 
 	 @RequestMapping(value = "/add/{id}", method = RequestMethod.PUT) 
 	 public void addFlower(@PathVariable("id") String id, @RequestBody OneObservedFlower flower){ 
-		 List<String> flowers = getNamesFlowers(flower.getUsername(),id);
+		 List<String> flowers = getNamesFlowers(id);
 		 ObservedFlower f = new ObservedFlower();
 		 if (!(flowers.contains(flower.getNom()))) {
 			 f.setNom(flower.getNom());
