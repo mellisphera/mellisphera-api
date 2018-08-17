@@ -52,7 +52,6 @@ public class ObservedFlowerController {
 		
 		List<ObservedFlower> fleurs =this.observedFlowerRepository.findObservedFlowerByIdApiary(idApiary);
 		for(ObservedFlower f : fleurs) {
-			System.out.println("nom : "+f.getNom());
 		}
 		return fleurs;
 	
@@ -116,8 +115,7 @@ public class ObservedFlowerController {
 			
 			dateIntF[1] = flower.getNom();;
 			dateIntF[0] = year+"-"+flower.getDateThFind();
-			System.out.println("dates th 0 "+dateIntD[1]+" "+dateIntD[0]);
-			System.out.println("dates th 1 "+dateIntF[1]+" "+dateIntF[0]);
+			
 			dates.add(dateIntD);
 			dates.add(dateIntF);
 			return dates;
@@ -173,7 +171,6 @@ public class ObservedFlowerController {
 		if(!(flower.getDateDebutd().get(annee).equals("0"))) {
 			dateIntD[1] = flower.getNom();;
 			dateIntD[0] = year+"-"+flower.getDateDebutd().get(annee);
-			System.out.println("dates ob 0 "+dateIntD[1]+" "+dateIntD[0]);
 			dates.add(dateIntD);
 		}
 		if (!(flower.getDateFind().get(annee).equals("0"))) {
@@ -181,7 +178,6 @@ public class ObservedFlowerController {
 			dateIntF[0] = year+"-"+flower.getDateFind().get(annee);
 			
 			dates.add(dateIntF);
-			System.out.println("dates ob 1 "+dateIntF[1]+" "+dateIntF[0]);
 		}
 		return dates;
 	}
