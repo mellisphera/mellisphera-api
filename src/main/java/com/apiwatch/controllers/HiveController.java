@@ -24,37 +24,102 @@ import java.util.Optional;
 public class HiveController {
 
 	@Autowired
-	private HivesRepository HivesRepository; // Interface
 
-	public HiveController() {
-	}
 
-	public HiveController(HivesRepository HivesRepository) {
-		this.HivesRepository = HivesRepository;
-	}
+    private HivesRepository hivesRepository;
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
-	public List<Hive> getAll(){
-		List<Hive> hives=this.HivesRepository.findAll();
-		return hives;
-	}
+    public HiveController() {
+    }
 
-	@RequestMapping(value = "/{username}/{idApiary}", method = RequestMethod.GET, produces={"application/json"}) 
-	public List<Hive> getAllUserHives(@PathVariable String username, @PathVariable String idApiary){
-		List<Hive> allHives=this.HivesRepository.findAll();
-		List<Hive> userApiaryHives = new ArrayList<>();
+    public HiveController(HivesRepository hivesRepository) {
+        this.hivesRepository = hivesRepository;
+    }
 
-		for(Hive h : allHives) {
-			if(h.getUsername().equals(username) && h.getIdApiary().equals(idApiary)) {
-				userApiaryHives.add(h);
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
+    public List<Hive> getAll(){
+    List<Hive> hives=this.hivesRepository.findAll();
+    return hives;
+    }
+    
+    @RequestMapping(value = "/{username}/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
+    public List<Hive> getAllUserHives(@PathVariable String username, @PathVariable String idApiary){
+    /*
+    	List<Hive> allHives=this.hivesRepository.findAll();
+    	List<Hive> userApiaryHives = new ArrayList<>();
+    
+	    for(Hive h : allHives) {
+	    	if(h.getUsername().equals(username) && h.getIdApiary().equals(idApiary)) {
+	    		userApiaryHives.add(h);
+	    	}
+	    }
+	 */
+    	
+    	List<Hive> userApiaryHives = this.hivesRepository.findHiveByIdApiary(idApiary);
+	    return userApiaryHives;
+    }
+    
+    @PostMapping
+    public void insert(@RequestBody Hive Hive){
+        this.hivesRepository.insert(Hive);
+    }
+    
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
+    public void update(@PathVariable("id") String id, @RequestBody Hive hive){ 
+    	/* 
+    	List<Hive> hives= this.hivesRepository.findAll();
+         for(Hive h : hives){
+         	if(h.getId().equals(id)) {
+         		h.setName(hive.getName());
+         		h.setDescription(hive.getDescription());
+         		this.hivesRepository.save(h);
+         	}
+         }
+         */
+    	Hive h = this.hivesRepository.findHiveById(id);
+    	h.setName(hive.getName());
+ 		h.setDescription(hive.getDescription());
+ 		this.hivesRepository.save(h);
+    }
+    
+    @RequestMapping(value = "/details/{idHive}", method = RequestMethod.GET, produces={"application/json"})
+    public Hive getHiveDetails(@PathVariable String idHive){
+    	/*
+    	List<Hive> hives = this.hivesRepository.findAll();
+    	    for(Hive h : hives) {
+    	    	if(h.getId().equals(idHive)) {
+    	      		return h;
+    	    	}
+    	    }
+    	    return null;
+    	    */
+    	
+    	Hive h = this.hivesRepository.findHiveById(idHive);
+    	if (h != null) {
+    	    return h;
+    	} else {
+    		return null;
+    	}
+    }
+    
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") String id){
+      this.hivesRepository.deleteById(id);
+    }
+    
+	@RequestMapping(value = "/update/coordonnees/{id}", method = RequestMethod.PUT)
+	public void updateCoordonnes(@PathVariable("id") String idHive, @RequestBody Hive hive) {
+		List<Hive> hives = this.hivesRepository.findAll();
+		for(Hive h : hives) {
+			if(h.getId().equals(hive.getId())) {
+				h.setCoordonnees(hive.gethivePosX(),hive.gethivePosY());
+				this.hivesRepository.save(h);
 			}
-		}	
-		return userApiaryHives;
+		}
 	}
-
+	
 	@RequestMapping(value="/{username}/{idApiary}/{idHive}",method=RequestMethod.GET, produces= {"application/Json"})
 	public Map<Character,String> coordonnesHiveById(@PathVariable String username, @PathVariable String idApiary,@PathVariable String idHive){
-		List<Hive> hive = this.HivesRepository.findAll();
+		List<Hive> hive = this.hivesRepository.findAll();
 		Map<Character,String> coordonneesHive = new HashMap<>(); 
 		for(Hive h : hive) {
 			if(username.equals(username) && idApiary.equals(idApiary) && idHive.equals(h.getName())) {
@@ -66,48 +131,5 @@ public class HiveController {
 		return coordonneesHive;
 	}
 
-	@PostMapping
-	public void insert(@RequestBody Hive hive){
-		this.HivesRepository.insert(hive);
-	}
-
-	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
-	public void update(@PathVariable("id") String id, @RequestBody Hive hive){ 
-		List<Hive> hives= this.HivesRepository.findAll();
-		for(Hive h : hives){
-			if(h.getId().equals(id)) {
-				h.setName(hive.getName());
-				h.setDescription(hive.getDescription());
-				this.HivesRepository.save(h);
-			}
-		}
-	}
-	
-	@RequestMapping(value = "/update/coordonnees/{id}", method = RequestMethod.PUT)
-	public void updateCoordonnes(@PathVariable("id") String idHive, @RequestBody Hive hive) {
-		List<Hive> hives = this.HivesRepository.findAll();
-		for(Hive h : hives) {
-			if(h.getId().equals(hive.getId())) {
-				h.setCoordonnees(hive.gethivePosX(),hive.gethivePosY());
-				this.HivesRepository.save(h);
-			}
-		}
-	}
-	
-	@RequestMapping(value = "/details/{idHive}", method = RequestMethod.GET, produces={"application/json"})
-	public Hive getHiveDetails(@PathVariable String idHive){	
-		List<Hive> hives = this.HivesRepository.findAll();
-		for(Hive h : hives) {
-			if(h.getId().equals(idHive)) {
-				return h;
-			}
-		}
-		return null;
-	}
-
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") String id){
-		this.HivesRepository.deleteById(id);
-	}
 
 }

@@ -51,8 +51,6 @@ public class ObservedFlowerController {
 	public List<ObservedFlower> getAllUserFlowers(@PathVariable String idApiary) {
 		
 		List<ObservedFlower> fleurs =this.observedFlowerRepository.findObservedFlowerByIdApiary(idApiary);
-		for(ObservedFlower f : fleurs) {
-		}
 		return fleurs;
 	
 	}
