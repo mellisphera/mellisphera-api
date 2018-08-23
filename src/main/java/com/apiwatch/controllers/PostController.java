@@ -27,54 +27,73 @@ import com.apiwatch.repositories.PostRepository;
 public class PostController {
 	
 	@Autowired
-    private PostRepository PostRepository;
+    private PostRepository postRepository;
 
     public PostController() {
     }
 
-    public PostController(PostRepository PostRepository) {
-        this.PostRepository = PostRepository;
+    public PostController(PostRepository postRepository) {
+        this.postRepository = postRepository;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<Post> getAll(){
-    List<Post> posts=this.PostRepository.findAll();
+    List<Post> posts=this.postRepository.findAll();
     return posts;
     }
 
     @PostMapping
     public void insert(@RequestBody Post post){
-        this.PostRepository.insert(post);
+        this.postRepository.insert(post);
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Post post){ 
-    	 List<Post> posts= this.PostRepository.findAll();
+    	/* 
+    	List<Post> posts= this.postRepository.findAll();
          for(Post p : posts){
          	if(p.getId().equals(id)) {
          		p.setContent(post.getContent());
          		p.setTitle(post.getTitle());
          		p.setLoveIts(post.getLoveIts());
-         		this.PostRepository.save(p);
+         		this.postRepository.save(p);
          	}
          }
+         */
+    	Post p = this.postRepository.findPostById(id);
+    	p.setContent(post.getContent());
+ 		p.setTitle(post.getTitle());
+ 		p.setLoveIts(post.getLoveIts());
+ 		this.postRepository.save(p);
+    	
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id){
-      this.PostRepository.deleteById(id);
+      this.postRepository.deleteById(id);
     }
 
  
     @GetMapping("getOne/{id}")
     public Post getById(@PathVariable("id") String id){
-        List<Post> posts= this.PostRepository.findAll();
+        
+    	/*
+    	List<Post> posts= this.postRepository.findAll();
         for(Post p : posts){
         	if(p.getId().equals(id)) {
         		return p;
         	}
         }
         return null;
+        */
+    	
+    	Post p = this.postRepository.findPostById(id);
+    	if (p != null) {
+    		return p;
+    	} else {
+    		return null;
+    	}
+        
     }
 	
 }

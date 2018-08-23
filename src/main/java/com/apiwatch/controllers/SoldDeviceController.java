@@ -36,30 +36,30 @@ import com.apiwatch.repositories.SoldDeviceRepository;
 public class SoldDeviceController {
 	
 	@Autowired
-    private SoldDeviceRepository SoldDeviceRepository;
+    private SoldDeviceRepository soldDeviceRepository;
 	
     public SoldDeviceController() {
 	    }
 
-    public SoldDeviceController(SoldDeviceRepository SoldDeviceRepository) {
-	        this.SoldDeviceRepository = SoldDeviceRepository;
+    public SoldDeviceController(SoldDeviceRepository soldDeviceRepository) {
+	        this.soldDeviceRepository = soldDeviceRepository;
 	        //this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
     
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
-    public void insert(@RequestBody SoldDevice SoldDevice){
-        this.SoldDeviceRepository.insert(SoldDevice);
+    public void insert(@RequestBody SoldDevice soldDevice){
+        this.soldDeviceRepository.insert(soldDevice);
     }
     
     @GetMapping("/all")
     public List<SoldDevice> getAll(){
-    List<SoldDevice> soldDevices=this.SoldDeviceRepository.findAll();
+    List<SoldDevice> soldDevices=this.soldDeviceRepository.findAll();
     return soldDevices;
     }
     
     @GetMapping("/check/{sensorRef}")
     public SoldDevice checkIfSoldDeviceExist(@PathVariable String sensorRef){
-    List<SoldDevice> soldDevices=this.SoldDeviceRepository.findAll();
+    List<SoldDevice> soldDevices=this.soldDeviceRepository.findAll();
     SoldDevice emptySD = new SoldDevice();
     if(sensorRef != null) {
     	 for(SoldDevice sd : soldDevices) {

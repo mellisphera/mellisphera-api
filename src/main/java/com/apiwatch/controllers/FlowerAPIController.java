@@ -33,7 +33,7 @@ import com.apiwatch.weather.WeatherAPI;
 public class FlowerAPIController {
 
 	@Autowired
-	FlowerINRARepository FleurTheoriqueRepository;
+	private FlowerINRARepository flowerINRARepository;
 
 	
 	
@@ -41,8 +41,8 @@ public class FlowerAPIController {
 
 	}
 
-	public FlowerAPIController(FlowerINRARepository fleurTheoriqueRepository) {
-		FleurTheoriqueRepository = fleurTheoriqueRepository;
+	public FlowerAPIController(FlowerINRARepository flowerINRARepository) {
+		this.flowerINRARepository = flowerINRARepository;
 	}
 
 	public FlowerAPI getListFleur(){ 	

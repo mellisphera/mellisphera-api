@@ -39,6 +39,11 @@ public class TheoricalFlowerController {
     public TheoricalFlowerController() {
 	    }
     
+    public TheoricalFlowerController(TheoricalFlowerRepository theoricalFlowerRepository) {
+		this.theoricalFlowerRepository = theoricalFlowerRepository;
+	} 
+	
+    
     //On récupère toutes les plantes test
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
 	public List<TheoricalFlower> getAllFlowers() {
@@ -49,14 +54,12 @@ public class TheoricalFlowerController {
     
     //On réupère les types possible des plantes
     @GetMapping("/types")
-    public List<String> getAllGenre(){
-	    List<TheoricalFlower> flowers =  this.theoricalFlowerRepository.findAll();
-	    List<String> lesTypes = new ArrayList<>();
-	    for(TheoricalFlower f : flowers) {
-	    	if(!lesTypes.contains(f.getType())) {
-	    		lesTypes.add(f.getType());
-	    	}
-	    }
+    public List<String>  getAllGenre(){    	
+    	List<String> lesTypes = new ArrayList<>();
+    	lesTypes.add("Arbres");
+    	lesTypes.add("Arbustres");
+    	lesTypes.add("Herbacées");
+    	lesTypes.add("Bulbes");
 	    return lesTypes;
     }
 	
@@ -119,6 +122,6 @@ public class TheoricalFlowerController {
 	    }
 	    
 	    return resFlowers;
-    } 
-	
+    }
+
 }

@@ -37,8 +37,8 @@ public class FlowerINRAController {
     public FlowerINRAController() {
 	    }
 
-    public FlowerINRAController(FlowerINRARepository thFlowerRepository) {
-	        this.flowerINRARepository = thFlowerRepository;
+    public FlowerINRAController(FlowerINRARepository FlowerINRARepository) {
+	        this.flowerINRARepository = FlowerINRARepository;
 	        //this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
     

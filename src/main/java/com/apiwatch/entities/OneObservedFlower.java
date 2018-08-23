@@ -3,14 +3,14 @@ package com.apiwatch.entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "OneFlower")
+@Document(collection = "OneObservedFlower")
 public class OneObservedFlower {
 	
 	@Id
 	public String id;
 	public String nom;
-	public int dateDebut; //A transformer en date
-	public int dateFin;   //A transformer en date
+	public int dateDebut;
+	public int dateFin;
 	public String dateDebutd; 
 	public String dateFind;
 	public int dateThDebut;

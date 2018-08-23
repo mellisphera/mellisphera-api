@@ -21,20 +21,20 @@ import com.apiwatch.repositories.ProcessReportRepository;
 public class ProcessReportController {
 
 	@Autowired
-    private ProcessReportRepository ProcessReportRepository;
+    private ProcessReportRepository processReportRepository;
 	
     public ProcessReportController() {
 	    }
 
-    public ProcessReportController(ProcessReportRepository ProcessReportRepository) {
-	        this.ProcessReportRepository = ProcessReportRepository;
+    public ProcessReportController(ProcessReportRepository processReportRepository) {
+	        this.processReportRepository = processReportRepository;
 	        //this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
     
     
     @GetMapping("/ruche/{idApiary}")
     public Map<String, List<ProcessReport>> getObservationRuche(@PathVariable("idApiary") String idApiary){
-    List<ProcessReport> tempReports=this.ProcessReportRepository.findAll();
+    List<ProcessReport> tempReports=this.processReportRepository.findAll();
     List<ProcessReport> observationsNature= new ArrayList<>();
     List<String> observations= new ArrayList<>();
     Map<String, List<ProcessReport>> map = new HashMap<>();
@@ -56,7 +56,7 @@ public class ProcessReportController {
     
     @GetMapping("/nature/{idApiary}")
     public Map<String, List<ProcessReport>> getObservationsNature(@PathVariable("idApiary") String idApiary){
-    List<ProcessReport> tempReports=this.ProcessReportRepository.findAll();
+    List<ProcessReport> tempReports=this.processReportRepository.findAll();
     List<ProcessReport> observationsNature= new ArrayList<>();
     List<String> observations= new ArrayList<>();
     Map<String, List<ProcessReport>> map = new HashMap<>();
@@ -78,7 +78,7 @@ public class ProcessReportController {
     
     @GetMapping("/apicole/{idApiary}")
     public Map<String, List<ProcessReport>> getActionApicole(@PathVariable("idApiary") String idApiary){
-    List<ProcessReport> tempReports=this.ProcessReportRepository.findAll();
+    List<ProcessReport> tempReports=this.processReportRepository.findAll();
     List<ProcessReport> observationsNature= new ArrayList<>();
     List<String> observations= new ArrayList<>();
     Map<String, List<ProcessReport>> map = new HashMap<>();
@@ -100,7 +100,7 @@ public class ProcessReportController {
 
     @GetMapping("/apicole-ruche/{nomRuche}")
     public Map<String, List<ProcessReport>> getActionApicoleRuche(@PathVariable("nomRuche") String nomRuche){
-        List<ProcessReport> tempReports=this.ProcessReportRepository.findAll();
+        List<ProcessReport> tempReports=this.processReportRepository.findAll();
         
         List<ProcessReport> observationsRuche= new ArrayList<>();
         List<String> observations= new ArrayList<>();
@@ -124,7 +124,7 @@ public class ProcessReportController {
     
     @GetMapping("/observations-ruche/{nomRuche}")
     public Map<String, List<ProcessReport>> getObservationRuchePerName(@PathVariable("nomRuche") String nomRuche){
-    List<ProcessReport> tempReports=this.ProcessReportRepository.findAll();
+    List<ProcessReport> tempReports=this.processReportRepository.findAll();
    
     List<ProcessReport> observationsRuche= new ArrayList<>();
     List<String> observations= new ArrayList<>();

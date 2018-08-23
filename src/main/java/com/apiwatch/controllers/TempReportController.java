@@ -29,20 +29,20 @@ public class TempReportController {
 	
 	
 	@Autowired
-    private TempReportRepository TempReportRepository;
+    private TempReportRepository tempReportRepository;
 	
     public TempReportController() {
 	    }
 
-    public TempReportController(TempReportRepository TempReportRepository) {
-	        this.TempReportRepository = TempReportRepository;
+    public TempReportController(TempReportRepository tempReportRepository) {
+	        this.tempReportRepository = tempReportRepository;
 	        //this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
     
     
     @GetMapping("/ruche/{idApiary}")
     public Map<String, List<ProcessReportTemp>> getObservationRuche(@PathVariable("idApiary") String idApiary){
-    List<ProcessReportTemp> tempReports=this.TempReportRepository.findAll();
+    List<ProcessReportTemp> tempReports=this.tempReportRepository.findAll();
     List<ProcessReportTemp> observationsNature= new ArrayList<>();
     List<String> observations= new ArrayList<>();
     Map<String, List<ProcessReportTemp>> map = new HashMap<>();
@@ -64,7 +64,7 @@ public class TempReportController {
     
     @GetMapping("/nature/{idApiary}")
     public Map<String, List<ProcessReportTemp>> getObservationsNature(@PathVariable("idApiary") String idApiary){
-    List<ProcessReportTemp> tempReports=this.TempReportRepository.findAll();
+    List<ProcessReportTemp> tempReports=this.tempReportRepository.findAll();
     List<ProcessReportTemp> observationsNature= new ArrayList<>();
     List<String> observations= new ArrayList<>();
     Map<String, List<ProcessReportTemp>> map = new HashMap<>();
@@ -86,7 +86,7 @@ public class TempReportController {
     
     @GetMapping("/apicole/{idApiary}")
     public Map<String, List<ProcessReportTemp>> getActionApicole(@PathVariable("idApiary") String idApiary){
-    List<ProcessReportTemp> tempReports=this.TempReportRepository.findAll();
+    List<ProcessReportTemp> tempReports=this.tempReportRepository.findAll();
     List<ProcessReportTemp> observationsNature= new ArrayList<>();
     List<String> observations= new ArrayList<>();
     Map<String, List<ProcessReportTemp>> map = new HashMap<>();
@@ -109,7 +109,7 @@ public class TempReportController {
     @GetMapping("/apicole-ruche/{nomRuche}")
     public Map<String, List<ProcessReportTemp>> getActionApicoleRuche(@PathVariable("nomRuche") String nomRuche){
         
-    	List<ProcessReportTemp> tempReports=this.TempReportRepository.findAll();
+    	List<ProcessReportTemp> tempReports=this.tempReportRepository.findAll();
         List<ProcessReportTemp> observationsRuche= new ArrayList<>();
         List<String> observations= new ArrayList<>();
         Map<String, List<ProcessReportTemp>> map = new HashMap<>();
@@ -132,7 +132,7 @@ public class TempReportController {
     @GetMapping("/observations-ruche/{nomRuche}")
     public Map<String, List<ProcessReportTemp>> getObservationRuchePerName(@PathVariable("nomRuche") String nomRuche){
     
-    	List<ProcessReportTemp> tempReports=this.TempReportRepository.findAll();
+    	List<ProcessReportTemp> tempReports=this.tempReportRepository.findAll();
     	List<ProcessReportTemp> observationsRuche= new ArrayList<>();
     	List<String> observations= new ArrayList<>();
     	Map<String, List<ProcessReportTemp>> map = new HashMap<>();
@@ -154,7 +154,7 @@ public class TempReportController {
     //for delete everytime the page report launches
     @DeleteMapping(value="/deleteAll")
     public void deleteAll(){    
-    	this.TempReportRepository.deleteAll();
+    	this.tempReportRepository.deleteAll();
     }
 
 }
