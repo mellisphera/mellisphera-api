@@ -11,4 +11,7 @@ import com.apiwatch.entities.Post;
 @Repository
 public interface PostRepository extends MongoRepository<Post,String>{
 
+	
+	Post findPostById(String id);
+	
 }
