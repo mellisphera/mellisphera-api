@@ -107,28 +107,27 @@ public class HiveController {
     }
     
 	@RequestMapping(value = "/update/coordonnees/{id}", method = RequestMethod.PUT)
-	public void updateCoordonnes(@PathVariable("id") String idHive, @RequestBody Hive hive) {
-		List<Hive> hives = this.hivesRepository.findAll();
-		for(Hive h : hives) {
-			if(h.getId().equals(hive.getId())) {
-				h.setCoordonnees(hive.gethivePosX(),hive.gethivePosY());
-				this.hivesRepository.save(h);
-			}
+	public void updateHivePos(@PathVariable("id") String id, @RequestBody Hive hive) {
+		Hive h = this.hivesRepository.findHiveById(id);
+		if(h!=null) {
+			h.setHivePos(hive.getHivePosX(), hive.getHivePosY());
+			this.hivesRepository.save(h);
 		}
 	}
 	
 	@RequestMapping(value="/{username}/{idApiary}/{idHive}",method=RequestMethod.GET, produces= {"application/Json"})
-	public Map<Character,String> coordonnesHiveById(@PathVariable String username, @PathVariable String idApiary,@PathVariable String idHive){
-		List<Hive> hive = this.hivesRepository.findAll();
-		Map<Character,String> coordonneesHive = new HashMap<>(); 
-		for(Hive h : hive) {
-			if(username.equals(username) && idApiary.equals(idApiary) && idHive.equals(h.getName())) {
-				coordonneesHive.put('x', h.gethivePosX());
-				coordonneesHive.put('y', h.gethivePosY());
-			}
-
+	public Map<Character,String> getPosById(@PathVariable String username, @PathVariable String idApiary,@PathVariable String idHive){
+		Map<Character,String> coordonneesHive = new HashMap<>();
+		Hive h = this.hivesRepository.findHiveById(idHive);
+		if(h!=null && h.getUsername().equals(username)) {
+			coordonneesHive.put('x', h.getHivePosX());
+			coordonneesHive.put('y', h.getHivePosY());
+			return coordonneesHive;
 		}
-		return coordonneesHive;
+		else {
+			return null;
+		}
+		
 	}
 
 

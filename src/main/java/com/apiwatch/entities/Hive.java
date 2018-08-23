@@ -79,21 +79,21 @@ public class Hive {
 			this.idApiary = idApiary;
 		}
 		
-		public String gethivePosX() {
+		public String getHivePosX() {
 			return ""+this.hivePosX;
 		}
 		
-		public String gethivePosY() {
+		public String getHivePosY() {
 			return ""+this.hivePosY;
 		}
-		public void setCoordonnees(String x, String y) {
+		public void setHivePos(String x, String y) {
 			this.hivePosX = Float.parseFloat(x);
 			this.hivePosY = Float.parseFloat(y);
 		}
 		@Override
 		public String toString() {
 			return "Hive [id=" + id + ", name=" + name + ", description=" + description + ", apiary=" + apiary
-					+ ", username=" + username + ", idApiary=" + idApiary + ", hivePosX="+hivePosX+", coordoneesY="+hivePosY+"]";
+					+ ", username=" + username + ", idApiary=" + idApiary+"]";
 		}
 		
 		
