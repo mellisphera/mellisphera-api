@@ -3,7 +3,9 @@ package com.apiwatch.entities;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "Post")
 public class Post {
 	@Id
 	public String id;

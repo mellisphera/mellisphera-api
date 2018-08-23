@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.apiwatch.controllers.DailyStockMielController;
 import com.apiwatch.controllers.FlowerAPIController;
 import com.apiwatch.entities.Apiary;
 import com.apiwatch.entities.FlowerINRA;
@@ -16,6 +17,7 @@ import com.apiwatch.entities.Record;
 import com.apiwatch.entities.Sensor;
 import com.apiwatch.entities.SoldDevice;
 import com.apiwatch.entities.User;
+import com.apiwatch.entities.DailyStockMiel;
 import com.apiwatch.repositories.ApiaryRepository;
 import com.apiwatch.repositories.DailyWeatherRepository;
 import com.apiwatch.repositories.FlowerINRARepository;
@@ -27,6 +29,7 @@ import com.apiwatch.repositories.PostRepository;
 import com.apiwatch.repositories.SensorRepository;
 import com.apiwatch.repositories.SoldDeviceRepository;
 import com.apiwatch.repositories.UserRepository;
+import com.apiwatch.repositories.DailyStockMielRepository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -61,8 +64,8 @@ public class DbSeeder implements CommandLineRunner {
 	@Autowired
 	private ObservedFlowerRepository observedFlowerRepository;
 	@Autowired
-	private FlowerAPIController fleurTheoController;
-
+	private FlowerAPIController flowerAPIController;
+	
 	// WeatherController wc;
 
 
@@ -89,11 +92,12 @@ public class DbSeeder implements CommandLineRunner {
     	this.dailyWeatherRepository.deleteAll();
     	this.hourlyWeatherRepository.deleteAll();
     	this.apiaryRepository.deleteAll();
+    	
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     	
     	
     	
-    	FlowerAPI result = fleurTheoController.getListFleur();
+    	FlowerAPI result = flowerAPIController.getListFleur();
     	
     	//final List<Ruche> listeRuches= Arrays.asList(ruche1);
     	//rucher1.setListeRuches(Arrays.asList(ruche1));
@@ -159,14 +163,14 @@ public class DbSeeder implements CommandLineRunner {
     	ap4.setDescription("Le rucher qui se situe à Toronto");
     	ap4.setCodePostal("Toronto");
     	ap4.setUsername("jhe");
-    	
+    	*/
     	Hive h1 = new Hive();
     	h1.setId("1");
     	h1.setName("Ma premiere ruche");
     	h1.setDescription("C'est ma première ruche qui contient près de 1000 abeilles");
-    	h1.setIdApiary("1");
+    	h1.setIdApiary(ap1.getId());
     	h1.setUsername("jcp");
-    	
+    	/*
     	Hive h2 = new Hive();
     	h2.setId("2");
     	h2.setName("Ruche 2");
@@ -530,12 +534,15 @@ public class DbSeeder implements CommandLineRunner {
 
 		ObservedFlower fl1 = new ObservedFlower();
 		fl1.setId("1");
-		fl1.setNom(f5.getFrancais());
-		fl1.setDateThDebut(f5.getFlomin());
-		fl1.setDateThFin(f5.getFlomax());
-		fl1.setDateThDebutd(f5.getFlomind());
-		fl1.setDateThFind(f5.getFlomaxd());
-		fl1.setPresence(" ");
+		fl1.setNom(f7.getFrancais());
+		fl1.setDateThDebut(f7.getFlomin());
+		fl1.setDateThFin(f7.getFlomax());
+		fl1.setDateThDebutd(f7.getFlomind());
+		fl1.setDateThFind(f7.getFlomaxd());
+		fl1.setDateThDebutdate(f7.getFlomindate());
+		fl1.setDateThFindate(f7.getFlomaxdate());
+		fl1.setPresence("Faible");
+		fl1.setPoid(0.2);
 		fl1.dateDebut = new HashMap<String, Integer>();
 		fl1.setDateDebut("2018", 5);
 		fl1.setDateDebut("2019", 0);
@@ -545,18 +552,17 @@ public class DbSeeder implements CommandLineRunner {
 		fl1.setDateFin("2019", 0);
 		fl1.setDateFin("2020", 0);
 		fl1.dateDebutd = new HashMap<String, String>();
-		fl1.setDateDebutd("2018", "02-02");
+		fl1.setDateDebutd("2018", f7.getFlomind());
 		fl1.setDateDebutd("2019", "0");
 		fl1.setDateDebutd("2020", "0");
 		fl1.dateFind = new HashMap<String, String>();
-		fl1.setDateFind("2018", "05-02");
+		fl1.setDateFind("2018", f7.getFlomaxd());
 		fl1.setDateFind("2019", "0");
 		fl1.setDateFind("2020", "0");
-		fl1.setUsername("jhe");
-		fl1.setIdApiary("4");
-		fl1.setPhoto(f5T.getPhoto());
-
-
+		fl1.setUsername("jcp");
+		fl1.setIdApiary(ap1.getId());
+		fl1.setPhoto(f7T.getPhoto());
+		
 		// System.out.println(users);
 
 		// Load the list of FleurTheoriques in the database
@@ -572,7 +578,7 @@ public class DbSeeder implements CommandLineRunner {
 		for (FlowerINRA fth : result.getResult()) {
 			this.flowerINRARepository.save(fth);
 			//fT.setFlowerApi(fth);
-			//this.flowerTestRepository.save(fT);
+			//this.theoricalFlowerRepository.save(fT);
 		}
 
 		/*
@@ -587,7 +593,7 @@ public class DbSeeder implements CommandLineRunner {
 		this.soldDeviceRepository.save(sd3);
 		this.soldDeviceRepository.save(sd4);
 
-		//this.hivesRepository.save(h1);
+		this.hivesRepository.save(h1);
 		//this.hivesRepository.save(h2);
 		//this.hivesRepository.save(h3);
 
@@ -605,8 +611,9 @@ public class DbSeeder implements CommandLineRunner {
 		this.theoricalFlowerRepository.save(f9T);
 		this.theoricalFlowerRepository.save(f10T);
 		this.theoricalFlowerRepository.save(f11T);
+		
 		 
-		// this.observedFlowerRepository.save(fl1);
+		this.observedFlowerRepository.save(fl1);
 
 	}
 }

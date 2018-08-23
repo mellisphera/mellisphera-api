@@ -16,14 +16,14 @@ import com.apiwatch.weather.WeatherAPI;
 @CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class WeatherAPIController {
 	
-	@Autowired WeatherAPIRepository MeteoRepository;
+	@Autowired WeatherAPIRepository meteoRepository;
 
 	
 	public WeatherAPIController() {
     }
 
-	public WeatherAPIController(WeatherAPIRepository MeteoRepository) {
-	        this.MeteoRepository = MeteoRepository;
+	public WeatherAPIController(WeatherAPIRepository meteoRepository) {
+	        this.meteoRepository = meteoRepository;
 	}
 	
 	 @RequestMapping(value="/actualweather/{city}", method=RequestMethod.GET,produces = "application/json")
