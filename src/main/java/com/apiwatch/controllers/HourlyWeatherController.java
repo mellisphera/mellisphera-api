@@ -26,24 +26,24 @@ import com.apiwatch.weather.HourlyWeather;
 public class HourlyWeatherController {
 	
 	@Autowired
-    private HourlyWeatherRepository HourlyWeatherRepository;
+    private HourlyWeatherRepository hourlyWeatherRepository;
 
     public HourlyWeatherController() {
     }
 
-    public HourlyWeatherController(HourlyWeatherRepository HourlyWeatherRepository) {
-        this.HourlyWeatherRepository = HourlyWeatherRepository;
+    public HourlyWeatherController(HourlyWeatherRepository hourlyWeatherRepository) {
+        this.hourlyWeatherRepository = hourlyWeatherRepository;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<HourlyWeather> getAll(){
-    List<HourlyWeather> posts=this.HourlyWeatherRepository.findAll();
+    List<HourlyWeather> posts=this.hourlyWeatherRepository.findAll();
     return posts;
     }
 
     @PostMapping
-    public void insert(@RequestBody HourlyWeather HourlyWeather){
-        this.HourlyWeatherRepository.insert(HourlyWeather);
+    public void insert(@RequestBody HourlyWeather hourlyWeatherRepository){
+        this.hourlyWeatherRepository.insert(hourlyWeatherRepository);
     }
 
     /*
