@@ -71,7 +71,7 @@ public class ApiaryController {
     	Map<String,String> rucherName = new HashMap<>();
     	Apiary ap = this.apiaryRepository.findApiaryById(id);
     	if (ap != null) {
-    		rucherName.put("name", ap.getCodePostal());
+    		rucherName.put("name", ap.getVille());
         	
     	    return rucherName;
     	} else {
@@ -117,6 +117,7 @@ public class ApiaryController {
     	
     	Apiary a= this.apiaryRepository.findApiaryById(id);
     	a.setName(Apiary.getName());
+    	a.setVille(Apiary.getVille());
  		a.setCodePostal(Apiary.getCodePostal());
  		a.setDescription(Apiary.getDescription());
  		this.apiaryRepository.save(a);

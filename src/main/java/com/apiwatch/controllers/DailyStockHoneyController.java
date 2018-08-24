@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import com.apiwatch.entities.DailyStockMiel;
+import com.apiwatch.entities.DailyStockHoney;
 import com.apiwatch.entities.Hive;
 import com.apiwatch.entities.Post;
 import com.apiwatch.repositories.ApiaryRepository;
@@ -20,6 +20,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/dailyStockMiel")
 @CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
-public class DailyStockMielController {
+public class DailyStockHoneyController {
 
 }
