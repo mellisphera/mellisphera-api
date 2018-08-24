@@ -26,6 +26,7 @@ import com.apiwatch.repositories.HivesRepository;
 import com.apiwatch.repositories.HourlyWeatherRepository;
 import com.apiwatch.repositories.ObservedFlowerRepository;
 import com.apiwatch.repositories.PostRepository;
+import com.apiwatch.repositories.ProcessReportRepository;
 import com.apiwatch.repositories.SensorRepository;
 import com.apiwatch.repositories.SoldDeviceRepository;
 import com.apiwatch.repositories.UserRepository;
@@ -64,6 +65,9 @@ public class DbSeeder implements CommandLineRunner {
 	@Autowired
 	private ObservedFlowerRepository observedFlowerRepository;
 	@Autowired
+	private ProcessReportRepository processReportRepository;
+	
+	@Autowired
 	private FlowerAPIController flowerAPIController;
 	
 	// WeatherController wc;
@@ -76,7 +80,7 @@ public class DbSeeder implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
     	/*Cette partie du code est a commenter pour le déploiement en mode PRODUCTION*/
-    	this.userRepository.deleteAll();
+    	/*this.userRepository.deleteAll();
     	
     	this.hivesRepository.deleteAll();
     	this.sensorRepository.deleteAll();
@@ -91,7 +95,8 @@ public class DbSeeder implements CommandLineRunner {
     	this.flowerINRARepository.deleteAll();
     	this.dailyWeatherRepository.deleteAll();
     	this.hourlyWeatherRepository.deleteAll();
-    	this.apiaryRepository.deleteAll();
+    	this.apiaryRepository.deleteAll();*/
+    	this.processReportRepository.deleteAll();
     	
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     	
@@ -586,7 +591,7 @@ public class DbSeeder implements CommandLineRunner {
 		 * this.apiaryRepository.save(ap4);
 		 */
 
-		this.apiaryRepository.save(ap1);
+		/*this.apiaryRepository.save(ap1);
 		//this.apiaryRepository.save(ap2); 
 		this.soldDeviceRepository.save(sd1);
 		this.soldDeviceRepository.save(sd2);
@@ -613,7 +618,7 @@ public class DbSeeder implements CommandLineRunner {
 		this.theoricalFlowerRepository.save(f11T);
 		
 		 
-		this.observedFlowerRepository.save(fl1);
+		this.observedFlowerRepository.save(fl1);*/
 
 	}
 }
