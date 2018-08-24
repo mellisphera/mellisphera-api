@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.apiwatch.controllers.DailyStockMielController;
+import com.apiwatch.controllers.DailyStockHoneyController;
 import com.apiwatch.controllers.FlowerAPIController;
 import com.apiwatch.entities.Apiary;
 import com.apiwatch.entities.FlowerINRA;
@@ -17,7 +17,7 @@ import com.apiwatch.entities.Record;
 import com.apiwatch.entities.Sensor;
 import com.apiwatch.entities.SoldDevice;
 import com.apiwatch.entities.User;
-import com.apiwatch.entities.DailyStockMiel;
+import com.apiwatch.entities.DailyStockHoney;
 import com.apiwatch.repositories.ApiaryRepository;
 import com.apiwatch.repositories.DailyWeatherRepository;
 import com.apiwatch.repositories.FlowerINRARepository;
@@ -29,7 +29,7 @@ import com.apiwatch.repositories.PostRepository;
 import com.apiwatch.repositories.SensorRepository;
 import com.apiwatch.repositories.SoldDeviceRepository;
 import com.apiwatch.repositories.UserRepository;
-import com.apiwatch.repositories.DailyStockMielRepository;
+import com.apiwatch.repositories.DailyStockHoneyRepository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -133,7 +133,7 @@ public class DbSeeder implements CommandLineRunner {
     	ap1.setLongitude(11.3f);
     	ap1.setName("Mon 1er rucher");
     	ap1.setDescription("Le rucher qui se situe à Bizanos");
-    	ap1.setCodePostal("Bizanos");
+    	ap1.setVille("Bizanos");
     	ap1.setUsername("jcp");
     	/*
     	

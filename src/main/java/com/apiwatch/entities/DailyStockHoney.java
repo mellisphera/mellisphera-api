@@ -7,8 +7,8 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "DailyStockMiel")
-public class DailyStockMiel {
+@Document(collection = "DailyStockHoney")
+public class DailyStockHoney {
 	
 	@Id
 	public String id;
@@ -20,7 +20,7 @@ public class DailyStockMiel {
 	public String idHive;
 	public String username;
 	
-	public DailyStockMiel(String id, String nom, double stockJ, double apportJ, Date date, String idApiary,
+	public DailyStockHoney(String id, String nom, double stockJ, double apportJ, Date date, String idApiary,
 			String idHive, String username) {
 		super();
 		this.id = id;
@@ -33,7 +33,7 @@ public class DailyStockMiel {
 		this.username = username;
 	}
 	
-	public DailyStockMiel() {
+	public DailyStockHoney() {
 		
 	}
 	

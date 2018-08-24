@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Apiary")
 public class Apiary {
+
 	@Id
 	public String id;
 	public float latitude;
@@ -15,6 +16,7 @@ public class Apiary {
 	public String name;
 	public String description;
 	public String codePostal;
+	public String ville;
 	public Date createdAt;
 	public String urlPhoto;
 	public String username; 
@@ -22,13 +24,12 @@ public class Apiary {
 	public List<Hive> hives;
 	
 	
-	
 	public Apiary() {
 		super();
 	}
 	
 	public Apiary(String id, float latitude, float longitude, String name, String description, String codePostal,
-			Date createdAt, String urlPhoto, String username, User user, List<Hive> hives) {
+			String ville, Date createdAt, String urlPhoto, String username, User user, List<Hive> hives) {
 		super();
 		this.id = id;
 		this.latitude = latitude;
@@ -36,12 +37,15 @@ public class Apiary {
 		this.name = name;
 		this.description = description;
 		this.codePostal = codePostal;
+		this.ville = ville;
 		this.createdAt = createdAt;
 		this.urlPhoto = urlPhoto;
 		this.username = username;
 		this.user = user;
 		this.hives = hives;
 	}
+
+
 	public String getId() {
 		return id;
 	}
@@ -109,11 +113,23 @@ public class Apiary {
 		this.hives = hives;
 	}
 
+	
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Apiary [id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + ", name=" + name
-				+ ", description=" + description + ", codePostal=" + codePostal + ", createdAt=" + createdAt
-				+ ", urlPhoto=" + urlPhoto + ", username=" + username + ", user=" + user + ", hives=" + hives + "]";
+				+ ", description=" + description + ", codePostal=" + codePostal + ", ville=" + ville + ", createdAt="
+				+ createdAt + ", urlPhoto=" + urlPhoto + ", username=" + username + ", user=" + user + ", hives="
+				+ hives + "]";
 	}
 	
 }
