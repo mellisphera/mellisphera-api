@@ -1,20 +1,25 @@
 package com.apiwatch.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apiwatch.entities.ProcessReport;
 import com.apiwatch.repositories.ProcessReportRepository;
 
+@Service
 @RestController
 @RequestMapping("/report")
 @CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
@@ -32,119 +37,31 @@ public class ProcessReportController {
     }
     
     
-    @GetMapping("/ruche/{idApiary}")
-    public Map<String, List<ProcessReport>> getObservationRuche(@PathVariable("idApiary") String idApiary){
-    List<ProcessReport> tempReports=this.processReportRepository.findAll();
-    List<ProcessReport> observationsNature= new ArrayList<>();
-    List<String> observations= new ArrayList<>();
-    Map<String, List<ProcessReport>> map = new HashMap<>();
     
-    
-    for(ProcessReport tr : tempReports) {
-    	if(tr.getType() != null) {
-    	if(tr.getType().equals("ObservationRuche") && tr.getIdApiary().equals(idApiary)) {
-    		observationsNature.add(tr);
-    		observations.add(tr.getSentence());
-    		}
-    	}
+    @RequestMapping(value = "/insert", method = RequestMethod.PUT)
+    public void insert(@RequestBody ProcessReport observation){
+        this.processReportRepository.insert(observation);
     }
     
-    map.put("ObservationRuche",observationsNature);
-   
-    return map;
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<ProcessReport> getAll(){
+        List<ProcessReport> reports = this.processReportRepository.findAll();
+        return reports;
     }
     
-    @GetMapping("/nature/{idApiary}")
-    public Map<String, List<ProcessReport>> getObservationsNature(@PathVariable("idApiary") String idApiary){
-    List<ProcessReport> tempReports=this.processReportRepository.findAll();
-    List<ProcessReport> observationsNature= new ArrayList<>();
-    List<String> observations= new ArrayList<>();
-    Map<String, List<ProcessReport>> map = new HashMap<>();
-    
-    
-    for(ProcessReport tr : tempReports) {
-    	if(tr.getType() != null) {
-    	if(tr.getType().equals("ObservationNature") && tr.getIdApiary().equals(idApiary)) {
-    		observationsNature.add(tr);
-    		observations.add(tr.getSentence());
-    		}
-    	}
+    @RequestMapping(value = "/apiary/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
+    public List<ProcessReport> getReportsApiray(@PathVariable("idApiary") String idApiary){
+        List<ProcessReport> reports = this.processReportRepository.findProcessReportByIdApiary(idApiary);
+        Collections.reverse(reports);
+        return reports;
     }
     
-    map.put("ObservationNature",observationsNature);
-   
-    return map;
+    @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.GET, produces={"application/json"})
+    public List<ProcessReport> getReportsHive(@PathVariable("idHive") String idHive){
+        List<ProcessReport> reports = this.processReportRepository.findProcessReportByIdHive(idHive);
+        Collections.reverse(reports);
+        return reports;
     }
-    
-    @GetMapping("/apicole/{idApiary}")
-    public Map<String, List<ProcessReport>> getActionApicole(@PathVariable("idApiary") String idApiary){
-    List<ProcessReport> tempReports=this.processReportRepository.findAll();
-    List<ProcessReport> observationsNature= new ArrayList<>();
-    List<String> observations= new ArrayList<>();
-    Map<String, List<ProcessReport>> map = new HashMap<>();
-    
-    
-    for(ProcessReport tr : tempReports) {
-    	if(tr.getType() != null) {
-    	if(tr.getType().equals("OperationApi") && tr.getIdApiary().equals(idApiary)) {
-    		observationsNature.add(tr);
-    		observations.add(tr.getSentence());
-    		}
-    	}
-    }
-    
-    map.put("OperationApi",observationsNature);
-   
-    return map;
-    }
-
-    @GetMapping("/apicole-ruche/{nomRuche}")
-    public Map<String, List<ProcessReport>> getActionApicoleRuche(@PathVariable("nomRuche") String nomRuche){
-        List<ProcessReport> tempReports=this.processReportRepository.findAll();
-        
-        List<ProcessReport> observationsRuche= new ArrayList<>();
-        List<String> observations= new ArrayList<>();
-        Map<String, List<ProcessReport>> map = new HashMap<>();
-        
-        
-        for(ProcessReport tr : tempReports) {
-        	if(tr.getType() != null && tr.getRuche()!=null) {
-        	if(tr.getType().equals("OperationApi") && tr.getRuche().contains(nomRuche)) {
-        		
-        		observationsRuche.add(tr);
-        		observations.add(tr.getSentence());
-        		}
-        	}
-        }
-        
-        map.put("OperationApi",observationsRuche);
-       
-        return map;
-    }
-    
-    @GetMapping("/observations-ruche/{nomRuche}")
-    public Map<String, List<ProcessReport>> getObservationRuchePerName(@PathVariable("nomRuche") String nomRuche){
-    List<ProcessReport> tempReports=this.processReportRepository.findAll();
-   
-    List<ProcessReport> observationsRuche= new ArrayList<>();
-    List<String> observations= new ArrayList<>();
-    Map<String, List<ProcessReport>> map = new HashMap<>();
-    
-    
-    for(ProcessReport tr : tempReports) {
-    	if(tr.getType() != null && tr.getRuche()!=null) {
-    	if(tr.getType().equals("ObservationRuche") && tr.getRuche().contains(nomRuche)) {
-    		observationsRuche.add(tr);
-    		observations.add(tr.getSentence());
-    		}
-    	}
-    }
-    
-    map.put("ObservationRuche",observationsRuche);
-   
-    return map;
-    }
-	
-	
+    	
 	
 }
