@@ -71,48 +71,23 @@ public class SensorController {
   
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Sensor> getUserSensors(@PathVariable String username){
-    List<Sensor> allSensors=this.sensorRepository.findAll();
-    
-    List<Hive> allHives= this.hivesRepository.findAll();
-    List<Apiary> allApiaries= this.apiaryRepository.findAll();
-    List<Sensor> userSensors = new ArrayList<>();
-
-    
-    for(Apiary a : allApiaries) {
-    	System.out.println("a.name : "+ a.getName());
-    }
-    
-    for(Sensor s : allSensors) {
-    	if(username!=null && s.getUsername().equals(username)) {
-    		for(Apiary a : allApiaries){
-    			System.out.println("id Apiary in Sensor : "+ s.getIdApiary()+" id apiary in Apiary : "+a.getId());
-    			if(s.getIdApiary()==a.getId()) {
-    				System.out.println( "--------------------------------------");
-    				//System.out.println("s.getIdApiary() : " + s.getIdApiary() + " a.getId() " + a.getId());
-    				//System.out.println( "s.getApiaryName()  : " + s.getApiaryName());
-        			s.setApiaryName(a.getName());
-        			//System.out.println( "s.getApiaryName()  : " + s.getApiaryName());
-        			System.out.println( "--------------------------------------");
-        			
-    			}
-    		}
-	    	for(Hive h : allHives)
-			{	System.out.println( "--------------------------------------");
-					System.out.println("id hive in Sensor : "+ s.getIdHive()+" id hive in HIVE : "+h.getId());
-					if(s.getIdHive()==h.getId()) {
-	    				
-	    				System.out.println("s.getIdHive() : " + s.getIdHive() + " h.getId() " + h.getId());
-	    				s.setHiveName(h.getName());
-	    				//System.out.println( "s.getHiveName()  : " + s.getHiveName());
-	    				System.out.println( "--------------------------------------");
-	    				
-	    	    	}    		
-			}
-    		userSensors.add(s);
-    	}
-    }
-    
-    return userSensors;
+	    List<Sensor> sensors = this.sensorRepository.findSensorByUsername(username);
+	    Apiary ap = new Apiary();
+	    Hive hv = new Hive();
+	    
+	    for(Sensor s : sensors) {
+	    	ap = this.apiaryRepository.findApiaryById(s.getIdApiary());
+	    	hv = this.hivesRepository.findHiveById(s.getIdHive());
+	    	if (ap != null) {
+	    		s.setApiaryName(ap.getName());
+		    	s.setHiveName(hv.getName());
+	    	} else {
+	    		s.setApiaryName("stock");
+		    	s.setHiveName("stock");
+	    	}
+	    }
+	    
+	    return sensors;
     
     }
     
