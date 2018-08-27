@@ -15,6 +15,8 @@ import com.apiwatch.entities.ProcessReport;
 @Repository
 public interface ProcessReportRepository extends MongoRepository<ProcessReport,String> {
 
+	ProcessReport findProcessReportById(String id);
+	
 	List<ProcessReport> findProcessReportByIdApiary(String idApiary);
 	
 	List<ProcessReport> findProcessReportByIdHive(String idAHive);

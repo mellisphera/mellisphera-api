@@ -591,7 +591,9 @@ public class DbSeeder implements CommandLineRunner {
 		 * this.apiaryRepository.save(ap4);
 		 */
 
-		/*this.apiaryRepository.save(ap1);
+		/*
+		this.apiaryRepository.save(ap1);
+		
 		//this.apiaryRepository.save(ap2); 
 		this.soldDeviceRepository.save(sd1);
 		this.soldDeviceRepository.save(sd2);
