@@ -10,7 +10,7 @@ public class SoldDevice {
 	public String id;
 	public String sensorRef;
 	public String type;
-	public Date dateSold;
+	public String dateSold;
 	public String soldTo;
 	public String soldToEmail;
 	
@@ -19,7 +19,7 @@ public class SoldDevice {
 		super();
 	}
 
-	public SoldDevice(String id, String sensorRef, String type, Date dateSold, String soldTo, String soldToEmail) {
+	public SoldDevice(String id, String sensorRef, String type, String dateSold, String soldTo, String soldToEmail) {
 		super();
 		this.id = id;
 		this.sensorRef = sensorRef;
@@ -53,11 +53,11 @@ public class SoldDevice {
 		this.type = type;
 	}
 
-	public Date getDateSold() {
+	public String getDateSold() {
 		return dateSold;
 	}
 
-	public void setDateSold(Date dateSold) {
+	public void setDateSold(String dateSold) {
 		this.dateSold = dateSold;
 	}
 

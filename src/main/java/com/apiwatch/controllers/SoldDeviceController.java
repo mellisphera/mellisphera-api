@@ -31,7 +31,7 @@ import com.apiwatch.entities.User;
 import com.apiwatch.repositories.SoldDeviceRepository;
 
 @RestController
-@RequestMapping("/sold-devices")
+@RequestMapping("/sold_devices")
 @CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class SoldDeviceController {
 	
@@ -59,18 +59,19 @@ public class SoldDeviceController {
     
     @GetMapping("/check/{sensorRef}")
     public SoldDevice checkIfSoldDeviceExist(@PathVariable String sensorRef){
-    List<SoldDevice> soldDevices=this.soldDeviceRepository.findAll();
-    SoldDevice emptySD = new SoldDevice();
-    if(sensorRef != null) {
-    	 for(SoldDevice sd : soldDevices) {
-    	    	if(sd.getSensorRef().equals(sensorRef)) {
-    	    		return sd;
-    	    	}
-    	    }
+    	
+	    List<SoldDevice> soldDevices=this.soldDeviceRepository.findAll();
+	    SoldDevice emptySD = new SoldDevice();
+	    if(sensorRef != null) {
+	    	 for(SoldDevice sd : soldDevices) {
+	    	    	if(sd.getSensorRef().equals(sensorRef)) {
+	    	    		return sd;
+	    	    	}
+	    	    }
+	    }
+	   
+	    return emptySD;
     }
-   
-    return emptySD;
-  }
     
     @GetMapping("/check/")
     public SoldDevice checkIfDeviceExist(){

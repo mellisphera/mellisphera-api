@@ -75,12 +75,12 @@ public class DailyWeatherController {
 	    		Date dateSunrise = new Date(hw.getWeather().getSys().getSunrise()*1000L); // convert seconds to milliseconds
 	    		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z"); // the format of your date
 	    		String formattedDate = dateFormat.format(dateSunrise);
-	    		System.out.println(formattedDate); 
+	    		
 	    		
 	    		Date dateSunset = new Date(hw.getWeather().getSys().getSunset()*1000L); // convert seconds to milliseconds
 	    		SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z"); // the format of your date
 	    		String formattedDate2 = dateFormat.format(dateSunrise);
-	    		System.out.println(formattedDate2); 
+	    		
 	    		
 	    		//hw.getRecordDate().after(dateSunrise)
 	
@@ -116,7 +116,7 @@ public class DailyWeatherController {
 	   				  //add icon if it doesn't exist in icons list
 	   				  if(!icons.contains(w.getIcon())) {
 	   					  icons.add(w.getIcon());
-		   				  System.out.println(w.getIcon());
+		   				  
 	   				  }
 	   			  }
 	   		  }
@@ -145,12 +145,12 @@ public class DailyWeatherController {
 	   		  }
 	   		  avgTemp= cumTemp / i ;
 	   
-	   		  System.out.println("icons.size() : " + icons.size());
+	   		  
 	   		  // loop icons and decides which icon to store and display	    		
 					if(icons.size()==1) {
 						//icons.addAll(icons);
 						day.setIcons(icons);
-						System.out.println("icons.contains(\"01d\") : " + icons.contains("01d"));
+						;
 					
 					}
 					

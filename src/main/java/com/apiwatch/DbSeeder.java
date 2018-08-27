@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.apiwatch.controllers.DailyStockHoneyController;
 import com.apiwatch.controllers.FlowerAPIController;
 import com.apiwatch.entities.Apiary;
 import com.apiwatch.entities.FlowerINRA;
@@ -108,25 +107,25 @@ public class DbSeeder implements CommandLineRunner {
     	//rucher1.setListeRuches(Arrays.asList(ruche1));
 		
     	SoldDevice sd1 = new SoldDevice();
-    	sd1.setDateSold(new Date());
+    	//sd1.setDateSold(new Date());
     	sd1.setSensorRef("43:10:DA");
     	sd1.setType("weight");
     	sd1.setSoldTo("jhe");
 		
     	SoldDevice sd2 = new SoldDevice();
-    	sd2.setDateSold(new Date());
+    	//sd2.setDateSold(new Date());
     	sd2.setSensorRef("43:10:A2");
     	sd2.setType("T_HR");
     	sd2.setSoldTo("jcp");
     	
     	SoldDevice sd3 = new SoldDevice();
-    	sd3.setDateSold(new Date());
+    	//sd3.setDateSold(new Date());
     	sd3.setSensorRef("43:10:7E");
     	sd3.setType("weight");
     	sd3.setSoldTo("blg");
        	    	
       	SoldDevice sd4 = new SoldDevice();
-      	sd4.setDateSold(new Date());
+      	//sd4.setDateSold(new Date());
       	sd4.setSensorRef("43:0A:C7");
       	sd4.setType("weight");
       	sd4.setSoldTo("clo");

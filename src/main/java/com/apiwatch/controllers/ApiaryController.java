@@ -5,15 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import com.apiwatch.entities.Apiary;
-import com.apiwatch.entities.Hive;
-import com.apiwatch.entities.Post;
 import com.apiwatch.repositories.ApiaryRepository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RestController
@@ -30,10 +26,15 @@ public class ApiaryController {
         this.apiaryRepository = ApiaryRepository;
     }
 
+    @DeleteMapping("/{id}")
+	 public void delete(@PathVariable("id") String id){
+	    this.apiaryRepository.deleteById(id);
+	 }
+    
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<Apiary> getAll(){
-    List<Apiary> apiaries=this.apiaryRepository.findAll();
-    return apiaries;
+	    List<Apiary> apiaries=this.apiaryRepository.findAll();
+	    return apiaries;
     }
     
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
