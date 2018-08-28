@@ -70,10 +70,10 @@ public class TheoricalFlowerController {
 	    List<TheoricalFlower> resFlowers = new ArrayList<>(flowers);
 	    
 	    //On cherche les fleurs qui contient la chaine de caractère rentrée dans le nom francais
-	    if (!(flower.flowerApi.getFrancais().equals(""))) {
+	    if (!(flower.flowerInra.getFrancais().equals(""))) {
 	    	resFlowers.clear();
 	    	for (TheoricalFlower f :flowers) {
-	    		if ( f.flowerApi.getFrancais().toLowerCase().contains(flower.flowerApi.getFrancais().toLowerCase())) {
+	    		if ( f.flowerInra.getFrancais().toLowerCase().contains(flower.flowerInra.getFrancais().toLowerCase())) {
 	    			resFlowers.add(f);
 	    		}
 	    	}
@@ -107,12 +107,12 @@ public class TheoricalFlowerController {
 	    }	    
 	    
 	  //On cherche les fleurs qui correspondent fleurisse à un certain mois
-	    if (!(flower.flowerApi.getFlomind().equals("0"))) {
+	    if (!(flower.flowerInra.getFlomind().equals("0"))) {
 	    	resFlowers.clear();
 	    	for (TheoricalFlower f :flowers) {
-	    		datemin = f.flowerApi.getFlomind().split("-");
-	    		datemax = f.flowerApi.getFlomaxd().split("-");
-	    		if ( (Integer.parseInt(datemin[0]) <= Integer.parseInt(flower.flowerApi.getFlomind())) && (Integer.parseInt(datemax[0]) >= Integer.parseInt(flower.flowerApi.getFlomind())) ) {
+	    		datemin = f.flowerInra.getFlomind().split("-");
+	    		datemax = f.flowerInra.getFlomaxd().split("-");
+	    		if ( (Integer.parseInt(datemin[0]) <= Integer.parseInt(flower.flowerInra.getFlomind())) && (Integer.parseInt(datemax[0]) >= Integer.parseInt(flower.flowerInra.getFlomind())) ) {
 	    			resFlowers.add(f);
 	    		}
 	    	}
