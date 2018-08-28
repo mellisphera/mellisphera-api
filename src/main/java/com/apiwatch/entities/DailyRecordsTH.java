@@ -7,18 +7,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "DailyRecordsTH")
 public class DailyRecordsTH {
 
-	public String id;
-	public Date recordDate;
-	public String idHive;
-	public float humidity_int_min;
-	public float humidity_int_max;
-	public float temp_int_min;
-	public float temp_int_max;
-	public float temp_int_moy;
-	public float temp_int_stddev;
-	public String health_status;
-	public String health_trend;
-	public float r_int_text;
+	private String id;
+	private Date recordDate;
+	private String idHive;
+	private float humidity_int_min;
+	private float humidity_int_max;
+	private float temp_int_min;
+	private float temp_int_max;
+	private float temp_int_moy;
+	private float temp_int_stddev;
+	private String health_status;
+	private String health_trend;
+	private float r_int_text;
 	
 	
 	public DailyRecordsTH(){
