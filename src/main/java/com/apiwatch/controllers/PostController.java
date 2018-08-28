@@ -49,17 +49,6 @@ public class PostController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Post post){ 
-    	/* 
-    	List<Post> posts= this.postRepository.findAll();
-         for(Post p : posts){
-         	if(p.getId().equals(id)) {
-         		p.setContent(post.getContent());
-         		p.setTitle(post.getTitle());
-         		p.setLoveIts(post.getLoveIts());
-         		this.postRepository.save(p);
-         	}
-         }
-         */
     	Post p = this.postRepository.findPostById(id);
     	p.setContent(post.getContent());
  		p.setTitle(post.getTitle());
@@ -75,18 +64,7 @@ public class PostController {
 
  
     @GetMapping("getOne/{id}")
-    public Post getById(@PathVariable("id") String id){
-        
-    	/*
-    	List<Post> posts= this.postRepository.findAll();
-        for(Post p : posts){
-        	if(p.getId().equals(id)) {
-        		return p;
-        	}
-        }
-        return null;
-        */
-    	
+    public Post getById(@PathVariable("id") String id){    	
     	Post p = this.postRepository.findPostById(id);
     	if (p != null) {
     		return p;

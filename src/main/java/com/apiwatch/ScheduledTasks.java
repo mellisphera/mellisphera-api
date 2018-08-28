@@ -63,7 +63,7 @@ public class ScheduledTasks {
 	    	  HourlyWeather h= new HourlyWeather();
 	    	  
 	    	  //WARNING : getcodepostal is actually the city name 
-	    	  weather = this.WeatherController.getActualWeather(ap.getCodePostal());
+	    	  weather = this.WeatherController.getActualWeather(ap.getVille());
 	    	  System.out.println("ID : "+ap.getId() + " | City : " + weather.getName()+ "|  Temp :"+ weather.getMain().getTemp());
 	    	  h.setWeather(weather);
 	    	  h.setIdApiary(ap.getId());

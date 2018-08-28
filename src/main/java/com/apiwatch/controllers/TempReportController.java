@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.apiwatch.entities.SoldDevice;
+import com.apiwatch.entities.SoldDevices;
 import com.apiwatch.entities.User;
 import com.apiwatch.entities.ProcessReportTemp;
 import com.apiwatch.repositories.TempReportRepository;

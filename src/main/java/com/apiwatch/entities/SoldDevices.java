@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "SoldDevices")
-public class SoldDevice {
+public class SoldDevices {
 
 	public String id;
 	public String sensorRef;
@@ -15,11 +15,11 @@ public class SoldDevice {
 	public String soldToEmail;
 	
 	
-	public SoldDevice() {
+	public SoldDevices() {
 		super();
 	}
 
-	public SoldDevice(String id, String sensorRef, String type, String dateSold, String soldTo, String soldToEmail) {
+	public SoldDevices(String id, String sensorRef, String type, String dateSold, String soldTo, String soldToEmail) {
 		super();
 		this.id = id;
 		this.sensorRef = sensorRef;
