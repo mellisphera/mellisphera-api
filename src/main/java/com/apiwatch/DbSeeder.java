@@ -14,7 +14,7 @@ import com.apiwatch.entities.Hive;
 import com.apiwatch.entities.ObservedFlower;
 import com.apiwatch.entities.Record;
 import com.apiwatch.entities.Sensor;
-import com.apiwatch.entities.SoldDevice;
+import com.apiwatch.entities.SoldDevices;
 import com.apiwatch.entities.User;
 import com.apiwatch.entities.DailyStockHoney;
 import com.apiwatch.repositories.ApiaryRepository;
@@ -27,7 +27,7 @@ import com.apiwatch.repositories.ObservedFlowerRepository;
 import com.apiwatch.repositories.PostRepository;
 import com.apiwatch.repositories.ProcessReportRepository;
 import com.apiwatch.repositories.SensorRepository;
-import com.apiwatch.repositories.SoldDeviceRepository;
+import com.apiwatch.repositories.SoldDevicesRepository;
 import com.apiwatch.repositories.UserRepository;
 import com.apiwatch.repositories.DailyStockHoneyRepository;
 
@@ -58,7 +58,7 @@ public class DbSeeder implements CommandLineRunner {
 	@Autowired
 	private DailyWeatherRepository dailyWeatherRepository;
 	@Autowired
-	private SoldDeviceRepository soldDeviceRepository;
+	private SoldDevicesRepository soldDeviceRepository;
 	@Autowired
 	private TheoricalFlowerRepository theoricalFlowerRepository;
 	@Autowired
@@ -106,25 +106,25 @@ public class DbSeeder implements CommandLineRunner {
     	//final List<Ruche> listeRuches= Arrays.asList(ruche1);
     	//rucher1.setListeRuches(Arrays.asList(ruche1));
 		
-    	SoldDevice sd1 = new SoldDevice();
+    	SoldDevices sd1 = new SoldDevices();
     	//sd1.setDateSold(new Date());
     	sd1.setSensorRef("43:10:DA");
     	sd1.setType("weight");
     	sd1.setSoldTo("jhe");
 		
-    	SoldDevice sd2 = new SoldDevice();
+    	SoldDevices sd2 = new SoldDevices();
     	//sd2.setDateSold(new Date());
     	sd2.setSensorRef("43:10:A2");
     	sd2.setType("T_HR");
     	sd2.setSoldTo("jcp");
     	
-    	SoldDevice sd3 = new SoldDevice();
+    	SoldDevices sd3 = new SoldDevices();
     	//sd3.setDateSold(new Date());
     	sd3.setSensorRef("43:10:7E");
     	sd3.setType("weight");
     	sd3.setSoldTo("blg");
        	    	
-      	SoldDevice sd4 = new SoldDevice();
+      	SoldDevices sd4 = new SoldDevices();
       	//sd4.setDateSold(new Date());
       	sd4.setSensorRef("43:0A:C7");
       	sd4.setType("weight");
