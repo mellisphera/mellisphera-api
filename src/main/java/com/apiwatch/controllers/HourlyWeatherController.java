@@ -40,7 +40,7 @@ public class HourlyWeatherController {
     List<HourlyWeather> posts=this.hourlyWeatherRepository.findAll();
     return posts;
     }
-
+    
     @PostMapping
     public void insert(@RequestBody HourlyWeather hourlyWeatherRepository){
         this.hourlyWeatherRepository.insert(hourlyWeatherRepository);
