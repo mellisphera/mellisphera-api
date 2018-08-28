@@ -26,55 +26,54 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apiwatch.entities.Apiary;
 import com.apiwatch.entities.Hive;
 import com.apiwatch.entities.Sensor;
-import com.apiwatch.entities.SoldDevice;
+import com.apiwatch.entities.SoldDevices;
 import com.apiwatch.entities.User;
-import com.apiwatch.repositories.SoldDeviceRepository;
+import com.apiwatch.repositories.SoldDevicesRepository;
+import com.apiwatch.entities.SoldDevices;
 
 @RestController
-@RequestMapping("/sold-devices")
+@RequestMapping("/sold_devices")
 @CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class SoldDeviceController {
 	
 	@Autowired
-    private SoldDeviceRepository soldDeviceRepository;
+    private SoldDevicesRepository soldDevicesRepository;
 	
     public SoldDeviceController() {
 	    }
 
-    public SoldDeviceController(SoldDeviceRepository soldDeviceRepository) {
-	        this.soldDeviceRepository = soldDeviceRepository;
+    public SoldDeviceController(SoldDevicesRepository soldDeviceRepository) {
+	        this.soldDevicesRepository = soldDeviceRepository;
 	        //this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
     
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
-    public void insert(@RequestBody SoldDevice soldDevice){
-        this.soldDeviceRepository.insert(soldDevice);
+    public void insert(@RequestBody SoldDevices soldDevice){
+        this.soldDevicesRepository.insert(soldDevice);
     }
     
     @GetMapping("/all")
-    public List<SoldDevice> getAll(){
-    List<SoldDevice> soldDevices=this.soldDeviceRepository.findAll();
+    public List<SoldDevices> getAll(){
+    List<SoldDevices> soldDevices=this.soldDevicesRepository.findAll();
     return soldDevices;
     }
     
     @GetMapping("/check/{sensorRef}")
-    public SoldDevice checkIfSoldDeviceExist(@PathVariable String sensorRef){
-    List<SoldDevice> soldDevices=this.soldDeviceRepository.findAll();
-    SoldDevice emptySD = new SoldDevice();
-    if(sensorRef != null) {
-    	 for(SoldDevice sd : soldDevices) {
-    	    	if(sd.getSensorRef().equals(sensorRef)) {
-    	    		return sd;
-    	    	}
-    	    }
+    public SoldDevices checkIfSoldDeviceExist(@PathVariable String sensorRef){
+    	
+	    List<SoldDevices> soldDevices = this.soldDevicesRepository.findSoldDevicesBySensorRef(sensorRef);
+	    SoldDevices emptySD = new SoldDevices();
+	    
+	    if(!soldDevices.isEmpty()) {
+	    	 return soldDevices.get(0);
+	    }
+	   
+	    return emptySD;
     }
-   
-    return emptySD;
-  }
     
     @GetMapping("/check/")
-    public SoldDevice checkIfDeviceExist(){
-    	SoldDevice sd = new SoldDevice();
+    public SoldDevices checkIfDeviceExist(){
+    	SoldDevices sd = new SoldDevices();
     return sd;
   }
    

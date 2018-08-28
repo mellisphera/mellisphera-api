@@ -5,21 +5,34 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import com.apiwatch.entities.DailyStockHoney;
-import com.apiwatch.entities.Hive;
-import com.apiwatch.entities.Post;
-import com.apiwatch.repositories.ApiaryRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.apiwatch.repositories.DailyStockHoneyRepository;
+
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 
 @Service
 @RestController
-@RequestMapping("/dailyStockMiel")
+@RequestMapping("/dailyStockHoney")
 @CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class DailyStockHoneyController {
+	
+	@Autowired
+    private DailyStockHoneyRepository dailyStockHoneyRepository;
+
+    public DailyStockHoneyController() {
+    }
+
+    public DailyStockHoneyController(DailyStockHoneyRepository dailyStockHoneyRepository) {
+        this.dailyStockHoneyRepository = dailyStockHoneyRepository;
+    }
+    
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
+    public List<DailyStockHoney> getAll(){
+    	
+	    List<DailyStockHoney> dailyStockHoney=this.dailyStockHoneyRepository.findAll();
+	    
+	    return dailyStockHoney;
+    }
 
 }
