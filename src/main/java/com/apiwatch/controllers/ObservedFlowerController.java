@@ -1,5 +1,6 @@
 package com.apiwatch.controllers;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,6 +30,8 @@ public class ObservedFlowerController {
 
 	@Autowired
     private ObservedFlowerRepository observedFlowerRepository;
+	private HashMap<String, String> mois = new HashMap<>() ;
+	
 	
 	public ObservedFlowerController (){ 
 		
@@ -153,6 +156,13 @@ public class ObservedFlowerController {
 		return dates;
 	}
 	
+	public static String stripAccents(String s) 
+	{
+	    s = Normalizer.normalize(s, Normalizer.Form.NFD);
+	    s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+	    return s;
+	}
+	
 	//Retourne les dates de début et fin de floraison observées d'une plante pour un utilisateur ,un rucher et une année
 	@RequestMapping(value = "/datesobflowersd/{id}/{annee}", method = RequestMethod.GET, produces={"application/json"})
 	public List< String[] > getDatesObFlowersd(@PathVariable String id, @PathVariable String annee) {
@@ -164,16 +174,36 @@ public class ObservedFlowerController {
 		String dateIntD[] = new String[2];
 		String dateIntF[] = new String[2];
 		
+		 this.mois.put("decembre","12");
+		 this.mois.put("novembre","11");
+		 this.mois.put("octobre","10");
+		 this.mois.put("septembre","9");
+		 this.mois.put("août","8");
+		 this.mois.put("juillet","7");
+		 this.mois.put("juin","6");
+		 this.mois.put("mai","5");
+		 this.mois.put("avril","4");
+		 this.mois.put("mars","3");
+		 this.mois.put("fevrier","2");
+		 this.mois.put("janvier","1");
+		 
+		 String[] dateD = new String[2];
+		 String[] dateF = new String[2];
+		
 		ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id);
 		
-		if(!(flower.getDateDebutd().get(annee).equals("0"))) {
-			dateIntD[1] = flower.getNom();;
-			dateIntD[0] = year+"-"+flower.getDateDebutd().get(annee);
+		if(!(flower.getDateDebutd().get(annee).equals(""))) {
+			dateD = flower.getDateDebutd().get(annee).split(" ");
+			dateD[1] = stripAccents(dateD[1]);
+			dateIntD[1] = flower.getNom();
+			dateIntD[0] = year+"-"+mois.get(dateD[1].toLowerCase())+"-"+dateD[0];
 			dates.add(dateIntD);
 		}
-		if (!(flower.getDateFind().get(annee).equals("0"))) {
+		if (!(flower.getDateFind().get(annee).equals(""))) {
+			dateF = flower.getDateFind().get(annee).split(" ");	
+			dateF[1] = stripAccents(dateF[1]);
 			dateIntF[1] = flower.getNom();;
-			dateIntF[0] = year+"-"+flower.getDateFind().get(annee);
+			dateIntF[0] = year+"-"+mois.get(dateF[1].toLowerCase())+"-"+dateF[0];
 			
 			dates.add(dateIntF);
 		}
@@ -195,8 +225,7 @@ public class ObservedFlowerController {
 	 
 	 //Modifie la date de début floraison observée 
 	 @RequestMapping(value = "/updateDeb/{id}/{annee}", method = RequestMethod.PUT) 
-	 public void updateDebut(@PathVariable("id") String id, @PathVariable String annee, @RequestBody int dateDebut){ 
-		 
+	 public void updateDebut(@PathVariable("id") String id, @PathVariable String annee, @RequestBody int dateDebut){ 		 
 		 ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id);
 	 	 flower.setDateDebut(annee,dateDebut);
 	 	 this.observedFlowerRepository.save(flower);
@@ -205,9 +234,14 @@ public class ObservedFlowerController {
 	 
 	//Modifie la date de début floraison observée 
 	 @RequestMapping(value = "/updateDebd/{id}/{annee}", method = RequestMethod.PUT) 
-	 public void updateDebutd(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateDebut){ 
+	 public void updateDebutd(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateDebut){ 		 
 		 ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id);
-	 	 flower.setDateDebutd(annee,dateDebut);
+		 System.out.println("aaaaaaaaaa : "+dateDebut);
+		 if (dateDebut.equals("null")) {
+			 flower.setDateDebutd(annee,"");
+		 } else {
+			 flower.setDateDebutd(annee,dateDebut);
+		 }
 	 	 this.observedFlowerRepository.save(flower);
 		 	 
 	}
@@ -227,7 +261,13 @@ public class ObservedFlowerController {
 	 public void updateFind(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateFin){ 
 	 	 
 	 	 ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id);
-	 	 flower.setDateFind(annee,dateFin);
+	 	 System.out.println("zaufgi : "+dateFin);
+	 	if (dateFin.equals("null")) {
+			 flower.setDateFind(annee,"");
+		 } else {
+			 flower.setDateFind(annee,dateFin);
+		 }
+	 	 
 	 	 this.observedFlowerRepository.save(flower);
 
 	     
@@ -284,13 +324,13 @@ public class ObservedFlowerController {
 			 f.setDateFin("2019",0);
 			 f.setDateFin("2020",0);
 			 f.dateDebutd = new HashMap<String, String>();
-			 f.setDateDebutd("2018","0");
-			 f.setDateDebutd("2019","0");
-			 f.setDateDebutd("2020","0");
+			 f.setDateDebutd("2018","");
+			 f.setDateDebutd("2019","");
+			 f.setDateDebutd("2020","");
 			 f.dateFind = new HashMap<String, String>();
-			 f.setDateFind("2018","0");
-			 f.setDateFind("2019","0");
-			 f.setDateFind("2020","0");
+			 f.setDateFind("2018","");
+			 f.setDateFind("2019","");
+			 f.setDateFind("2020","");
 		 	 this.observedFlowerRepository.save(f);
 		 }
 	 }
