@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.apiwatch.controllers.FlowerAPIController;
 import com.apiwatch.entities.Apiary;
 import com.apiwatch.entities.FlowerINRA;
 import com.apiwatch.entities.FlowerAPI;
@@ -66,9 +65,6 @@ public class DbSeeder implements CommandLineRunner {
 	@Autowired
 	private ProcessReportRepository processReportRepository;
 	
-	@Autowired
-	private FlowerAPIController flowerAPIController;
-	
 	// WeatherController wc;
 
 
@@ -98,10 +94,7 @@ public class DbSeeder implements CommandLineRunner {
     	this.processReportRepository.deleteAll();
     	
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    	
-    	
-    	
-    	FlowerAPI result = flowerAPIController.getListFleur();
+   
     	
     	//final List<Ruche> listeRuches= Arrays.asList(ruche1);
     	//rucher1.setListeRuches(Arrays.asList(ruche1));
@@ -281,9 +274,9 @@ public class DbSeeder implements CommandLineRunner {
 		f4b.setPeriodemax(30);
 		f4b.setPeriodemind("05-28");
 		f4b.setPeriodemaxd("07-23");
-		f4b.setIndice_confiance("3");
-		f4b.setInteret_nectar("3");
-		f4b.setInteret_pollen("2");
+		f4b.setIndice_confiance("/assets/img/conf3.png");
+		f4b.setInteret_nectar("/assets/img/nec3.png");
+		f4b.setInteret_pollen("/assets/img/pol2.png");
 
 		TheoricalFlower f4T = new TheoricalFlower();
 		f4T.setFlowerApi(f4);
@@ -316,9 +309,9 @@ public class DbSeeder implements CommandLineRunner {
 		f5b.setPeriodemax(21);
 		f5b.setPeriodemind("04-02");
 		f5b.setPeriodemaxd("06-21");
-		f5b.setIndice_confiance("3");
-		f5b.setInteret_nectar("2");
-		f5b.setInteret_pollen("3");
+		f5b.setIndice_confiance("/assets/img/conf3.png");
+		f5b.setInteret_nectar("/assets/img/nec2.png");
+		f5b.setInteret_pollen("/assets/img/pol3.png");
 
 		TheoricalFlower f5T = new TheoricalFlower();
 		f5T.setFlowerApi(f5);
@@ -351,9 +344,9 @@ public class DbSeeder implements CommandLineRunner {
 		f6b.setPeriodemax(35);
 		f6b.setPeriodemind("04-02");
 		f6b.setPeriodemaxd("08-26");
-		f6b.setIndice_confiance("3");
-		f6b.setInteret_nectar("3");
-		f6b.setInteret_pollen("3");
+		f6b.setIndice_confiance("/assets/img/conf3.png");
+		f6b.setInteret_nectar("/assets/img/nec3.png");
+		f6b.setInteret_pollen("/assets/img/pol3.png");
 
 		TheoricalFlower f6T = new TheoricalFlower();
 		f6T.setFlowerApi(f6);
@@ -386,9 +379,9 @@ public class DbSeeder implements CommandLineRunner {
 		f7b.setPeriodemax(39);
 		f7b.setPeriodemind("04-02");
 		f7b.setPeriodemaxd("09-24");
-		f7b.setIndice_confiance("3");
-		f7b.setInteret_nectar("3");
-		f7b.setInteret_pollen("1");
+		f7b.setIndice_confiance("/assets/img/conf3.png");
+		f7b.setInteret_nectar("/assets/img/nec3.png");
+		f7b.setInteret_pollen("/assets/img/pol1.png");
 
 		TheoricalFlower f7T = new TheoricalFlower();
 		f7T.setFlowerApi(f7);
@@ -421,9 +414,9 @@ public class DbSeeder implements CommandLineRunner {
 		f8b.setPeriodemax(26);
 		f8b.setPeriodemind("04-30");
 		f8b.setPeriodemaxd("06-25");
-		f8b.setIndice_confiance("3");
-		f8b.setInteret_nectar("3");
-		f8b.setInteret_pollen("2");
+		f8b.setIndice_confiance("/assets/img/conf3.png");
+		f8b.setInteret_nectar("/assets/img/nec3.png");
+		f8b.setInteret_pollen("/assets/img/pol2.png");
 
 		TheoricalFlower f8T = new TheoricalFlower();
 		f8T.setFlowerApi(f8);
@@ -456,9 +449,9 @@ public class DbSeeder implements CommandLineRunner {
 		f9b.setPeriodemax(49);
 		f9b.setPeriodemind("03-26");
 		f9b.setPeriodemaxd("12-03");
-		f9b.setIndice_confiance("2");
-		f9b.setInteret_nectar("2");
-		f9b.setInteret_pollen("2");
+		f9b.setIndice_confiance("/assets/img/conf2.png");
+		f9b.setInteret_nectar("/assets/img/nec2.png");
+		f9b.setInteret_pollen("/assets/img/pol2.png");
 
 		TheoricalFlower f9T = new TheoricalFlower();
 		f9T.setFlowerApi(f9);
@@ -491,9 +484,9 @@ public class DbSeeder implements CommandLineRunner {
 		f10b.setPeriodemax(21);
 		f10b.setPeriodemind("04-02");
 		f10b.setPeriodemaxd("05-21");
-		f10b.setIndice_confiance("1");
-		f10b.setInteret_nectar("2");
-		f10b.setInteret_pollen("0");
+		f10b.setIndice_confiance("/assets/img/conf1.png");
+		f10b.setInteret_nectar("/assets/img/nec2.png");
+		f10b.setInteret_pollen("/assets/img/vide.png");
 
 		TheoricalFlower f10T = new TheoricalFlower();
 		f10T.setFlowerApi(f10);
@@ -526,9 +519,9 @@ public class DbSeeder implements CommandLineRunner {
 		f11b.setPeriodemax(26);
 		f11b.setPeriodemind("04-30");
 		f11b.setPeriodemaxd("06-25");
-		f11b.setIndice_confiance("3");
-		f11b.setInteret_nectar("3");
-		f11b.setInteret_pollen("2");
+		f11b.setIndice_confiance("/assets/img/conf3.png");
+		f11b.setInteret_nectar("/assets/img/nec3.png");
+		f11b.setInteret_pollen("/assets/img/pol2.png");
 
 		TheoricalFlower f11T = new TheoricalFlower();
 		f11T.setFlowerApi(f11);
@@ -539,30 +532,20 @@ public class DbSeeder implements CommandLineRunner {
 		ObservedFlower fl1 = new ObservedFlower();
 		fl1.setId("1");
 		fl1.setNom(f7.getFrancais());
-		fl1.setDateThDebut(f7.getFlomin());
-		fl1.setDateThFin(f7.getFlomax());
 		fl1.setDateThDebutd(f7.getFlomind());
 		fl1.setDateThFind(f7.getFlomaxd());
 		fl1.setDateThDebutdate(f7.getFlomindate());
 		fl1.setDateThFindate(f7.getFlomaxdate());
 		fl1.setPresence("Faible");
 		fl1.setPoid(0.2);
-		fl1.dateDebut = new HashMap<String, Integer>();
-		fl1.setDateDebut("2018", 5);
-		fl1.setDateDebut("2019", 0);
-		fl1.setDateDebut("2020", 0);
-		fl1.dateFin = new HashMap<String, Integer>();
-		fl1.setDateFin("2018", 8);
-		fl1.setDateFin("2019", 0);
-		fl1.setDateFin("2020", 0);
 		fl1.dateDebutd = new HashMap<String, String>();
-		fl1.setDateDebutd("2018", f7.getFlomind());
-		fl1.setDateDebutd("2019", "0");
-		fl1.setDateDebutd("2020", "0");
+		fl1.setDateDebutd("2018", f7.getFlomindate());
+		fl1.setDateDebutd("2019", "");
+		fl1.setDateDebutd("2020", "");
 		fl1.dateFind = new HashMap<String, String>();
-		fl1.setDateFind("2018", f7.getFlomaxd());
-		fl1.setDateFind("2019", "0");
-		fl1.setDateFind("2020", "0");
+		fl1.setDateFind("2018", f7.getFlomaxdate());
+		fl1.setDateFind("2019", "");
+		fl1.setDateFind("2020", "");
 		fl1.setUsername("jcp");
 		fl1.setIdApiary(ap1.getId());
 		fl1.setPhoto(f7T.getPhoto());
@@ -578,12 +561,6 @@ public class DbSeeder implements CommandLineRunner {
 		
 		
 		//Load the list of FleurTheoriques in the database
-
-		for (FlowerINRA fth : result.getResult()) {
-			this.flowerINRARepository.save(fth);
-			//fT.setFlowerApi(fth);
-			//this.theoricalFlowerRepository.save(fT);
-		}
 
 		/*
 		 * this.apiaryRepository.save(ap3);
@@ -608,6 +585,7 @@ public class DbSeeder implements CommandLineRunner {
 
 		this.sensorRepository.save(s1);
 		this.sensorRepository.save(s2);
+		
 
 		this.theoricalFlowerRepository.save(f4T);
 		this.theoricalFlowerRepository.save(f5T);
@@ -616,10 +594,10 @@ public class DbSeeder implements CommandLineRunner {
 		this.theoricalFlowerRepository.save(f8T); 
 		this.theoricalFlowerRepository.save(f9T);
 		this.theoricalFlowerRepository.save(f10T);
-		this.theoricalFlowerRepository.save(f11T);
+		this.theoricalFlowerRepository.save(f11T);*/
 		
 		 
-		this.observedFlowerRepository.save(fl1);*/
+		this.observedFlowerRepository.save(fl1);
 
 	}
 }

@@ -5,15 +5,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "TheoricalFlower")
 public class TheoricalFlower {
 
-	public FlowerINRA flowerApi;
+	public FlowerINRA flowerInra;
 	public FlowerITSAP flowerItsap;
 	public String type;
 	public String commentaire;
 	public String photo;
 	
-	public TheoricalFlower(FlowerINRA flowerApi, FlowerITSAP flowerItsap, String type, String commentaire, String photo) {
+	public TheoricalFlower(FlowerINRA flowerInra, FlowerITSAP flowerItsap, String type, String commentaire, String photo) {
 		super();
-		this.flowerApi = flowerApi;
+		this.flowerInra = flowerInra;
 		this.flowerItsap = flowerItsap;
 		this.type = type;
 		this.commentaire = commentaire;
@@ -25,15 +25,15 @@ public class TheoricalFlower {
 	}
 
 	public FlowerINRA getFlowerApi() {
-		return flowerApi;
+		return flowerInra;
 	}
-	public void setFlowerApi(FlowerINRA flowerApi) {
-		this.flowerApi = flowerApi;
+	public void setFlowerApi(FlowerINRA flowerInra) {
+		this.flowerInra = flowerInra;
 	}
 	
 	@Override
 	public String toString() {
-		return "FlowerTest [flowerApi=" + flowerApi + ", flowerIstap=" + flowerItsap + "]";
+		return "FlowerTest [flowerInra=" + flowerInra + ", flowerIstap=" + flowerItsap + "]";
 	}
 
 	public String getType() {
