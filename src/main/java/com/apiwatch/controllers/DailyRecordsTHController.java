@@ -34,5 +34,10 @@ public class DailyRecordsTHController {
 		return this.dailyRecordsTHRepository.findDailyRecordsTHByIdHive(idHive);
 	}
 	
-
+	@DeleteMapping("/{id}")
+	public void deleteById(@PathVariable("id") String id) {
+		this.dailyRecordsTHRepository.deleteById(id);
+	}
+	
+	
 }
