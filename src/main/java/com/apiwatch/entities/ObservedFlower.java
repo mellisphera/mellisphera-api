@@ -11,12 +11,8 @@ public class ObservedFlower {
 	@Id
 	public String id;
 	public String nom;
-	public HashMap<String,Integer> dateDebut;
-	public HashMap<String,Integer> dateFin; 
 	public HashMap<String,String> dateDebutd;
 	public HashMap<String,String> dateFind;
-	public int dateThDebut;
-	public int dateThFin;
 	public String dateThDebutd;
 	public String dateThFind;
 	public String dateThDebutdate;
@@ -31,19 +27,14 @@ public class ObservedFlower {
 	public ObservedFlower() {
 	}
 
-	public ObservedFlower(String id, String nom, HashMap<String, Integer> dateDebut, HashMap<String, Integer> dateFin,
-			HashMap<String, String> dateDebutd, HashMap<String, String> dateFind, int dateThDebut, int dateThFin,
+	public ObservedFlower(String id, String nom, HashMap<String, String> dateDebutd, HashMap<String, String> dateFind,
 			String dateThDebutd, String dateThFind, String dateThDebutdate, String dateThFindate, String presence,
 			String username, String idApiary, String photo) {
 		super();
 		this.id = id;
 		this.nom = nom;
-		this.dateDebut = dateDebut;
-		this.dateFin = dateFin;
 		this.dateDebutd = dateDebutd;
 		this.dateFind = dateFind;
-		this.dateThDebut = dateThDebut;
-		this.dateThFin = dateThFin;
 		this.dateThDebutd = dateThDebutd;
 		this.dateThFind = dateThFind;
 		this.dateThDebutdate = dateThDebutdate;
@@ -67,12 +58,6 @@ public class ObservedFlower {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public void setDateFin(String annee,Integer dateFin) {
-			this.dateFin.put(annee, dateFin);
-	}
-	public void setDateDebut(String annee,Integer dateDebut) {
-		this.dateDebut.put(annee, dateDebut);
-}
 	public String getUsername() {
 		return username;
 	}
@@ -85,24 +70,14 @@ public class ObservedFlower {
 	public void setIdApiary(String idApiary) {
 		this.idApiary = idApiary;
 	}
-	public void setDateThDebut(int dateThDebut) {
-		this.dateThDebut = dateThDebut;
-	}
-	public int getDateThFin() {
-		return dateThFin;
-	}
-	public void setDateThFin(int dateThFin) {
-		this.dateThFin = dateThFin;
-	}
+
 	public String getPresence() {
 		return presence;
 	}
 	public void setPresence(String presence) {
 		this.presence = presence;
 	}
-	public int getDateThDebut() {
-		return dateThDebut;
-	}
+
 
 	public String getPhoto() {
 		return photo;
@@ -152,18 +127,6 @@ public class ObservedFlower {
 	public void setDateFind(String annee,String dateFin) {
 		this.dateFind.put(annee, dateFin);
 	}
-
-
-	public HashMap<String, Integer> getDateDebut() {
-		return dateDebut;
-	}
-
-
-	public HashMap<String, Integer> getDateFin() {
-		return dateFin;
-	}
-
-
 	public String getDateThDebutdate() {
 		return dateThDebutdate;
 	}
@@ -181,16 +144,6 @@ public class ObservedFlower {
 
 	public void setDateThFindate(String dateThFindate) {
 		this.dateThFindate = dateThFindate;
-	}
-
-
-	public void setDateDebut(HashMap<String, Integer> dateDebut) {
-		this.dateDebut = dateDebut;
-	}
-
-
-	public void setDateFin(HashMap<String, Integer> dateFin) {
-		this.dateFin = dateFin;
 	}
 
 	public double getPoid() {
