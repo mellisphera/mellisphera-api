@@ -594,10 +594,10 @@ public class DbSeeder implements CommandLineRunner {
 		this.theoricalFlowerRepository.save(f8T); 
 		this.theoricalFlowerRepository.save(f9T);
 		this.theoricalFlowerRepository.save(f10T);
-		this.theoricalFlowerRepository.save(f11T);*/
+		this.theoricalFlowerRepository.save(f11T);
 		
 		 
-		this.observedFlowerRepository.save(fl1);
+		this.observedFlowerRepository.save(fl1);*/
 
 	}
 }
