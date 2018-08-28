@@ -10,4 +10,6 @@ import com.apiwatch.entities.DailyStockHoney;
 @Repository
 public interface DailyStockHoneyRepository extends MongoRepository<DailyStockHoney ,String>{
 
+	
+	
 }
