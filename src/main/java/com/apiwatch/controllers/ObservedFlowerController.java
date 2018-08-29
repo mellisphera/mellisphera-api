@@ -203,15 +203,14 @@ public class ObservedFlowerController {
 		 flower.setPresence(presence);
       		if (presence.equals("Faible")) {
       			flower.setPoid(0.2);
-      			this.observedFlowerRepository.save(flower);
       		} else if (presence.equals("Moyen")) {
       			flower.setPoid(0.6);
-      			this.observedFlowerRepository.save(flower);
       		} else {
       			flower.setPoid(1);
-      			this.observedFlowerRepository.save(flower);
       		}
 
+
+  			this.observedFlowerRepository.save(flower);
 	 }
 	 
 	 

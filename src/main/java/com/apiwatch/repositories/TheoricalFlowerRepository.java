@@ -12,5 +12,6 @@ import com.apiwatch.entities.TheoricalFlower;
 @Service
 @Repository
 public interface TheoricalFlowerRepository extends MongoRepository<TheoricalFlower,String>{
+
 	
 }
