@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,9 +38,14 @@ public class DailyRecordsWController {
 	public Optional<DailyRecordsW> getById(@PathVariable("id") String id){
 		return this.dailyRecordsWRepository.findById(id);
 	}
+	
 	@RequestMapping(value="/hive/{idHive}", method = RequestMethod.GET, produces={"application/json"})
 	public List<DailyRecordsW>getByidHive(@PathVariable("idHive") String idHive){
 		return this.dailyRecordsWRepository.findDailyRecordsWById(idHive);
 	}
-
+	
+	@DeleteMapping("/{id}")
+	public void deleteById(@PathVariable("id") String id) {
+		this.dailyRecordsWRepository.deleteById(id);
+	}
 }

@@ -12,7 +12,8 @@ import com.apiwatch.entities.DailyRecordsW;
 @Repository
 public interface DailyRecordsWRepository extends MongoRepository<DailyRecordsW ,String>{
 	
-	//DailyRecordsW findByIdHive(String id);
+	DailyRecordsW findByIdHive(String id);
 	
 	List<DailyRecordsW> findDailyRecordsWById(String idHive);
+	
 }
