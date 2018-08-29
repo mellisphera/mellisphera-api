@@ -40,12 +40,6 @@ public class DailyRecordsTHController {
 	public void deleteById(@PathVariable("id") String id) {
 		this.dailyRecordsTHRepository.deleteById(id);
 	}
-	/*
-	@RequestMapping(value="/last/{idHive}", method = RequestMethod.GET, produces={"application/json"})
-	public List<DailyRecordsTH> getByLastDate(@PathVariable("idHive") String idHive) {
-		List<DailyRecordsTH> dailyRecords = this.dailyRecordsTHRepository.findDailyRecordsTHByrecordDate(new Date());
-		return dailyRecords;
-	}*/
 	
 	@RequestMapping(value="/last/{idHive}", method = RequestMethod.GET, produces={"application/json"})
 	public DailyRecordsTH getByLastDate(@PathVariable("idHive") String idHive) {
