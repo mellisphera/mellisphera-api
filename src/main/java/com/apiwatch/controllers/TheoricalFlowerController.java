@@ -44,7 +44,7 @@ public class TheoricalFlowerController {
 	} 
 	
     
-    //On récupère toutes les plantes test
+    //On récupère toutes les plantes theoriques
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
 	public List<TheoricalFlower> getAllFlowers() {
 		List<TheoricalFlower> allFlowers=this.theoricalFlowerRepository.findAll();
@@ -52,7 +52,7 @@ public class TheoricalFlowerController {
 		return allFlowers;
 	}
     
-    //On réupère les types possible des plantes
+    //On récupère les types possible des plantes
     @GetMapping("/types")
     public List<String>  getAllGenre(){    	
     	List<String> lesTypes = new ArrayList<>();
@@ -63,7 +63,7 @@ public class TheoricalFlowerController {
 	    return lesTypes;
     }
 	
-    //On récupère les fleursTest qui correspondent aux filtres
+    //On récupère les fleursTest qui correspondent aux nom (partiel ou entier) tapé par l'utilisateur dans sa recherche
     @RequestMapping(value = "/rechercheVar", method = RequestMethod.PUT)
     public List<TheoricalFlower> getRechercheVar(@RequestBody TheoricalFlower flower){
 	    List<TheoricalFlower> flowers =  this.theoricalFlowerRepository.findAll();
@@ -85,7 +85,7 @@ public class TheoricalFlowerController {
 	    return resFlowers;
     } 
     
-    //On récupère les fleursTest qui correspondent aux filtres
+    //On récupère les fleursTheorique qui correspondent aux filtres de type et de période de floraison
     @RequestMapping(value = "/recherchePer", method = RequestMethod.PUT)
     public List<TheoricalFlower> getRecherchePer(@RequestBody TheoricalFlower flower){
 	    List<TheoricalFlower> flowers =  this.theoricalFlowerRepository.findAll();
