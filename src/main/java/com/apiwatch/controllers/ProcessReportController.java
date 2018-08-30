@@ -1,5 +1,6 @@
 package com.apiwatch.controllers;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -60,9 +61,9 @@ public class ProcessReportController {
     
     @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.GET, produces={"application/json"})
     public List<ProcessReport> getReportsHive(@PathVariable("idHive") String idHive){
-        List<ProcessReport> reports = this.processReportRepository.findProcessReportByIdHive(idHive);
-        Collections.reverse(reports);
-        return reports;
+        List<ProcessReport> reportsL = this.processReportRepository.findProcessReportByIdLHive(idHive);
+        Collections.reverse(reportsL);
+        return reportsL;
     }
     
     @DeleteMapping("/{id}")
