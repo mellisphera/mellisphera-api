@@ -18,6 +18,7 @@ public class ProcessReportTemp {
 	public String idApiary;
 	public String type;
 	public String date;
+	public String nluScore;
 	public String username;
 
 	
@@ -83,6 +84,26 @@ public class ProcessReportTemp {
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+
+	public String getNluScore() {
+		return nluScore;
+	}
+
+
+	public void setNluScore(String nluScore) {
+		this.nluScore = nluScore;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	
