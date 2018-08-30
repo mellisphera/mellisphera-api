@@ -94,6 +94,11 @@ public class ProcessReport {
 	public void setNluScore(String nluScore) {
 		this.nluScore = nluScore;
 	}
+
+	public void setUsername(String username) {
+		this.username = username;
+		
+	}
 	
 	
 	
