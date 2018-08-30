@@ -114,37 +114,17 @@ public class ObservedFlowerController {
 		int year = cal.get(Calendar.YEAR);
 		String dateIntD[] = new String[2];
 		String dateIntF[] = new String[2];
-		
-		 this.mois.put("decembre","12");
-		 this.mois.put("novembre","11");
-		 this.mois.put("octobre","10");
-		 this.mois.put("septembre","9");
-		 this.mois.put("août","8");
-		 this.mois.put("juillet","7");
-		 this.mois.put("juin","6");
-		 this.mois.put("mai","5");
-		 this.mois.put("avril","4");
-		 this.mois.put("mars","3");
-		 this.mois.put("fevrier","2");
-		 this.mois.put("janvier","1");
-		 
-		 String[] dateD = new String[2];
-		 String[] dateF = new String[2];
-		
+
 		ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id);
 		
 		if(!(flower.getDateDebutd().get(annee).equals(""))) {
-			dateD = flower.getDateDebutd().get(annee).split(" ");
-			dateD[1] = stripAccents(dateD[1]);
 			dateIntD[1] = flower.getNom();
-			dateIntD[0] = year+"-"+mois.get(dateD[1].toLowerCase())+"-"+dateD[0];
+			dateIntD[0] = year+"-"+flower.getDateDebutd().get(annee);
 			dates.add(dateIntD);
 		}
 		if (!(flower.getDateFind().get(annee).equals(""))) {
-			dateF = flower.getDateFind().get(annee).split(" ");	
-			dateF[1] = stripAccents(dateF[1]);
 			dateIntF[1] = flower.getNom();;
-			dateIntF[0] = year+"-"+mois.get(dateF[1].toLowerCase())+"-"+dateF[0];
+			dateIntF[0] = year+"-"+flower.getDateFind().get(annee);
 			
 			dates.add(dateIntF);
 		}
@@ -168,11 +148,30 @@ public class ObservedFlowerController {
 	 @RequestMapping(value = "/updateDebd/{id}/{annee}", method = RequestMethod.PUT) 
 	 public void updateDebutd(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateDebut){ 		 
 		 ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id);
+		 System.out.println("datD : "+dateDebut);
+		 this.mois.put("decembre","12");
+		 this.mois.put("novembre","11");
+		 this.mois.put("octobre","10");
+		 this.mois.put("septembre","09");
+		 this.mois.put("août","08");
+		 this.mois.put("juillet","07");
+		 this.mois.put("juin","06");
+		 this.mois.put("mai","05");
+		 this.mois.put("avril","04");
+		 this.mois.put("mars","03");
+		 this.mois.put("fevrier","02");
+		 this.mois.put("janvier","01");
+		 
+		 String[] dateD = new String[2];
+		 
 
 		 if (dateDebut.equals("null")) {
+			 flower.setDateDebutdate(annee,"");
 			 flower.setDateDebutd(annee,"");
 		 } else {
-			 flower.setDateDebutd(annee,dateDebut);
+			 dateD = dateDebut.split(" ");
+			 flower.setDateDebutdate(annee,dateDebut);
+			 flower.setDateDebutd(annee,mois.get(dateD[1].toLowerCase())+"-"+dateD[0]);
 		 }
 	 	 this.observedFlowerRepository.save(flower);
 		 	 
@@ -183,11 +182,32 @@ public class ObservedFlowerController {
 	 public void updateFind(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateFin){ 
 	 	 
 	 	 ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id);
+	 	 
+	 	System.out.println("datF : "+dateFin);
+	 	 
+		 this.mois.put("decembre","12");
+		 this.mois.put("novembre","11");
+		 this.mois.put("octobre","10");
+		 this.mois.put("septembre","09");
+		 this.mois.put("août","08");
+		 this.mois.put("juillet","07");
+		 this.mois.put("juin","06");
+		 this.mois.put("mai","05");
+		 this.mois.put("avril","04");
+		 this.mois.put("mars","03");
+		 this.mois.put("fevrier","02");
+		 this.mois.put("janvier","01");
+		 
+		 String[] dateF = new String[2];
+		 
 
 	 	if (dateFin.equals("null")) {
+			 flower.setDateFindate(annee,"");
 			 flower.setDateFind(annee,"");
 		 } else {
-			 flower.setDateFind(annee,dateFin);
+			 dateF = dateFin.split(" ");
+			 flower.setDateFindate(annee,dateFin);
+			 flower.setDateFind(annee,mois.get(dateF[1].toLowerCase())+"-"+dateF[0]);
 		 }
 	 	 
 	 	 this.observedFlowerRepository.save(flower);
@@ -236,10 +256,18 @@ public class ObservedFlowerController {
 			 f.setDateDebutd("2018","");
 			 f.setDateDebutd("2019","");
 			 f.setDateDebutd("2020","");
+			 f.dateDebutdate = new HashMap<String, String>();
+			 f.setDateDebutdate("2018","");
+			 f.setDateDebutdate("2019","");
+			 f.setDateDebutdate("2020","");
 			 f.dateFind = new HashMap<String, String>();
 			 f.setDateFind("2018","");
 			 f.setDateFind("2019","");
 			 f.setDateFind("2020","");
+			 f.dateFindate = new HashMap<String, String>();
+			 f.setDateFindate("2018","");
+			 f.setDateFindate("2019","");
+			 f.setDateFindate("2020","");
 		 	 this.observedFlowerRepository.save(f);
 		 }
 	 }

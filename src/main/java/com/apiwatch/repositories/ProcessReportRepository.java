@@ -19,5 +19,9 @@ public interface ProcessReportRepository extends MongoRepository<ProcessReport,S
 	
 	List<ProcessReport> findProcessReportByIdApiary(String idApiary);
 	
-	List<ProcessReport> findProcessReportByIdHive(String idAHive);
+	List<ProcessReport> findProcessReportByIdHive(String idHive);
+	
+	List<ProcessReport> findProcessReportByIdLHive(String[] idLHive);
+	
+	List<ProcessReport> findProcessReportByIdLHive(String idHive);
 }

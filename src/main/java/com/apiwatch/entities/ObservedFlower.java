@@ -11,6 +11,8 @@ public class ObservedFlower {
 	@Id
 	public String id;
 	public String nom;
+	public HashMap<String,String> dateDebutdate;
+	public HashMap<String,String> dateFindate;
 	public HashMap<String,String> dateDebutd;
 	public HashMap<String,String> dateFind;
 	public String dateThDebutd;
@@ -27,12 +29,15 @@ public class ObservedFlower {
 	public ObservedFlower() {
 	}
 
-	public ObservedFlower(String id, String nom, HashMap<String, String> dateDebutd, HashMap<String, String> dateFind,
+	public ObservedFlower(String id, String nom, HashMap<String, String> dateDebutdate,
+			HashMap<String, String> dateFindate, HashMap<String, String> dateDebutd, HashMap<String, String> dateFind,
 			String dateThDebutd, String dateThFind, String dateThDebutdate, String dateThFindate, String presence,
-			String username, String idApiary, String photo) {
+			double poid, String username, String idApiary, String photo) {
 		super();
 		this.id = id;
 		this.nom = nom;
+		this.dateDebutdate = dateDebutdate;
+		this.dateFindate = dateFindate;
 		this.dateDebutd = dateDebutd;
 		this.dateFind = dateFind;
 		this.dateThDebutd = dateThDebutd;
@@ -40,11 +45,12 @@ public class ObservedFlower {
 		this.dateThDebutdate = dateThDebutdate;
 		this.dateThFindate = dateThFindate;
 		this.presence = presence;
+		this.poid = poid;
 		this.username = username;
 		this.idApiary = idApiary;
 		this.photo = photo;
 	}
-	
+
 	
 	public String getId() {
 		return id;
@@ -154,7 +160,37 @@ public class ObservedFlower {
 		this.poid = d;
 	}
 
-	
 
+
+	public HashMap<String, String> getDateDebutdate() {
+		return dateDebutdate;
+	}
+
+
+
+	public void setDateDebutdate(HashMap<String, String> dateDebutdate) {
+		this.dateDebutdate = dateDebutdate;
+	}
+
+
+
+	public HashMap<String, String> getDateFindate() {
+		return dateFindate;
+	}
+
+
+
+	public void setDateFindate(HashMap<String, String> dateFindate) {
+		this.dateFindate = dateFindate;
+	}
+
+	
+	public void setDateDebutdate(String annee,String dateDebut) {
+		this.dateDebutdate.put(annee, dateDebut);
+	}
+	
+	public void setDateFindate(String annee,String dateFin) {
+		this.dateFindate.put(annee, dateFin);
+	}
 	
 }
