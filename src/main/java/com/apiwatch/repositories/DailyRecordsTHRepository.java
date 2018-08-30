@@ -1,5 +1,6 @@
 package com.apiwatch.repositories;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -11,6 +12,10 @@ import com.apiwatch.entities.DailyRecordsTH;
 @Service
 @Repository
 public interface DailyRecordsTHRepository extends MongoRepository<DailyRecordsTH ,String>{
-
+	
+	List<DailyRecordsTH> findDailyRecordsTHByrecordDate(Date recordDate);
+	
 	List<DailyRecordsTH> findDailyRecordsTHByIdHive(String idHive);
+	
+	
 }
