@@ -13,9 +13,7 @@ import com.apiwatch.entities.DailyRecordsTH;
 @Repository
 public interface DailyRecordsTHRepository extends MongoRepository<DailyRecordsTH ,String>{
 	
-	List<DailyRecordsTH> findDailyRecordsTHByrecordDate(Date recordDate);
-	
 	List<DailyRecordsTH> findDailyRecordsTHByIdHive(String idHive);
 	
-	
+	DailyRecordsTH findDailyRecordsTHByrecordDate(Date date);
 }
