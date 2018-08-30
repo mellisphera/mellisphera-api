@@ -84,6 +84,9 @@ public class DailyRecordsTH {
 		this.humidity_int_max = humidity_int_max;
 	}
 	
+	public String getDateIso() {
+		return this.recordDate.getYear()+"-"+this.recordDate.getMonth()+"-"+this.recordDate.getDate();
+	}
 	public float getTemp_int_min() {
 		return temp_int_min;
 	}
