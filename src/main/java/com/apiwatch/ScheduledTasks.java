@@ -19,7 +19,7 @@ import com.apiwatch.repositories.HourlyWeatherRepository;
 import com.apiwatch.weather.HourlyWeather;
 import com.apiwatch.weather.WeatherAPI;
 //***********************************************
-//Current implementation : request hourly weather
+//Current implementation : request hourly weather and compute daily weather
 //***********************************************
 
 @Component
@@ -45,11 +45,10 @@ public class ScheduledTasks {
         //System.out.println("Hello");
     }
     */
-    // 1 hour = 600 000 ms
    
     // this function update the value of weather in apiaries in the DB
-    
-    @Scheduled(fixedRate = 300000 )
+    //HOURLY WEATHER
+    @Scheduled(cron = "0 0 * * * *")
     public void apiaryWeatherNow() {
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     	
@@ -74,9 +73,9 @@ public class ScheduledTasks {
 	    	  
 	    }	
    	}
-    
+    //DAILY WEATHER
     //Fires at 11 PM every day:
-    @Scheduled(cron = "0 0 11 * * ?")
+    @Scheduled(cron = "0 0 23 * * *")
     public void dailyWeather() {
     	DailyWeatherController.dailyWeatherCompute();
    	}
