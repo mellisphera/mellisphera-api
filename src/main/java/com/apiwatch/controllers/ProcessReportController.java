@@ -1,11 +1,8 @@
 package com.apiwatch.controllers;
 
 import java.sql.Array;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.apiwatch.entities.Apiary;
 import com.apiwatch.entities.ProcessReport;
 import com.apiwatch.repositories.ProcessReportRepository;
 
@@ -82,6 +78,7 @@ public class ProcessReportController {
     	report.setId(processReport.getId());
     	report.setIdApiary(processReport.getIdApiary());
     	report.setIdHive(processReport.getIdHive());
+    	report.setIdLHive(processReport.getIdLHive());
     	report.setNluScore(processReport.getNluScore());
     	
  		this.processReportRepository.save(report);
