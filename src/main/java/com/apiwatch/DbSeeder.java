@@ -90,8 +90,9 @@ public class DbSeeder implements CommandLineRunner {
     	this.flowerINRARepository.deleteAll();
     	this.dailyWeatherRepository.deleteAll();
     	this.hourlyWeatherRepository.deleteAll();
-    	this.apiaryRepository.deleteAll();*/
+    	this.apiaryRepository.deleteAll();
     	this.processReportRepository.deleteAll();
+    	*/
     	
     	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
    
@@ -161,13 +162,14 @@ public class DbSeeder implements CommandLineRunner {
     	ap4.setCodePostal("Toronto");
     	ap4.setUsername("jhe");
     	*/
+    	/*
     	Hive h1 = new Hive();
     	h1.setId("1");
     	h1.setName("Ma premiere ruche");
     	h1.setDescription("C'est ma première ruche qui contient près de 1000 abeilles");
     	h1.setIdApiary(ap1.getId());
     	h1.setUsername("jcp");
-    	/*
+    	
     	Hive h2 = new Hive();
     	h2.setId("2");
     	h2.setName("Ruche 2");
@@ -179,49 +181,84 @@ public class DbSeeder implements CommandLineRunner {
     	h3.setName("Ruche dhay3a");
     	h3.setIdApiary(ap2.getId());
     	h3.setUsername("Ali chouereb");
-    	
+    	*/
     	Sensor s1 = new Sensor();
-    	s1.setId("1");
     	s1.setReference("43:10:DA");
     	s1.setType("weight");
-    	s1.setDescription("Capteur de poids de la ruche 1");
+    	s1.setDescription("");
     	s1.setIdHive("1");
     	s1.setIdApiary("1");
-    	s1.setUsername("jcp");
+    	s1.setUsername("jhe");
     	
     	Sensor s2 = new Sensor();
-    	s2.setReference("43:10:A2");
+    	s2.setReference("42:13:1D");
     	s2.setType("T_HR");
-    	s2.setDescription("Capteur 2 temp");
-    	s2.setIdHive("2");
+    	s2.setDescription("");
+    	s2.setIdHive("1");
     	s2.setIdApiary("1");
-    	s2.setUsername("jcp");
+    	s2.setUsername("jhe");
+        
+    	
+    	
     	
     	Sensor s3 = new Sensor();
-    	s3.setReference("0X:12:DA");
+    	s3.setReference("43:10:A2");
     	s3.setType("weight");
-    	s3.setDescription("Capteur 3");
+    	s3.setDescription("");
     	s3.setIdHive("1");
     	s3.setIdApiary("1");
     	s3.setUsername("jcp");
- */   	
+ 
+    	Sensor s4 = new Sensor();
+    	s4.setReference("42:0E:A4");
+    	s4.setType("T_HR");
+    	s4.setDescription("");
+    	s4.setIdHive("1");
+    	s4.setIdApiary("1");
+    	s4.setUsername("jcp");
     	
-    	Sensor s1 = new Sensor();
-    	s1.setId("1");
-    	s1.setReference("43:10:DA");
-    	s1.setType("weight");
-    	s1.setDescription("Capteur de poids de la ruche 1");
-    	s1.setIdHive("1");
-    	s1.setIdApiary("1");
-    	s1.setUsername("jcp");
     	
-    	Sensor s2 = new Sensor();
-    	s2.setReference("43:10:A2");
-    	s2.setType("T_HR");
-    	s2.setDescription("Capteur 2 temp");
-    	s2.setIdHive("2");
-    	s2.setIdApiary("1");
-    	s2.setUsername("jcp");
+    	
+    	
+    	
+    	
+    	Sensor s5 = new Sensor();
+    	s5.setReference("43:10:7E");
+    	s5.setType("weight");
+    	s5.setDescription("");
+    	s5.setIdHive("1");
+    	s5.setIdApiary("1");
+    	s5.setUsername("blg");
+ 
+    	Sensor s6 = new Sensor();
+    	s6.setReference("42:13:53");
+    	s6.setType("T_HR");
+    	s6.setDescription("");
+    	s6.setIdHive("1");
+    	s6.setIdApiary("1");
+    	s6.setUsername("blg");
+ 
+    	
+    	
+    	
+       	Sensor s7 = new Sensor();
+       	s7.setReference("43:0A:C7");
+       	s7.setType("weight");
+       	s7.setDescription("");
+       	s7.setIdHive("1");
+       	s7.setIdApiary("1");
+       	s7.setUsername("clo");
+ 
+    	Sensor s8 = new Sensor();
+    	s8.setReference("42:0E:9F");
+    	s8.setType("T_HR");
+    	s8.setDescription("Capteur 2 temp");
+    	s8.setIdHive("1");
+    	s8.setIdApiary("1");
+    	s8.setUsername("clo");
+ 
+    
+    	
     	
     	User u1 = new User();
 		u1.setUsername("blg");	
@@ -571,6 +608,7 @@ public class DbSeeder implements CommandLineRunner {
 		this.apiaryRepository.save(ap1);
 		
 		//this.apiaryRepository.save(ap2); 
+		
 		this.soldDeviceRepository.save(sd1);
 		this.soldDeviceRepository.save(sd2);
 		this.soldDeviceRepository.save(sd3);
@@ -583,8 +621,17 @@ public class DbSeeder implements CommandLineRunner {
 		List<User> users = Arrays.asList(u1, u2, u3, u4);
 		this.userRepository.saveAll(users);
 
+
 		this.sensorRepository.save(s1);
 		this.sensorRepository.save(s2);
+		this.sensorRepository.save(s3);
+		this.sensorRepository.save(s4);
+		this.sensorRepository.save(s5);
+		this.sensorRepository.save(s6);
+		this.sensorRepository.save(s7);
+		this.sensorRepository.save(s8);
+		
+		
 		
 
 		this.theoricalFlowerRepository.save(f4T);
