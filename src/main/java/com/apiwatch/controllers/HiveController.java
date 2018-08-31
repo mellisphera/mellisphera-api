@@ -57,6 +57,7 @@ public class HiveController {
     	Hive h = this.hivesRepository.findHiveById(id);
     	h.setName(hive.getName());
  		h.setDescription(hive.getDescription());
+ 		h.setIdApiary(hive.getIdApiary());
  		this.hivesRepository.save(h);
     }
     
