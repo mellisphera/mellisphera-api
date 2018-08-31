@@ -96,11 +96,11 @@ public class SensorController {
     
     @RequestMapping(value = "/weight/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Sensor> getUserWeightSensors(@PathVariable String username){
-    List<Sensor> allSensors=this.sensorRepository.findAll();
+    List<Sensor> allSensors=this.sensorRepository.findSensorByUsername(username);
     List<Sensor> apiarySensors = new ArrayList<>();
     
 	    for(Sensor a : allSensors) {
-	    	if(a.getUsername().equals(username) && a.getType().equals("weight")) {
+	    	if(a.getType().equals("weight")) {
 	    		apiarySensors.add(a);
 	    	}
 	    }
@@ -108,15 +108,12 @@ public class SensorController {
     }
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
-    public void update(@PathVariable("id") String id, @RequestBody Sensor Sensor){ 
-    	 List<Sensor> sensors= this.sensorRepository.findAll();
-         for(Sensor s : sensors){
-         	if(s.getId().equals(id) && Sensor.getIdApiary()!=null && Sensor.getIdHive()!=null) {
-         		s.setIdHive(Sensor.getIdHive());
-         		s.setIdApiary(Sensor.getIdApiary());
-         		this.sensorRepository.save(s);
-         	}
-         }
+    public void update(@PathVariable("id") String id, @RequestBody Sensor sensor){ 
+        Sensor s = this.sensorRepository.findSensorById(id);
+        s.setIdHive(sensor.getIdHive());
+	  	s.setIdApiary(sensor.getIdApiary());
+	  	s.setDescription(sensor.getDescription());
+	  	this.sensorRepository.save(s);
     }
     
 
