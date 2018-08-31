@@ -80,9 +80,12 @@ public class SensorController {
 	    	hv = this.hivesRepository.findHiveById(s.getIdHive());
 	    	if (ap != null) {
 	    		s.setApiaryName(ap.getName());
-		    	s.setHiveName(hv.getName());
 	    	} else {
 	    		s.setApiaryName("stock");
+	    	}
+	    	if (hv != null) {
+		    	s.setHiveName(hv.getName());
+	    	} else {
 		    	s.setHiveName("stock");
 	    	}
 	    }
