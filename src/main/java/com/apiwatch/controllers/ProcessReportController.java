@@ -21,7 +21,6 @@ import com.apiwatch.repositories.ProcessReportRepository;
 @Service
 @RestController
 @RequestMapping("/report")
-@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class ProcessReportController {
 
 	@Autowired

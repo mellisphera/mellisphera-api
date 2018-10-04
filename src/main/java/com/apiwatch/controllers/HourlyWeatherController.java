@@ -22,7 +22,6 @@ import com.apiwatch.weather.HourlyWeather;
 @Service
 @RestController
 @RequestMapping("hourlyweather")
-@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class HourlyWeatherController {
 	
 	@Autowired

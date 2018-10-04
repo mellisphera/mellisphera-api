@@ -33,7 +33,6 @@ import com.apiwatch.entities.SoldDevices;
 
 @RestController
 @RequestMapping("/sold_devices")
-@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class SoldDeviceController {
 	
 	@Autowired

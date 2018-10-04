@@ -19,5 +19,4 @@ public class LemabkrApplication{
 		SpringApplication.run(LemabkrApplication.class, args);
 	}
 	
-	
 }
