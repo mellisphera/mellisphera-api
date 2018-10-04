@@ -27,7 +27,6 @@ import com.apiwatch.repositories.UserRepository;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class UserController {
 	@Autowired
     private UserRepository userRepository;

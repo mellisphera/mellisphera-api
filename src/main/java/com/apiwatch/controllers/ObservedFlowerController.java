@@ -25,7 +25,6 @@ import com.apiwatch.repositories.ObservedFlowerRepository;
 @Service
 @RestController
 @RequestMapping("/flowersOb")
-@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class ObservedFlowerController {
 
 	@Autowired

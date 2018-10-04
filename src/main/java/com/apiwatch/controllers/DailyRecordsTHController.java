@@ -18,7 +18,6 @@ import com.apiwatch.repositories.HivesRepository;
 @Service
 @RestController
 @RequestMapping("/dailyRecordsTH")
-@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class DailyRecordsTHController {
 
 
