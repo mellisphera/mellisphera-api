@@ -19,7 +19,6 @@ import com.apiwatch.repositories.DailyRecordsWRepository;
 @Service
 @RestController
 @RequestMapping("/dailyRecordsW")
-@CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class DailyRecordsWController {
 
 	@Autowired

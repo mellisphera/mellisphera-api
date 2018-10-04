@@ -23,7 +23,6 @@ import com.apiwatch.repositories.PostRepository;
 @Service
 @RestController
 @RequestMapping("posts")
-@CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class PostController {
 	
 	@Autowired

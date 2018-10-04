@@ -20,7 +20,6 @@ import java.util.Optional;
 @Service
 @RestController
 @RequestMapping("/hives")
-@CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class HiveController {
 
 	@Autowired

@@ -33,8 +33,6 @@ import com.apiwatch.repositories.SensorRepository;
 import com.apiwatch.repositories.ApiaryRepository;
 
 @RestController
-@RequestMapping("/sensors")
-@CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class SensorController {
 	
 	@Autowired private SensorRepository sensorRepository;

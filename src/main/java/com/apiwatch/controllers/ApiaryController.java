@@ -14,7 +14,6 @@ import java.util.Map;
 @Service
 @RestController
 @RequestMapping("/apiaries")
-@CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class ApiaryController {
 	@Autowired
     private ApiaryRepository apiaryRepository;

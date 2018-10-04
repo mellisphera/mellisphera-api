@@ -13,7 +13,6 @@ import com.apiwatch.weather.WeatherAPI;
 
 @RestController
 @RequestMapping("/weather")
-@CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class WeatherAPIController {
 	
 	@Autowired WeatherAPIRepository meteoRepository;

@@ -14,7 +14,6 @@ import java.util.List;
 @Service
 @RestController
 @RequestMapping("/dailyStockHoney")
-@CrossOrigin(origins = {"http://localhost:4200", "http://51.68.71.91:4200","http://51.68.71.91:4300"})
 public class DailyStockHoneyController {
 	
 	@Autowired
