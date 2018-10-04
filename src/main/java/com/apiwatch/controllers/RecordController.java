@@ -34,7 +34,6 @@ import com.apiwatch.repositories.RecordRepository;
 
 @RestController
 @RequestMapping("/records")
-@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class RecordController {
 	
 	@Autowired private RecordRepository recordRepository;

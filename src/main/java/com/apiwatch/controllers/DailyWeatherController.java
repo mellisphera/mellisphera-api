@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 @Service
 @RestController
 @RequestMapping("/dailyweather")
-@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class DailyWeatherController {
 
 	@Autowired private DailyWeatherRepository dailyWeatherRepository;

@@ -30,7 +30,6 @@ import com.apiwatch.repositories.TheoricalFlowerRepository;
 @Service
 @RestController
 @RequestMapping("/flowersTh")
-@CrossOrigin(origins = {"http://localhost:4200", "http://***REMOVED***:4200","http://***REMOVED***:4300"})
 public class TheoricalFlowerController {
 
 	@Autowired
