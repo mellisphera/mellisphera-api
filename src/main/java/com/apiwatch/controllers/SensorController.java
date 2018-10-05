@@ -33,6 +33,7 @@ import com.apiwatch.repositories.SensorRepository;
 import com.apiwatch.repositories.ApiaryRepository;
 
 @RestController
+@RequestMapping("/sensors")
 public class SensorController {
 	
 	@Autowired private SensorRepository sensorRepository;
