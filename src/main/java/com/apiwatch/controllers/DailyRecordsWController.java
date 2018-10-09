@@ -40,7 +40,7 @@ public class DailyRecordsWController {
 	
 	@RequestMapping(value="/hive/{idHive}", method = RequestMethod.GET, produces={"application/json"})
 	public List<DailyRecordsW>getByidHive(@PathVariable("idHive") String idHive){
-		return this.dailyRecordsWRepository.findDailyRecordsWById(idHive);
+		return this.dailyRecordsWRepository.findDailyRecordsWByIdHive(idHive);
 	}
 	
 	@DeleteMapping("/{id}")

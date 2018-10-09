@@ -14,6 +14,6 @@ public interface DailyRecordsWRepository extends MongoRepository<DailyRecordsW ,
 	
 	DailyRecordsW findByIdHive(String id);
 	
-	List<DailyRecordsW> findDailyRecordsWById(String idHive);
+	List<DailyRecordsW> findDailyRecordsWByIdHive(String idHive);
 	
 }
