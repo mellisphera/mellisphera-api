@@ -15,7 +15,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/apiaries")
 public class ApiaryController {
-	@Autowired
+    @Autowired
     private ApiaryRepository apiaryRepository;
 
     public ApiaryController() {
@@ -59,8 +59,9 @@ public class ApiaryController {
     }
    
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
-    public void insert(@RequestBody Apiary Apiary){
-        this.apiaryRepository.insert(Apiary);
+    public void insert(@RequestBody Apiary apiary){
+        System.err.println("-"+apiary);
+        this.apiaryRepository.insert(apiary);
     }
     
     @RequestMapping(value = "/details/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
