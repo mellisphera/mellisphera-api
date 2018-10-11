@@ -27,11 +27,18 @@ public class DailyStockHoneyController {
     }
     
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
-    public List<DailyStockHoney> getAll(){
-    	
-	    List<DailyStockHoney> dailyStockHoney=this.dailyStockHoneyRepository.findAll();
-	    
-	    return dailyStockHoney;
+    public List<DailyStockHoney> getAll(){	
+	    return this.dailyStockHoneyRepository.findAll();
+    }
+    
+    @RequestMapping(value = "/apiary/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
+    public List<DailyStockHoney> getByIdApiary(@PathVariable String idApiary){
+        return this.dailyStockHoneyRepository.findDailySrtockHoneyByIdApiary(idApiary);
+    }
+    
+       @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.GET, produces={"application/json"})
+    public List<DailyStockHoney> getByIdHive(@PathVariable String idHive){
+        return this.dailyStockHoneyRepository.findDailyStockHoneyByIdHive(idHive);
     }
 
 }
