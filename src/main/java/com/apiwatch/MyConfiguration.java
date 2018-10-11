@@ -20,7 +20,7 @@ public class MyConfiguration {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200","http://localhost:4300","http://51.68.71.91","http://51.68.71.91:4200")
+                        .allowedOrigins("http://localhost:4200","http://localhost:4300","http://51.68.71.91","http://51.68.71.91:4200","http://192.168.0.108:4200")
                         .allowedMethods("PUT", "DELETE","POST","GET");
             }
         };
