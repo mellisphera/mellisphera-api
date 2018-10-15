@@ -58,6 +58,11 @@ public class RecordController {
     return records;
     }
     
+    @RequestMapping(value = "/hive/{idHive}" , method = RequestMethod.GET, produces={"application/json"})
+    public List<Record> getByIdHive(@PathVariable String idHive){
+        return this.recordRepository.findRecordByIdHive(idHive);
+    }
+    
     @GetMapping("/weight")
     public Float[] getJCPWeightRecords(){
     List<Record> records=this.recordRepository.findAll();
