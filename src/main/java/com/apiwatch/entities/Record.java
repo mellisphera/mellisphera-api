@@ -12,7 +12,7 @@ public class Record {
 	public Float battery_int;
 	public Float humidity_ext;
 	public Float humidity_int;
-	public String recordDate;
+	public Date recordDate;
 	public Float weight_icome;
 	public String recordsType;
 	public String sensorRef;
@@ -20,6 +20,7 @@ public class Record {
 	public Float temp_int;
 	public Float weight;
 	public String idHive;
+        public Long timestamp;
 	
 	
 	public Record() {
@@ -27,8 +28,8 @@ public class Record {
 	}
 
 	public Record(String id, Float battery_ext, Float battery_int, Float humidity_ext, Float humidity_int,
-			String recordDate, Float weight_icome, String recordsType, String sensorRef, Float temp_ext, Float temp_int,
-			Float weight, String idHive) {
+			Date recordDate, Float weight_icome, String recordsType, String sensorRef, Float temp_ext, Float temp_int,
+			Float weight, String idHive, Long timestamp) {
 		super();
 		this.id = id;
 		this.battery_ext = battery_ext;
@@ -43,13 +44,21 @@ public class Record {
 		this.temp_int = temp_int;
 		this.weight = weight;
 		this.idHive = idHive;
+                this.timestamp = timestamp;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-
+        public Long getTimestamp(){
+            return this.timestamp;
+        }
+        
+        public void setTimestamp(Long Timestamp){
+            this.timestamp = Timestamp;
+        }
+        
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -95,12 +104,12 @@ public class Record {
 	}
 
 
-	public String getRecordDate() {
+	public Date getRecordDate() {
 		return recordDate;
 	}
 
 
-	public void setRecordDate(String recordDate) {
+	public void setRecordDate(Date recordDate) {
 		this.recordDate = recordDate;
 	}
 
