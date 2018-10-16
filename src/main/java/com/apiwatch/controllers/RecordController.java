@@ -31,6 +31,9 @@ import com.apiwatch.entities.Record;
 import com.apiwatch.entities.Sensor;
 import com.apiwatch.entities.User;
 import com.apiwatch.repositories.RecordRepository;
+import java.util.Comparator;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 
 @RestController
 @RequestMapping("/records")
@@ -60,7 +63,8 @@ public class RecordController {
     
     @RequestMapping(value = "/hive/{idHive}" , method = RequestMethod.GET, produces={"application/json"})
     public List<Record> getByIdHive(@PathVariable String idHive){
-        return this.recordRepository.findRecordByIdHive(idHive);
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        return this.recordRepository.findRecordByIdHive(idHive,sort);
     }
     
     @GetMapping("/weight")
@@ -83,7 +87,7 @@ public class RecordController {
     return recArray;
     }
     
-    @GetMapping("/weightDates")
+    /*@GetMapping("/weightDates")
     public String[] getJCPWeightRecordDates(){
     List<Record> records=this.recordRepository.findAll();
     List<String> weightDates = new ArrayList<>();
@@ -101,6 +105,6 @@ public class RecordController {
     recArray = weightDates.toArray(recArray);
     
     return recArray;
-    }
+    }*/
     
 }
