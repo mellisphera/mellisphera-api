@@ -16,4 +16,5 @@ public interface DailyRecordsTHRepository extends MongoRepository<DailyRecordsTH
 	List<DailyRecordsTH> findDailyRecordsTHByIdHive(String idHive);
 	
 	DailyRecordsTH findDailyRecordsTHByrecordDate(Date date);
+        
 }
