@@ -44,18 +44,12 @@ public class DailyRecordsTHController {
 	public void deleteById(@PathVariable("id") String id) {
 		this.dailyRecordsTHRepository.deleteById(id);
 	}
-	@RequestMapping(value="/last/{idHive}", method = RequestMethod.GET, produces={"application/json"})
-	public DailyRecordsTH getByLastDate(@PathVariable("idHive") String idHive) {
-		Date date = new Date();
-		String dateNow = date.getYear()+"-"+date.getMonth()+"-"+date.getDate();
-		List<DailyRecordsTH> dailyRecTh = this.dailyRecordsTHRepository.findDailyRecordsTHByIdHive(idHive);
-		System.out.println(dailyRecTh.toString());
-		for(DailyRecordsTH d : dailyRecTh) {
-			if(dateNow.equals(d.getDateIso())) {
-				return d;
-			}
-		}
-		return null;
+	
+        
+	@RequestMapping(value="/last/hive/{idHive}", method = RequestMethod.GET, produces={"application/json"})
+	public DailyRecordsTH getLast(@PathVariable("idHive") String idHive){
+		List<DailyRecordsTH> dailyrec = this.dailyRecordsTHRepository.findDailyRecordsTHByIdHive(idHive);
+                return dailyrec.get(dailyrec.size()-1);
 	}
 	
 	@RequestMapping(value = "/{username}/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
@@ -64,7 +58,15 @@ public class DailyRecordsTHController {
 		List<Hive> hives = this.hiveController.getAllUserHives(username, idApiary);
 		List<DailyRecordsTH> dailyRecTh = new ArrayList<>();
 		for(Hive h : hives) {
-			dailyRecTh.add(getByLastDate(h.getId()));
+                    System.err.println(h.getIdApiary());
+                    try{
+                        System.err.println(this.getByIdHive(h.getId()));
+			dailyRecTh.add(getLast(h.getId()));
+                    }
+                    catch(ArrayIndexOutOfBoundsException e){
+                        System.err.println(e.getMessage());
+                    }
+
 		}
 		
 		return dailyRecTh;
