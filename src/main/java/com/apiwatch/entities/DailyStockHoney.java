@@ -1,5 +1,6 @@
 package com.apiwatch.entities;
 
+import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,12 +12,12 @@ public class DailyStockHoney {
 	public String nom;
 	public double stockJ;
 	public double apportJ;
-	public String date;
+	public Date date;
 	public String idApiary;
 	public String idHive;
 	public String username;
 	
-	public DailyStockHoney(String id, String nom, double stockJ, double apportJ, String date, String idApiary,
+	public DailyStockHoney(String id, String nom, double stockJ, double apportJ, Date date, String idApiary,
 			String idHive, String username) {
 		super();
 		this.id = id;
@@ -57,10 +58,10 @@ public class DailyStockHoney {
 	public void setApportJ(double apportJ) {
 		this.apportJ = apportJ;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public String getIdApiary() {
