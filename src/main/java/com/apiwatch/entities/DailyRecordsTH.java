@@ -16,8 +16,8 @@ public class DailyRecordsTH {
 	private float temp_int_max;
 	private float temp_int_moy;
 	private float temp_int_stddev;
-	private String health_status;
-	private String health_trend;
+	private String status;
+	private String trend;
 	private float r_int_text;
 	
 	
@@ -26,8 +26,8 @@ public class DailyRecordsTH {
 	}
 	
 	public DailyRecordsTH(String id, Date recordDate, String idHive, float humidity_int_min, float humidity_int_max,
-			float temp_int_min, float temp_int_max, float temp_int_moy, float temp_int_stddev, String health_status,
-			String health_trend, float r_int_text) {
+			float temp_int_min, float temp_int_max, float temp_int_moy, float temp_int_stddev, String status,
+			String trend, float r_int_text) {
 		super();
 		this.id = id;
 		this.recordDate = recordDate;
@@ -38,8 +38,8 @@ public class DailyRecordsTH {
 		this.temp_int_max = temp_int_max;
 		this.temp_int_moy = temp_int_moy;
 		this.temp_int_stddev = temp_int_stddev;
-		this.health_status = health_status;
-		this.health_trend = health_trend;
+		this.status = status;
+		this.trend = trend;
 		this.r_int_text = r_int_text;
 	}
 	
@@ -84,9 +84,6 @@ public class DailyRecordsTH {
 		this.humidity_int_max = humidity_int_max;
 	}
 	
-	public String getDateIso() {
-		return this.recordDate.getYear()+"-"+this.recordDate.getMonth()+"-"+this.recordDate.getDate();
-	}
 	public float getTemp_int_min() {
 		return temp_int_min;
 	}
@@ -120,19 +117,19 @@ public class DailyRecordsTH {
 	}
 	
 	public String getHealth_status() {
-		return health_status;
+		return status;
 	}
 	
-	public void setHealth_status(String health_status) {
-		this.health_status = health_status;
+	public void setHealth_status(String status) {
+		this.status = status;
 	}
 	
 	public String getHealth_trend() {
-		return health_trend;
+		return trend;
 	}
 	
-	public void setHealth_trend(String health_trend) {
-		this.health_trend = health_trend;
+	public void setHealth_trend(String trend) {
+		this.trend = trend;
 	}
 	
 	public float getR_int_text() {
@@ -148,7 +145,7 @@ public class DailyRecordsTH {
 		return "DailyRecordsTH [id=" + id + ", recordDate=" + recordDate + ", idHive=" + idHive + ", humidity_int_min="
 				+ humidity_int_min + ", humidity_int_max=" + humidity_int_max + ", temp_int_min=" + temp_int_min
 				+ ", temp_int_max=" + temp_int_max + ", temp_int_moy=" + temp_int_moy + ", temp_int_stddev="
-				+ temp_int_stddev + ", health_status=" + health_status + ", health_trend=" + health_trend
+				+ temp_int_stddev + ", status=" + status + ", trend=" + trend
 				+ ", r_int_text=" + r_int_text + "]";
 	}
 	
