@@ -66,6 +66,9 @@ public class DailyRecordsTHController {
                     catch(ArrayIndexOutOfBoundsException e){
                         System.err.println(e.getMessage());
                     }
+                    catch(IndexOutOfBoundsException e){
+                        System.err.println(e.getMessage());
+                    }
 
 		}
 		
