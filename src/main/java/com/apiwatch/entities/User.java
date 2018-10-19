@@ -11,20 +11,18 @@ public class User {
 	@Id
 	public String id;
 	public Date createdAt ;
-	public String username;
-	public String password;
+        public Login login;
 	public String phone;
 	public String email;
 	public long connexions;
 	
 	
-	public User(String id, Date createdAt, String username, String password, String phone, String email,
+	public User(String id, Date createdAt,Login login, String phone, String email,
 			long connexions) {
 		super();
 		this.id = id;
 		this.createdAt = createdAt;
-		this.username = username;
-		this.password = password;
+                this.login = login;
 		this.phone = phone;
 		this.email = email;
 		this.connexions = connexions;
@@ -43,18 +41,6 @@ public class User {
 	}
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public String getPhone() {
 		return phone;
@@ -76,7 +62,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", createdAt=" + createdAt + ", username=" + username + ", password=" + password
+		return "User [id=" + id + ", createdAt=" + createdAt + ", username=" + login.getUsername() + ", password=" + login.getPassword()
 				+ ", phone=" + phone + ", email=" + email + ", connexions=" + connexions + "]";
 	}
 	

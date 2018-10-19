@@ -1,5 +1,6 @@
 package com.apiwatch.controllers;
 
+import com.apiwatch.entities.Login;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -58,7 +59,7 @@ public class UserController {
     List<User> Users=this.userRepository.findAll();
     List<String> names = new ArrayList<>();
     for(User e : Users) {
-    	names.add(e.getUsername());
+    	names.add(e.login.getUsername());
     }
     return names;
     }
@@ -97,19 +98,16 @@ public class UserController {
     }
     
     @RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
-    public Boolean checkLogin(@RequestBody User u ){    
-    	User u1 = this.userRepository.findUserByUsername(u.getUsername());
-        System.out.println("user :" + u);
-        if(u.getPassword().equals(u1.getPassword()))
-        	return true;
-        else
-        	return false;
+    public Boolean checkLogin(@RequestBody Login login ){
+        User user = null;
+        user = this.userRepository.findUserBylogin(login);
+        if(user != null){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
-    
-    
-    
-    
-    
 	
 }
