@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.apiwatch.entities.User;
 import com.apiwatch.repositories.UserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -97,17 +99,27 @@ public class UserController {
         return User;
     }
     
-    @RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
+    /*@RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
     public Boolean checkLogin(@RequestBody Login login ){
         User user = null;
-        user = this.userRepository.findUserBylogin(login);
+        user = this.userRepository.findUserBylogin(login);  
         if(user != null){
             return true;
         }
         else{
             return false;
         }
-    }
+    }*/
 
+    @RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
+    public Boolean checkLogin(@RequestBody Login login){
+        List<User> user = this.userRepository.findAll();
+        for(User u : user){
+            if(u.login.getUsername().equals(login.getUsername()) && u.login.getPassword().equals(login.getPassword())){
+                return true;
+            }
+        }
+        return false;
+    }
 	
 }
