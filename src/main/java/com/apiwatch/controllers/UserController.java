@@ -113,6 +113,7 @@ public class UserController {
 
     @RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
     public Boolean checkLogin(@RequestBody Login login){
+        System.out.println(login.toString());
         List<User> user = this.userRepository.findAll();
         for(User u : user){
             if(u.login.getUsername().equals(login.getUsername()) && u.login.getPassword().equals(login.getPassword())){
