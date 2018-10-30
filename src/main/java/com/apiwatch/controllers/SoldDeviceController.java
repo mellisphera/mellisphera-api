@@ -57,6 +57,11 @@ public class SoldDeviceController {
     return soldDevices;
     }
     
+    @RequestMapping(value = "/username/{soldTo}", method = RequestMethod.GET, produces={"application/json"})
+    public List<SoldDevices>getSoldDevicesByUsername(@PathVariable String soldTo){
+        return this.soldDevicesRepository.findSoldDevicesBySoldTo(soldTo);
+    }
+    
     @GetMapping("/check/{sensorRef}")
     public SoldDevices checkIfSoldDeviceExist(@PathVariable String sensorRef){
     	
