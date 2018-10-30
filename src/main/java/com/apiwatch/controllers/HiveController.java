@@ -75,14 +75,14 @@ public class HiveController {
       this.hivesRepository.deleteById(id);
     }
     
-	@RequestMapping(value = "/update/coordonnees/{id}", method = RequestMethod.PUT)
-	public void updateHivePos(@PathVariable("id") String id, @RequestBody Hive hive) {
-		Hive h = this.hivesRepository.findHiveById(id);
-		if(h!=null) {
-			h.setHivePos(hive.getHivePosX(), hive.getHivePosY());
-			this.hivesRepository.save(h);
-		}
+    @RequestMapping(value = "/update/coordonnees/{id}", method = RequestMethod.PUT)
+    public void updateHivePos(@PathVariable("id") String id, @RequestBody Hive hive) {
+	Hive h = this.hivesRepository.findHiveById(id);
+	if(h!=null) {
+            h.setHivePos(hive.getHivePosX(), hive.getHivePosY());
+            this.hivesRepository.save(h);
 	}
+    }
 	
 	@RequestMapping(value="/{username}/{idApiary}/{idHive}",method=RequestMethod.GET, produces= {"application/Json"})
 	public Map<Character,String> getPosById(@PathVariable String username, @PathVariable String idApiary,@PathVariable String idHive){
