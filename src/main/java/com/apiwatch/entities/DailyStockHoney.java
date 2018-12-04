@@ -16,9 +16,10 @@ public class DailyStockHoney {
 	public String idApiary;
 	public String idHive;
 	public String username;
+        public Long timestamp;
 	
 	public DailyStockHoney(String id, String nom, double stockJ, double apportJ, Date date, String idApiary,
-			String idHive, String username) {
+			String idHive, String username, Long timestamp) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -28,6 +29,7 @@ public class DailyStockHoney {
 		this.idApiary = idApiary;
 		this.idHive = idHive;
 		this.username = username;
+                this.timestamp = timestamp;
 	}
 	
 	public DailyStockHoney() {
@@ -43,6 +45,15 @@ public class DailyStockHoney {
 	public String getNom() {
 		return nom;
 	}
+        
+        public Long getTimestamp(){
+            return this.timestamp;
+        }
+        
+        public void setTimestamp(Long newTimestamp){
+            this.timestamp = timestamp;
+        }
+                
 	public void setNom(String nom) {
 		this.nom = nom;
 	}

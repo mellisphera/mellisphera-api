@@ -46,6 +46,10 @@ public class HiveController {
 	    return userApiaryHives;
     }
     
+    @RequestMapping(value="/{username}", method = RequestMethod.GET, produces={"application/json"})
+    public List<Hive> getAllByUsername(@PathVariable String username){
+        return this.hivesRepository.findHiveByUsername(username);
+    }
     @PostMapping
     public void insert(@RequestBody Hive Hive){
         this.hivesRepository.insert(Hive);

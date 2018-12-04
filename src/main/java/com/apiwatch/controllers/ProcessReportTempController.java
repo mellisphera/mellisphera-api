@@ -62,6 +62,7 @@ public class ProcessReportTempController {
         	process.setUsername(temp.getUsername());
         	process.setType(temp.getType());
         	this.processReportRepository.insert(process);
+                this.delete(temp.getId());
         }
     }
     
