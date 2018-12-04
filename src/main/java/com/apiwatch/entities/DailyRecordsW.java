@@ -20,6 +20,7 @@ public class DailyRecordsW {
 	public float weight_hive;
 	public float weight_colony;
 	public float weight_filling_rate;
+        public Long timestamp;
 	
 	public DailyRecordsW(){
 		
@@ -27,7 +28,7 @@ public class DailyRecordsW {
 	
 	public DailyRecordsW(String id, Date recordDate, String idHive, float temp_int_min, float temp_int_max,
 			float weight_min, float weight_max, float weight_gain, float weight_income_gain, float weight_foragingbees,
-			float weight_hive, float weight_colony, float weight_filling_rate) {
+			float weight_hive, float weight_colony, float weight_filling_rate, Long timestamp) {
 		super();
 		this.id = id;
 		this.recordDate = recordDate;
@@ -42,6 +43,7 @@ public class DailyRecordsW {
 		this.weight_hive = weight_hive;
 		this.weight_colony = weight_colony;
 		this.weight_filling_rate = weight_filling_rate;
+                this.timestamp = timestamp;
 	}
 
 	
@@ -86,7 +88,9 @@ public class DailyRecordsW {
 		this.temp_int_max = temp_int_max;
 	}
 
-
+        public Long getTimestamp(){
+            return this.timestamp;
+        }
 
 	public float getWeight_min() {
 		return weight_min;
@@ -181,7 +185,10 @@ public class DailyRecordsW {
 	public void setWeight_filling_rate(float weight_filling_rate) {
 		this.weight_filling_rate = weight_filling_rate;
 	}
-
+        
+        public void setTimestamp(Long newTimestamp){
+            this.timestamp = timestamp;
+        }
 
 
 	@Override
