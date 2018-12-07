@@ -46,6 +46,12 @@ public class HiveController {
 	    return userApiaryHives;
     }
     
+    @RequestMapping(value = "/id/{idHive}", method = RequestMethod.GET, produces={"application/json"})
+    public Hive getById(@PathVariable String idHive){
+    	Hive hiveById = this.hivesRepository.findHiveById(idHive);
+	    return hiveById;
+    }
+    
     @RequestMapping(value="/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllByUsername(@PathVariable String username){
         return this.hivesRepository.findHiveByUsername(username);
