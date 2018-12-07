@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class DailyRecordsTH {
 
 	private String id;
-	private String recordDate;
+	private Date recordDate;
 	private String idHive;
 	private float humidity_int_min;
 	private float humidity_int_max;
@@ -26,7 +26,7 @@ public class DailyRecordsTH {
 		
 	}
 	
-	public DailyRecordsTH(String id, String recordDate, String idHive, float humidity_int_min, float humidity_int_max,
+	public DailyRecordsTH(String id, Date recordDate, String idHive, float humidity_int_min, float humidity_int_max,
 			float temp_int_min, float temp_int_max, float temp_int_moy, float temp_int_stddev, String status,
 			String trend, float r_int_text, Long timestamp) {
 		super();
@@ -57,14 +57,14 @@ public class DailyRecordsTH {
         public Long getTimestamp(){
             return this.timestamp;
         }
-	public String getRecordDate() {
+	public Date getRecordDate() {
 		return recordDate;
 	}
 	
         public void setTimestamp(Long newTimestamp){
             this.timestamp = timestamp;
         }
-	public void setRecordDate(String recordDate) {
+	public void setRecordDate(Date recordDate) {
 		this.recordDate = recordDate;
 	}
 	
