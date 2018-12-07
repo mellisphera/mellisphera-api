@@ -10,8 +10,8 @@ public class DailyRecordsW {
 	public String id;
 	public Date recordDate;
 	public String idHive;
-	public float temp_int_min;
-	public float temp_int_max;
+	public float temp_ext_min;
+	public float temp_ext_max;
 	public float weight_min;
 	public float weight_max;
 	public float weight_gain;
@@ -26,15 +26,15 @@ public class DailyRecordsW {
 		
 	}
 	
-	public DailyRecordsW(String id, Date recordDate, String idHive, float temp_int_min, float temp_int_max,
+	public DailyRecordsW(String id, Date recordDate, String idHive, float temp_ext_min, float temp_ext_max,
 			float weight_min, float weight_max, float weight_gain, float weight_income_gain, float weight_foragingbees,
 			float weight_hive, float weight_colony, float weight_filling_rate, Long timestamp) {
 		super();
 		this.id = id;
 		this.recordDate = recordDate;
 		this.idHive = idHive;
-		this.temp_int_min = temp_int_min;
-		this.temp_int_max = temp_int_max;
+		this.temp_ext_min = temp_ext_min;
+		this.temp_ext_max = temp_ext_max;
 		this.weight_min = weight_min;
 		this.weight_max = weight_max;
 		this.weight_gain = weight_gain;
@@ -73,19 +73,19 @@ public class DailyRecordsW {
 	
 	
 	public float getTemp_int_min() {
-		return temp_int_min;
+		return temp_ext_min;
 	}
 	
-	public void setTemp_int_min(float temp_int_min) {
-		this.temp_int_min = temp_int_min;
+	public void setTemp_int_min(float temp_ext_min) {
+		this.temp_ext_min = temp_ext_min;
 	}
 	
 	public float getTemp_int_max() {
-		return temp_int_max;
+		return temp_ext_max;
 	}
 	
-	public void setTemp_int_max(float temp_int_max) {
-		this.temp_int_max = temp_int_max;
+	public void setTemp_int_max(float temp_ext_max) {
+		this.temp_ext_max = temp_ext_max;
 	}
 
         public Long getTimestamp(){
@@ -193,8 +193,8 @@ public class DailyRecordsW {
 
 	@Override
 	public String toString() {
-		return "DailyRecordsW [id=" + id + ", recordDate=" + recordDate + ", idHive=" + idHive + ", temp_int_min="
-				+ temp_int_min + ", temp_int_max=" + temp_int_max + ", weight_min=" + weight_min + ", weight_max="
+		return "DailyRecordsW [id=" + id + ", recordDate=" + recordDate + ", idHive=" + idHive + ", temp_ext_min="
+				+ temp_ext_min + ", temp_ext_max=" + temp_ext_max + ", weight_min=" + weight_min + ", weight_max="
 				+ weight_max + ", weight_gain=" + weight_gain + ", weight_income_gain=" + weight_income_gain
 				+ ", weight_foragingbees=" + weight_foragingbees + ", weight_hive=" + weight_hive + ", weight_colony="
 				+ weight_colony + ", weight_filling_rate=" + weight_filling_rate + "]";

@@ -19,7 +19,7 @@ public class ProcessReportTemp {
 	public String type;
 	public String date;
 	public String nluScore;
-	public String username;
+        public String username;
 
 	
 	public String getId() {
@@ -38,6 +38,7 @@ public class ProcessReportTemp {
 		this.idApiary = idApiary;
 		this.type = type;
 		this.date = date;
+                this.username = date;
 	}
 	
 	public void setId(String id) {
@@ -91,21 +92,16 @@ public class ProcessReportTemp {
 		return nluScore;
 	}
 
-
+        public String getUsername(){
+            return username;
+        }
+        
+        public void setUsername(String username){
+            this.username = username;
+        }
 	public void setNluScore(String nluScore) {
 		this.nluScore = nluScore;
 	}
-
-
-	public String getUsername() {
-		return username;
-	}
-
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
 	
 	
 
