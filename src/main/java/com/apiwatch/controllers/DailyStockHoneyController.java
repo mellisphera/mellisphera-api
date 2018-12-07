@@ -9,6 +9,7 @@ import com.apiwatch.entities.DailyStockHoney;
 import com.apiwatch.repositories.DailyStockHoneyRepository;
 
 import java.util.List;
+import org.springframework.data.domain.Sort;
 
 
 @Service
@@ -38,7 +39,8 @@ public class DailyStockHoneyController {
     
        @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.GET, produces={"application/json"})
     public List<DailyStockHoney> getByIdHive(@PathVariable String idHive){
-        return this.dailyStockHoneyRepository.findDailyStockHoneyByIdHive(idHive);
+        Sort sort = new Sort(Sort.Direction.DESC, "timestamp");
+        return this.dailyStockHoneyRepository.findDailyStockHoneyByIdHive(idHive,sort);
     }
 
 }

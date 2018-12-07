@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.apiwatch.entities.DailyStockHoney;
 import java.util.List;
+import org.springframework.data.domain.Sort;
 
 @Service
 @Repository
@@ -13,6 +14,6 @@ public interface DailyStockHoneyRepository extends MongoRepository<DailyStockHon
 
 	public List<DailyStockHoney> findDailySrtockHoneyByIdApiary(String idApiary);
         
-        public List<DailyStockHoney> findDailyStockHoneyByIdHive(String idHive);
+        public List<DailyStockHoney> findDailyStockHoneyByIdHive(String idHive, Sort sort);
 	
 }

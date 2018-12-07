@@ -36,6 +36,12 @@ public class ApiaryController {
 	    return apiaries;
     }
     
+    @RequestMapping(value = "/id/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
+    public Apiary getByid(@PathVariable String idApiary){
+	    Apiary apiaries=this.apiaryRepository.findApiaryById(idApiary);
+	    return apiaries;
+    }
+    
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Apiary> getAllUserApiaries(@PathVariable String username){
     	
