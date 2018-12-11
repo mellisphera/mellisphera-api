@@ -40,7 +40,7 @@ public class DailyStockHoneyController {
        @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.GET, produces={"application/json"})
     public List<DailyStockHoney> getByIdHive(@PathVariable String idHive){
         Sort sort = new Sort(Sort.Direction.DESC, "timestamp");
-        return this.dailyStockHoneyRepository.findDailyStockHoneyByIdHive(idHive,sort);
+        return this.dailyStockHoneyRepository.findDailyStockHoneyByIdHive(idHive);
     }
 
 }
