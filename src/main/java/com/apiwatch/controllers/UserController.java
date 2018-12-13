@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.apiwatch.entities.User;
 import com.apiwatch.repositories.UserRepository;
+import java.util.HashMap;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -105,7 +106,6 @@ public class UserController {
         Optional<User> User = this.userRepository.findById(id);
         return User;
     }
-    
     /*@RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
     public Boolean checkLogin(@RequestBody Login login ){
         User user = null;
@@ -119,15 +119,18 @@ public class UserController {
     }*/
 
     @RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
-    public Boolean checkLogin(@RequestBody Login login){
+    public Object checkLogin(@RequestBody Login login){
         System.out.println(login.toString());
+        HashMap resultatLogin = new HashMap();
         List<User> user = this.userRepository.findAll();
         for(User u : user){
             if(u.getLogin().getUsername().equals(login.getUsername()) && u.getLogin().getPassword().equals(login.getPassword())){
                 this.setDateLastConnection(u);
-                return true;
+                //resultatLogin.put(u.getLastConnection(), true);
+                return u.getLastConnection();
             }
         }
+        //resultatLogin.put(new Date(), false);
         return false;
     }
 	
