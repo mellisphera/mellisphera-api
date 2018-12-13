@@ -56,12 +56,19 @@ public class UserController {
     return Users;
     }
     
+    public void setDateLastConnection(User user){
+        long nbConnectionTotal = user.getConnexions();
+        user.setConnexions(nbConnectionTotal+1);
+        user.setLastConnection(new Date());
+        this.userRepository.save(user);   
+    }
+    
     @GetMapping("/usernames")
     public List<String> getAllRuchers(){
     List<User> Users=this.userRepository.findAll();
     List<String> names = new ArrayList<>();
     for(User e : Users) {
-    	names.add(e.login.getUsername());
+    	names.add(e.getLogin().getUsername());
     }
     return names;
     }
@@ -116,7 +123,8 @@ public class UserController {
         System.out.println(login.toString());
         List<User> user = this.userRepository.findAll();
         for(User u : user){
-            if(u.login.getUsername().equals(login.getUsername()) && u.login.getPassword().equals(login.getPassword())){
+            if(u.getLogin().getUsername().equals(login.getUsername()) && u.getLogin().getPassword().equals(login.getPassword())){
+                this.setDateLastConnection(u);
                 return true;
             }
         }
