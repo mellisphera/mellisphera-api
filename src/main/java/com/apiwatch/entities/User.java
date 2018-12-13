@@ -9,16 +9,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "User")
 public class User {
 	@Id
-	public String id;
-	public Date createdAt ;
-        public Login login;
-	public String phone;
-	public String email;
-	public long connexions;
+	private String id;
+	private Date createdAt ;
+        private Login login;
+	private String phone;
+	private String email;
+	private long connexions;
+        private Date lastConnection;
+        
 	
 	
 	public User(String id, Date createdAt,Login login, String phone, String email,
-			long connexions) {
+			long connexions, Date lastConnection) {
 		super();
 		this.id = id;
 		this.createdAt = createdAt;
@@ -26,6 +28,7 @@ public class User {
 		this.phone = phone;
 		this.email = email;
 		this.connexions = connexions;
+                this.lastConnection = lastConnection;
 	}
 	public User() {
 		super();
@@ -60,6 +63,15 @@ public class User {
 	public void setConnexions(long connexions) {
 		this.connexions = connexions;
 	}
+        public void setLastConnection(Date lastConnection){
+            this.lastConnection = lastConnection;
+        }
+        public Date getLastConnection(){
+            return this.lastConnection;
+        }
+        public Login getLogin(){
+            return this.login;
+        }
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", createdAt=" + createdAt + ", username=" + login.getUsername() + ", password=" + login.getPassword()
