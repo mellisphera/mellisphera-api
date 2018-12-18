@@ -20,7 +20,7 @@ public class MyConfiguration implements WebMvcConfigurer{
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200","http://localhost:4300","http://***REMOVED***","https://app.mellisphera.com","https://test.mellisphera.com","https://***REMOVED***","http://***REMOVED***:4200","http://***REMOVED***:4300","http://192.168.0.108:4200", "http://localhost")
+                        .allowedOrigins("http://localhost:4200","http://localhost:4300","http://***REMOVED***","https://app.mellisphera.com","http://test.mellisphera.com","https://***REMOVED***","http://***REMOVED***:4200","http://***REMOVED***:4300","http://192.168.0.108:4200", "http://localhost")
                         .allowedMethods("PUT", "DELETE","POST","GET");
             }
         };
