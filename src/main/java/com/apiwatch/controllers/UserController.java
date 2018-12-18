@@ -1,5 +1,6 @@
 package com.apiwatch.controllers;
 
+import com.apiwatch.entities.Connection;
 import com.apiwatch.entities.Login;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apiwatch.entities.User;
+import com.apiwatch.repositories.ConnectionRepository;
 import com.apiwatch.repositories.UserRepository;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -33,13 +35,14 @@ import org.springframework.stereotype.Service;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-	@Autowired
-    private UserRepository userRepository;
+	
+	@Autowired private UserRepository userRepository;
+	@Autowired private ConnectionRepository connectionRepository;
 	
     public UserController() {
 	    }
 
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, ConnectionRepository connectionRepository) {
 	        this.userRepository = userRepository;
 	        //this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
@@ -58,11 +61,13 @@ public class UserController {
     return Users;
     }
     
-    public void setDateLastConnection(User user){
+    public void setDataConnection(User user, HttpServletRequest request){
         long nbConnectionTotal = user.getConnexions();
+        Connection newConnection = new Connection(new Date(),request.getRemoteAddr(),user.getId(),user.getLogin());
         user.setConnexions(nbConnectionTotal+1);
         user.setLastConnection(new Date());
-        this.userRepository.save(user);   
+        this.userRepository.save(user);
+        this.connectionRepository.save(newConnection);
     }
     
     @GetMapping("/usernames")
@@ -122,11 +127,11 @@ public class UserController {
     @RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
     public Object checkLogin(@RequestBody Login login, HttpServletRequest request){
         System.out.println(login.toString());
-        HashMap resultatLogin = new HashMap();
         List<User> user = this.userRepository.findAll();
         for(User u : user){
             if(u.getLogin().getUsername().equals(login.getUsername()) && u.getLogin().getPassword().equals(login.getPassword())){
-                this.setDateLastConnection(u);
+            	System.out.println(request.getRemoteAddr());
+            	this.setDataConnection(u,request);
                 //resultatLogin.put(u.getLastConnection(), true);
                 return u.getLastConnection();
             }
