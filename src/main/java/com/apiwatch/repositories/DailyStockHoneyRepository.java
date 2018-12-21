@@ -14,6 +14,6 @@ public interface DailyStockHoneyRepository extends MongoRepository<DailyStockHon
 
 	public List<DailyStockHoney> findDailySrtockHoneyByIdApiary(String idApiary);
         
-        public List<DailyStockHoney> findDailyStockHoneyByIdHive(String idHive);
+        public List<DailyStockHoney> findDailyStockHoneyByIdHive(String idHive, Sort sort);
 	
 }

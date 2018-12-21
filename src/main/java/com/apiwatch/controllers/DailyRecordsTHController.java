@@ -44,7 +44,6 @@ public class DailyRecordsTHController {
 	public void deleteById(@PathVariable("id") String id) {
 		this.dailyRecordsTHRepository.deleteById(id);
 	}
-	
         
 	@RequestMapping(value="/last/hive/{idHive}", method = RequestMethod.GET, produces={"application/json"})
 	public DailyRecordsTH getLast(@PathVariable("idHive") String idHive){
@@ -60,8 +59,7 @@ public class DailyRecordsTHController {
 		for(Hive h : hives) {
                     System.err.println(h.getIdApiary());
                     try{
-                        System.err.println(this.getByIdHive(h.getId()));
-			dailyRecTh.add(getLast(h.getId()));
+                    	dailyRecTh.add(this.getLast(h.getId()));		
                     }
                     catch(ArrayIndexOutOfBoundsException e){
                         System.err.println(e.getMessage());
