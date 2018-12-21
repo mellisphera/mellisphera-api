@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,6 @@ public interface DailyRecordsTHRepository extends MongoRepository<DailyRecordsTH
 	
 	List<DailyRecordsTH> findDailyRecordsTHByIdHive(String idHive);
 	
-	DailyRecordsTH findDailyRecordsTHByrecordDate(Date date);
-        
+	//DailyRecordsTH findDailyRecordsTHByrecordDate(Date date);
+	List<DailyRecordsTH> findOneLastDailyRecordsTHByIdHive(String idHive);
 }

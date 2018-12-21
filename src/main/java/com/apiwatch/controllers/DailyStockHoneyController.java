@@ -9,7 +9,11 @@ import com.apiwatch.entities.DailyStockHoney;
 import com.apiwatch.repositories.DailyStockHoneyRepository;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 
 
 @Service
@@ -38,9 +42,14 @@ public class DailyStockHoneyController {
     }
     
        @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.GET, produces={"application/json"})
-    public List<DailyStockHoney> getByIdHive(@PathVariable String idHive){
-        Sort sort = new Sort(Sort.Direction.DESC, "timestamp");
-        return this.dailyStockHoneyRepository.findDailyStockHoneyByIdHive(idHive);
+    public List<DailyStockHoney> getByIdHive(@PathVariable String idHive, HttpServletResponse response){
+        Sort sort = new Sort(Sort.Direction.DESC, "timestamp");	
+        List<DailyStockHoney> stockByHive = this.dailyStockHoneyRepository.findDailyStockHoneyByIdHive(idHive, sort);
+        if(stockByHive.isEmpty()) {
+        	System.err.println("EMPTY");
+        	response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+        return stockByHive;
     }
 
 }

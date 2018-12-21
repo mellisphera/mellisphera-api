@@ -29,6 +29,8 @@ import com.apiwatch.repositories.ConnectionRepository;
 import com.apiwatch.repositories.UserRepository;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -125,7 +127,7 @@ public class UserController {
     }*/
 
     @RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
-    public Object checkLogin(@RequestBody Login login, HttpServletRequest request){
+    public Object checkLogin(@RequestBody Login login, HttpServletRequest request, HttpServletResponse res){
         System.out.println(login.toString());
         List<User> user = this.userRepository.findAll();
         for(User u : user){
