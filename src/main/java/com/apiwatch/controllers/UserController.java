@@ -127,7 +127,7 @@ public class UserController {
     }*/
 
     @RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
-    public Object checkLogin(@RequestBody Login login, HttpServletRequest request, HttpServletResponse res){
+    public User checkLogin(@RequestBody Login login, HttpServletRequest request, HttpServletResponse res){
         System.out.println(login.toString());
         List<User> user = this.userRepository.findAll();
         for(User u : user){
@@ -135,11 +135,11 @@ public class UserController {
             	System.out.println(request.getRemoteAddr());
             	this.setDataConnection(u,request);
                 //resultatLogin.put(u.getLastConnection(), true);
-                return u.getLastConnection();
+                return u;
             }
         }
         //resultatLogin.put(new Date(), false);
-        return false;
+        return new User(true);
     }
 	
 }
