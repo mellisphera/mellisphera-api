@@ -1,6 +1,7 @@
 package com.apiwatch.entities;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -11,25 +12,64 @@ public class User {
 	@Id
 	private String id;
 	private Date createdAt ;
-        private Login login;
+	private Login login;
 	private String phone;
 	private String email;
 	private long connexions;
-        private Date lastConnection;
-        
-	
-	
+	private Date lastConnection;
+	private String fullName;
+	private String position;
+	private String country;
+	private String city;
+	private int levelUser = 1;
+
+	private final static String[] level = {"ADMIN","STANDARD","PREMIUM"};	
+
+
+
+
 	public User(String id, Date createdAt,Login login, String phone, String email,
-			long connexions, Date lastConnection) {
+			long connexions, Date lastConnection, String fullName, String position, String city, int levelUser, String country) {
 		super();
 		this.id = id;
 		this.createdAt = createdAt;
-                this.login = login;
+		this.login = login;
 		this.phone = phone;
 		this.email = email;
 		this.connexions = connexions;
-                this.lastConnection = lastConnection;
+		this.lastConnection = lastConnection;
+		this.fullName = fullName;
+		this.position = position;
+		this.country = country;
+		this.city = city;
+		this.levelUser = levelUser;
+
 	}
+	public static String[] getLevel() {
+		return level;
+	}
+	public int getLevelUser() {
+		return levelUser;
+	}
+	public void setLevelUser(int levelUser) {
+		this.levelUser = levelUser;
+	}
+	public User(Boolean fail) {
+		super();
+		this.id = null;
+		this.createdAt = null;
+		this.login = null;
+		this.phone = null;
+		this.email = null;
+		this.connexions = 0;
+		this.lastConnection = null;
+		this.fullName = null;
+		this.position = null;
+		this.country = null;
+		this.city = null;
+		this.levelUser = 1;
+	}
+
 	public User() {
 		super();
 	}
@@ -41,6 +81,33 @@ public class User {
 	}
 	public Date getCreatedAt() {
 		return createdAt;
+	}
+	public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public void setLogin(Login login) {
+		this.login = login;
 	}
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
@@ -63,20 +130,20 @@ public class User {
 	public void setConnexions(long connexions) {
 		this.connexions = connexions;
 	}
-        public void setLastConnection(Date lastConnection){
-            this.lastConnection = lastConnection;
-        }
-        public Date getLastConnection(){
-            return this.lastConnection;
-        }
-        public Login getLogin(){
-            return this.login;
-        }
+	public void setLastConnection(Date lastConnection){
+		this.lastConnection = lastConnection;
+	}
+	public Date getLastConnection(){
+		return this.lastConnection;
+	}
+	public Login getLogin(){
+		return this.login;
+	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", createdAt=" + createdAt + ", username=" + login.getUsername() + ", password=" + login.getPassword()
-				+ ", phone=" + phone + ", email=" + email + ", connexions=" + connexions + "]";
+		+ ", phone=" + phone + ", email=" + email + ", connexions=" + connexions + "]";
 	}
-	
-	 
+
+
 }
