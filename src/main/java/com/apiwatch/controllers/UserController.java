@@ -1,6 +1,8 @@
 package com.apiwatch.controllers;
 
+import com.apiwatch.HttpsGetRequest;
 import com.apiwatch.entities.Connection;
+import com.apiwatch.entities.Location;
 import com.apiwatch.entities.Login;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,6 +15,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.TimeZone;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,12 +32,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apiwatch.entities.User;
 import com.apiwatch.repositories.ConnectionRepository;
 import com.apiwatch.repositories.UserRepository;
+import com.mongodb.util.JSON;
+
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
-
+import org.json.*;
 @Service
 @RestController
 @RequestMapping("/user")
@@ -42,6 +49,7 @@ public class UserController {
 	@Autowired private ConnectionRepository connectionRepository;
 	
     public UserController() {
+    	
 	    }
 
     public UserController(UserRepository userRepository, ConnectionRepository connectionRepository) {
@@ -64,8 +72,22 @@ public class UserController {
     }
     
     public void setDataConnection(User user, HttpServletRequest request){
+    	HttpsGetRequest http = new HttpsGetRequest();
+    	Location location = null;
+    	http.setIp(request.getRemoteAddr());
+    	System.err.println(request.getRemoteAddr());
+    	JSONParser parser = new JSONParser(); 
+    	try {
+			JSONObject json = (JSONObject) parser.parse(http.getLocation());
+			location = new Location(json);
+			System.out.println(location.toString());
+			System.out.println(json.get("country"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         long nbConnectionTotal = user.getConnexions();
-        Connection newConnection = new Connection(new Date(),request.getRemoteAddr(),user.getId(),user.getLogin());
+        Connection newConnection = new Connection(new Date(),request.getRemoteAddr(),user.getId(),user.getLogin(),location);
         user.setConnexions(nbConnectionTotal+1);
         user.setLastConnection(new Date());
         this.userRepository.save(user);
@@ -133,7 +155,9 @@ public class UserController {
         for(User u : user){
             if(u.getLogin().getUsername().equals(login.getUsername()) && u.getLogin().getPassword().equals(login.getPassword())){
             	System.out.println(request.getRemoteAddr());
-            	this.setDataConnection(u,request);
+            	if(request.getRemoteAddr() != "0:0:0:0:0:0:0:1"){
+            			 this.setDataConnection(u,request);
+            	}
                 //resultatLogin.put(u.getLastConnection(), true);
                 return u;
             }
