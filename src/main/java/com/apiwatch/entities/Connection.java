@@ -2,6 +2,7 @@ package com.apiwatch.entities;
 
 import java.util.Date;
 
+import org.json.simple.JSONObject;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Connection")
@@ -12,13 +13,15 @@ public class Connection {
 	private String addr = null;
 	private String idUsername = null;
 	private Login login = null;
+	private Location location = null;
 	
-	public Connection(Date connectionDate, String addr, String idUsername, Login login) {
+	public Connection(Date connectionDate, String addr, String idUsername, Login login, Location location) {
 		super();
 		this.connectionDate = connectionDate;
 		this.addr = addr;
 		this.idUsername = idUsername;
 		this.login = login;
+		this.location = location;
 	}
 	public String getId() {
 		return id;
