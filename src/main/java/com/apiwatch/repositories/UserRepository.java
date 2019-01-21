@@ -14,7 +14,7 @@ import com.apiwatch.entities.User;
 @Repository
 public interface UserRepository extends MongoRepository<User,String>{
 	
-	User findUserBylogin(Login login);
+	User findUserByLogin(Login login);
 	List<User> findByCreatedAtLike(String todayDate);
 }
 
