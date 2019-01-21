@@ -136,19 +136,24 @@ public class UserController {
 		Optional<User> User = this.userRepository.findById(id);
 		return User;
 	}
-	/*@RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
-    public Boolean checkLogin(@RequestBody Login login ){
+	@RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
+    public User checkLogin(@RequestBody Login login,HttpServletRequest request, HttpServletResponse res ){
         User user = null;
-        user = this.userRepository.findUserBylogin(login);  
+        user = this.userRepository.findUserByLogin(login);  
         if(user != null){
-            return true;
+			System.out.println(request.getRemoteAddr());
+			if(request.getRemoteAddr() != "0:0:0:0:0:0:0:1"){
+				this.setDataConnection(user,request);
+			}
+			//resultatLogin.put(u.getLastConnection(), true);
+            return user;
         }
         else{
-            return false;
+            return new User(true);
         }
-    }*/
+    }
 
-	@RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
+	/*@RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
 	public User checkLogin(@RequestBody Login login, HttpServletRequest request, HttpServletResponse res){
 		System.out.println(login.toString());
 		List<User> user = this.userRepository.findAll();
@@ -164,6 +169,6 @@ public class UserController {
 		}
 		//resultatLogin.put(new Date(), false);
 		return new User(true);
-	}
+	}*/
 
 }
