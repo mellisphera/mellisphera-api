@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import com.apiwatch.entities.Apiary;
 import com.apiwatch.entities.Hive;
 import com.apiwatch.entities.Post;
+import com.apiwatch.entities.ShareHive;
+import com.apiwatch.entities.User;
 import com.apiwatch.repositories.HivesRepository;
+import com.apiwatch.repositories.ShareRepository;
+import com.apiwatch.repositories.UserRepository;
 
 import java.awt.geom.Arc2D.Float;
 import java.util.ArrayList;
@@ -23,10 +27,8 @@ import java.util.Optional;
 public class HiveController {
 
 	@Autowired
-
-
     private HivesRepository hivesRepository;
-
+	
     public HiveController() {
     }
 
@@ -67,6 +69,8 @@ public class HiveController {
     	h.setName(hive.getName());
  		h.setDescription(hive.getDescription());
  		h.setIdApiary(hive.getIdApiary());
+ 		h.setShareStatus(hive.getShareStatus());
+ 		h.setSharingUser(hive.getSharingUser());
  		this.hivesRepository.save(h);
     }
     
