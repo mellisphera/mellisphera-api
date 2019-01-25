@@ -13,13 +13,14 @@ public class Hive {
 		private String idApiary;
 		private float hivePosX;
 		private float hivePosY;
-		
+		private User[] sharingUser;
+		private Boolean shareStatus = false;
 		
 		public Hive() {
 			super();
 		}
 
-		public Hive(String id, String name, String description, Apiary apiary, String username, String idApiary, String hivePosX, String hivePosY) {
+		public Hive(String id, String name, String description, Apiary apiary, String username, String idApiary, String hivePosX, String hivePosY, Boolean shareStatus, User[] sharingUser) {
 			super();
 			this.id = id;
 			this.name = name;
@@ -29,10 +30,36 @@ public class Hive {
 			this.idApiary = idApiary;
 			this.hivePosX = Float.parseFloat(hivePosX);
 			this.hivePosY = Float.parseFloat(hivePosY);
+			this.shareStatus = shareStatus;
+			this.sharingUser = sharingUser;
+		}
+
+		public User[] getSharingUser() {
+			return sharingUser;
+		}
+
+		public void setSharingUser(User[] sharingUser) {
+			this.sharingUser = sharingUser;
 		}
 
 		public String getId() {
 			return id;
+		}
+
+		public Boolean getShareStatus() {
+			return shareStatus;
+		}
+
+		public void setShareStatus(Boolean shareStatus) {
+			this.shareStatus = shareStatus;
+		}
+
+		public void setHivePosX(float hivePosX) {
+			this.hivePosX = hivePosX;
+		}
+
+		public void setHivePosY(float hivePosY) {
+			this.hivePosY = hivePosY;
 		}
 
 		public void setId(String id) {
@@ -89,6 +116,10 @@ public class Hive {
 		public void setHivePos(String x, String y) {
 			this.hivePosX = Float.parseFloat(x);
 			this.hivePosY = Float.parseFloat(y);
+		}
+		
+		public void addSharingUser(User user) {
+			this.sharingUser[this.sharingUser.length] = user;
 		}
 		@Override
 		public String toString() {
