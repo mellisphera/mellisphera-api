@@ -53,10 +53,10 @@ public class ShareHiveController {
 		Hive hive = this.hivesRepository.findHiveById(idHive);
 		if(hive != null) {
 			for(User u : user) {
-				if(u.getLogin().getUsername().equals(userTarget)) {
+				if(u.getUsername().equals(userTarget)) {
 					userTargetShare = u;
 				}
-				if(u.getLogin().getUsername().equals(userShare)) {
+				if(u.getUsername().equals(userShare)) {
 					userHiveOwner = u;
 				}
 			}
@@ -65,7 +65,7 @@ public class ShareHiveController {
 				hive.setShareStatus(true);
 				System.out.println(userHiveOwner);
 				if(hiveShare == null) {
-					hiveShare = new ShareHive(null,userTargetShare.getId(),userTargetShare.getLogin().getUsername(),new HashMap<String, Hive>());
+					hiveShare = new ShareHive(null,userTargetShare.getId(),userTargetShare.getUsername(),new HashMap<String, Hive>());
 				}
 				hiveShare.addHive(hive,userHiveOwner.getId());
 				hive.addSharingUser(userTargetShare);

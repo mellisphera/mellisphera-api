@@ -45,23 +45,23 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 			String jwt = getJwt(request);
 			if (jwt != null && tokenProvider.validateJwtToken(jwt)) {
 				String username = tokenProvider.getUserNameFromJwtToken(jwt);
-				log.info("Jwt username :"+username);
+				log.debug("Jwt username :"+username);
 				//
 				ApiWatchUserDetails apiWatchUserDetails = userDetailsService.loadUserByUsername(username);
-				log.info("Load userDetails id :"+apiWatchUserDetails.getId());
+				log.debug("Load userDetails id :"+apiWatchUserDetails.getId());
 				//
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						apiWatchUserDetails.getUsername(), apiWatchUserDetails.getPassword(), apiWatchUserDetails.getAuthorities());
 				//
-				log.info("authentication pass :"+authentication.toString());
+				log.debug("authentication pass :"+authentication.toString());
 				//
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				//
-				log.info("authentication.setDetails pass");
+				log.debug("authentication.setDetails pass");
 				//
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 				//
-				log.info("setAuthentication pass");
+				log.debug("setAuthentication pass");
 			}
 		} catch (Exception e) {
 			log.error("Can NOT set user authentication -> Message: {}", e);
@@ -79,7 +79,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 	private String getJwt(HttpServletRequest request) {
 		String authHeader = request.getHeader("Authorization");
 		//
-		log.info("authHeader :"+authHeader);
+		log.debug("authHeader :"+authHeader);
 		if (authHeader != null && authHeader.startsWith("Bearer ")) {
 			return authHeader.replace("Bearer ", "");
 		}
