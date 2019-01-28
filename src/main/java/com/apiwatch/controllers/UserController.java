@@ -19,6 +19,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 import org.json.*;
+
+//{ "ADMIN", "STANDARD", "PREMIUM" }
 @Service
 @RestController
 @RequestMapping("/user")
@@ -57,6 +60,7 @@ public class UserController {
 		//this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
+	/**
 	@PostMapping("/signup")
 	public void signUp(@RequestBody User u){
 		Date date = new Date();
@@ -64,7 +68,8 @@ public class UserController {
 		u.setCreatedAt(date);
 		this.userRepository.insert(u);
 	}
-
+	**/
+	@PreAuthorize("hasRole('ADMIN') or hasRole('PREMIUM')")
 	@GetMapping("/all")
 	public List<User> getAll(){
 		List<User> Users=this.userRepository.findAll();
