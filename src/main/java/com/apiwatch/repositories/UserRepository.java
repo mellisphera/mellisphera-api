@@ -1,6 +1,6 @@
 package com.apiwatch.repositories;
 
-import com.apiwatch.entities.Login;
+//import com.apiwatch.entities.Login;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -14,8 +14,9 @@ import com.apiwatch.entities.User;
 @Repository
 public interface UserRepository extends MongoRepository<User,String>{
 	
-	User findUserByLogin(Login login);
+	//User findUserByLogin(Login login);
 	User findUserByUsername(String username);
+	//
 	List<User> findByCreatedAtLike(String todayDate);
 }
 

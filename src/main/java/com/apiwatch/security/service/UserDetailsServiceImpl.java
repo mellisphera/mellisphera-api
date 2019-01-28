@@ -32,12 +32,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public ApiWatchUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// load user and build the principal
 		User user = userRepository.findUserByUsername(username);
-		log.info(" Load User :"+ user.toString());
+		log.debug(" Load User :"+ user.toString());
 		// 
 		if(user == null)
 			throw  new UsernameNotFoundException("User Not Found with -> username : " + username);
-		//
-		return ApiWatchUserDetails.build(user);
+		else 
+			return ApiWatchUserDetails.build(user);
 	}
 
 }
