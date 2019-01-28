@@ -48,7 +48,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 				log.debug("Jwt username :"+username);
 				//
 				ApiWatchUserDetails apiWatchUserDetails = userDetailsService.loadUserByUsername(username);
-				log.debug("Load userDetails id :"+apiWatchUserDetails.getId());
+				log.debug("Load userDetails id :"+apiWatchUserDetails.getUsername());
 				//
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						apiWatchUserDetails.getUsername(), apiWatchUserDetails.getPassword(), apiWatchUserDetails.getAuthorities());

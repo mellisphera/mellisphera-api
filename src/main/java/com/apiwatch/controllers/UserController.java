@@ -42,7 +42,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 import org.json.*;
 
-//{ "ADMIN", "STANDARD", "PREMIUM" }
+//@TODO enum { "ROLE_ADMIN", "ROLE_STANDARD", "ROLE_PREMIUM" }
 @Service
 @RestController
 @RequestMapping("/user")
@@ -60,15 +60,6 @@ public class UserController {
 		//this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
-	/**
-	@PostMapping("/signup")
-	public void signUp(@RequestBody User u){
-		Date date = new Date();
-		// display time and date using toString()
-		u.setCreatedAt(date);
-		this.userRepository.insert(u);
-	}
-	**/
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/all")
 	public List<User> getAll(){
@@ -141,40 +132,4 @@ public class UserController {
 		Optional<User> User = this.userRepository.findById(id);
 		return User;
 	}
-/**	
-	@RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
-    public User checkLogin(@RequestBody Login login,HttpServletRequest request, HttpServletResponse res ){
-        User user = null;
-        user = this.userRepository.findUserByLogin(login);  
-        if(user != null){
-			System.out.println(request.getRemoteAddr());
-			if(request.getRemoteAddr() != "0:0:0:0:0:0:0:1"){
-				this.setDataConnection(user,request);
-			}
-			//resultatLogin.put(u.getLastConnection(), true);
-            return user;
-        }
-        else{
-            return new User(true);
-        }
-    }
-**/
-	/*@RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
-	public User checkLogin(@RequestBody Login login, HttpServletRequest request, HttpServletResponse res){
-		System.out.println(login.toString());
-		List<User> user = this.userRepository.findAll();
-		for(User u : user){
-			if(u.getLogin().getUsername().equals(login.getUsername()) && u.getLogin().getPassword().equals(login.getPassword())){
-				System.out.println(request.getRemoteAddr());
-				if(request.getRemoteAddr() != "0:0:0:0:0:0:0:1"){
-					this.setDataConnection(u,request);
-				}
-				//resultatLogin.put(u.getLastConnection(), true);
-				return u;
-			}
-		}
-		//resultatLogin.put(new Date(), false);
-		return new User(true);
-	}*/
-
 }

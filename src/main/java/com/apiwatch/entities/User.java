@@ -64,21 +64,12 @@ public class User {
 
 	}
 	
-	public User(String id, Date createdAt, String username, String password, String phone, String email, long connexions,
-			Date lastConnection, String fullName, String position, String city,String country, Set<String> roles) {
+	public User( Date createdAt, String username, String password, String email, Set<String> roles) {
 		super();
-		this.id = id;
 		this.createdAt = createdAt;
 		this.username = username;
 		this.password = password;
-		this.phone = phone;
 		this.email = email;
-		this.connexions = connexions;
-		this.lastConnection = lastConnection;
-		this.fullName = fullName;
-		this.position = position;
-		this.country = country;
-		this.city = city;
 		this.roles = roles;
 
 	}
