@@ -3,8 +3,11 @@
  */
 package com.apiwatch.controllers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 
 import javax.validation.Valid;
 
@@ -14,6 +17,7 @@ import com.apiwatch.repositories.UserRepository;
 import com.apiwatch.security.entities.ApiWatchUserDetails;
 import com.apiwatch.security.jwt.JwtProvider;
 import com.apiwatch.security.message.request.LoginForm;
+import com.apiwatch.security.message.request.SignUpForm;
 import com.apiwatch.security.message.response.JwtResponse;
 import com.apiwatch.security.message.response.ResponseMessage;
 
@@ -42,8 +46,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthRestApiController {
-	Log log = LogFactory.getLog(AuthRestApiController.class);
-
+	public static Log log = LogFactory.getLog(AuthRestApiController.class);
+	//
+	public static final String[] SET_INITIAL_ROLE = new String[] { "ROLE_STANDARD" };
+	
 	@Autowired
 	AuthenticationManager authenticationManager;
 
@@ -82,7 +88,7 @@ public class AuthRestApiController {
 	 * @return
 	 */
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody User signUpRequest) {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
 		log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :"+signUpRequest.getPassword()+" email:" + signUpRequest.getEmail());
 		//
 		//Login credential = new Login(signUpRequest.getUsername(),encoder.encode(signUpRequest.getPassword()));
@@ -90,12 +96,14 @@ public class AuthRestApiController {
 		//
 		log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :" + credential);
 		//Search if user already exit
+		/**
 		if (userRepository.findUserByUsername( signUpRequest.getUsername()) != null) {
 			log.error(" Sign Up : Fail -> Username is already taken! "+ signUpRequest.getUsername() );
 			return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
 					HttpStatus.BAD_REQUEST);
 		}
-		/**
+		**/
+		
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
 					HttpStatus.BAD_REQUEST);
@@ -105,15 +113,16 @@ public class AuthRestApiController {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> Email is already in use!"),
 					HttpStatus.BAD_REQUEST);
 		}
-	**/
+		/** **/
 		//public User(String id, Date createdAt, Login login, String phone, String email, long connexions,Date lastConnection, String fullName, String position, String city, int levelUser, String country)
 		//                    String id, Date createdAt, String username, String password, String phone, String email, long connexions,Date lastConnection, String fullName, String position, String city, int levelUser, String country
 		// Creating user's account
-		User user = new User(signUpRequest.getId(), GregorianCalendar.getInstance().getTime(),signUpRequest.getUsername(), credential,signUpRequest.getPhone(),signUpRequest.getEmail(),0L,null,signUpRequest.getFullName(),signUpRequest.getPosition(),signUpRequest.getCity(), signUpRequest.getCountry(),signUpRequest.getRoles());
+		User user = new User(GregorianCalendar.getInstance().getTime(),signUpRequest.getUsername(), credential,signUpRequest.getEmail(),new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)));
 		/**
 		user.setUsername(credential.getUsername());
 		user.setPassword(credential.getPassword());
 		**/
+		//search country by ip
 		userRepository.insert(user);
 		
 		return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
