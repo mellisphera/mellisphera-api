@@ -55,7 +55,7 @@ public class ApiWatchUserDetails implements UserDetails {
 	}
 
 	public static ApiWatchUserDetails build(User user) {
-		log.info("user :"+user.toString());
+		log.debug("user :"+user.toString());
 		List<GrantedAuthority> authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role))
 				.collect(Collectors.toList());
 		return new ApiWatchUserDetails(user.getId(), user.getUsername(), user.getEmail(),

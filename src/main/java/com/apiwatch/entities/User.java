@@ -17,7 +17,7 @@ public class User {
 	@Id
 	private String id;
 	private Date createdAt;
-	private Login login;
+	//private Login login;
 	private String username;
 	private String password;
 	private String phone;
@@ -44,12 +44,14 @@ public class User {
 	// Not Used, no compatible with spring-security
 	private final static String[] level = { "ADMIN", "STANDARD", "PREMIUM" };
 
-	public User(String id, Date createdAt, Login login, String phone, String email, long connexions,
+	public User(String id, Date createdAt, String username, String password, String phone, String email, long connexions,
 			Date lastConnection, String fullName, String position, String city, int levelUser, String country) {
 		super();
 		this.id = id;
 		this.createdAt = createdAt;
-		this.login = login;
+		//this.login = login;
+		this.username = username;
+		this.password = password;
 		this.phone = phone;
 		this.email = email;
 		this.connexions = connexions;
@@ -62,12 +64,13 @@ public class User {
 
 	}
 	
-	public User(String id, Date createdAt, Login login, String phone, String email, long connexions,
+	public User(String id, Date createdAt, String username, String password, String phone, String email, long connexions,
 			Date lastConnection, String fullName, String position, String city,String country, Set<String> roles) {
 		super();
 		this.id = id;
 		this.createdAt = createdAt;
-		this.login = login;
+		this.username = username;
+		this.password = password;
 		this.phone = phone;
 		this.email = email;
 		this.connexions = connexions;
@@ -96,7 +99,9 @@ public class User {
 		super();
 		this.id = null;
 		this.createdAt = null;
-		this.login = null;
+		//this.login = null;
+		this.username = null;
+		this.password = null;
 		this.phone = null;
 		this.email = null;
 		this.connexions = 0;
@@ -172,11 +177,14 @@ public class User {
 	public void setCity(String city) {
 		this.city = city;
 	}
-
+/**
 	public void setLogin(Login login) {
 		this.login = login;
 	}
-
+	public Login getLogin() {
+		return this.login;
+	}
+**/
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
@@ -213,14 +221,12 @@ public class User {
 		return this.lastConnection;
 	}
 
-	public Login getLogin() {
-		return this.login;
-	}
+	
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", createdAt=" + createdAt + ", username=" + login.getUsername() + ", password="
-				+ login.getPassword() + ", phone=" + phone + ", email=" + email + ", connexions=" + connexions + "]";
+		return "User [id=" + id + ", createdAt=" + createdAt + ", username=" + username + ", password="
+				+ password + ", phone=" + phone + ", email=" + email + ", connexions=" + connexions + "]";
 	}
 
 }

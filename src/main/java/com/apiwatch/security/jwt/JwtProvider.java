@@ -42,7 +42,7 @@ public class JwtProvider {
     public String generateJwtToken(Authentication authentication) {
 
         ApiWatchUserDetails userPrincipal = (ApiWatchUserDetails) authentication.getPrincipal();
-        log.info("userPrincipal :"+userPrincipal.getUsername());
+        log.debug("userPrincipal :"+userPrincipal.getUsername());
         // build token
         return Jwts.builder()
 		                .setSubject((userPrincipal.getUsername()))
@@ -59,9 +59,9 @@ public class JwtProvider {
      */
     public boolean validateJwtToken(String authToken) {
         try {
-        	log.info("Token :"+authToken);
+        	log.debug("Token :"+authToken);
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
-            log.info("Token PARSING :"+Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken).getBody());
+            log.debug("Token PARSING :"+Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken).getBody());
             return true;
         } catch (SignatureException e) {
             log.error("Invalid JWT signature -> Message: {} ", e);
