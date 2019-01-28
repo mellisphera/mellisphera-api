@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class ApiWatchUserDetails implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	private static final Log log = LogFactory.getLog(ApiWatchUserDetails.class);
-	private String id;
+	//private String id;
 
 	private String username;
 
@@ -36,16 +36,16 @@ public class ApiWatchUserDetails implements UserDetails {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public ApiWatchUserDetails(String id, String username, String email, String password,
+	public ApiWatchUserDetails(String username, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		super();
-		this.id = id;
+		//this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
 	}
-
+/**
 	public String getId() {
 		return id;
 	}
@@ -53,12 +53,12 @@ public class ApiWatchUserDetails implements UserDetails {
 	public void setId(String id) {
 		this.id = id;
 	}
-
+**/
 	public static ApiWatchUserDetails build(User user) {
 		log.debug("user :"+user.toString());
 		List<GrantedAuthority> authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role))
 				.collect(Collectors.toList());
-		return new ApiWatchUserDetails(user.getId(), user.getUsername(), user.getEmail(),
+		return new ApiWatchUserDetails( user.getUsername(), user.getEmail(),
 				user.getPassword(), authorities);
 	}
 
@@ -147,7 +147,7 @@ public class ApiWatchUserDetails implements UserDetails {
         if (o == null || getClass() != o.getClass()) return false;
         
         ApiWatchUserDetails user = (ApiWatchUserDetails) o;
-        return Objects.equals(id, user.id);
+        return Objects.equals(username, user.username);
     }
 
 }
