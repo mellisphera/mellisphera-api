@@ -3,7 +3,7 @@ package com.apiwatch.controllers;
 import com.apiwatch.HttpsGetRequest;
 import com.apiwatch.entities.Connection;
 import com.apiwatch.entities.Location;
-import com.apiwatch.entities.Login;
+//import com.apiwatch.entities.Login;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -69,7 +69,7 @@ public class UserController {
 		this.userRepository.insert(u);
 	}
 	**/
-	@PreAuthorize("hasRole('ADMIN') or hasRole('PREMIUM')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/all")
 	public List<User> getAll(){
 		List<User> Users=this.userRepository.findAll();
@@ -92,7 +92,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 		long nbConnectionTotal = user.getConnexions();
-		Connection newConnection = new Connection(new Date(),request.getRemoteAddr(),user.getId(),user.getLogin(),location);
+		Connection newConnection = new Connection(new Date(),request.getRemoteAddr(),user.getId(),user.getUsername(),user.getPassword(),location);
 		user.setConnexions(nbConnectionTotal+1);
 		user.setLastConnection(new Date());
 		this.userRepository.save(user);
@@ -104,7 +104,7 @@ public class UserController {
 		List<User> Users=this.userRepository.findAll();
 		List<String> names = new ArrayList<>();
 		for(User e : Users) {
-			names.add(e.getLogin().getUsername());
+			names.add(e.getUsername());
 		}
 		return names;
 	}
@@ -141,6 +141,7 @@ public class UserController {
 		Optional<User> User = this.userRepository.findById(id);
 		return User;
 	}
+/**	
 	@RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
     public User checkLogin(@RequestBody Login login,HttpServletRequest request, HttpServletResponse res ){
         User user = null;
@@ -157,7 +158,7 @@ public class UserController {
             return new User(true);
         }
     }
-
+**/
 	/*@RequestMapping(value="/loguser", method=RequestMethod.POST,consumes="application/json", produces = "application/json")
 	public User checkLogin(@RequestBody Login login, HttpServletRequest request, HttpServletResponse res){
 		System.out.println(login.toString());
