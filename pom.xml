@@ -48,6 +48,13 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.5.7</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.9.0-rc0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
