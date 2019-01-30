@@ -9,18 +9,21 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 //import com.apiwatch.entities.Login;
 import com.apiwatch.entities.User;
 import com.apiwatch.repositories.UserRepository;
 import com.apiwatch.security.entities.ApiWatchUserDetails;
+import com.apiwatch.security.entities.GeoIp;
 import com.apiwatch.security.jwt.JwtProvider;
 import com.apiwatch.security.message.request.LoginForm;
 import com.apiwatch.security.message.request.SignUpForm;
 import com.apiwatch.security.message.response.JwtResponse;
 import com.apiwatch.security.message.response.ResponseMessage;
 
+import com.apiwatch.security.service.GeoipServiceImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -32,6 +35,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,6 +66,9 @@ public class AuthRestApiController {
 	@Autowired
 	JwtProvider jwtProvider;
 
+	@Autowired
+	GeoipServiceImpl geoipService;
+
 	/**
 	 * 
 	 * @param loginRequest
@@ -70,15 +77,15 @@ public class AuthRestApiController {
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 		log.debug(" Sign Up : username :" + loginRequest.getUsername() + " password:" + loginRequest.getPassword());
-
+		//
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
-		log.debug(" Sign Up : AUTH OK");
+		log.debug(" Sign In : AUTH OK");
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
+		//
 		String jwt = jwtProvider.generateJwtToken(authentication);
 		ApiWatchUserDetails apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
-
+		//
 		return ResponseEntity.ok(new JwtResponse(jwt, apiWatchUserDetails.getUsername(), apiWatchUserDetails.getAuthorities()));
 	}
 
@@ -88,7 +95,7 @@ public class AuthRestApiController {
 	 * @return
 	 */
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest, HttpServletRequest request) {
 		log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :"+signUpRequest.getPassword()+" email:" + signUpRequest.getEmail());
 		//
 		//Login credential = new Login(signUpRequest.getUsername(),encoder.encode(signUpRequest.getPassword()));
@@ -96,14 +103,6 @@ public class AuthRestApiController {
 		//
 		log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :" + credential);
 		//Search if user already exit
-		/**
-		if (userRepository.findUserByUsername( signUpRequest.getUsername()) != null) {
-			log.error(" Sign Up : Fail -> Username is already taken! "+ signUpRequest.getUsername() );
-			return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
-					HttpStatus.BAD_REQUEST);
-		}
-		**/
-		
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
 					HttpStatus.BAD_REQUEST);
@@ -118,13 +117,19 @@ public class AuthRestApiController {
 		//                    String id, Date createdAt, String username, String password, String phone, String email, long connexions,Date lastConnection, String fullName, String position, String city, int levelUser, String country
 		// Creating user's account
 		User user = new User(GregorianCalendar.getInstance().getTime(),signUpRequest.getUsername(), credential,signUpRequest.getEmail(),new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)));
-		/**
-		user.setUsername(credential.getUsername());
-		user.setPassword(credential.getPassword());
-		**/
 		//search country by ip
+		String ipAddress = ((WebAuthenticationDetails)SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
+		//String ipAddress = request.getRemoteAddr();
+		if (ipAddress.equals("127.0.0.1"))
+			ipAddress="87.100.21.93";
+		log.debug(" remote ip :"+ ipAddress);
+		//
+		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
+		//
+		user.setCity(geoIp.getCity());
+		// save user
 		userRepository.insert(user);
-		
+		//
 		return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
 	}
 }
