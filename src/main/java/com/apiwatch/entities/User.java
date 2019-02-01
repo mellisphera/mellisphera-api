@@ -203,6 +203,10 @@ public class User {
 	public void setConnexions(long connexions) {
 		this.connexions = connexions;
 	}
+	
+	public void incrementConnexions() {
+		this.connexions++;
+	}
 
 	public void setLastConnection(Date lastConnection) {
 		this.lastConnection = lastConnection;

@@ -21,7 +21,7 @@ public class Apiary {
 	public String urlPhoto;
 	public String username; 
 	public User user;
-	public List<Hive> hives;
+	public List<User> sharedWith;
 	
 	
 	public Apiary() {
@@ -29,7 +29,7 @@ public class Apiary {
 	}
 	
 	public Apiary(String id, float latitude, float longitude, String name, String description, String codePostal,
-			String ville, Date createdAt, String urlPhoto, String username, User user, List<Hive> hives) {
+			String ville, Date createdAt, String urlPhoto, String username, User user, List<User>  sharedWith) {
 		super();
 		this.id = id;
 		this.latitude = latitude;
@@ -42,7 +42,7 @@ public class Apiary {
 		this.urlPhoto = urlPhoto;
 		this.username = username;
 		this.user = user;
-		this.hives = hives;
+		this.sharedWith = sharedWith;
 	}
 
 
@@ -106,15 +106,20 @@ public class Apiary {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public List<Hive> getHives() {
-		return hives;
+	public List<User> getSharedWith() {
+		return this.sharedWith;
 	}
-	public void setHives(List<Hive> hives) {
-		this.hives = hives;
+	public void setSharedWith(List<User>  sharedWith) {
+		this.sharedWith = sharedWith;
 	}
 
+	public void addSharedUser(User user) {
+		this.sharedWith.add(user);
+	}
 	
-
+	public Boolean removeSharedUser(User user) {
+		return this.sharedWith.remove(user);
+	}
 	public String getVille() {
 		return ville;
 	}
@@ -128,8 +133,7 @@ public class Apiary {
 	public String toString() {
 		return "Apiary [id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + ", name=" + name
 				+ ", description=" + description + ", codePostal=" + codePostal + ", ville=" + ville + ", createdAt="
-				+ createdAt + ", urlPhoto=" + urlPhoto + ", username=" + username + ", user=" + user + ", hives="
-				+ hives + "]";
+				+ createdAt + ", urlPhoto=" + urlPhoto + ", username=" + username + ", user=" + user  + "]";
 	}
 	
 }
