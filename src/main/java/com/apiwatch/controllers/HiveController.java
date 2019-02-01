@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.apiwatch.entities.Apiary;
 import com.apiwatch.entities.Hive;
 import com.apiwatch.entities.Post;
-import com.apiwatch.entities.ShareHive;
+import com.apiwatch.entities.ShareApiary;
 import com.apiwatch.entities.User;
 import com.apiwatch.repositories.HivesRepository;
 import com.apiwatch.repositories.ShareRepository;

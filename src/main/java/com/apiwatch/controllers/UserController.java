@@ -27,6 +27,7 @@ import java.util.Optional;
 @Service
 @RestController
 @RequestMapping("/user")
+@PreAuthorize("hasRole('ADMIN')")
 public class UserController {
 
     @Autowired
@@ -44,13 +45,14 @@ public class UserController {
         //this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public List<User> getAll() {
-        List<User> Users = this.userRepository.findAll();
-        return Users;
+        List<User> users = this.userRepository.findAll();
+        return users;
     }
-
+    
+    
     @GetMapping("/usernames")
     public List<String> getAllRuchers() {
         List<User> Users = this.userRepository.findAll();
