@@ -86,7 +86,13 @@ public class AuthRestApiController {
 		String jwt = jwtProvider.generateJwtToken(authentication);
 		ApiWatchUserDetails apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
 		//
-		return ResponseEntity.ok(new JwtResponse(jwt, apiWatchUserDetails.getUsername(), apiWatchUserDetails.getAuthorities()));
+		User user = this.userRepository.findUserByUsername(loginRequest.getUsername());
+		if(user != null) {
+			user.incrementConnexions();
+			System.err.println(user.getConnexions());
+			this.userRepository.save(user);
+		}
+		return ResponseEntity.ok(new JwtResponse(jwt, user.getConnexions(), apiWatchUserDetails.getUsername(), apiWatchUserDetails.getAuthorities()));
 	}
 
 	/**
