@@ -87,7 +87,8 @@ public class ApiaryController {
 	    
 	    return userApiaries;
     }
-    
+   
+    /*
     @RequestMapping(value = "/name/{id}", method = RequestMethod.GET, produces={"application/json"})
     public Map<String,String>getRucherCity(@PathVariable String id){
     	Map<String,String> rucherName = new HashMap<>();
@@ -100,7 +101,7 @@ public class ApiaryController {
     		return null;
     	}
     	
-    }
+    }*/
    
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
     public void insert(@RequestBody Apiary apiary){
