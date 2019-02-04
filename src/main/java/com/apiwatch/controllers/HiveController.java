@@ -31,9 +31,9 @@ public class HiveController {
 	
     public HiveController() {
     }
-
+    
     public HiveController(HivesRepository hivesRepository) {
-        this.hivesRepository = hivesRepository;
+    	this.hivesRepository = hivesRepository;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
@@ -98,7 +98,7 @@ public class HiveController {
 	}
     }
 	
-	@RequestMapping(value="/{username}/{idApiary}/{idHive}",method=RequestMethod.GET, produces= {"application/Json"})
+	/*@RequestMapping(value="/{username}/{idApiary}/{idHive}",method=RequestMethod.GET, produces= {"application/Json"})
 	public Map<Character,String> getPosById(@PathVariable String username, @PathVariable String idApiary,@PathVariable String idHive){
 		Map<Character,String> coordonneesHive = new HashMap<>();
 		Hive h = this.hivesRepository.findHiveById(idHive);
@@ -111,7 +111,7 @@ public class HiveController {
 			return null;
 		}
 		
-	}
+	}*/
 
 
 }
