@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +31,7 @@ import java.util.Optional;
 @RequestMapping("/user")
 @PreAuthorize("hasRole('ADMIN')")
 public class UserController {
-
+	public static final String[] SET_INITIAL_ROLE = new String[] { "ROLE_STANDARD" };
     @Autowired
     private UserRepository userRepository;
 
