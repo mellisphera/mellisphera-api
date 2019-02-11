@@ -59,7 +59,7 @@ public class Connection {
 
 	@Override
 	public String toString() {
-		return "";
+		return "{ username : "+this.username + ",\n location :"+this.location+"}";
 	}
 
 }
