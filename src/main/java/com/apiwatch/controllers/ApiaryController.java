@@ -105,7 +105,7 @@ public class ApiaryController {
    
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
     public void insert(@RequestBody Apiary apiary){
-        System.err.println("-"+apiary);
+        System.err.println(apiary.getPhoto());
         this.apiaryRepository.insert(apiary);
     }
     

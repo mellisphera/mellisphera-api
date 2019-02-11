@@ -5,35 +5,24 @@ import java.util.Date;
 import org.json.simple.JSONObject;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.apiwatch.security.entities.GeoIp;
+
 @Document(collection = "Connection")
 public class Connection {
 
 	private String id = null;
 	private Date connectionDate = null;
-	private String addr = null;
 	private String idUsername = null;
 	private String username;
+	private GeoIp location = null;
 
-	private String password;
-	private Location location = null;
-
-	public Connection(Date connectionDate, String addr, String idUsername, String username, String password,
-			Location location) {
+	public Connection(Date connectionDate, String idUsername, String username,
+			GeoIp location) {
 		super();
 		this.connectionDate = connectionDate;
-		this.addr = addr;
 		this.idUsername = idUsername;
 		this.username = username;
-		this.password = password;
 		this.location = location;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getUsername() {
@@ -60,14 +49,6 @@ public class Connection {
 		this.connectionDate = connectionDate;
 	}
 
-	public String getAddr() {
-		return addr;
-	}
-
-	public void setAddr(String addr) {
-		this.addr = addr;
-	}
-
 	public String getIdUsername() {
 		return idUsername;
 	}
@@ -78,7 +59,7 @@ public class Connection {
 
 	@Override
 	public String toString() {
-		return this.addr + '-' + this.getUsername() + '-' + this.connectionDate;
+		return "";
 	}
 
 }
