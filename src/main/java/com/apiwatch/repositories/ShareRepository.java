@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.apiwatch.entities.ShareHive;
+import com.apiwatch.entities.ShareApiary;
 
-public interface ShareRepository extends MongoRepository<ShareHive, String>{
+public interface ShareRepository extends MongoRepository<ShareApiary, String>{
 	
-	ShareHive findShareHiveByidUsername(String idUser);
+	ShareApiary findShareHiveByidUsername(String idUser);
 	
 }
