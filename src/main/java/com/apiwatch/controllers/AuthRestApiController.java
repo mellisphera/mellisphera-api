@@ -12,8 +12,10 @@ import java.util.HashSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.apiwatch.entities.Connection;
 //import com.apiwatch.entities.Login;
 import com.apiwatch.entities.User;
+import com.apiwatch.repositories.ConnectionRepository;
 import com.apiwatch.repositories.UserRepository;
 import com.apiwatch.security.entities.ApiWatchUserDetails;
 import com.apiwatch.security.entities.GeoIp;
@@ -59,6 +61,9 @@ public class AuthRestApiController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	ConnectionRepository connectionRepository;
 
 	@Autowired
 	PasswordEncoder encoder;
@@ -75,7 +80,7 @@ public class AuthRestApiController {
 	 * @return
 	 */
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest, HttpServletRequest request) {
 		log.debug(" Sign Up : username :" + loginRequest.getUsername() + " password:" + loginRequest.getPassword());
 		//
 		Authentication authentication = authenticationManager.authenticate(
@@ -87,10 +92,15 @@ public class AuthRestApiController {
 		ApiWatchUserDetails apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
 		//
 		User user = this.userRepository.findUserByUsername(loginRequest.getUsername());
+		String ipAddress = request.getRemoteAddr();
+		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		if(user != null) {
 			user.incrementConnexions();
-			System.err.println(user.getConnexions());
 			this.userRepository.save(user);
+			if(ipAddress != "0:0:0:0:0:0:0:1") {
+				Connection connection = new Connection(GregorianCalendar.getInstance().getTime(), user.getId(), user.getUsername(), geoIp);
+				this.connectionRepository.insert(connection);
+			}
 		}
 		return ResponseEntity.ok(new JwtResponse(jwt, user.getConnexions(), apiWatchUserDetails.getUsername(), apiWatchUserDetails.getAuthorities()));
 	}
