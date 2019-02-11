@@ -56,6 +56,15 @@ public class Connection {
 	public void setIdUsername(String idUsername) {
 		this.idUsername = idUsername;
 	}
+	
+
+	public GeoIp getLocation() {
+		return location;
+	}
+
+	public void setLocation(GeoIp location) {
+		this.location = location;
+	}
 
 	@Override
 	public String toString() {
