@@ -1,5 +1,7 @@
 package com.apiwatch.entities;
 
+import java.io.File;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -18,10 +20,10 @@ public class Apiary {
 	public String codePostal;
 	public String ville;
 	public Date createdAt;
-	public String urlPhoto;
+	public String photo;
 	public String username; 
 	public User user;
-	public List<Hive> hives;
+	public List<User> sharedWith;
 	
 	
 	public Apiary() {
@@ -29,7 +31,7 @@ public class Apiary {
 	}
 	
 	public Apiary(String id, float latitude, float longitude, String name, String description, String codePostal,
-			String ville, Date createdAt, String urlPhoto, String username, User user, List<Hive> hives) {
+			String ville, Date createdAt, String photo, String username, User user, List<User>  sharedWith) {
 		super();
 		this.id = id;
 		this.latitude = latitude;
@@ -39,10 +41,10 @@ public class Apiary {
 		this.codePostal = codePostal;
 		this.ville = ville;
 		this.createdAt = createdAt;
-		this.urlPhoto = urlPhoto;
+		this.photo = photo;
 		this.username = username;
 		this.user = user;
-		this.hives = hives;
+		this.sharedWith = sharedWith;
 	}
 
 
@@ -88,11 +90,11 @@ public class Apiary {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-	public String getUrlPhoto() {
-		return urlPhoto;
+	public String getPhoto() {
+		return photo;
 	}
-	public void setUrlPhoto(String urlPhoto) {
-		this.urlPhoto = urlPhoto;
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	public String getUsername() {
 		return username;
@@ -106,15 +108,20 @@ public class Apiary {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public List<Hive> getHives() {
-		return hives;
+	public List<User> getSharedWith() {
+		return this.sharedWith;
 	}
-	public void setHives(List<Hive> hives) {
-		this.hives = hives;
+	public void setSharedWith(List<User>  sharedWith) {
+		this.sharedWith = sharedWith;
 	}
 
+	public void addSharedUser(User user) {
+		this.sharedWith.add(user);
+	}
 	
-
+	public Boolean removeSharedUser(User user) {
+		return this.sharedWith.remove(user);
+	}
 	public String getVille() {
 		return ville;
 	}
@@ -128,8 +135,7 @@ public class Apiary {
 	public String toString() {
 		return "Apiary [id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + ", name=" + name
 				+ ", description=" + description + ", codePostal=" + codePostal + ", ville=" + ville + ", createdAt="
-				+ createdAt + ", urlPhoto=" + urlPhoto + ", username=" + username + ", user=" + user + ", hives="
-				+ hives + "]";
+				+ createdAt + ", photo=" + photo + ", username=" + username + ", user=" + user  + "]";
 	}
 	
 }
