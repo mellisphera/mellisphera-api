@@ -99,6 +99,7 @@ public class AuthRestApiController {
 			this.userRepository.save(user);
 			if(ipAddress != "0:0:0:0:0:0:0:1") {
 				Connection connection = new Connection(GregorianCalendar.getInstance().getTime(), user.getId(), user.getUsername(), geoIp);
+				System.err.println(connection);
 				this.connectionRepository.insert(connection);
 			}
 		}
