@@ -73,14 +73,6 @@ public class SoldDeviceController {
 	    }
 	   
 	    return emptySD;
-    }
-    
-    @GetMapping("/check/")
-    public SoldDevices checkIfDeviceExist(){
-    	SoldDevices sd = new SoldDevices();
-    return sd;
-  }
-   
-
+    } 
     
 }

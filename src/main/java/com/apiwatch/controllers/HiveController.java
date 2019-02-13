@@ -69,7 +69,6 @@ public class HiveController {
     	h.setName(hive.getName());
  		h.setDescription(hive.getDescription());
  		h.setIdApiary(hive.getIdApiary());
- 		h.setShareStatus(hive.getShareStatus());
  		h.setSharingUser(hive.getSharingUser());
  		this.hivesRepository.save(h);
     }

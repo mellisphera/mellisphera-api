@@ -28,7 +28,6 @@ public class User {
 	private String position;
 	private String country;
 	private String city;
-	private int levelUser = 1;
 
 	// ADD for spring security compatibility
 	private Set<String> roles = new HashSet<>();
@@ -41,11 +40,8 @@ public class User {
 		this.roles = roles;
 	}
 
-	// Not Used, no compatible with spring-security
-	private final static String[] level = { "ADMIN", "STANDARD", "PREMIUM" };
-
 	public User(String id, Date createdAt, String username, String password, String phone, String email, long connexions,
-			Date lastConnection, String fullName, String position, String city, int levelUser, String country) {
+			Date lastConnection, String fullName, String position, String city, String country) {
 		super();
 		this.id = id;
 		this.createdAt = createdAt;
@@ -60,7 +56,6 @@ public class User {
 		this.position = position;
 		this.country = country;
 		this.city = city;
-		this.levelUser = levelUser;
 
 	}
 	
@@ -73,19 +68,6 @@ public class User {
 		this.roles = roles;
 
 	}
-
-	public static String[] getLevel() {
-		return level;
-	}
-
-	public int getLevelUser() {
-		return levelUser;
-	}
-
-	public void setLevelUser(int levelUser) {
-		this.levelUser = levelUser;
-	}
-
 	public User(Boolean fail) {
 		super();
 		this.id = null;
@@ -101,7 +83,6 @@ public class User {
 		this.position = null;
 		this.country = null;
 		this.city = null;
-		this.levelUser = 1;
 	}
 	
 	public String getUsername() {
