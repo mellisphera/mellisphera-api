@@ -14,7 +14,6 @@ public class Hive {
 		private float hivePosX;
 		private float hivePosY;
 		private User[] sharingUser;
-		private Boolean shareStatus = false;
 		
 		public Hive() {
 			super();
@@ -30,7 +29,6 @@ public class Hive {
 			this.idApiary = idApiary;
 			this.hivePosX = Float.parseFloat(hivePosX);
 			this.hivePosY = Float.parseFloat(hivePosY);
-			this.shareStatus = shareStatus;
 			this.sharingUser = sharingUser;
 		}
 
@@ -44,14 +42,6 @@ public class Hive {
 
 		public String getId() {
 			return id;
-		}
-
-		public Boolean getShareStatus() {
-			return shareStatus;
-		}
-
-		public void setShareStatus(Boolean shareStatus) {
-			this.shareStatus = shareStatus;
 		}
 
 		public void setHivePosX(float hivePosX) {
