@@ -20,7 +20,7 @@ public class DailyRecordsW {
 	public float weight_hive;
 	public float weight_colony;
 	public float weight_filling_rate;
-        public Long timestamp;
+    public Long timestamp;
 	
 	public DailyRecordsW(){
 		

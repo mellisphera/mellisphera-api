@@ -15,11 +15,10 @@ public class DailyStockHoney {
 	public String date;
 	public String idApiary;
 	public String idHive;
-	public String username;
 	public Long timestamp;
 	
 	public DailyStockHoney(String id, String nom, double stockJ, double apportJ, String date, String idApiary,
-			String idHive, String username, Long timestamp) {
+			String idHive, Long timestamp) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -28,7 +27,6 @@ public class DailyStockHoney {
 		this.date = date;
 		this.idApiary = idApiary;
 		this.idHive = idHive;
-		this.username = username;
         this.timestamp = timestamp;
 	}
 	
@@ -87,16 +85,10 @@ public class DailyStockHoney {
 	public void setIdHive(String idHive) {
 		this.idHive = idHive;
 	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
 	@Override
 	public String toString() {
 		return "DailyStockMiel [id=" + id + ", nom=" + nom + ", stockJ=" + stockJ + ", apportJ=" + apportJ + ", date="
-				+ date + ", idApiary=" + idApiary + ", idHive=" + idHive + ", username=" + username + "]";
+				+ date + ", idApiary=" + idApiary + ", idHive=" + idHive + "]";
 	}
 	
 	
