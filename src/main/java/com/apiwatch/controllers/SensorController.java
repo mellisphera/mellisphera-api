@@ -1,4 +1,4 @@
-    package com.apiwatch.controllers;
+package com.apiwatch.controllers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -70,25 +70,8 @@ public class SensorController {
   
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Sensor> getUserSensors(@PathVariable String username){
+    	// liste les capteurs pour un user
 	    List<Sensor> sensors = this.sensorRepository.findSensorByUsername(username);
-	    Apiary ap = new Apiary();
-	    Hive hv = new Hive();
-	    
-	    for(Sensor s : sensors) {
-	    	ap = this.apiaryRepository.findApiaryById(s.getIdApiary());
-	    	hv = this.hivesRepository.findHiveById(s.getIdHive());
-	    	if (ap != null) {
-	    		s.setApiaryName(ap.getName());
-	    	} else {
-	    		s.setApiaryName("stock");
-	    	}
-	    	if (hv != null) {
-		    	s.setHiveName(hv.getName());
-	    	} else {
-		    	s.setHiveName("stock");
-	    	}
-	    }
-	    
 	    return sensors;
     
     }
@@ -112,6 +95,8 @@ public class SensorController {
         s.setIdHive(sensor.getIdHive());
 	  	s.setIdApiary(sensor.getIdApiary());
 	  	s.setDescription(sensor.getDescription());
+	  	s.setHiveName(sensor.getHiveName());
+	  	s.setApiaryName(sensor.getApiaryName());
 	  	this.sensorRepository.save(s);
     }
     
