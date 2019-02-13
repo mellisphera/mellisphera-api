@@ -73,7 +73,7 @@ public class ObservedFlowerController {
 	
 	//Récupères la date de début et de fin de floraison théorique d'une fleur dans un rucher
 		@RequestMapping(value = "/datesthflowersd/{id}", method = RequestMethod.GET, produces={"application/json"})
-		public List< String[] > getDatesThFlowersd(@PathVariable String id) {
+		public List< String[]> getDatesThFlowersd(@PathVariable String id) {
 			List< String[] > dates = new ArrayList<>();
 			Date date = new Date(); // your date
 			Calendar cal = Calendar.getInstance();
@@ -105,7 +105,7 @@ public class ObservedFlowerController {
 	
 	//Retourne les dates de début et fin de floraison observées d'une plante pour un utilisateur ,un rucher et une année
 	@RequestMapping(value = "/datesobflowersd/{id}/{annee}", method = RequestMethod.GET, produces={"application/json"})
-	public List< String[] > getDatesObFlowersd(@PathVariable String id, @PathVariable String annee) {
+	public List< String[]> getDatesObFlowersd(@PathVariable String id, @PathVariable String annee) {
 		List< String[] > dates = new ArrayList<>();
 		Date date = new Date(); // your date
 		Calendar cal = Calendar.getInstance();

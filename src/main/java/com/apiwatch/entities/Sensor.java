@@ -8,7 +8,7 @@ public class Sensor {
 	@Id
 	public String id;
 	public String reference;
-	public String name;
+	//public String name;
 	public String type;
 	public String description;
 	public String idHive ;
@@ -23,12 +23,12 @@ public class Sensor {
 	}
 
 
-	public Sensor(String id, String reference, String name, String type, String description, String idHive,
+	public Sensor(String id, String reference, /*String name,*/ String type, String description, String idHive,
 			String idApiary, String apiaryName, String hiveName, String username) {
 		super();
 		this.id = id;
 		this.reference = reference;
-		this.name = name;
+		//this.name = name;
 		this.type = type;
 		this.description = description;
 		this.idHive = idHive;
@@ -59,7 +59,7 @@ public class Sensor {
 	}
 
 
-	public String getName() {
+	/*public String getName() {
 		return name;
 	}
 
@@ -67,7 +67,7 @@ public class Sensor {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+*/
 
 	public String getType() {
 		return type;
