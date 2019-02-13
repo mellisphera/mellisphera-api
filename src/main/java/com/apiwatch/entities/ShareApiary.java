@@ -10,7 +10,7 @@ public class ShareApiary {
 	
 	@Id
 	private String id = null;
-	private String idUsername = null; // id du user avec qui sont partager les ruches
+	private String idUsername = null; // id du user avec qui sont partager les ruchers
 	private Map<String, Apiary>sharingApiary = null; // Map (idHive -> idUser)
 	
 	public ShareApiary(String id, String idUsername, Map<String, Apiary> sharingApiary) {
