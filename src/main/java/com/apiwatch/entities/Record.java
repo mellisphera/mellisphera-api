@@ -7,20 +7,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Record")
 public class Record {
 	
-	public String id;
-	public Float battery_ext ;
-	public Float battery_int;
-	public Float humidity_ext;
-	public Float humidity_int;
-	public Date recordDate;
-	public Float weight_icome;
-	public String recordsType;
-	public String sensorRef;
-	public Float temp_ext;
-	public Float temp_int;
-	public Float weight;
-	public String idHive;
-        public Long timestamp;
+	private String id;
+	private Float battery_ext ;
+	private Float battery_int;
+	private Float humidity_ext;
+	private Float humidity_int;
+	private Date recordDate;
+	private Float weight_icome;
+	private String recordsType;
+	private String sensorRef;
+	private Float temp_ext;
+	private Float temp_int;
+	private Float weight;
+	private String idHive;
+	private Long timestamp;
 	
 	
 	public Record() {

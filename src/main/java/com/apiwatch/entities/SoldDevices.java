@@ -7,26 +7,26 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "SoldDevices")
 public class SoldDevices {
 
-	public String id;
-	public String sensorRef;
-	public String type;
-	public String dateSold;
-	public String soldTo;
-	public String soldToEmail;
+	private String id;
+	private String sensorRef;
+	private String type;
+	private String dateSold;
+	private String soldTo;
+	//private String soldToEmail;
 	
 	
 	public SoldDevices() {
 		super();
 	}
 
-	public SoldDevices(String id, String sensorRef, String type, String dateSold, String soldTo, String soldToEmail) {
+	public SoldDevices(String id, String sensorRef, String type, String dateSold, String soldTo) {
 		super();
 		this.id = id;
 		this.sensorRef = sensorRef;
 		this.type = type;
 		this.dateSold = dateSold;
 		this.soldTo = soldTo;
-		this.soldToEmail = soldToEmail;
+		//this.soldToEmail = soldToEmail;
 	}
 
 	public String getId() {
@@ -69,13 +69,6 @@ public class SoldDevices {
 		this.soldTo = soldTo;
 	}
 
-	public String getSoldToEmail() {
-		return soldToEmail;
-	}
-
-	public void setSoldToEmail(String soldToEmail) {
-		this.soldToEmail = soldToEmail;
-	}
 	
 	
 	
