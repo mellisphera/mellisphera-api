@@ -12,18 +12,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Apiary {
 
 	@Id
-	public String id;
-	public float latitude;
-	public float longitude;
-	public String name;
-	public String description;
-	public String codePostal;
-	public String ville;
-	public Date createdAt;
-	public String photo;
-	public String username; 
-	public User user;
-	public List<User> sharedWith;
+	private String id;
+	private float latitude;
+	private float longitude;
+	private String name;
+	private String description;
+	private String codePostal;
+	private String ville;
+	private Date createdAt;
+	private String photo;
+	private String username; 
+	private User user;
+	private List<User> sharedWith;
 	
 	
 	public Apiary() {

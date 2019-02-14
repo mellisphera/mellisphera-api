@@ -24,8 +24,6 @@ public class User {
 	private String email;
 	private long connexions;
 	private Date lastConnection;
-	private String fullName;
-	private String position;
 	private String country;
 	private String city;
 
@@ -52,8 +50,6 @@ public class User {
 		this.email = email;
 		this.connexions = connexions;
 		this.lastConnection = lastConnection;
-		this.fullName = fullName;
-		this.position = position;
 		this.country = country;
 		this.city = city;
 
@@ -79,8 +75,6 @@ public class User {
 		this.email = null;
 		this.connexions = 0;
 		this.lastConnection = null;
-		this.fullName = null;
-		this.position = null;
 		this.country = null;
 		this.city = null;
 	}
@@ -116,22 +110,6 @@ public class User {
 
 	public Date getCreatedAt() {
 		return createdAt;
-	}
-
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
 	}
 
 	public String getCountry() {

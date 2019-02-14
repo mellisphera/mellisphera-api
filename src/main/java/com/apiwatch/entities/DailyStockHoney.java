@@ -8,14 +8,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class DailyStockHoney {
 	
 	@Id
-	public String id;
-	public String nom;
-	public double stockJ;
-	public double apportJ;
-	public String date;
-	public String idApiary;
-	public String idHive;
-	public Long timestamp;
+	private String id;
+	private String nom;
+	private double stockJ;
+	private double apportJ;
+	private String date;
+	private String idApiary;
+	private String idHive;
+	private Long timestamp;
 	
 	public DailyStockHoney(String id, String nom, double stockJ, double apportJ, String date, String idApiary,
 			String idHive, Long timestamp) {
