@@ -126,6 +126,13 @@ public class ApiaryController {
  		this.apiaryRepository.save(a);
     }
     
+    @RequestMapping(value = "/update/background/{idApiary}", method = RequestMethod.PUT)
+    public void updateBackground(@PathVariable String idApiary ,@RequestBody String imgB64) {
+    	Apiary apiary = this.apiaryRepository.findById(idApiary).get();
+    	apiary.setPhoto(imgB64);
+    	this.apiaryRepository.save(apiary);
+    }
+    
     /*
     @DeleteMapping("/sharedUser/{id}")
     public Boolean removeSharedUser(@PathVariable String id, HttpServletResponse reponse) {

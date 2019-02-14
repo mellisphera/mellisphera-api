@@ -10,16 +10,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ProcessReport {
 
 
-	public String id;
-	public String date;
-	public String type;
-	public String sentence;
-	public String[] idLHive;
-	public List<String> ruche;
-	public String idHive;
-	public String idApiary;
-	public String nluScore;
-	public String username;
+	private String id;
+	private String date;
+	private String type;
+	private String sentence;
+	private String[] idLHive;
+	private List<String> ruche;
+	private String idHive;
+	private String idApiary;
+	private String nluScore;
+	private String username;
 	
 	public ProcessReport() {
 		

@@ -6,16 +6,16 @@ import org.springframework.data.annotation.Id;
 @Document(collection = "Sensor")
 public class Sensor {
 	@Id
-	public String id;
-	public String reference;
+	private String id;
+	private String reference;
 	//public String name;
-	public String type;
-	public String description;
-	public String idHive ;
-	public String idApiary;
-	public String apiaryName;
-	public String hiveName;
-	public String username;
+	private String type;
+	private String description;
+	private String idHive ;
+	private String idApiary;
+	private String apiaryName;
+	private String hiveName;
+	private String username;
 	
 	
 	public Sensor() {
