@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.apiwatch.security.entities.ApiWatchUserDetails;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -34,6 +35,8 @@ public class JwtProvider {
     @Value("${apiwatch.app.security.jwtExpiration}")
     private int jwtExpiration;
     
+    // User token null expiration
+    private final static String[] USER_EXCEPTION = {"fstl"};
     /**
      * 
      * @param authentication
@@ -44,12 +47,19 @@ public class JwtProvider {
         ApiWatchUserDetails userPrincipal = (ApiWatchUserDetails) authentication.getPrincipal();
         log.debug("userPrincipal :"+userPrincipal.getUsername());
         // build token
-        return Jwts.builder()
-		                .setSubject((userPrincipal.getUsername()))
-		                .setIssuedAt(new Date())
-		                .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
-		                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-		                .compact();
+        JwtBuilder jwts = Jwts.builder();
+        if(checkUserException(userPrincipal.getUsername())) {
+        	jwts.setExpiration(null);
+        }
+        else {
+        	jwts.setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000));
+        }
+        jwts.setSubject((userPrincipal.getUsername()))
+	        .setIssuedAt(new Date())
+	        .signWith(SignatureAlgorithm.HS512, jwtSecret)
+	        .compact();
+        return jwts.compact();
+
     }
     
     /**
@@ -88,6 +98,16 @@ public class JwtProvider {
 			                .setSigningKey(jwtSecret)
 			                .parseClaimsJws(token)
 			                .getBody().getSubject();
+    }
+    
+    public Boolean checkUserException(String username) {
+    	int i;
+    	for(i=0;i<USER_EXCEPTION.length;i++) {
+    		if(USER_EXCEPTION[i].equals(username)){
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     
