@@ -7,20 +7,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "DailyRecordsW")
 public class DailyRecordsW {
 
-	public String id;
-	public Date recordDate;
-	public String idHive;
-	public float temp_ext_min;
-	public float temp_ext_max;
-	public float weight_min;
-	public float weight_max;
-	public float weight_gain;
-	public float weight_income_gain;
-	public float weight_foragingbees;
-	public float weight_hive;
-	public float weight_colony;
-	public float weight_filling_rate;
-    public Long timestamp;
+	private String id;
+	private Date recordDate;
+	private String idHive;
+	private float temp_ext_min;
+	private float temp_ext_max;
+	private float weight_min;
+	private float weight_max;
+	private float weight_gain;
+	private float weight_income_gain;
+	private float weight_foragingbees;
+	private float weight_hive;
+	private float weight_colony;
+	private float weight_filling_rate;
+	private Long timestamp;
+    private String sensorRef;
 	
 	public DailyRecordsW(){
 		
@@ -28,7 +29,7 @@ public class DailyRecordsW {
 	
 	public DailyRecordsW(String id, Date recordDate, String idHive, float temp_ext_min, float temp_ext_max,
 			float weight_min, float weight_max, float weight_gain, float weight_income_gain, float weight_foragingbees,
-			float weight_hive, float weight_colony, float weight_filling_rate, Long timestamp) {
+			float weight_hive, float weight_colony, float weight_filling_rate, Long timestamp, String sensorRef) {
 		super();
 		this.id = id;
 		this.recordDate = recordDate;
@@ -43,7 +44,8 @@ public class DailyRecordsW {
 		this.weight_hive = weight_hive;
 		this.weight_colony = weight_colony;
 		this.weight_filling_rate = weight_filling_rate;
-                this.timestamp = timestamp;
+        this.timestamp = timestamp;
+        this.sensorRef = sensorRef;
 	}
 
 	
@@ -55,6 +57,30 @@ public class DailyRecordsW {
 		this.id = id;
 	}
 	
+	public float getTemp_ext_min() {
+		return temp_ext_min;
+	}
+
+	public void setTemp_ext_min(float temp_ext_min) {
+		this.temp_ext_min = temp_ext_min;
+	}
+
+	public float getTemp_ext_max() {
+		return temp_ext_max;
+	}
+
+	public void setTemp_ext_max(float temp_ext_max) {
+		this.temp_ext_max = temp_ext_max;
+	}
+
+	public String getSensorRef() {
+		return sensorRef;
+	}
+
+	public void setSensorRef(String sensorRef) {
+		this.sensorRef = sensorRef;
+	}
+
 	public Date getRecordDate() {
 		return recordDate;
 	}
