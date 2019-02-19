@@ -50,8 +50,8 @@ public class UserController {
     //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public List<User> getAll() {
-        List<User> users = this.userRepository.findAll();
-        return users;
+      return this.userRepository.findAll();
+        
     }
     
     
