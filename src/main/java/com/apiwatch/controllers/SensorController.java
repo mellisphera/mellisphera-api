@@ -28,13 +28,14 @@ import com.apiwatch.entities.Apiary;
 import com.apiwatch.entities.Hive;
 import com.apiwatch.entities.Sensor;
 import com.apiwatch.entities.User;
+import com.apiwatch.repositories.ApiaryRepository;
 import com.apiwatch.repositories.HivesRepository;
 import com.apiwatch.repositories.SensorRepository;
-import com.apiwatch.repositories.ApiaryRepository;
 
 @RestController
 @RequestMapping("/sensors")
 public class SensorController {
+	
 	
 	@Autowired private SensorRepository sensorRepository;
 	@Autowired private HivesRepository hivesRepository;
@@ -68,6 +69,12 @@ public class SensorController {
         this.sensorRepository.save(Sensor);
     }
   
+    @GetMapping(value="/check/{reference}")
+    public Sensor checkSensor(@PathVariable String reference) {
+    	//System.err.println(this.sensorRepository.findSensorsByReference(reference).getReference());
+    	return this.sensorRepository.findSensorsByReference(reference);
+    	//return (this.sensorRepository.findSensorsByReference(reference) != null ? true : false) ;
+    }
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Sensor> getUserSensors(@PathVariable String username){
     	// liste les capteurs pour un user
