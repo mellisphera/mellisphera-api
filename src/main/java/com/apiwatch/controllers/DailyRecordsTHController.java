@@ -2,10 +2,7 @@ package com.apiwatch.controllers;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +51,7 @@ public class DailyRecordsTHController {
 	@RequestMapping(value = "/{username}/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
 	public List<DailyRecordsTH> getByApiary(@PathVariable String username, @PathVariable String idApiary){
 		this.hiveController = new HiveController(hivesRepository);
-		List<Hive> hives = this.hiveController.getAllUserHives(username, idApiary);
+		List<Hive> hives = this.hiveController.getAllUserHives(idApiary);
 		List<DailyRecordsTH> dailyRecTh = new ArrayList<>();
 		for(Hive h : hives) {
                     System.err.println(h.getIdApiary());

@@ -42,10 +42,9 @@ public class HiveController {
     return hives;
     }
     
-    @RequestMapping(value = "/{username}/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
-    public List<Hive> getAllUserHives(@PathVariable String username, @PathVariable String idApiary){
-    	List<Hive> userApiaryHives = this.hivesRepository.findHiveByIdApiary(idApiary);
-	    return userApiaryHives;
+    @RequestMapping(value = "/username/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
+    public List<Hive> getAllUserHives(@PathVariable String idApiary){
+    	return this.hivesRepository.findHiveByIdApiary(idApiary);
     }
     
     @RequestMapping(value = "/id/{idHive}", method = RequestMethod.GET, produces={"application/json"})
