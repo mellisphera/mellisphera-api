@@ -12,6 +12,8 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Optional;
 
+import javax.xml.ws.RequestWrapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,6 +36,8 @@ import com.apiwatch.repositories.RecordRepository;
 import java.util.Comparator;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/records")
@@ -61,10 +65,20 @@ public class RecordController {
     return records;
     }
     
-    @RequestMapping(value = "/hive/{idHive}" , method = RequestMethod.GET, produces={"application/json"})
-    public List<Record> getByIdHive(@PathVariable String idHive){
+    @RequestMapping(value = "/hive/{idHive}" , method = RequestMethod.POST, produces={"application/json"})
+    public ResponseEntity<?> getByIdHive(@PathVariable String idHive, @RequestBody Date [] range){
         Sort sort = new Sort(Direction.DESC, "timestamp");
-        return this.recordRepository.findRecordByIdHive(idHive,sort);
+        Date start  = range[0];
+        Date end = range[1];
+        List<Record> rec = null;
+        rec = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start, end);
+        if(rec != null) {
+        	return new ResponseEntity<>(rec, HttpStatus.OK);
+        }
+        else {
+        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
+        }
+        
     }
     
     @GetMapping("/weight")
