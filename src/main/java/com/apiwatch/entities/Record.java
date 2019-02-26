@@ -39,7 +39,7 @@ public class Record {
 		this.recordDate = recordDate;
 		this.weight_icome = weight_icome;
 		this.recordsType = recordsType;
-		this.sensorRef = sensorRef;
+		this.sensorRef = sensorRef;	
 		this.temp_ext = temp_ext;
 		this.temp_int = temp_int;
 		this.weight = weight;
