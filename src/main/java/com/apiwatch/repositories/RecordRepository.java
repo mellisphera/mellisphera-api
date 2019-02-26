@@ -12,5 +12,5 @@ public interface RecordRepository  extends MongoRepository<Record,String> {
     
     public List<Record> findRecordByIdHive(String idHive, Sort sort);
     
-    public List<Record> findByIdHiveAndRecordDateBetween(String idHive, Date start, Date end);
+    public List<Record> findByIdHiveAndRecordDateBetween(String idHive, Date start, Date end, Sort sort);
 }
