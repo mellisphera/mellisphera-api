@@ -42,10 +42,10 @@ public class JwtProvider {
     public String generateJwtToken(Authentication authentication) {
 
         ApiWatchUserDetails userPrincipal = (ApiWatchUserDetails) authentication.getPrincipal();
-        log.debug("userPrincipal :"+userPrincipal.getUsername());
+        log.debug("userPrincipal :"+userPrincipal);
         // build token
         return Jwts.builder()
-		                .setSubject((userPrincipal.getUsername()))
+		                .setSubject((userPrincipal.getEmail()))
 		                .setIssuedAt(new Date())
 		                .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
 		                .signWith(SignatureAlgorithm.HS512, jwtSecret)

@@ -29,13 +29,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
 	 */
 	@Override
-	public ApiWatchUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public ApiWatchUserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		// load user and build the principal
-		User user = userRepository.findUserByUsername(username);
+		User user = userRepository.findUserByEmail(email);
 		log.debug(" Load User :"+ user.toString());
 		// 
 		if(user == null)
-			throw  new UsernameNotFoundException("User Not Found with -> username : " + username);
+			throw  new UsernameNotFoundException("User Not Found with -> username : " + email);
 		else 
 			return ApiWatchUserDetails.build(user);
 	}
