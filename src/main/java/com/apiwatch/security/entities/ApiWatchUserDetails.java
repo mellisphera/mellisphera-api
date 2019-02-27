@@ -28,7 +28,6 @@ public class ApiWatchUserDetails implements UserDetails {
 	//private String id;
 
 	private String username;
-
 	private String email;
 
 	@JsonIgnore
@@ -84,6 +83,14 @@ public class ApiWatchUserDetails implements UserDetails {
 	@Override
 	public String getPassword() {
 		return password;
+	}
+
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	/*
