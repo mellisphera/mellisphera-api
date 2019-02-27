@@ -8,18 +8,28 @@ public class JwtResponse {
 	private String token;
 	private String type = "Bearer";
 	private String username;
+	private String email;
 	private Long connexions;
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public JwtResponse(String accessToken, Long connexions, String username, Collection<? extends GrantedAuthority> authorities) {
+	public JwtResponse(String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities) {
 		this.token = accessToken;
 		this.username = username;
+		this.email = email;
 		this.authorities = authorities;
 		this.connexions = connexions;
 	}
 
 	public String getAccessToken() {
 		return token;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Long getConnexions() {

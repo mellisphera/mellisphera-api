@@ -81,17 +81,19 @@ public class AuthRestApiController {
 	 */
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest, HttpServletRequest request) {
-		log.debug(" Sign Up : username :" + loginRequest.getUsername() + " password:" + loginRequest.getPassword());
+		log.debug(" Sign Up : username :" + loginRequest.getEmail() + " password:" + loginRequest.getPassword());
 		//
+		System.err.println(loginRequest);
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
+				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 		log.debug(" Sign In : AUTH OK");
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		//
 		String jwt = jwtProvider.generateJwtToken(authentication);
 		ApiWatchUserDetails apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
 		//
-		User user = this.userRepository.findUserByUsername(loginRequest.getUsername());
+		User user = this.userRepository.findUserByEmail(loginRequest.getEmail());
+		System.err.println(user);
 		String ipAddress = request.getRemoteAddr();
 		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		if(user != null) {
@@ -103,7 +105,7 @@ public class AuthRestApiController {
 				this.connectionRepository.insert(connection);
 			}
 		}
-		return ResponseEntity.ok(new JwtResponse(jwt, user.getConnexions(), apiWatchUserDetails.getUsername(), apiWatchUserDetails.getAuthorities()));
+		return ResponseEntity.ok(new JwtResponse(jwt, user.getConnexions(), apiWatchUserDetails.getUsername(),user.getEmail(), apiWatchUserDetails.getAuthorities()));
 	}
 
 	/**

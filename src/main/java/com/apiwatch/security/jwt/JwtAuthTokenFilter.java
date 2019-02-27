@@ -43,12 +43,12 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 		try {
 
 			String jwt = getJwt(request);
-			if (jwt != null && tokenProvider.validateJwtToken(jwt) || jwt == PUBLIC_TOKEN) {
+			if (jwt != null && tokenProvider.validateJwtToken(jwt)) {
 				String username = tokenProvider.getUserNameFromJwtToken(jwt);
 				log.debug("Jwt username :"+username);
 				//
 				ApiWatchUserDetails apiWatchUserDetails = userDetailsService.loadUserByUsername(username);
-				log.debug("Load userDetails id :"+apiWatchUserDetails.getUsername());
+				log.debug("Load userDetails id :"+apiWatchUserDetails.getEmail());
 				//
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						apiWatchUserDetails.getUsername(), apiWatchUserDetails.getPassword(), apiWatchUserDetails.getAuthorities());
