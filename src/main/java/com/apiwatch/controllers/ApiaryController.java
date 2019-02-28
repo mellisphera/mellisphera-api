@@ -4,6 +4,7 @@ import org.apache.catalina.connector.Response;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -81,10 +82,12 @@ public class ApiaryController {
     }
     
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
-    public List<Apiary> getAllUserApiaries(@PathVariable String username){
+    public List<Apiary> getAllUserApiaries(@PathVariable String username, HttpServletResponse reponse){
     	
     	List<Apiary> userApiaries=this.apiaryRepository.findApiaryByUsername(username);    
-	    
+	    if(userApiaries.isEmpty()) {
+	    	reponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	    }
 	    return userApiaries;
     }
    
@@ -104,13 +107,16 @@ public class ApiaryController {
     }*/
    
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
-    public void insert(@RequestBody Apiary apiary){
-        System.err.println(this.apiaryRepository.insert(apiary));
+    public Apiary insert(@RequestBody Apiary apiary){
+        return this.apiaryRepository.insert(apiary);
     }
     
     @RequestMapping(value = "/details/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
-    public Apiary getApiaryDetails(@PathVariable String idApiary){
+    public Apiary getApiaryDetails(@PathVariable String idApiary, HttpServletResponse reponse){
     	Apiary a = this.apiaryRepository.findApiaryById(idApiary);
+    	if(a == null) {
+    		reponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
+    	}
     	return a;
     	    
     }
