@@ -44,10 +44,10 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
 			String jwt = getJwt(request);
 			if (jwt != null && tokenProvider.validateJwtToken(jwt)) {
-				String username = tokenProvider.getUserNameFromJwtToken(jwt);
-				log.debug("Jwt username :"+username);
+				String email = tokenProvider.getUserNameFromJwtToken(jwt);
+				log.debug("Jwt username :"+email);
 				//
-				ApiWatchUserDetails apiWatchUserDetails = userDetailsService.loadUserByUsername(username);
+				ApiWatchUserDetails apiWatchUserDetails = userDetailsService.loadUserByUsername(email);
 				log.debug("Load userDetails id :"+apiWatchUserDetails.getEmail());
 				//
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
