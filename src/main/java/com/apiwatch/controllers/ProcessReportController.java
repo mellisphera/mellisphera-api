@@ -37,8 +37,8 @@ public class ProcessReportController {
     
     
     @RequestMapping(value = "/insert", method = RequestMethod.PUT)
-    public void insert(@RequestBody ProcessReport observation){
-        this.processReportRepository.insert(observation);
+    public ProcessReport insert(@RequestBody ProcessReport observation){
+        return this.processReportRepository.insert(observation);
     }
     
     @RequestMapping(value = "/all", method = RequestMethod.GET)
