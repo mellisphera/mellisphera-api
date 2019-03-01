@@ -58,8 +58,8 @@ public class HiveController {
         return this.hivesRepository.findHiveByUsername(username);
     }
     @PostMapping
-    public void insert(@RequestBody Hive Hive){
-        this.hivesRepository.insert(Hive);
+    public Hive insert(@RequestBody Hive Hive){
+        return this.hivesRepository.insert(Hive);
     }
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
