@@ -5,6 +5,7 @@ package com.apiwatch.controllers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -97,8 +98,10 @@ public class AuthRestApiController {
 		String ipAddress = request.getRemoteAddr();
 		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		if(user != null) {
+			Calendar calendar = new GregorianCalendar();
+			calendar.set(Calendar.HOUR, new Date().getHours()+1);
 			user.incrementConnexions();
-			user.setLastConnection(new Date());
+			user.setLastConnection(calendar.getTime());
 			this.userRepository.save(user);
 			if(ipAddress != "0:0:0:0:0:0:0:1") {
 				Connection connection = new Connection(GregorianCalendar.getInstance().getTime(), user.getId(), user.getUsername(), geoIp);
