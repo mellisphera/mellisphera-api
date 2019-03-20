@@ -8,7 +8,7 @@ public class Hive {
 		private String id;
 		private String name ;
 		private String description;
-		private Apiary apiary;
+		// private String apiaryName;
 		private String username; 
 		private String idApiary;
 		private float hivePosX;
@@ -19,12 +19,12 @@ public class Hive {
 			super();
 		}
 
-		public Hive(String id, String name, String description, Apiary apiary, String username, String idApiary, String hivePosX, String hivePosY, Boolean shareStatus, User[] sharingUser) {
+		public Hive(String id, String name, String description, String username, String idApiary, String hivePosX, String hivePosY, Boolean shareStatus, User[] sharingUser) {
 			super();
 			this.id = id;
 			this.name = name;
 			this.description = description;
-			this.apiary = apiary;
+			// this.apiaryName = apiaryName;
 			this.username = username;
 			this.idApiary = idApiary;
 			this.hivePosX = Float.parseFloat(hivePosX);
@@ -72,14 +72,6 @@ public class Hive {
 			this.description = description;
 		}
 
-		public Apiary getApiary() {
-			return apiary;
-		}
-
-		public void setApiary(Apiary apiary) {
-			this.apiary = apiary;
-		}
-
 		public String getUsername() {
 			return username;
 		}
@@ -113,7 +105,7 @@ public class Hive {
 		}
 		@Override
 		public String toString() {
-			return "Hive [id=" + id + ", name=" + name + ", description=" + description + ", apiary=" + apiary
+			return "Hive [id=" + id + ", name=" + name + ", description=" + description
 					+ ", username=" + username + ", idApiary=" + idApiary+"]";
 		}
 		
