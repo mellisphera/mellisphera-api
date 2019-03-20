@@ -104,7 +104,7 @@ public class AuthRestApiController {
 			user.setLastConnection(calendar.getTime());
 			this.userRepository.save(user);
 			if(ipAddress != "0:0:0:0:0:0:0:1") {
-				Connection connection = new Connection(GregorianCalendar.getInstance().getTime(), user.getId(), user.getUsername(), geoIp);
+				Connection connection = new Connection(calendar.getTime(), user.getId(), user.getUsername(), geoIp);
 				System.err.println(connection);
 				this.connectionRepository.insert(connection);
 			}
