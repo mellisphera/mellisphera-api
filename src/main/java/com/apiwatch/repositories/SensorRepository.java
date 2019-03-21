@@ -13,6 +13,7 @@ import com.apiwatch.entities.Sensor;
 public interface SensorRepository extends MongoRepository<Sensor,String>{
 
 	List<Sensor> findSensorByUsername(String username);
+	List<Sensor> findSensorByIdHive(String idHive);
 	Sensor findSensorById(String id);
 	Sensor findSensorsByReference(String reference);
 	

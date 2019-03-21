@@ -49,8 +49,11 @@ public class SensorController {
     }
     
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
-    public void insert(@RequestBody Sensor Sensor){
-        this.sensorRepository.insert(Sensor);
+    public void insert(@RequestBody Sensor sensor){
+        this.sensorRepository.insert(sensor);
+        Hive hive = this.hivesRepository.findHiveById(sensor.getIdHive());
+        hive.setSensor(true);
+        this.hivesRepository.save(hive);
     }
     
     @GetMapping("/all")
@@ -61,7 +64,10 @@ public class SensorController {
     
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id){
-      this.sensorRepository.deleteById(id);
+    Hive hive = this.hivesRepository.findHiveById(this.sensorRepository.findById(id).get().getIdHive());
+    hive.setSensor(false);
+    this.hivesRepository.save(hive);
+    this.sensorRepository.deleteById(id);
     }
     
     @PutMapping

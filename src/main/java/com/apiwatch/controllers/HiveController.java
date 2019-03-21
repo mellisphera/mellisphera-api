@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import com.apiwatch.entities.Apiary;
 import com.apiwatch.entities.Hive;
 import com.apiwatch.entities.Post;
+import com.apiwatch.entities.Sensor;
 import com.apiwatch.entities.ShareApiary;
 import com.apiwatch.entities.User;
 import com.apiwatch.repositories.HivesRepository;
+import com.apiwatch.repositories.SensorRepository;
 import com.apiwatch.repositories.ShareRepository;
 import com.apiwatch.repositories.UserRepository;
 
@@ -28,6 +30,7 @@ public class HiveController {
 
 	@Autowired
     private HivesRepository hivesRepository;
+	@Autowired private SensorRepository sensorRepository;
 	
     public HiveController() {
     }
@@ -39,6 +42,11 @@ public class HiveController {
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAll(){
     List<Hive> hives=this.hivesRepository.findAll();
+    for(Hive h: hives) {
+    	List<Sensor> sensor = this.sensorRepository.findSensorByIdHive(h.getId());
+    	h.setSensor((sensor.size() > 0));
+    	this.hivesRepository.save(h);
+    }
     return hives;
     }
     
