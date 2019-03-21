@@ -14,12 +14,13 @@ public class Hive {
 		private float hivePosX;
 		private float hivePosY;
 		private User[] sharingUser;
+		private Boolean sensor;
 		
 		public Hive() {
 			super();
 		}
 
-		public Hive(String id, String name, String description, String username, String idApiary, String hivePosX, String hivePosY, Boolean shareStatus, User[] sharingUser) {
+		public Hive(String id, String name, String description, Boolean sensor, String username, String idApiary, String hivePosX, String hivePosY, Boolean shareStatus, User[] sharingUser) {
 			super();
 			this.id = id;
 			this.name = name;
@@ -30,6 +31,15 @@ public class Hive {
 			this.hivePosX = Float.parseFloat(hivePosX);
 			this.hivePosY = Float.parseFloat(hivePosY);
 			this.sharingUser = sharingUser;
+			this.sensor = sensor;
+		}
+
+		public Boolean getSensor() {
+			return sensor;
+		}
+
+		public void setSensor(Boolean sensor) {
+			this.sensor = sensor;
 		}
 
 		public User[] getSharingUser() {
