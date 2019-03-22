@@ -64,9 +64,10 @@ public class SensorController {
     
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id){
-    Hive hive = this.hivesRepository.findHiveById(this.sensorRepository.findById(id).get().getIdHive());
+    	/* Si on a supprimer la ruche avant erreur !!*/
+    /*Hive hive = this.hivesRepository.findHiveById(this.sensorRepository.findById(id).get().getIdHive());
     hive.setSensor(false);
-    this.hivesRepository.save(hive);
+    this.hivesRepository.save(hive);*/
     this.sensorRepository.deleteById(id);
     }
     
