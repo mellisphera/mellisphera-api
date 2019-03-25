@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -64,16 +65,30 @@ public class SensorController {
     
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id){
-    	/* Si on a supprimer la ruche avant erreur !!*/
-    /*Hive hive = this.hivesRepository.findHiveById(this.sensorRepository.findById(id).get().getIdHive());
-    hive.setSensor(false);
-    this.hivesRepository.save(hive);*/
+    Hive hive = this.hivesRepository.findHiveById(this.sensorRepository.findById(id).get().getIdHive());
+    if (hive != null) {
+    	hive.setSensor(false);
+    	this.hivesRepository.save(hive);
+    }
     this.sensorRepository.deleteById(id);
     }
     
     @PutMapping
-    public void update(@RequestBody Sensor Sensor){
-        this.sensorRepository.save(Sensor);
+    public void update(@RequestBody Sensor sensor){
+    	Sensor lastSensor = this.sensorRepository.findSensorById(sensor.getId());
+    	System.out.println("UPDATE !!!!!!");
+    	if (!lastSensor.getIdHive().equals(sensor.getIdHive())) {
+    		Hive lastHive = this.hivesRepository.findById(lastSensor.getIdHive()).get();
+    		Hive newHive = this.hivesRepository.findById(sensor.getIdHive()).get();
+    		System.out.println(lastHive);
+    		if (lastHive != null) {
+    			lastHive.setSensor(false);
+    		}
+    		if (newHive != null) {
+    			newHive.setSensor(true);
+    		}
+    	}
+        this.sensorRepository.save(sensor);
     }
   
     @GetMapping(value="/check/{reference}")
@@ -104,14 +119,25 @@ public class SensorController {
     }
     
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
-    public void update(@PathVariable("id") String id, @RequestBody Sensor sensor){ 
-        Sensor s = this.sensorRepository.findSensorById(id);
-        s.setIdHive(sensor.getIdHive());
-	  	s.setIdApiary(sensor.getIdApiary());
-	  	s.setDescription(sensor.getDescription());
-	  	s.setHiveName(sensor.getHiveName());
-	  	s.setApiaryName(sensor.getApiaryName());
-	  	this.sensorRepository.save(s);
+    public void update(@PathVariable("id") String id, @RequestBody Sensor sensor){
+    	Sensor lastSensor = this.sensorRepository.findSensorById(sensor.getId());
+    	if (!lastSensor.getIdHive().equals(sensor.getIdHive())) {
+    		try {
+    			Hive lastHive = this.hivesRepository.findById(lastSensor.getIdHive()).get();
+        		if (lastHive != null) {
+        			lastHive.setSensor(false);
+        			this.hivesRepository.save(lastHive);
+        		}
+    		}
+    		catch(NoSuchElementException e) {}
+    		Hive newHive = this.hivesRepository.findById(sensor.getIdHive()).get();
+    		System.err.println(newHive);
+    		if (newHive != null) {
+    			newHive.setSensor(true);
+    			this.hivesRepository.save(newHive);
+    		}
+    	}
+	  	this.sensorRepository.save(sensor);
     }
     
 
