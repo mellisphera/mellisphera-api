@@ -1347,3 +1347,8 @@ io.jsonwebtoken.MalformedJwtException: JWT strings must contain exactly 2 period
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
+2019-03-26 09:20:16,636 INFO org.springframework.context.support.AbstractApplicationContext [Thread-7] Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@45926ec9: startup date [Tue Mar 26 09:08:26 CET 2019]; root of context hierarchy
+2019-03-26 09:20:16,645 INFO org.springframework.jmx.export.MBeanExporter [Thread-7] Unregistering JMX-exposed beans on shutdown
+2019-03-26 09:20:16,681 INFO com.mongodb.diagnostics.logging.SLF4JLogger [Thread-7] Closed connection [connectionId{localValue:4, serverValue:13380}] to 51.68.71.91:43975 because the pool has been closed.
+2019-03-26 09:20:16,682 INFO com.mongodb.diagnostics.logging.SLF4JLogger [Thread-7] Closed connection [connectionId{localValue:2, serverValue:13378}] to 51.68.71.91:43975 because the pool has been closed.
+2019-03-26 09:20:16,682 INFO com.mongodb.diagnostics.logging.SLF4JLogger [Thread-7] Closed connection [connectionId{localValue:3, serverValue:13379}] to 51.68.71.91:43975 because the pool has been closed.
