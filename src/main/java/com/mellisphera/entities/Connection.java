@@ -68,7 +68,7 @@ public class Connection {
 
 	@Override
 	public String toString() {
-		return "{ username : "+this.username + ",\n location :"+this.location+"}";
+		return "{ Date: "+ this.connectionDate +"username : "+this.username + ",\n location :"+this.location+"}";
 	}
 
 }

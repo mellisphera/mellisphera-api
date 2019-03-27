@@ -98,14 +98,16 @@ public class AuthRestApiController {
 		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		if(user != null) {
 			Calendar calendar = new GregorianCalendar();
-			calendar.set(Calendar.HOUR, new Date().getHours()+1);
 			user.incrementConnexions();
-			user.setLastConnection(calendar.getTime());
+			Date date = new Date();
+			date.setHours(new Date().getHours()+1);
+			user.setLastConnection(date);
+			System.err.println(user);
 			this.userRepository.save(user);
 			if(ipAddress != "127.0.0.1" || ipAddress != "0:0:0:0:0:0:0:1") {
-				Connection connection = new Connection(calendar.getTime(), user.getId(), user.getUsername(), geoIp);
+				Connection connection = new Connection(date, user.getId(), user.getUsername(), geoIp);
 				System.err.println(connection);
-				this.connectionRepository.insert(connection);
+				System.err.println(this.connectionRepository.insert(connection));
 			} else {
 				geoIp = geoipService.getGeoIp("83.173.67.13");
 			}
