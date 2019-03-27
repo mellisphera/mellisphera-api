@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Service
 @RestController
-@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
+//@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
 @RequestMapping("/apiaries")
 public class ApiaryController {
 	private static final Log log = LogFactory.getLog(JwtAuthTokenFilter.class);
@@ -59,6 +59,7 @@ public class ApiaryController {
     		reponse.setStatus(Response.SC_NOT_FOUND);
     	}
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<Apiary> getAll(){
 	    List<Apiary> apiaries=this.apiaryRepository.findAll();
@@ -75,12 +76,14 @@ public class ApiaryController {
 
 		return null;
 	}
+	@PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "/id/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
     public Apiary getByid(@PathVariable String idApiary){
 	    Apiary apiaries=this.apiaryRepository.findApiaryById(idApiary);
 	    return apiaries;
     }
     
+	@PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Apiary> getAllUserApiaries(@PathVariable String username, HttpServletResponse reponse){
     	
@@ -106,11 +109,12 @@ public class ApiaryController {
     	
     }*/
    
+	@PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
     public Apiary insert(@RequestBody Apiary apiary){
         return this.apiaryRepository.insert(apiary);
     }
-    
+	@PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "/details/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
     public Apiary getApiaryDetails(@PathVariable String idApiary, HttpServletResponse reponse){
     	Apiary a = this.apiaryRepository.findApiaryById(idApiary);
@@ -121,6 +125,7 @@ public class ApiaryController {
     	    
     }
 
+	@PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Apiary Apiary){ 
     	Apiary a= this.apiaryRepository.findApiaryById(id);
@@ -131,6 +136,7 @@ public class ApiaryController {
  		this.apiaryRepository.save(a);
     }
     
+    @PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "/update/background/{idApiary}", method = RequestMethod.PUT)
     public void updateBackground(@PathVariable String idApiary ,@RequestBody String imgB64) {
     	Apiary apiary = this.apiaryRepository.findById(idApiary).get();
