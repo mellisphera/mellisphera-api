@@ -64,7 +64,7 @@ public class HiveController {
 	    return hiveById;
     }
     
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STANDARD')")
     @RequestMapping(value="/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllByUsername(@PathVariable String username){
         return this.hivesRepository.findHiveByUsername(username);
