@@ -38,6 +38,7 @@ public class ApiaryController {
     @Autowired ShareRepository shareRepository;
     @Autowired private JwtProvider tokenProvider;
     
+    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
     @DeleteMapping("/{id}")
 	 public void delete(@PathVariable("id") String id){
 	    this.apiaryRepository.deleteById(id);
@@ -76,14 +77,14 @@ public class ApiaryController {
 
 		return null;
 	}
-	@PreAuthorize("hasRole('STANDARD')")
+	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
     @RequestMapping(value = "/id/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
     public Apiary getByid(@PathVariable String idApiary){
 	    Apiary apiaries=this.apiaryRepository.findApiaryById(idApiary);
 	    return apiaries;
     }
     
-	@PreAuthorize("hasRole('STANDARD')")
+	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Apiary> getAllUserApiaries(@PathVariable String username, HttpServletResponse reponse){
     	
@@ -109,7 +110,7 @@ public class ApiaryController {
     	
     }*/
    
-	@PreAuthorize("hasRole('STANDARD')")
+	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
     public Apiary insert(@RequestBody Apiary apiary){
         return this.apiaryRepository.insert(apiary);
@@ -125,7 +126,7 @@ public class ApiaryController {
     	    
     }
 
-	@PreAuthorize("hasRole('STANDARD')")
+	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Apiary Apiary){ 
     	Apiary a= this.apiaryRepository.findApiaryById(id);
@@ -136,7 +137,7 @@ public class ApiaryController {
  		this.apiaryRepository.save(a);
     }
     
-    @PreAuthorize("hasRole('STANDARD')")
+	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
     @RequestMapping(value = "/update/background/{idApiary}", method = RequestMethod.PUT)
     public void updateBackground(@PathVariable String idApiary ,@RequestBody String imgB64) {
     	Apiary apiary = this.apiaryRepository.findById(idApiary).get();
