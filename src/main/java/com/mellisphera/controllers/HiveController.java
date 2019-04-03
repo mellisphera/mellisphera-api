@@ -51,7 +51,7 @@ public class HiveController {
     }
     return hives;
     }
-    @PreAuthorize("hasRole('STANDARD')")
+    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @RequestMapping(value = "/username/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllUserHives(@PathVariable String idApiary){
     	return this.hivesRepository.findHiveByIdApiary(idApiary);
@@ -96,7 +96,7 @@ public class HiveController {
     	}
     }
     
-    @PreAuthorize("hasRole('STANDARD')")
+    @PreAuthorize("hasRole('STANDARD') or hasRole('ADMIN') or hasRole('PREMIUM')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id){
       this.hivesRepository.deleteById(id);
