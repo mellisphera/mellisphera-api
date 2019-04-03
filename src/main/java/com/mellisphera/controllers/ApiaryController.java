@@ -38,7 +38,7 @@ public class ApiaryController {
     @Autowired ShareRepository shareRepository;
     @Autowired private JwtProvider tokenProvider;
     
-    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
+    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @DeleteMapping("/{id}")
 	 public void delete(@PathVariable("id") String id){
 	    this.apiaryRepository.deleteById(id);
@@ -87,7 +87,6 @@ public class ApiaryController {
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Apiary> getAllUserApiaries(@PathVariable String username, HttpServletResponse reponse){
-    	
     	List<Apiary> userApiaries=this.apiaryRepository.findApiaryByUsername(username);    
 	    if(userApiaries.isEmpty()) {
 	    	reponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
