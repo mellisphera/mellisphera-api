@@ -2,6 +2,7 @@ package com.mellisphera.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,7 @@ public class HiveController {
     	this.hivesRepository = hivesRepository;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAll(){
     List<Hive> hives=this.hivesRepository.findAll();
@@ -49,27 +51,31 @@ public class HiveController {
     }
     return hives;
     }
-    
+    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @RequestMapping(value = "/username/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllUserHives(@PathVariable String idApiary){
     	return this.hivesRepository.findHiveByIdApiary(idApiary);
     }
     
+    @PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "/id/{idHive}", method = RequestMethod.GET, produces={"application/json"})
     public Hive getById(@PathVariable String idHive){
     	Hive hiveById = this.hivesRepository.findHiveById(idHive);
 	    return hiveById;
     }
     
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STANDARD')")
     @RequestMapping(value="/{username}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllByUsername(@PathVariable String username){
         return this.hivesRepository.findHiveByUsername(username);
     }
+    @PreAuthorize("hasRole('STANDARD')")
     @PostMapping
     public Hive insert(@RequestBody Hive Hive){
         return this.hivesRepository.insert(Hive);
     }
     
+    @PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Hive hive){ 
     	Hive h = this.hivesRepository.findHiveById(id);
@@ -90,11 +96,13 @@ public class HiveController {
     	}
     }
     
+    @PreAuthorize("hasRole('STANDARD') or hasRole('ADMIN') or hasRole('PREMIUM')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id){
       this.hivesRepository.deleteById(id);
     }
     
+    @PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "/update/coordonnees/{id}", method = RequestMethod.PUT)
     public void updateHivePos(@PathVariable("id") String id, @RequestBody Hive hive) {
 	Hive h = this.hivesRepository.findHiveById(id);
