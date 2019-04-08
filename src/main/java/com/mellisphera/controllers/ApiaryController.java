@@ -38,7 +38,7 @@ public class ApiaryController {
     @Autowired ShareRepository shareRepository;
     @Autowired private JwtProvider tokenProvider;
     
-    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN$')")
     @DeleteMapping("/{id}")
 	 public void delete(@PathVariable("id") String id){
 	    this.apiaryRepository.deleteById(id);
