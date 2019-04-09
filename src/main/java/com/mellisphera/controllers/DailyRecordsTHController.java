@@ -52,12 +52,11 @@ public class DailyRecordsTHController {
         Sort sort = new Sort(Direction.DESC, "timestamp");
         Date start  = range[0];
         Date end = range[1];
-        System.err.println(start.toString());
         return this.dailyRecordsTHRepository.findByIdHiveAndRecordDateBetween(idHive, start, end, sort);
 	}
 	
-	@RequestMapping(value = "/{username}/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
-	public List<DailyRecordsTH> getByApiary(@PathVariable String username, @PathVariable String idApiary){
+	@RequestMapping(value = "/apiary/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
+	public List<DailyRecordsTH> getByApiary(@PathVariable String idApiary){
 		List<Hive> hives = this.hiveController.getAllUserHives(idApiary);
 		List<DailyRecordsTH> dailyRecTh = new ArrayList<>();
 		Date start = new Date();
@@ -65,10 +64,8 @@ public class DailyRecordsTHController {
 		start.setHours(0);
 		start.setMinutes(0);
 		for(Hive h : hives) {
-                    System.err.println(h.getIdApiary());
                     try{
                     	List<DailyRecordsTH> rec = this.getLastDailyRecord(h.getId(), new Date[] {start, new Date()});
-                    	System.err.println(rec);
                     	dailyRecTh.add(rec.get(rec.size() - 1));
                     }
                     catch(ArrayIndexOutOfBoundsException e){
