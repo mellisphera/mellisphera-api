@@ -61,7 +61,7 @@ public class DailyRecordsTHController {
 		List<Hive> hives = this.hiveController.getAllUserHives(idApiary);
 		List<DailyRecordsTH> dailyRecTh = new ArrayList<>();
 		Date start = new Date();
-		start.setDate(new Date().getDate() - 2);
+		start.setDate(new Date().getDate() - 1);
 		start.setHours(0);
 		start.setMinutes(0);
 		for(Hive h : hives) {
