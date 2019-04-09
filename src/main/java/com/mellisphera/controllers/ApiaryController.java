@@ -125,7 +125,7 @@ public class ApiaryController {
     	    
     }
 
-	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
+	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Apiary Apiary){ 
     	Apiary a= this.apiaryRepository.findApiaryById(id);
