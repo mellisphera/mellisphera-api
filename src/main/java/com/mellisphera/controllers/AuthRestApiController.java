@@ -36,12 +36,14 @@ import com.mellisphera.entities.User;
 import com.mellisphera.repositories.ConnectionRepository;
 import com.mellisphera.repositories.UserRepository;
 import com.mellisphera.security.entities.ApiWatchUserDetails;
+import com.mellisphera.security.entities.BmAuth;
 import com.mellisphera.security.entities.GeoIp;
 import com.mellisphera.security.jwt.JwtProvider;
 import com.mellisphera.security.message.request.LoginForm;
 import com.mellisphera.security.message.request.SignUpForm;
 import com.mellisphera.security.message.response.JwtResponse;
 import com.mellisphera.security.message.response.ResponseMessage;
+import com.mellisphera.security.service.BmAuthServiceImpl;
 import com.mellisphera.security.service.GeoipServiceImpl;
 
 /**
@@ -73,6 +75,9 @@ public class AuthRestApiController {
 
 	@Autowired
 	GeoipServiceImpl geoipService;
+	
+	@Autowired
+	BmAuthServiceImpl bmAuthService;
 
 	/**
 	 * 
@@ -111,6 +116,10 @@ public class AuthRestApiController {
 			} else {
 				geoIp = geoipService.getGeoIp("83.173.67.13");
 			}
+		}
+		else {
+			BmAuth bmAuth = bmAuthService.getBmAuth(loginRequest.getEmail(), loginRequest.getPassword());
+			System.err.println(bmAuth.getClientIp());
 		}
 		return ResponseEntity.ok(new JwtResponse(jwt, user.getConnexions(), apiWatchUserDetails.getUsername(),user.getEmail(), apiWatchUserDetails.getAuthorities(),geoIp.getCountry()));
 	}
