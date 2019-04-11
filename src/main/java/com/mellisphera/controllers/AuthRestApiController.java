@@ -92,37 +92,37 @@ public class AuthRestApiController {
 		//
 		System.err.println(loginRequest);
 		ApiWatchUserDetails apiWatchUserDetails = null;
+		Authentication authentication = null;
 		String jwt = null;
 		User user = null;
 		try {
-			Authentication authentication = authenticationManager.authenticate(
+			System.err.println("ok");
+			authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
-			//
-			jwt = jwtProvider.generateJwtToken(authentication);
-			apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
 			user = this.userRepository.findUserByEmail(loginRequest.getEmail());
+
+			//
 		}
 		catch(AuthenticationException e) {
-			System.err.println("");
+			e.printStackTrace();
+			System.err.println("BM_AUTH_TEST");
 			BmAuth bmAuth = bmAuthService.getBmAuth(loginRequest.getEmail(), loginRequest.getPassword());
 			if (bmAuth.getCode().equals("201")) {
 				throw new UsernameNotFoundException("Login incorrecte");
 			} else {
-				// loginRequest.setEmail(bmAuth.getMessage().substring(26, bmAuth.getMessage().length() - 1));
 				this.registerUser(new SignUpForm(loginRequest.getEmail().split("@")[0], loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), request);
 				user = this.userRepository.findUserByEmail(loginRequest.getEmail());
 				this.bmAuthService.saveBmData(bmAuth, user);
-				Authentication authentication = authenticationManager.authenticate(
+				authentication = authenticationManager.authenticate(
 						new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 				//
-				jwt = jwtProvider.generateJwtToken(authentication);
-				apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
-				user = this.userRepository.findUserByEmail(loginRequest.getEmail());
 			}
 
 		}
+		jwt = jwtProvider.generateJwtToken(authentication);
+		apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
 		System.err.println(user);
 		String ipAddress = request.getRemoteAddr();
 		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
