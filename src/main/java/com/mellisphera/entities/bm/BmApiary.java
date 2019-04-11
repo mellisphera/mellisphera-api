@@ -1,11 +1,11 @@
 package com.mellisphera.entities.bm;
 
-import java.util.Date;
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class BmApiary {
+public class BmApiary implements Serializable{
 	
 	
 	/*
@@ -20,24 +20,27 @@ public class BmApiary {
 	@JsonProperty("uuid")
 	private String uuid;
 	@JsonProperty("created")
-	private Date created;
+	private String created;
 	@JsonProperty("name")
 	private String name;
 	@JsonProperty("postal_code")
-	private String postal_code;
+	private String postalCode;
 	@JsonProperty("country_code")
 	private String countryCode;
 	@JsonProperty("data_last_received")
-	private Date dataLastReceived;
-	@JsonProperty("hvies")
+	private String dataLastReceived;
+	@JsonProperty("hives")
 	private BmHive[] hives;
 	
-	public BmApiary(String uuid, Date created, String name, String postal_code, String countryCode,
-			Date dataLastReceived, BmHive[] hives) {
+	public BmApiary() {
+		
+	}
+	public BmApiary(String uuid, String created, String name, String postalCode, String countryCode,
+			String dataLastReceived, BmHive[] hives) {
 		this.uuid = uuid;
 		this.created = created;
 		this.name = name;
-		this.postal_code = postal_code;
+		this.postalCode = postalCode;
 		this.countryCode = countryCode;
 		this.dataLastReceived = dataLastReceived;
 		this.hives = hives;
@@ -51,11 +54,11 @@ public class BmApiary {
 		this.uuid = uuid;
 	}
 
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(String created) {
 		this.created = created;
 	}
 
@@ -67,12 +70,12 @@ public class BmApiary {
 		this.name = name;
 	}
 
-	public String getPostal_code() {
-		return postal_code;
+	public String getPostalCode() {
+		return postalCode;
 	}
 
-	public void setPostal_code(String postal_code) {
-		this.postal_code = postal_code;
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	public String getCountryCode() {
@@ -83,11 +86,11 @@ public class BmApiary {
 		this.countryCode = countryCode;
 	}
 
-	public Date getDataLastReceived() {
+	public String getDataLastReceived() {
 		return dataLastReceived;
 	}
 
-	public void setDataLastReceived(Date dataLastReceived) {
+	public void setDataLastReceived(String dataLastReceived) {
 		this.dataLastReceived = dataLastReceived;
 	}
 
