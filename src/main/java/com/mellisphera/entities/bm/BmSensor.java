@@ -1,10 +1,11 @@
 package com.mellisphera.entities.bm;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class BmSensor {
+public class BmSensor implements Serializable{
 	
 	/*
 	 * "uuid": "7nm4q6cUkY9gzoK5L3MatRvAbQJlxyGu",
@@ -18,16 +19,20 @@ public class BmSensor {
 	@JsonProperty("uuid")
 	private String uuid;
 	@JsonProperty("created")
-	private Date created;
-	@JsonProperty("data_last_received")
+	private String created;
+	@JsonProperty("device_id")
 	private String deviceId;
 	@JsonProperty("data_last_received")
-	private Date dataLastReceived;
+	private String dataLastReceived;
 	@JsonProperty("name")
 	private String name;
+	@JsonProperty("is_api_linked")
 	private int isApiLinked;
 	
-	public BmSensor(String uuid, Date created, String deviceId, Date dataLastReceived, int isApiLinked, String name) {
+	public BmSensor() {
+		
+	}
+	public BmSensor(String uuid, String created, String deviceId, String dataLastReceived, int isApiLinked, String name) {
 		this.uuid = uuid;
 		this.created = created;
 		this.deviceId = deviceId;
@@ -53,11 +58,11 @@ public class BmSensor {
 		this.uuid = uuid;
 	}
 
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(String created) {
 		this.created = created;
 	}
 
@@ -69,11 +74,11 @@ public class BmSensor {
 		this.deviceId = deviceId;
 	}
 
-	public Date getDataLastReceived() {
+	public String getDataLastReceived() {
 		return dataLastReceived;
 	}
 
-	public void setDataLastReceived(Date dataLastReceived) {
+	public void setDataLastReceived(String dataLastReceived) {
 		this.dataLastReceived = dataLastReceived;
 	}
 
