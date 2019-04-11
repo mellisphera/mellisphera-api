@@ -9,6 +9,9 @@ import com.mellisphera.entities.bm.BmApiary;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BmAuth implements Serializable {
 
+	/**
+	 * 
+	 */
 	/*
 			 * {
 		"code": "200",
@@ -21,7 +24,7 @@ public class BmAuth implements Serializable {
 		  {
 	 */
 	@JsonProperty("code")
-	private int code;
+	private String code;
 	@JsonProperty("message")
 	private String message;
 	@JsonProperty("output_format")
@@ -33,7 +36,11 @@ public class BmAuth implements Serializable {
 	@JsonProperty("payload")
 	private BmApiary[] payload;
 	
-	public BmAuth(int code, String message, String outputFormat, String clientIp, String servedByNode,
+	public BmAuth() {
+		
+	}
+	
+	public BmAuth(String code, String message, String outputFormat, String clientIp, String servedByNode,
 			BmApiary[] payload) {
 		this.code = code;
 		this.message = message;
@@ -43,11 +50,11 @@ public class BmAuth implements Serializable {
 		this.payload = payload;
 	}
 
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
@@ -90,7 +97,10 @@ public class BmAuth implements Serializable {
 	public void setPayload(BmApiary[] payload) {
 		this.payload = payload;
 	}
-	
+	@Override
+	public String toString() {
+		return "Bm {" + this.getCode() + " - " + this.getMessage() + " - " + this.getClientIp() + " - "+ " - " + this.getPayload() + "}"; 
+	}
 	
 	
 	

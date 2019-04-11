@@ -1,11 +1,12 @@
 package com.mellisphera.entities.bm;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class BmHive {
+public class BmHive implements Serializable{
 
 	/*
 	 * "uuid": "bBsXpy30jFq6ghQdr1vI85aP9ilz2tSu",
@@ -17,15 +18,18 @@ public class BmHive {
 	@JsonProperty("uuid")
 	private String uuid;
 	@JsonProperty("created")
-	private Date created;
+	private String created;
 	@JsonProperty("name")
 	private String name;
 	@JsonProperty("data_last_received")
-	private Date dataLastReceived;
+	private String dataLastReceived;
 	@JsonProperty("devices")
 	private BmSensor[] devices;
 	
-	public BmHive(String uuid, Date created, String name, Date dataLastReceived, BmSensor[] devices) {
+	public BmHive() {
+		
+	}
+	public BmHive(String uuid, String created, String name, String dataLastReceived, BmSensor[] devices) {
 		this.uuid = uuid;
 		this.created = created;
 		this.name = name;
@@ -41,11 +45,11 @@ public class BmHive {
 		this.uuid = uuid;
 	}
 
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(String created) {
 		this.created = created;
 	}
 
@@ -57,11 +61,11 @@ public class BmHive {
 		this.name = name;
 	}
 
-	public Date getDataLastReceived() {
+	public String getDataLastReceived() {
 		return dataLastReceived;
 	}
 
-	public void setDataLastReceived(Date dataLastReceived) {
+	public void setDataLastReceived(String dataLastReceived) {
 		this.dataLastReceived = dataLastReceived;
 	}
 
