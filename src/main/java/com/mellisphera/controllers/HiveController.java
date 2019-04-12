@@ -75,7 +75,7 @@ public class HiveController {
         return this.hivesRepository.insert(Hive);
     }
     
-    @PreAuthorize("hasRole('STANDARD')")
+    @PreAuthorize("hasRole('STANDARD') or hasRole('ADMIN') or hasRole('PREMIUM')")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Hive hive){ 
     	Hive h = this.hivesRepository.findHiveById(id);
@@ -102,7 +102,7 @@ public class HiveController {
       this.hivesRepository.deleteById(id);
     }
     
-    @PreAuthorize("hasRole('STANDARD')")
+    @PreAuthorize("hasRole('STANDARD') or hasRole('ADMIN') or hasRole('PREMIUM')")
     @RequestMapping(value = "/update/coordonnees/{id}", method = RequestMethod.PUT)
     public void updateHivePos(@PathVariable("id") String id, @RequestBody Hive hive) {
 	Hive h = this.hivesRepository.findHiveById(id);
