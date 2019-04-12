@@ -38,7 +38,7 @@ public class ApiaryController {
     @Autowired ShareRepository shareRepository;
     @Autowired private JwtProvider tokenProvider;
     
-    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN$')")
     @DeleteMapping("/{id}")
 	 public void delete(@PathVariable("id") String id){
 	    this.apiaryRepository.deleteById(id);
@@ -125,7 +125,7 @@ public class ApiaryController {
     	    
     }
 
-	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
+	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Apiary Apiary){ 
     	Apiary a= this.apiaryRepository.findApiaryById(id);
