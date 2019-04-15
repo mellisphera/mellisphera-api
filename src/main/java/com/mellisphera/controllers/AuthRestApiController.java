@@ -106,7 +106,7 @@ public class AuthRestApiController {
 		}
 		catch(AuthenticationException e) {
 			e.printStackTrace();
-			System.err.println("BM_AUTH_TEST");
+			System.err.println("BM_AUTH_CHECk");
 			BmAuth bmAuth = bmAuthService.getBmAuth(loginRequest.getEmail(), loginRequest.getPassword());
 			if (bmAuth.getCode().equals("201")) {
 				throw new UsernameNotFoundException("Login incorrecte");
