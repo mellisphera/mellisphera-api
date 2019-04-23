@@ -1,5 +1,6 @@
 package com.mellisphera.repositories;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -24,4 +25,8 @@ public interface ProcessReportRepository extends MongoRepository<ProcessReport,S
 	List<ProcessReport> findProcessReportByIdLHive(String[] idLHive);
 	
 	List<ProcessReport> findProcessReportByIdLHive(String idHive);
+	
+	List<ProcessReport> findByIdApiaryAndDateBetween(String idApiary, Date start, Date end);
+	
+	List<ProcessReport> findByIdHiveAndDateBetween(String idHive, Date start, Date end);
 }

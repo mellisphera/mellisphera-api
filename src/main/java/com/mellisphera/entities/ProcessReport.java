@@ -11,7 +11,7 @@ public class ProcessReport {
 
 
 	private String id;
-	private String date;
+	private Date date;
 	private String type;
 	private String sentence;
 	private String[] idLHive;
@@ -25,7 +25,7 @@ public class ProcessReport {
 		
 	}
 	
-	public ProcessReport(String id, String date, String type, String sentence,String[] idLHive, List<String> ruche,
+	public ProcessReport(String id, Date date, String type, String sentence,String[] idLHive, List<String> ruche,
 			String idHive, String idApiary, String nluScore) {
 		super();
 		this.id = id;
@@ -45,10 +45,10 @@ public class ProcessReport {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public String getType() {
