@@ -129,7 +129,6 @@ public class AuthRestApiController {
 		Calendar calendar = new GregorianCalendar();
 		user.incrementConnexions();
 		Date date = new Date();
-		date.setHours(new Date().getHours()+1);
 		user.setLastConnection(date);
 		this.userRepository.save(user);
 		if(ipAddress != "127.0.0.1" || ipAddress != "0:0:0:0:0:0:0:1") {

@@ -1,7 +1,9 @@
 package com.mellisphera.controllers;
 
 import java.sql.Array;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,20 +45,23 @@ public class ProcessReportController {
     
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<ProcessReport> getAll(){
-        List<ProcessReport> reports = this.processReportRepository.findAll();
-        return reports;
+        return this.processReportRepository.findAll();
     }
     
-    @RequestMapping(value = "/apiary/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
-    public List<ProcessReport> getReportsApiray(@PathVariable("idApiary") String idApiary){
-        List<ProcessReport> reports = this.processReportRepository.findProcessReportByIdApiary(idApiary);
+    @RequestMapping(value = "/apiary/{idApiary}", method = RequestMethod.POST, produces={"application/json"})
+    public List<ProcessReport> getReportsApiray(@PathVariable("idApiary") String idApiary, @RequestBody Date[] range){
+        List<ProcessReport> reports = this.processReportRepository.findByIdApiaryAndDateBetween(idApiary, range[0], range[1]);
         Collections.reverse(reports);
         return reports;
     }
     
-    @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.GET, produces={"application/json"})
-    public List<ProcessReport> getReportsHive(@PathVariable("idHive") String idHive){
-        List<ProcessReport> reportsL = this.processReportRepository.findProcessReportByIdLHive(idHive);
+    @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.POST, produces={"application/json"})
+    public List<ProcessReport> getReportsHive(@PathVariable("idHive") String idHive, @RequestBody Date[] range){
+        Date start  = range[0];
+        Date end = range[1];
+        System.err.println(start + "---" + end);
+        List<ProcessReport> reportsL = this.processReportRepository.findByIdHiveAndDateBetween(idHive, start, new Date());
+        System.err.println(reportsL);
         Collections.reverse(reportsL);
         return reportsL;
     }
@@ -71,7 +76,7 @@ public class ProcessReportController {
     	
     	ProcessReport report= this.processReportRepository.findProcessReportById(id);
     	
-    	report.setDate(processReport.getDate());
+    	report.setDate((Date)processReport.getDate());
     	report.setType(processReport.getType());
     	report.setSentence(processReport.getSentence());
     	report.setId(processReport.getId());

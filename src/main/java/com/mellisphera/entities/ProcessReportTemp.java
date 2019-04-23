@@ -2,6 +2,7 @@ package com.mellisphera.entities;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -17,9 +18,9 @@ public class ProcessReportTemp {
 	public String idHive;
 	public String idApiary;
 	public String type;
-	public String date;
+	public Date date;
 	public String nluScore;
-        public String username;
+    public String username;
 
 	
 	public String getId() {
@@ -28,7 +29,7 @@ public class ProcessReportTemp {
 	
 	
 	public ProcessReportTemp(String id, String sentence, List<String> ruche, String[] idLHive, String idHive,
-			String idApiary, String type, String date) {
+			String idApiary, String type, Date date) {
 		super();
 		this.id = id;
 		this.sentence = sentence;
@@ -38,7 +39,7 @@ public class ProcessReportTemp {
 		this.idApiary = idApiary;
 		this.type = type;
 		this.date = date;
-                this.username = date;
+        // this.username = username;
 	}
 	
 	public void setId(String id) {
@@ -80,10 +81,10 @@ public class ProcessReportTemp {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
