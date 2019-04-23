@@ -72,7 +72,7 @@ public class RecordController {
         Date start  = range[0];
         Date end = range[1];
         List<Record> rec = null;
-        rec = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start, end,sort);
+        rec = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort);
         if(rec != null) {
         	return new ResponseEntity<>(rec, HttpStatus.OK);
         }
