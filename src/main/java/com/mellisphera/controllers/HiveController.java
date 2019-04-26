@@ -78,12 +78,16 @@ public class HiveController {
     @PreAuthorize("hasRole('STANDARD') or hasRole('ADMIN') or hasRole('PREMIUM')")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Hive hive){ 
-    	Hive h = this.hivesRepository.findHiveById(id);
-    	h.setName(hive.getName());
- 		h.setDescription(hive.getDescription());
- 		h.setIdApiary(hive.getIdApiary());
- 		h.setSharingUser(hive.getSharingUser());
- 		this.hivesRepository.save(h);
+ 		Hive hiveSave = this.hivesRepository.save(hive);
+ 		List<Sensor> sensors = this.sensorRepository.findSensorByIdHive(hiveSave.getId());
+ 		if (sensors != null) {
+ 			for(Sensor s: sensors) {
+ 				if (!s.getHiveName().equals(hiveSave.getName())) {
+ 					s.setHiveName(hiveSave.getName());
+ 					this.sensorRepository.save(s);
+ 				}
+ 			}
+ 		}
     }
     
     @RequestMapping(value = "/details/{idHive}", method = RequestMethod.GET, produces={"application/json"})
