@@ -12,7 +12,6 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Optional;
 
-import javax.xml.ws.RequestWrapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -63,7 +62,7 @@ public class RecordController {
     @GetMapping("/all")
     public List<Record> getAllSensors(){
     List<Record> records=this.recordRepository.findAll();
-    return records;
+    	return records;
     }
     
     @RequestMapping(value = "/hive/{idHive}" , method = RequestMethod.POST, produces={"application/json"})
