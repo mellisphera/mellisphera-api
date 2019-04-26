@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import com.mellisphera.entities.Apiary;
+import com.mellisphera.entities.Sensor;
 import com.mellisphera.entities.ShareApiary;
 import com.mellisphera.entities.User;
 import com.mellisphera.repositories.ApiaryRepository;
+import com.mellisphera.repositories.SensorRepository;
 import com.mellisphera.repositories.ShareRepository;
 import com.mellisphera.repositories.UserRepository;
 import com.mellisphera.security.jwt.JwtAuthTokenFilter;
@@ -32,13 +34,14 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/apiaries")
 public class ApiaryController {
 	private static final Log log = LogFactory.getLog(JwtAuthTokenFilter.class);
-    @Autowired
-    private ApiaryRepository apiaryRepository;
-    @Autowired UserRepository userRepository;
-    @Autowired ShareRepository shareRepository;
+	
+    @Autowired private ApiaryRepository apiaryRepository;
+    @Autowired private UserRepository userRepository;
+    @Autowired private ShareRepository shareRepository;
     @Autowired private JwtProvider tokenProvider;
+    @Autowired private SensorRepository sensorRepository;
     
-    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN$')")
+    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @DeleteMapping("/{id}")
 	 public void delete(@PathVariable("id") String id){
 	    this.apiaryRepository.deleteById(id);
@@ -127,13 +130,17 @@ public class ApiaryController {
 
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
-    public void update(@PathVariable("id") String id, @RequestBody Apiary Apiary){ 
-    	Apiary a= this.apiaryRepository.findApiaryById(id);
-    	a.setName(Apiary.getName());
-    	a.setVille(Apiary.getVille());
- 		a.setCodePostal(Apiary.getCodePostal());
- 		a.setDescription(Apiary.getDescription());
- 		this.apiaryRepository.save(a);
+    public void update(@PathVariable("id") String id, @RequestBody Apiary apiary){
+ 		Apiary apiarySave = this.apiaryRepository.save(apiary);
+ 		List<Sensor> sensors = this.sensorRepository.findSensorByIdApiary(apiarySave.getId());
+ 		if (sensors != null) {
+ 			for(Sensor s: sensors) {
+ 				if (!s.getApiaryName().equals(apiarySave.getName())) {
+ 					s.setApiaryName(apiarySave.getName());
+ 					this.sensorRepository.save(s);
+ 				}
+ 			}
+ 		}
     }
     
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM')")
