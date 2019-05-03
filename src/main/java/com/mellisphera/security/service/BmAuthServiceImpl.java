@@ -98,8 +98,10 @@ public class BmAuthServiceImpl implements BmAuthService {
 			return "T2";
 		} else if (prefix.equals("42")) {
 			return "T_HR";
-		} else {
+		} else if (prefix.equals("43")) {
 			return "weight";
+		} else {
+			return "ALIEN";
 		}
 	}
 	
