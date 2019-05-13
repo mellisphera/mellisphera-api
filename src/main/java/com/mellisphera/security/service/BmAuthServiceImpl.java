@@ -83,7 +83,7 @@ public class BmAuthServiceImpl implements BmAuthService {
 					sensor.setHiveName(bmHive.getName());
 					sensor.setIdApiary(idApiary);
 					sensor.setIdHive(idHive);
-					sensor.setReference(bmSensor.getDeviceId());
+					sensor.setSensorRef(bmSensor.getDeviceId());
 					sensor.setUsername(user.getUsername());
 					sensor.setType(this.getTypeByRef(bmSensor.getDeviceId()));
 					this.sensorRepository.insert(sensor);
@@ -99,7 +99,7 @@ public class BmAuthServiceImpl implements BmAuthService {
 		} else if (prefix.equals("42")) {
 			return "T_HR";
 		} else if (prefix.equals("43")) {
-			return "weight";
+			return "WEIGHT";
 		} else {
 			return "ALIEN";
 		}

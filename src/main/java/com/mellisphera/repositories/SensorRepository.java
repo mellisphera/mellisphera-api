@@ -16,6 +16,6 @@ public interface SensorRepository extends MongoRepository<Sensor,String>{
 	List<Sensor> findSensorByIdHive(String idHive);
 	List<Sensor> findSensorByIdApiary(String idApiary);
 	Sensor findSensorById(String id);
-	Sensor findSensorsByReference(String reference);
+	Sensor findSensorsBySensorRef(String sensorRef);
 	
 }

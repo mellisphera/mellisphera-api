@@ -52,10 +52,6 @@ public class SensorController {
 	@RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
 	public Sensor insert(@RequestBody Sensor sensor){
 		Hive hive = this.hivesRepository.findHiveById(sensor.getIdHive());
-		if (hive != null) {
-			hive.setSensor(true);
-			this.hivesRepository.save(hive);
-		}
 		return this.sensorRepository.insert(sensor);
 	}
 
@@ -97,7 +93,7 @@ public class SensorController {
 	@GetMapping(value="/check/{reference}")
 	public Sensor checkSensor(@PathVariable String reference) {
 		//System.err.println(this.sensorRepository.findSensorsByReference(reference).getReference());
-		return this.sensorRepository.findSensorsByReference(reference);
+		return this.sensorRepository.findSensorsBySensorRef(reference);
 		//return (this.sensorRepository.findSensorsByReference(reference) != null ? true : false) ;
 	}
 	@RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
