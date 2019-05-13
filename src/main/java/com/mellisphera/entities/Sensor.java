@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 public class Sensor {
 	@Id
 	private String id;
-	private String reference;
+	private String sensorRef;
 	//public String name;
 	private String type;
 	private String description;
@@ -23,11 +23,11 @@ public class Sensor {
 	}
 
 
-	public Sensor(String id, String reference, /*String name,*/ String type, String description, String idHive,
+	public Sensor(String id, String sensorRef, /*String name,*/ String type, String description, String idHive,
 			String idApiary, String apiaryName, String hiveName, String username) {
 		super();
 		this.id = id;
-		this.reference = reference;
+		this.sensorRef = sensorRef;
 		//this.name = name;
 		this.type = type;
 		this.description = description;
@@ -49,13 +49,13 @@ public class Sensor {
 	}
 
 
-	public String getReference() {
-		return reference;
+	public String getSensorRef() {
+		return sensorRef;
 	}
 
 
-	public void setReference(String reference) {
-		this.reference = reference;
+	public void setSensorRef(String sensorRef) {
+		this.sensorRef = sensorRef;
 	}
 
 
