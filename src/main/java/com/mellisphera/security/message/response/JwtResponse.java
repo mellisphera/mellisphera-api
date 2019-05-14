@@ -25,6 +25,15 @@ public class JwtResponse {
 		this.country = country;
 		this.userPref = userPref;
 	}
+	
+	public JwtResponse(String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country) {
+		this.token = accessToken;
+		this.username = username;
+		this.email = email;
+		this.authorities = authorities;
+		this.connexions = connexions;
+		this.country = country;
+	}
 
 	public String getToken() {
 		return token;
@@ -36,6 +45,14 @@ public class JwtResponse {
 
 	public String getType() {
 		return type;
+	}
+
+	public UserPref getUserPref() {
+		return userPref;
+	}
+
+	public void setUserPref(UserPref userPref) {
+		this.userPref = userPref;
 	}
 
 	public void setType(String type) {
