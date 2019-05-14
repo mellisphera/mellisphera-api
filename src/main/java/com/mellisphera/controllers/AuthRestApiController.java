@@ -139,7 +139,7 @@ public class AuthRestApiController {
 		} else {
 			geoIp = geoipService.getGeoIp("83.173.67.13");
 		}
-		return ResponseEntity.ok(new JwtResponse(jwt, user.getConnexions(), apiWatchUserDetails.getUsername(),user.getEmail(), apiWatchUserDetails.getAuthorities(),geoIp.getCountry()));
+		return ResponseEntity.ok(new JwtResponse(jwt, user.getConnexions(), apiWatchUserDetails.getUsername(),user.getEmail(), apiWatchUserDetails.getAuthorities(),geoIp.getCountry(), user.getUserPref()));
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class AuthRestApiController {
 		//
 		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		//
-		user.setUserPref(new UserPref(geoIp.getTimeZone(), "Y-M-D", geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? "METRIC" : "IMPERIAL"));
+		user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? "D/M/Y h:m" : "Y-M-D h:m", geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? "METRIC" : "IMPERIAL"));
 		user.setCity(geoIp.getCity());
 		// save user
 		userRepository.insert(user);

@@ -49,7 +49,7 @@ public class Sensor {
 	}
 
 
-	public String getSsensorRef() {
+	public String getSensorRef() {
 		return sensorRef;
 	}
 

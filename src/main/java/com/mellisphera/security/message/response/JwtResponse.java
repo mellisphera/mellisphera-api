@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import com.mellisphera.entities.UserPref;
+
 public class JwtResponse {
 	private String token;
 	private String type = "Bearer";
@@ -11,15 +13,17 @@ public class JwtResponse {
 	private String email;
 	private Long connexions;
 	private String country;
+	private UserPref userPref;
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public JwtResponse(String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country) {
+	public JwtResponse(String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country, UserPref userPref) {
 		this.token = accessToken;
 		this.username = username;
 		this.email = email;
 		this.authorities = authorities;
 		this.connexions = connexions;
 		this.country = country;
+		this.userPref = userPref;
 	}
 
 	public String getToken() {
