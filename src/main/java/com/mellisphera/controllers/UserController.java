@@ -68,7 +68,6 @@ public class UserController {
     
     @GetMapping("/createdAt")
     public List<User> findByCreatedDate() {
-
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // Quoted "Z" to indicate UTC, no timezone offset
         List<User> Users = this.userRepository.findAll();
         List<User> todayUsers = new ArrayList<>();
