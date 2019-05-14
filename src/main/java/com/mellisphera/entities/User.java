@@ -26,6 +26,7 @@ public class User {
 	private Date lastConnection;
 	private String country;
 	private String city;
+	private UserPref userPref;
 
 	// ADD for spring security compatibility
 	private Set<String> roles = new HashSet<>();
@@ -39,7 +40,7 @@ public class User {
 	}
 
 	public User(String id, Date createdAt, String username, String password, String phone, String email, long connexions,
-			Date lastConnection, String fullName, String position, String city, String country) {
+			Date lastConnection, String fullName, String position, String city, String country, UserPref userPref) {
 		super();
 		this.id = id;
 		this.createdAt = createdAt;
@@ -52,6 +53,7 @@ public class User {
 		this.lastConnection = lastConnection;
 		this.country = country;
 		this.city = city;
+		this.userPref = userPref;
 
 	}
 	
@@ -81,6 +83,15 @@ public class User {
 	
 	public String getUsername() {
 		return username;
+	}
+
+	
+	public UserPref getUserPref() {
+		return userPref;
+	}
+
+	public void setUserPref(UserPref userPref) {
+		this.userPref = userPref;
 	}
 
 	public void setUsername(String username) {

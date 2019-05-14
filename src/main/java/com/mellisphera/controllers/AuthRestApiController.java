@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mellisphera.entities.Connection;
 import com.mellisphera.entities.User;
+import com.mellisphera.entities.UserPref;
 import com.mellisphera.repositories.ConnectionRepository;
 import com.mellisphera.repositories.UserRepository;
 import com.mellisphera.security.entities.ApiWatchUserDetails;
@@ -179,6 +180,7 @@ public class AuthRestApiController {
 		//
 		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		//
+		user.setUserPref(new UserPref(geoIp.getTimeZone(), "Y-M-D", geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? "METRIC" : "IMPERIAL"));
 		user.setCity(geoIp.getCity());
 		// save user
 		userRepository.insert(user);
