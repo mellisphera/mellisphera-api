@@ -12,8 +12,10 @@ import com.mellisphera.HttpsGetRequest;
 import com.mellisphera.entities.Connection;
 import com.mellisphera.entities.Location;
 import com.mellisphera.entities.User;
+import com.mellisphera.entities.UserPref;
 import com.mellisphera.repositories.ConnectionRepository;
 import com.mellisphera.repositories.UserRepository;
+import com.mongodb.BasicDBObject;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
@@ -52,7 +54,6 @@ public class UserController {
     @GetMapping("/all")
     public List<User> getAll() {
       return this.userRepository.findAll();
-        
     }
     
     
