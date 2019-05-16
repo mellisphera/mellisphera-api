@@ -5,6 +5,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +39,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+	
     @Autowired
     private ConnectionRepository connectionRepository;
 
