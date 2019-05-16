@@ -14,15 +14,17 @@ public class JwtResponse {
 	private Long connexions;
 	private String country;
 	private UserPref userPref;
+	private String idUser;
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public JwtResponse(String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country, UserPref userPref) {
+	public JwtResponse(String idUser, String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country, UserPref userPref) {
 		this.token = accessToken;
 		this.username = username;
 		this.email = email;
 		this.authorities = authorities;
 		this.connexions = connexions;
 		this.country = country;
+		this.idUser = idUser;
 		this.userPref = userPref;
 	}
 	
@@ -49,6 +51,14 @@ public class JwtResponse {
 
 	public UserPref getUserPref() {
 		return userPref;
+	}
+
+	public String getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
 
 	public void setUserPref(UserPref userPref) {
