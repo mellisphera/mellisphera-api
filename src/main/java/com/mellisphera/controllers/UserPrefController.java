@@ -2,6 +2,7 @@ package com.mellisphera.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,6 +21,7 @@ import com.mellisphera.repositories.UserRepository;
 public class UserPrefController {
 
 	@Autowired UserRepository userRepository;
+	@Autowired PasswordEncoder encoder;
 	
 	public UserPrefController() {
 		super();
@@ -32,6 +34,11 @@ public class UserPrefController {
 		this.userRepository.save(user);
 	}
 	
-	
+    @PutMapping("/updatePassword/{idUser}")
+    public void changePassword(@PathVariable String idUser, @RequestBody String newPassword) {
+    	User user = this.userRepository.findById(idUser).get();
+    	user.setPassword(this.encoder.encode(newPassword));
+    	this.userRepository.save(user);
+    }
 
 }
