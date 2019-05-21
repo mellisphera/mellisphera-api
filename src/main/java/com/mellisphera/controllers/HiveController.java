@@ -69,7 +69,7 @@ public class HiveController {
     public List<Hive> getAllByUsername(@PathVariable String username){
         return this.hivesRepository.findHiveByUsername(username);
     }
-    @PreAuthorize("hasRole('STANDARD')")
+    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @PostMapping
     public Hive insert(@RequestBody Hive Hive){
         return this.hivesRepository.insert(Hive);
