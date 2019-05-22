@@ -45,6 +45,7 @@ public class DailyRecordsTH {
 		this.r_int_text = r_int_text;
 		this.timestamp = timestamp;
 		this.vitality = vitality;
+		
 	}
 
 
