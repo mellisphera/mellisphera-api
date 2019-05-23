@@ -202,19 +202,22 @@ public class AuthRestApiController {
 	
 	@PostMapping("/reset")
 	public void sendMail(@RequestBody String email)  throws MessagingException {
+		System.err.println(email);
 		User user = this.userRepository.findUserByEmail(email);
-		String newPassword = this.passwordGenerator.getPassword();
-		user.setPassword(this.encoder.encode(newPassword));
-		this.userRepository.save(user);
-		MimeMessage msg = emailSender.createMimeMessage();
-		boolean multipart = true;
-		MimeMessageHelper helper = new MimeMessageHelper(msg, multipart, "utf-8");
-		String htmlMsg = "<p><img src='https://www.mellisphera.com/wp-content/uploads/2018/12/mellisphera-logo.png'/></p>"
-						+ "<h2>New password  : "+ newPassword +"</h2>";
-		msg.setContent(htmlMsg, "text/html");
-		helper.setTo(email);
-		helper.setSubject("Reset password");
-		this.emailSender.send(msg);
+		if (user != null) {
+			String newPassword = this.passwordGenerator.getPassword();
+			user.setPassword(this.encoder.encode(newPassword));
+			this.userRepository.save(user);
+			MimeMessage msg = emailSender.createMimeMessage();
+			boolean multipart = true;
+			MimeMessageHelper helper = new MimeMessageHelper(msg, multipart, "utf-8");
+			String htmlMsg = "<p><img src='https://www.mellisphera.com/wp-content/uploads/2018/12/mellisphera-logo.png'/></p>"
+							+ "<h2>New password  : "+ newPassword +"</h2>";
+			msg.setContent(htmlMsg, "text/html");
+			helper.setTo(email);
+			helper.setSubject("Reset password");
+			this.emailSender.send(msg);
+		}
 		
 	}
 }
