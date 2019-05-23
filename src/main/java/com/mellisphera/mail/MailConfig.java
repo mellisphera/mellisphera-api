@@ -28,8 +28,10 @@ public class MailConfig {
 		Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
+        //props.put("mail.smtp.auth.mechanisms","NTLM");
+        //props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.debug", "true");
+        //props.put("mail.smtp.auth", "true");
 		
         return mailSender;
 	}
