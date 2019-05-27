@@ -82,9 +82,11 @@ public class SensorController {
 			System.out.println(lastHive);
 			if (lastHive != null) {
 				lastHive.setSensor(false);
+				this.hivesRepository.save(lastHive);
 			}
 			if (newHive != null) {
 				newHive.setSensor(true);
+				this.hivesRepository.save(newHive);
 			}
 		}
 		this.sensorRepository.save(sensor);
