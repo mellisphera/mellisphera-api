@@ -49,11 +49,12 @@ public class SensorController {
 		//this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
+	
 	@RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
 	public Sensor insert(@RequestBody Sensor sensor){
 		Hive hive = this.hivesRepository.findHiveById(sensor.getIdHive());
 		List<Sensor> sensorHive = this.sensorRepository.findSensorByIdHive(hive.getId());
-		hive.setSensor(!sensorHive.isEmpty());
+		hive.setSensor(!sensorHive.isEmpty()); 
 		this.hivesRepository.save(hive);
 		return this.sensorRepository.insert(sensor);
 	}
