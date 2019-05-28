@@ -23,7 +23,11 @@ dist/
 nbdist/
 .nb-gradle/
 /.gradle/
+src/main/ressources/application.properties
+logs
 
 # System Files
 .DS_Store
 Thumbs.db
+
+
