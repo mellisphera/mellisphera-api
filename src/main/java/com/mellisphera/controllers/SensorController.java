@@ -52,6 +52,8 @@ public class SensorController {
 	@RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
 	public Sensor insert(@RequestBody Sensor sensor){
 		Hive hive = this.hivesRepository.findHiveById(sensor.getIdHive());
+		hive.setSensor(true);
+		this.hivesRepository.save(hive);
 		return this.sensorRepository.insert(sensor);
 	}
 
@@ -66,6 +68,7 @@ public class SensorController {
 		try {
 			Hive hive = this.hivesRepository.findHiveById(this.sensorRepository.findById(id).get().getIdHive());
 			hive.setSensor(false);
+			System.err.println(hive);
 			this.hivesRepository.save(hive);
 		}
 		catch(NoSuchElementException e) {}
@@ -82,11 +85,14 @@ public class SensorController {
 			System.out.println(lastHive);
 			if (lastHive != null) {
 				lastHive.setSensor(false);
+				this.hivesRepository.save(lastHive);
 			}
 			if (newHive != null) {
 				newHive.setSensor(true);
+				this.hivesRepository.save(newHive);
 			}
 		}
+		System.err.println(sensor);
 		this.sensorRepository.save(sensor);
 	}
 
