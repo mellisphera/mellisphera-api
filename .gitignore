@@ -23,3 +23,7 @@ dist/
 nbdist/
 .nb-gradle/
 /.gradle/
+
+# System Files
+.DS_Store
+Thumbs.db
