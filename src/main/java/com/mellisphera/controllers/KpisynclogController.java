@@ -15,7 +15,7 @@ import com.mellisphera.entities.Kpisynclog;
 import com.mellisphera.repositories.KpisynclogRepository;
 
 @RestController
-@RequestMapping("/Kpisynclog")
+@RequestMapping("/kpisynclog")
 @PreAuthorize("hasRole('ADMIN')") 
 public class KpisynclogController {
 	
