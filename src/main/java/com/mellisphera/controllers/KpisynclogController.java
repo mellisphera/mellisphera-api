@@ -13,7 +13,7 @@ import com.mellisphera.repositories.KpisynclogRepository;
 
 @RestController
 @RequestMapping("/Kpisynclog")
-@PreAuthorize(" hasRole('ADMIN')")
+@PreAuthorize(" hasRole('ADMIN')") 
 public class KpisynclogController {
 	
 	@Autowired private KpisynclogRepository kpisynclogRepository;
