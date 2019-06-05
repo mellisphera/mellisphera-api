@@ -25,10 +25,9 @@ nbdist/
 /.gradle/
 src/main/ressources/application.properties
 logs
-
+application.properties
 # System Files
 .DS_Store
 Thumbs.db
 
 
-application.properties
