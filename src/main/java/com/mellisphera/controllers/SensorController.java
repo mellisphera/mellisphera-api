@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,6 +60,7 @@ public class SensorController {
 		return this.sensorRepository.insert(sensor);
 	}
 
+    @PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/all")
 	public List<Sensor> getAllSensors(){
 		List<Sensor> sensors=this.sensorRepository.findAll();

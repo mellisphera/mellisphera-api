@@ -1,5 +1,6 @@
 package com.mellisphera.repositories;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,4 +16,5 @@ public interface ConnectionRepository  extends MongoRepository<Connection ,Strin
 	
 	public List<Connection> findConnectionByIdUsername(String idUsername);
 	
+	public List<Connection> findByconnectionDateBetween(Date start, Date end);
 }
