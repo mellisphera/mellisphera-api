@@ -1,6 +1,9 @@
 package com.mellisphera.entities;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 
 @Document(collection = "Sensor")
@@ -15,7 +18,9 @@ public class Sensor {
 	private String idApiary;
 	private String apiaryName;
 	private String hiveName;
+	private Date sensorTime;
 	private String username;
+	private float sensorBat;
 	
 	
 	public Sensor() {
@@ -24,7 +29,7 @@ public class Sensor {
 
 
 	public Sensor(String id, String sensorRef, /*String name,*/ String type, String description, String idHive,
-			String idApiary, String apiaryName, String hiveName, String username) {
+			String idApiary, String apiaryName, String hiveName, String username, Date sensorTime, float sensorBat) {
 		super();
 		this.id = id;
 		this.sensorRef = sensorRef;
@@ -36,6 +41,8 @@ public class Sensor {
 		this.apiaryName = apiaryName;
 		this.hiveName = hiveName;
 		this.username = username;
+		this.sensorTime = sensorTime;
+		this.sensorBat = sensorBat;
 	}
 
 
@@ -46,6 +53,26 @@ public class Sensor {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+
+	public Date getSensorTime() {
+		return sensorTime;
+	}
+
+
+	public void setSensorTime(Date sensorTime) {
+		this.sensorTime = sensorTime;
+	}
+
+
+	public float getSensorBat() {
+		return sensorBat;
+	}
+
+
+	public void setSensorBat(float sensorBat) {
+		this.sensorBat = sensorBat;
 	}
 
 
