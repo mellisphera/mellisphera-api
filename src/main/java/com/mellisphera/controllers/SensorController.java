@@ -111,22 +111,9 @@ public class SensorController {
 	@RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
 	public List<Sensor> getUserSensors(@PathVariable String username){
 		// liste les capteurs pour un user
-		List<Sensor> sensors = this.sensorRepository.findSensorByUsername(username);
-		return sensors;
+		return this.sensorRepository.findSensorByUsername(username);
+		
 
-	}
-
-	@RequestMapping(value = "/weight/{username}", method = RequestMethod.GET, produces={"application/json"})
-	public List<Sensor> getUserWeightSensors(@PathVariable String username){
-		List<Sensor> allSensors=this.sensorRepository.findSensorByUsername(username);
-		List<Sensor> apiarySensors = new ArrayList<>();
-
-		for(Sensor a : allSensors) {
-			if(a.getType().equals("weight")) {
-				apiarySensors.add(a);
-			}
-		}
-		return apiarySensors;
 	}
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
