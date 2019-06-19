@@ -84,62 +84,20 @@ public class SensorController {
 
 	@PutMapping
 	public void update(@RequestBody Sensor sensor){
-		Sensor lastSensor = this.sensorRepository.findSensorById(sensor.getId());
-		if (!lastSensor.getIdHive().equals(sensor.getIdHive())) {
-			Hive lastHive = this.hivesRepository.findById(lastSensor.getIdHive()).get();
-			Hive newHive = this.hivesRepository.findById(sensor.getIdHive()).get();
-			System.out.println(lastHive);
-			if (lastHive != null) {
-				lastHive.setSensor(false);
-				this.hivesRepository.save(lastHive);
-			}
-			if (newHive != null) {
-				newHive.setSensor(true);
-				this.hivesRepository.save(newHive);
-			}
-		}
-		System.err.println(sensor);
 		this.sensorRepository.save(sensor);
 	}
 
 	@GetMapping(value="/check/{reference}")
 	public Sensor checkSensor(@PathVariable String reference) {
-		//System.err.println(this.sensorRepository.findSensorsByReference(reference).getReference());
 		return this.sensorRepository.findSensorsBySensorRef(reference);
-		//return (this.sensorRepository.findSensorsByReference(reference) != null ? true : false) ;
 	}
 	@RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
 	public List<Sensor> getUserSensors(@PathVariable String username){
 		// liste les capteurs pour un user
 		return this.sensorRepository.findSensorByUsername(username);
-		
-
 	}
-
-	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
-	public void update(@PathVariable("id") String id, @RequestBody Sensor sensor){
-		Sensor lastSensor = this.sensorRepository.findSensorById(sensor.getId());
-		System.err.println(lastSensor.getHiveName());
-		if (lastSensor.getIdHive() != null && !lastSensor.getIdHive().equals(sensor.getIdHive())) {
-			try {
-				Hive lastHive = this.hivesRepository.findById(lastSensor.getIdHive()).get();
-				if (lastHive != null) {
-					lastHive.setSensor(false);
-					this.hivesRepository.save(lastHive);
-				}
-				Hive newHive = this.hivesRepository.findById(sensor.getIdHive()).get();
-				System.err.println(newHive);
-				if (newHive != null) {
-					newHive.setSensor(true);
-					this.hivesRepository.save(newHive);
-				}
-			}
-			catch(NoSuchElementException e) {}
-		}
-		this.sensorRepository.save(sensor);
+	
+	private Boolean checkIfHiveHaveSensor(Hive hive) {
+		return !this.sensorRepository.findSensorByIdHive(hive.getId()).isEmpty();
 	}
-
-
-
-
 }

@@ -8,6 +8,6 @@ import com.mellisphera.entities.ShareApiary;
 
 public interface ShareRepository extends MongoRepository<ShareApiary, String>{
 	
-	ShareApiary findShareHiveByidUsername(String idUser);
+	ShareApiary findSharingApiaryByIdUsername(String idUser);
 	
 }

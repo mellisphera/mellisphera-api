@@ -19,6 +19,7 @@ public class User {
 	private Date createdAt;
 	//private Login login;
 	private String username;
+	private String idUsername;
 	private String password;
 	private String phone;
 	private String email;
@@ -40,7 +41,7 @@ public class User {
 	}
 
 	public User(String id, Date createdAt, String username, String password, String phone, String email, long connexions,
-			Date lastConnection, String fullName, String position, String city, String country, UserPref userPref) {
+			Date lastConnection, String fullName, String position, String city, String country, UserPref userPref, String idUsername) {
 		super();
 		this.id = id;
 		this.createdAt = createdAt;
@@ -50,6 +51,7 @@ public class User {
 		this.phone = phone;
 		this.email = email;
 		this.connexions = connexions;
+		this.idUsername = idUsername;
 		this.lastConnection = lastConnection;
 		this.country = country;
 		this.city = city;
@@ -92,6 +94,16 @@ public class User {
 
 	public void setUserPref(UserPref userPref) {
 		this.userPref = userPref;
+	}
+	
+	
+
+	public String getIdUsername() {
+		return idUsername;
+	}
+
+	public void setIdUsername(String idUsername) {
+		this.idUsername = idUsername;
 	}
 
 	public void setUsername(String username) {

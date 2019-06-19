@@ -43,6 +43,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mellisphera.entities.Connection;
 import com.mellisphera.entities.User;
 import com.mellisphera.entities.UserPref;
+import com.mellisphera.execption.ApiaryDemoNotFoundException;
 import com.mellisphera.mail.PasswordGenerator;
 import com.mellisphera.repositories.ConnectionRepository;
 import com.mellisphera.repositories.UserRepository;
@@ -56,6 +57,7 @@ import com.mellisphera.security.message.response.JwtResponse;
 import com.mellisphera.security.message.response.ResponseMessage;
 import com.mellisphera.security.service.BmAuthServiceImpl;
 import com.mellisphera.security.service.GeoipServiceImpl;
+import com.mellisphera.sharing.SharingService;
 
 /**
  * @author epa
@@ -67,6 +69,10 @@ import com.mellisphera.security.service.GeoipServiceImpl;
 public class AuthRestApiController {
 	public static Log log = LogFactory.getLog(AuthRestApiController.class);
 	//
+	private static final String DATE_FR = "D/M/Y h:m";
+	private static final String DATE_EN = "Y-M-D h:m";
+	private static final String METRIC = "METRIC";
+	private static final String IMPERIAL = "IMPERIAL";
 	public static final String[] SET_INITIAL_ROLE = new String[] { "ROLE_STANDARD" };
 
 	@Autowired
@@ -75,6 +81,7 @@ public class AuthRestApiController {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired SharingService sharingService;
 	@Autowired PasswordGenerator passwordGenerator;
 	
 	
@@ -190,13 +197,19 @@ public class AuthRestApiController {
 			ipAddress="87.100.21.93";
 		log.debug(" remote ip :"+ ipAddress);
 		//
-		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
+		//GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		//
-		user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? "D/M/Y h:m" : "Y-M-D h:m", geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? "METRIC" : "IMPERIAL"));
-		user.setCity(geoIp.getCity());
+		/*user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL));
+		user.setCity(geoIp.getCity());*/
 		// save user
-		userRepository.insert(user);
+		User newUser = userRepository.insert(user);
 		//
+		try {
+			this.sharingService.addDemoApiaryNewUser(newUser.getId());
+		} catch (ApiaryDemoNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
 	}
 	

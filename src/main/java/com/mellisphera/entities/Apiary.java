@@ -19,6 +19,7 @@ public class Apiary {
 	private String description;
 	private String codePostal;
 	private String ville;
+	private String idUsername;
 	private Date createdAt;
 	private String photo;
 	private String username; 
@@ -31,7 +32,7 @@ public class Apiary {
 	}
 	
 	public Apiary(String id, float latitude, float longitude, String name, String description, String codePostal,
-			String ville, Date createdAt, String photo, String username, User user, List<User>  sharedWith) {
+			String ville, Date createdAt, String photo, String username, User user, String idUsername, List<User>  sharedWith) {
 		super();
 		this.id = id;
 		this.latitude = latitude;
@@ -43,6 +44,7 @@ public class Apiary {
 		this.createdAt = createdAt;
 		this.photo = photo;
 		this.username = username;
+		this.idUsername = idUsername;
 		this.user = user;
 		this.sharedWith = sharedWith;
 	}
@@ -57,6 +59,15 @@ public class Apiary {
 	public float getLatitude() {
 		return latitude;
 	}
+	
+	public String getIdUsername() {
+		return idUsername;
+	}
+
+	public void setIdUsername(String idUsername) {
+		this.idUsername = idUsername;
+	}
+
 	public void setLatitude(float latitude) {
 		this.latitude = latitude;
 	}

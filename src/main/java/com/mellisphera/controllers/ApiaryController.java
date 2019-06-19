@@ -47,22 +47,6 @@ public class ApiaryController {
 	    this.apiaryRepository.deleteById(id);
 	 }
     
-    @DeleteMapping("/sharing/{idUsername}/{idApiary}")
-    public void deleteSharing(@PathVariable String idUsername, @PathVariable String idApiary, HttpServletResponse reponse, HttpServletRequest request) {
-    	Optional<User> userTarget = this.userRepository.findById(idUsername);
-    	Optional<Apiary> apiary = this.apiaryRepository.findById(idApiary);
-    	ShareApiary sharing = this.shareRepository.findShareHiveByidUsername(idUsername);
-    	String username = this.tokenProvider.getUserNameFromJwtToken(getJwt(request));
-    	User user = this.userRepository.findUserByUsername(username);
-    	if(userTarget.isPresent() && apiary.isPresent()) {
-    		apiary.get().removeSharedUser(userTarget.get());
-    		sharing.removeApiary(apiary.get(), user.getId());
-    		reponse.setStatus(Response.SC_OK);
-    	}
-    	else {
-    		reponse.setStatus(Response.SC_NOT_FOUND);
-    	}
-    }
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<Apiary> getAll(){

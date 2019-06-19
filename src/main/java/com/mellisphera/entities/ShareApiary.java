@@ -1,5 +1,7 @@
 package com.mellisphera.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
@@ -11,12 +13,14 @@ public class ShareApiary {
 	@Id
 	private String id = null;
 	private String idUsername = null; // id du user avec qui sont partager les ruchers
-	private Map<String, Apiary>sharingApiary = null; // Map (idHive -> idUser)
+	private String username = null;
+	private	ArrayList<Apiary> sharingApiary = null;
 	
-	public ShareApiary(String id, String idUsername, Map<String, Apiary> sharingApiary) {
+	public ShareApiary(String id, String idUsername, String username, ArrayList<Apiary> sharingApiary) {
 		super();
 		this.id = id;
 		this.idUsername = idUsername;
+		this.username = username;
 		this.sharingApiary = sharingApiary;
 	}
 
@@ -38,23 +42,23 @@ public class ShareApiary {
 	}
 	
 
-	public Map<String, Apiary> getsharingApiary() {
+	public ArrayList<Apiary> getsharingApiary() {
 		return sharingApiary;
 	}
 
-	public void setSharingApiary(Map<String, Apiary> sharingApiary) {
+	public void setSharingApiary(ArrayList<Apiary> sharingApiary) {
 		this.sharingApiary = sharingApiary;
 	}
 	
-	public void addApiary(Apiary apiary, String idUsername) {
-		this.sharingApiary.put(idUsername, apiary);
+	public void addApiary(Apiary apiary) {
+		this.sharingApiary.add(apiary);
 	}
 	
-	public Boolean removeApiary(Apiary apiary, String idUser) {
-		return this.sharingApiary.remove(idUser, apiary);
+	public Boolean removeApiary(Apiary apiary) {
+		return this.sharingApiary.remove(apiary);
 	}
 	
-	
+	@Override
 	public String toString() {
 		return "["+this.idUsername+"-"+this.sharingApiary+"]";
 	}
