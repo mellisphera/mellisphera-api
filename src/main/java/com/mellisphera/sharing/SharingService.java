@@ -1,6 +1,8 @@
 package com.mellisphera.sharing;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,9 +28,17 @@ public class SharingService {
 	private static final String ID_DEMO_APIARY = "5bcde872dc7d274ec35e87cf";
 	private static final String EXCEPTION_MSG = "Demo apiary not found";
 	private static final String EXCEPTION_USER = "User not found";
+	
+	private Apiary apiaryDemo;
 
+	@Autowired
 	public SharingService() {
-		// TODO Auto-generated constructor stub
+		this.setApiaryDemo();
+	}
+	
+	private void setApiaryDemo() {
+		apiaryDemo = this.apiaryRepository.findApiaryById(ID_DEMO_APIARY);
+
 	}
 
 	public void addDemoApiaryNewUser(String idNewUser) throws ApiaryDemoNotFoundException {
@@ -48,7 +58,6 @@ public class SharingService {
 		}
 	}
 	
-	
 	public User getNewUser(String idUser) throws UserNotFoundException {
 		User user =  this.userRepository.findById(idUser).get();
 		if (user == null) {
@@ -56,5 +65,29 @@ public class SharingService {
 		}
 		return user;
 	}
+	
+	public void renameApiaryDemo(String name) {
+		System.err.println(name);
+		int indexApiaryDemo = 0;
+		Apiary apiaryDemo = this.apiaryRepository.findById(ID_DEMO_APIARY).get();
+		List<ShareApiary> shareApiary = this.shareRepository.findAll();
+		for (ShareApiary sApiary: shareApiary) {
+			if ((indexApiaryDemo = findApiary(apiaryDemo, sApiary)) != -1) {
+				sApiary.getsharingApiary().get(indexApiaryDemo).setName(name);
+				System.err.println(sApiary.getIdUsername());
+				this.shareRepository.save(sApiary);
+			}
+		}
+	}
+
+	private int findApiary(Apiary apiaryDemo, ShareApiary sApiary) {
+		return sApiary.getsharingApiary().stream().map(apiary -> apiary.getId()).collect(Collectors.toList()).indexOf(apiaryDemo.getId());
+	}
+	
+//	public Apiary getApiaryDemo() {
+//		List<Apiary> apiaryList = this.shareRepository.findAll().stream().filter(apiary -> apiary.get().equals(ID_DEMO_APIARY)).collect(Collectors.toList());
+//	}
+	
+	
 	
 }
