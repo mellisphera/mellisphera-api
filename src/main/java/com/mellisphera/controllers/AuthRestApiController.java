@@ -110,7 +110,6 @@ public class AuthRestApiController {
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest, HttpServletRequest request) {
 		log.debug(" Sign Up : username :" + loginRequest.getEmail() + " password:" + loginRequest.getPassword());
 		//
-		System.err.println(loginRequest);
 		ApiWatchUserDetails apiWatchUserDetails = null;
 		Authentication authentication = null;
 		String jwt = null;
@@ -153,7 +152,6 @@ public class AuthRestApiController {
 		this.userRepository.save(user);
 		if(ipAddress != "127.0.0.1" || ipAddress != "0:0:0:0:0:0:0:1") {
 			Connection connection = new Connection(date, user.getId(), user.getUsername(), geoIp);
-			System.err.println(connection);
 			System.err.println(this.connectionRepository.insert(connection));
 		} else {
 			geoIp = geoipService.getGeoIp("83.173.67.13");
