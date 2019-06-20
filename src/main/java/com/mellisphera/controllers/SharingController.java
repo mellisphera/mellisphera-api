@@ -57,12 +57,12 @@ public class SharingController {
 		}
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/demo-apiary")
-	public Apiary getApiaryDemo() {
-		return this.sharingService.getApiaryDemo();
-	}
-	
+//	@PreAuthorize("hasRole('ADMIN')")
+//	@GetMapping("/demo-apiary")
+//	public Apiary getApiaryDemo() {
+//		return this.sharingService.getApiaryDemo();
+//	}
+//	
 	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/name")
 	public void renameApiaryDemo(@RequestBody String name) {

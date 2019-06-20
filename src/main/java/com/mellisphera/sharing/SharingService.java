@@ -33,13 +33,8 @@ public class SharingService {
 
 	@Autowired
 	public SharingService() {
-		this.setApiaryDemo();
 	}
 	
-	private void setApiaryDemo() {
-		apiaryDemo = this.apiaryRepository.findApiaryById(ID_DEMO_APIARY);
-
-	}
 
 	public void addDemoApiaryNewUser(String idNewUser) throws ApiaryDemoNotFoundException {
 		Apiary demoApiary = this.apiaryRepository.findApiaryById(ID_DEMO_APIARY);
@@ -84,9 +79,6 @@ public class SharingService {
 		return sApiary.getsharingApiary().stream().map(apiary -> apiary.getId()).collect(Collectors.toList()).indexOf(apiaryDemo.getId());
 	}
 	
-//	public Apiary getApiaryDemo() {
-//		List<Apiary> apiaryList = this.shareRepository.findAll().stream().filter(apiary -> apiary.get().equals(ID_DEMO_APIARY)).collect(Collectors.toList());
-//	}
 	
 	
 	
