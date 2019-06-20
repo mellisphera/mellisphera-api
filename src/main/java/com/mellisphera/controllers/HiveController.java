@@ -106,6 +106,8 @@ public class HiveController {
     	List<Sensor> sensorHive = this.sensorRepository.findSensorByIdHive(id);
     	sensorHive.stream().forEach(sensor -> {
     		sensor.setIdApiary(null);
+    		sensor.setApiaryName(null);
+    		sensor.setHiveName(null);
     		sensor.setIdHive(null);
     		this.sensorRepository.save(sensor);
     	});
