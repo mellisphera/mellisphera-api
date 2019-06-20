@@ -28,6 +28,7 @@ public class SharingService {
 	private static final String ID_DEMO_APIARY = "5bcde872dc7d274ec35e87cf";
 	private static final String EXCEPTION_MSG = "Demo apiary not found";
 	private static final String EXCEPTION_USER = "User not found";
+	private static final String NAME_DEMO_APIARy = "Rucher demo";
 	
 	private Apiary apiaryDemo;
 
@@ -42,6 +43,7 @@ public class SharingService {
 			throw new ApiaryDemoNotFoundException(EXCEPTION_MSG);
 		}
 		try {
+			demoApiary.setName(NAME_DEMO_APIARy);
 			User newUser = this.getNewUser(idNewUser);
 			ArrayList<Apiary> apiaryList = new ArrayList<Apiary>();
 			apiaryList.add(demoApiary);
