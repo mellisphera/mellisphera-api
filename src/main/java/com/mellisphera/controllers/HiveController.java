@@ -103,7 +103,13 @@ public class HiveController {
     @PreAuthorize("hasRole('STANDARD') or hasRole('ADMIN') or hasRole('PREMIUM')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id){
-      this.hivesRepository.deleteById(id);
+    	List<Sensor> sensorHive = this.sensorRepository.findSensorByIdHive(id);
+    	sensorHive.stream().forEach(sensor -> {
+    		sensor.setIdApiary(null);
+    		sensor.setIdHive(null);
+    		this.sensorRepository.save(sensor);
+    	});
+    	this.hivesRepository.deleteById(id);
     }
     
     @PreAuthorize("hasRole('STANDARD') or hasRole('ADMIN') or hasRole('PREMIUM')")
