@@ -197,10 +197,10 @@ public class AuthRestApiController {
 			ipAddress="87.100.21.93";
 		log.debug(" remote ip :"+ ipAddress);
 		//
-		//GeoIp geoIp = geoipService.getGeoIp(ipAddress);
+		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		//
-		/*user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL));
-		user.setCity(geoIp.getCity());*/
+		user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL));
+		user.setCity(geoIp.getCity());
 		// save user
 		User newUser = userRepository.insert(user);
 		//
