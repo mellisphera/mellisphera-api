@@ -20,7 +20,7 @@ public class DailyRecordsTH {
 	private String trend;
 	private float r_int_text;
 	public Long timestamp;
-	public int vitality;
+	public int brood;
 
 
 	public DailyRecordsTH(){
@@ -29,7 +29,7 @@ public class DailyRecordsTH {
 
 	public DailyRecordsTH(String id, Date recordDate, String idHive, float humidity_int_min, float humidity_int_max,
 			float temp_int_min, float temp_int_max, float temp_int_moy, float temp_int_stddev, String status,
-			String trend, float r_int_text, Long timestamp, int vitality) {
+			String trend, float r_int_text, Long timestamp, int brood) {
 		super();
 		this.id = id;
 		this.recordDate = recordDate;
@@ -44,7 +44,7 @@ public class DailyRecordsTH {
 		this.trend = trend;
 		this.r_int_text = r_int_text;
 		this.timestamp = timestamp;
-		this.vitality = vitality;
+		this.brood = brood;
 		
 	}
 
@@ -65,12 +65,12 @@ public class DailyRecordsTH {
 		this.trend = trend;
 	}
 
-	public int getVitality() {
-		return vitality;
+	public int getBrood() {
+		return brood;
 	}
 
-	public void setVitality(int vitality) {
-		this.vitality = vitality;
+	public void setBrood(int brood) {
+		this.brood = brood;
 	}
 
 	public String getId() {
