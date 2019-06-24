@@ -140,6 +140,12 @@ public class Sensor {
 		return apiaryName;
 	}
 
+	public void affectStock() {
+		this.apiaryName = null;
+		this.idApiary = null;
+		this.idHive = null;
+		this.hiveName = null;
+	}
 
 	public void setApiaryName(String apiaryName) {
 		this.apiaryName = apiaryName;

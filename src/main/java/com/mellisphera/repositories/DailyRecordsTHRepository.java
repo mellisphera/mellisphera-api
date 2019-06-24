@@ -21,6 +21,6 @@ public interface DailyRecordsTHRepository extends MongoRepository<DailyRecordsTH
 	//DailyRecordsTH findDailyRecordsTHByrecordDate(Date date);
 	List<DailyRecordsTH> findOneLastDailyRecordsTHByIdHive(String idHive);
 	
-    public List<DailyRecordsTH> findByIdHiveAndRecordDateBetween(String idHive, Date start, Date end, Sort sort);
+    List<DailyRecordsTH> findByIdHiveAndRecordDateBetween(String idHive, Date start, Date end, Sort sort);
 
 }

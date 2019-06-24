@@ -105,10 +105,7 @@ public class HiveController {
     public void delete(@PathVariable("id") String id){
     	List<Sensor> sensorHive = this.sensorRepository.findSensorByIdHive(id);
     	sensorHive.stream().forEach(sensor -> {
-    		sensor.setIdApiary(null);
-    		sensor.setApiaryName(null);
-    		sensor.setHiveName(null);
-    		sensor.setIdHive(null);
+    		sensor.affectStock();
     		this.sensorRepository.save(sensor);
     	});
     	this.hivesRepository.deleteById(id);

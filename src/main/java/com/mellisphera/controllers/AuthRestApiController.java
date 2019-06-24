@@ -195,19 +195,19 @@ public class AuthRestApiController {
 			ipAddress="87.100.21.93";
 		log.debug(" remote ip :"+ ipAddress);
 		//
-		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
+		//GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		//
-		user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL));
-		user.setCity(geoIp.getCity());
+		//user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL));
+		//user.setCity(geoIp.getCity());
 		// save user
 		User newUser = userRepository.insert(user);
-		//
-		try {
-			this.sharingService.addDemoApiaryNewUser(newUser.getId());
-		} catch (ApiaryDemoNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		//
+//		try {
+//			this.sharingService.addDemoApiaryNewUser(newUser.getId());
+//		} catch (ApiaryDemoNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
 	}
 	

@@ -44,6 +44,10 @@ public class ApiaryController {
     @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @DeleteMapping("/{id}")
 	 public void delete(@PathVariable("id") String id){
+    	this.sensorRepository.findSensorByIdApiary(id).stream().forEach(sensor -> {
+    		sensor.affectStock();
+    		this.sensorRepository.save(sensor);
+    	});;
 	    this.apiaryRepository.deleteById(id);
 	 }
     

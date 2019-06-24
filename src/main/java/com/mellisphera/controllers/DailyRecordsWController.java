@@ -1,19 +1,29 @@
 package com.mellisphera.controllers;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mellisphera.entities.DailyRecordsTH;
 import com.mellisphera.entities.DailyRecordsW;
+import com.mellisphera.entities.Hive;
 import com.mellisphera.repositories.DailyRecordsWRepository;
 
 @Service
@@ -23,6 +33,7 @@ public class DailyRecordsWController {
 
 	@Autowired
 	private DailyRecordsWRepository dailyRecordsWRepository;
+	@Autowired HiveController hiveController;
 	
 	public DailyRecordsWController(DailyRecordsWRepository dailyRecordsWRepository) {
 		this.dailyRecordsWRepository = dailyRecordsWRepository;
@@ -43,8 +54,11 @@ public class DailyRecordsWController {
 		return this.dailyRecordsWRepository.findDailyRecordsWByIdHive(idHive);
 	}
 	
-	@DeleteMapping("/{id}")
-	public void deleteById(@PathVariable("id") String id) {
-		this.dailyRecordsWRepository.deleteById(id);
+	@PostMapping("/apiary/{idApiary}")
+	public List<List<DailyRecordsW>> getDailyRecordsWByApiary(@PathVariable String idApiary, @RequestBody Date[] range) {
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.hiveController.getAllUserHives(idApiary).stream().map(hive -> this.dailyRecordsWRepository.findByIdHiveAndRecordDateBetween(hive.getId(), range[0], range[1], sort)).collect(Collectors.toList());
+		
 	}
+	
 }

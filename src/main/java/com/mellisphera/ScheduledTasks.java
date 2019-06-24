@@ -45,37 +45,32 @@ public class ScheduledTasks {
    
     // this function update the value of weather in apiaries in the DB
     //HOURLY WEATHER
-    @Scheduled(cron = "0 0 * * * *")
-    public void apiaryWeatherNow() {
-    	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    	
-	    List<Apiary> apiaries = this.apiaryRepository.findAll();
-	   	
-	    log.info("The time is now {}", dateFormat.format(new Date()));
-	    
-	    //for each apiary request actualweather on OWM and save into HourlyWeather collection
-	    for(Apiary ap: apiaries) {
-	    	  WeatherAPI weather = new WeatherAPI();
-	    	  HourlyWeather h= new HourlyWeather();
-	    	  
-	    	  //WARNING : getcodepostal is actually the city name 
-	    	  weather = this.WeatherController.getActualWeather(ap.getVille());
-	    	  System.out.println("ID : "+ap.getId() + " | City : " + weather.getName()+ "|  Temp :"+ weather.getMain().getTemp());
-	    	  h.setWeather(weather);
-	    	  h.setIdApiary(ap.getId());
-	    	  h.setRecordDate(new Date());
-	    	  
-	    	  
-	    	  this.HourlyWeatherRepository.save(h);
-	    	  
-	    }	
-   	}
-    //DAILY WEATHER
-    //Fires at 11 PM every day:
-    @Scheduled(cron = "0 0 23 * * *")
-    public void dailyWeather() {
-    	DailyWeatherController.dailyWeatherCompute();
-   	}
+//    @Scheduled(cron = "0 0 * * * *")
+//    public void apiaryWeatherNow() {
+//    	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//    	
+//	    List<Apiary> apiaries = this.apiaryRepository.findAll();
+//	   	
+//	    log.info("The time is now {}", dateFormat.format(new Date()));
+//	    
+//	    //for each apiary request actualweather on OWM and save into HourlyWeather collection
+//	    for(Apiary ap: apiaries) {
+//	    	  WeatherAPI weather = new WeatherAPI();
+//	    	  HourlyWeather h= new HourlyWeather();
+//	    	  
+//	    	  //WARNING : getcodepostal is actually the city name 
+//	    	  weather = this.WeatherController.getActualWeather(ap.getVille());
+//	    	  System.out.println("ID : "+ap.getId() + " | City : " + weather.getName()+ "|  Temp :"+ weather.getMain().getTemp());
+//	    	  h.setWeather(weather);
+//	    	  h.setIdApiary(ap.getId());
+//	    	  h.setRecordDate(new Date());
+//	    	  
+//	    	  
+//	    	  this.HourlyWeatherRepository.save(h);
+//	    	  
+//	    }	
+//   	}
+
     
     
     // store results of averageDailyTemperaturePerApiary in DailyWeather 

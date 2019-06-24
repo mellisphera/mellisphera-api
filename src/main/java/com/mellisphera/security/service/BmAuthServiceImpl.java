@@ -66,6 +66,7 @@ public class BmAuthServiceImpl implements BmAuthService {
 			newApiary.setCodePostal(bmApiary.getPostalCode());
 			newApiary.setName(bmApiary.getName());
 			newApiary.setUser(user);
+			newApiary.setIdUsername(user.getId());
 			newApiary.setUsername(user.getUsername());
 			newApiary.setPhoto("./assets/imageClient/testAccount.png");
 			String idApiary = this.apiaryRepository.insert(newApiary).getId();
@@ -73,20 +74,22 @@ public class BmAuthServiceImpl implements BmAuthService {
 				Hive newHive = new Hive();
 				newHive.setHivePos("0", "0");
 				newHive.setIdApiary(idApiary);
+				newHive.setIdUsername(user.getId());
 				newHive.setUsername(user.getUsername());
 				newHive.setName(bmHive.getName());
-				newHive.setSensor(bmHive.getDevices().length > 0);
 				String idHive = this.hiveRepository.insert(newHive).getId();
-				for(BmSensor bmSensor : bmHive.getDevices()) {
-					Sensor sensor = new Sensor();
-					sensor.setApiaryName(bmApiary.getName());
-					sensor.setHiveName(bmHive.getName());
-					sensor.setIdApiary(idApiary);
-					sensor.setIdHive(idHive);
-					sensor.setSensorRef(bmSensor.getDeviceId());
-					sensor.setUsername(user.getUsername());
-					sensor.setType(this.getTypeByRef(bmSensor.getDeviceId()));
-					this.sensorRepository.insert(sensor);
+				if (bmHive.getDevices() != null) {
+					for(BmSensor bmSensor : bmHive.getDevices()) {
+						Sensor sensor = new Sensor();
+						sensor.setApiaryName(bmApiary.getName());
+						sensor.setHiveName(bmHive.getName());
+						sensor.setIdApiary(idApiary);
+						sensor.setIdHive(idHive);
+						sensor.setSensorRef(bmSensor.getDeviceId());
+						sensor.setUsername(user.getUsername());
+						sensor.setType(this.getTypeByRef(bmSensor.getDeviceId()));
+						this.sensorRepository.insert(sensor);
+					}
 				}
 			}
 		}
