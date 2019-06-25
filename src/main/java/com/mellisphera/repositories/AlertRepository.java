@@ -9,9 +9,7 @@ import com.mellisphera.entities.Alert;
 
 public interface AlertRepository extends MongoRepository<Alert, String>{
 	
-	@Query("{ 'check' : false }")
 	public List<Alert> findByIdApiary(String idApiary);
 	
-	@Query("{ 'check' : false }")
 	public List<Alert> findByIdHive(String idHive);
 }
