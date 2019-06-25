@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,9 +47,9 @@ public class AlertController {
 	}
 	
 	@PutMapping("/update/{id}")
-	public Alert checkAlert(@PathVariable String id){
+	public Alert checkAlert(@PathVariable String id, @RequestBody Boolean check){
 		Alert alert = this.alertRepository.findById(id).get();
-		alert.setCheck(true);
+		alert.setCheck(check);
 		return this.alertRepository.save(alert);
 	}
 
