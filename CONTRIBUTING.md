@@ -1,20 +1,81 @@
-# Contributing
+# Contributing to Mellihealth-web
 
 When contributing to this repository, please first discuss the change you wish to make via issue,
 email, or any other method with the owners of this repository before making a change. 
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
-## Pull Request Process
+ - [Submission Guidelines](#submit)
+ - [Code of Conduct](#coc)
 
-1. Ensure any install or build dependencies are removed before the end of the layer when doing a 
+## <a name="submit"></a> Submission Guidelines
+
+### Pull Request Process
+
+1. Fork the mellisphera/mellihealth-api repo.
+2. Clone the projet from your own repo.
+3. create a new branch of work, and modify the project on it.
+
+     ```shell
+     git checkout -b my-branch master
+     ```
+4. Ensure any install or build dependencies are removed before the end of the layer when doing a 
    build.
-2. Update the README.md with details of changes to the interface, this includes new environment 
+5. Update the README.md with details of changes to the interface, this includes new environment 
    variables, exposed ports, useful file locations and container parameters.
-3. Increase the version numbers in any examples files, the README.md and CHANGELOG.md to the new version that this Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
-4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
+6. Increase the version numbers in any examples files, the README.md and CHANGELOG.md to the new version that this Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
+7. Once the project is modified, commit.
 
-## Code of Conduct
+	```shell
+     git add -A && git commit –am « descriptive commit message »
+     ```
+8. Push your branch to GitHub:
+
+    ```shell
+    git push origin my-branch
+    ```
+9. In GitHub, send a pull request to `mellihealth-api:master`.
+* If we suggest changes then:
+  * Make the required updates.
+  * Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
+
+    ```shell
+    git rebase master -i
+    git push -f
+    ```
+
+That's it! Thank you for your contribution!
+
+### After your pull request is merged
+
+After your pull request is merged, you can safely delete your branch and pull the changes
+from the main (upstream) repository:
+
+* Delete the remote branch on GitHub either through the GitHub web UI or your local shell as follows:
+
+    ```shell
+    git push origin --delete my-branch
+    ```
+
+* Check out the master branch:
+
+    ```shell
+    git checkout master -f
+    ```
+
+* Delete the local branch:
+
+    ```shell
+    git branch -D my-branch
+    ```
+
+* Update your master with the latest upstream version:
+
+    ```shell
+    git pull --ff upstream master
+    ```
+
+## <a name="coc"></a> Code of Conduct
 
 ### Our Pledge
 
