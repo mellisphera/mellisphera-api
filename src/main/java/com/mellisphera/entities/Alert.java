@@ -27,6 +27,8 @@ public class Alert {
 	private String idHive;
 	private String hive;
 	private String type;
+	private String time;
+	private String loc;
 	private String alert;
 	private String message;
 	private Date date;
@@ -35,6 +37,27 @@ public class Alert {
 	public Alert() {
 		// TODO Auto-generated constructor stub
 	}
+
+	
+	public String getTime() {
+		return time;
+	}
+
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+
+	public String getLoc() {
+		return loc;
+	}
+
+
+	public void setLoc(String loc) {
+		this.loc = loc;
+	}
+
 
 	public String get_id() {
 		return _id;

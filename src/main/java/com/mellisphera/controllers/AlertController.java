@@ -3,6 +3,7 @@ package com.mellisphera.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,25 +26,14 @@ public class AlertController {
 	@Autowired private AlertRepository alertRepository;
 	
 	@GetMapping("/apiary/{idApiary}")
-	public List<List<Alert>> getByApiary(@PathVariable String idApiary) {
-		List<Alert> allAlert = this.alertRepository.findByIdApiary(idApiary);
-		List<Alert> checkAlert = allAlert.stream().filter(alert -> alert.getCheck()).collect(Collectors.toList());
-		List<Alert> noCheckAlert = allAlert.stream().filter(alert -> !alert.getCheck()).collect(Collectors.toList());
-		List<List<Alert>> resRequest = new ArrayList<List<Alert>>();
-		resRequest.add(checkAlert);
-		resRequest.add(noCheckAlert);
-		return resRequest;
+	public List<Alert> getByApiary(@PathVariable String idApiary) {
+		return this.alertRepository.findByIdHive(idApiary).stream().filter(_alert -> _alert.getLoc().equals("Apiary")).collect(Collectors.toList());
+
 	}
 	
 	@GetMapping("/hive/{idHive}")
-	public List<List<Alert>> getByHive(@PathVariable String idHive){
-		List<Alert> allAlert = this.alertRepository.findByIdHive(idHive);
-		List<Alert> checkAlert = allAlert.stream().filter(alert -> alert.getCheck()).collect(Collectors.toList());
-		List<Alert> noCheckAlert = allAlert.stream().filter(alert -> !alert.getCheck()).collect(Collectors.toList());
-		List<List<Alert>> resRequest = new ArrayList<List<Alert>>();
-		resRequest.add(checkAlert);
-		resRequest.add(noCheckAlert);
-		return resRequest;
+	public List<Alert> getByHive(@PathVariable String idHive){
+		return this.alertRepository.findByIdHive(idHive).stream().filter(_alert -> _alert.getLoc().equals("Hive")).collect(Collectors.toList());
 	}
 	
 	@PutMapping("/update/{id}")
