@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,10 +28,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.sym.Name;
 import com.mellisphera.entities.Apiary;
 import com.mellisphera.entities.Hive;
 import com.mellisphera.entities.Record;
 import com.mellisphera.entities.Sensor;
+import com.mellisphera.entities.SimpleSeries;
 import com.mellisphera.entities.User;
 import com.mellisphera.repositories.RecordRepository;
 
@@ -42,7 +46,7 @@ import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/records")
 public class RecordController {
-	
+		
 	@Autowired private RecordRepository recordRepository;
 	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
@@ -81,44 +85,62 @@ public class RecordController {
         
     }
     
-    @GetMapping("/weight")
-    public Float[] getJCPWeightRecords(){
-    List<Record> records=this.recordRepository.findAll();
-    List<Float> weightList = new ArrayList<>();
-    
-    DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    for(Record r : records) {
-    	//df.parse(r.getRecordDate());
-    	//weightRecords.add(r.getWeight());
-	    	if(r.getSensorRef().equals("43:10:A2"))
-	    	{
-	    		weightList.add(r.getWeight());
-	    	}
-    	}
-    Float[] recArray = new Float[weightList.size()];
-    recArray = weightList.toArray(recArray);
-    
-    return recArray;
+    @PostMapping("/weight/{idHive}")
+    public ResponseEntity<?> getWeightByHive(@PathVariable String idHive, @RequestBody Date [] range){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        Date start  = range[0];
+        Date end = range[1];
+        
+        List<SimpleSeries> data = new ArrayList<SimpleSeries>();
+        data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream().filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
+        	return new SimpleSeries(record.getRecordDate(), record.getWeight());
+        }).collect(Collectors.toList());
+        if(data != null) {
+        	return new ResponseEntity<>(data, HttpStatus.OK);
+        }
+        else {
+        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
+        }
+        
     }
     
-    /*@GetMapping("/weightDates")
-    public String[] getJCPWeightRecordDates(){
-    List<Record> records=this.recordRepository.findAll();
-    List<String> weightDates = new ArrayList<>();
-    
-    DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    for(Record r : records) {
-    	if(r.getSensorRef().equals("43:10:A2"))
-    	{
-    		//String s = formatter.format();
-    		weightDates.add(r.getRecordDate().substring(0,19));
-    	}
+    @PostMapping("/temp_int/{idHive}")
+    public ResponseEntity<?> getTempByHive(@PathVariable String idHive, @RequestBody Date [] range){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        Date start  = range[0];
+        Date end = range[1];
+        
+        List<SimpleSeries> data = new ArrayList<SimpleSeries>();
+        data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
+        		.filter(_filter  -> _filter.getSensorRef().contains("42") || _filter.getSensorRef().contains("41") || _filter.getSensorRef().contains("39") || _filter.getSensorRef().contains("B")).map(record -> {
+        	return new SimpleSeries(record.getRecordDate(), record.getTemp_int());
+        }).collect(Collectors.toList());
+        if(data != null) {
+        	return new ResponseEntity<>(data, HttpStatus.OK);
+        }
+        else {
+        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
+        }
+        
     }
     
-    String[] recArray = new String[weightDates.size()];
-    recArray = weightDates.toArray(recArray);
-    
-    return recArray;
-    }*/
-    
+    @PostMapping("/hint/{idHive}")
+    public ResponseEntity<?> getHUmidityByHive(@PathVariable String idHive, @RequestBody Date [] range){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        Date start  = range[0];
+        Date end = range[1];
+        
+        List<SimpleSeries> data = new ArrayList<SimpleSeries>();
+        data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
+        		.filter(_filter  -> _filter.getSensorRef().contains("42")).map(record -> {
+        	return new SimpleSeries(record.getRecordDate(), record.getHumidity_int());
+        }).collect(Collectors.toList());
+        if(data != null) {
+        	return new ResponseEntity<>(data, HttpStatus.OK);
+        }
+        else {
+        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
+        }
+        
+    }
 }

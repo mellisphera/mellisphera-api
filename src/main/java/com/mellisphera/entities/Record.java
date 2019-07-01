@@ -47,6 +47,11 @@ public class Record {
                 this.timestamp = timestamp;
 	}
 
+	public Record(Date recordDate, Float weight) {
+		this.recordDate = recordDate;
+		this.weight = weight;
+	}
+	
 	public String getId() {
 		return id;
 	}
