@@ -92,7 +92,7 @@ public class DailyRecordsTHController {
 				.getRecordDate(), _daily.getTemp_int_max())).collect(Collectors.toList());
 	}
 	
-	@GetMapping("hInt/{idHive}")
+	@PostMapping("hInt/{idHive}")
 	public List<SimpleSeries> getHintByHive(@RequestBody Date[] range, @PathVariable String idHive){
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsTHRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
