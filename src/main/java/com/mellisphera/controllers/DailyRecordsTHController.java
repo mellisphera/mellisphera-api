@@ -4,6 +4,8 @@ package com.mellisphera.controllers;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.mellisphera.entities.DailyRecordsTH;
 import com.mellisphera.entities.Hive;
+import com.mellisphera.entities.SimpleSeries;
 import com.mellisphera.repositories.DailyRecordsTHRepository;
 import com.mellisphera.repositories.HivesRepository;
 
@@ -80,6 +83,13 @@ public class DailyRecordsTHController {
 		}
 		
 		return dailyRecTh;
+	}
+	
+	@PostMapping("tMax/{idHive}")
+	public List<SimpleSeries> getTmaxByHive(@RequestBody Date[] range, @PathVariable String idHive){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.dailyRecordsTHRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
+				.getRecordDate(), _daily.getTemp_int_max())).collect(Collectors.toList());
 	}
 
 }
