@@ -38,7 +38,7 @@ public class AlertController {
 	
 	@GetMapping("/apiary/hiveAllert/{idApiary}")
 	public List<Alert> getHiveAlertByApiary(@PathVariable String idApiary) {
-		return this.alertRepository.findAlertByidApiary(idApiary);
+		return this.alertRepository.findByIdApiary(idApiary).stream().filter(_alert -> _alert.getLoc().equals("Hive")).collect(Collectors.toList());
 	}
 	
 	@PutMapping("/update/{id}")

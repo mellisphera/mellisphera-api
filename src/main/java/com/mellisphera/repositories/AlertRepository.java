@@ -12,7 +12,4 @@ public interface AlertRepository extends MongoRepository<Alert, String>{
 	public List<Alert> findByIdApiary(String idApiary);
 	
 	public List<Alert> findByIdHive(String idHive);
-	
-	@Query("{ 'loc' : 'Hive' }")
-	public List<Alert> findAlertByidApiary(String idApiary);
 }
