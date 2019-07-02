@@ -1,0 +1,14 @@
+{
+    "_id" : ObjectId("5ce68c6edc7d270985925d2f"),
+    "_class" : "com.mellisphera.entities.Sensor",
+    "apiaryName" : "DSOhio",
+    "description" : "N2 Over Upper Brood Box",
+    "hiveName" : "N2",
+    "idApiary" : "5cdc38ffdc7d27578d9c8447",
+    "idHive" : "5ce3f52bdc7d27578d9c8b2e",
+    "sensorBat" : 1,
+    "sensorRef" : "42:0B:34",
+    "sensorTime" : ISODate("2019-05-29T00:00:00.000Z"),
+    "type" : "T_HR",
+    "username" : "daveschade57"
+}
