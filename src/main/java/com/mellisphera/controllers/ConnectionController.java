@@ -1,8 +1,10 @@
 package com.mellisphera.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +25,7 @@ import com.mellisphera.security.entities.GeoIp;
 @RequestMapping("/logs")
 public class ConnectionController{
 	
+	private final static String[] USER_EXCLU = {"lpo", "admin", "mickael", "demo"};
 	@Autowired
 	private ConnectionRepository connectionRepository;
 	
@@ -34,7 +37,7 @@ public class ConnectionController{
 	
 	@PostMapping("/between")
 	public List<Connection> getConnectionBetween(@RequestBody Date start){
-		return this.connectionRepository.findByconnectionDateBetween(start, new Date());
+		return this.connectionRepository.findByconnectionDateBetween(start, new Date()).stream().filter(_connection -> Arrays.asList(USER_EXCLU).indexOf(_connection.getUsername()) != -1).collect(Collectors.toList());
 	}
 	
 }
