@@ -104,6 +104,15 @@ public class DailyRecordsTHController {
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsTHRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
 				.getRecordDate(), _daily.getBrood())).collect(Collectors.toList());
-	} 
+	}
+	
+	@PostMapping("tMin/{idHive}")
+	public List<SimpleSeries> getTMinByHive(@RequestBody Date[] range, @PathVariable String idHive){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.dailyRecordsTHRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
+				.getRecordDate(), _daily.getTemp_int_min())).collect(Collectors.toList());
+	}
+	
+	
 
 }
