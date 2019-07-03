@@ -37,7 +37,7 @@ public class ConnectionController{
 	
 	@PostMapping("/between")
 	public List<Connection> getConnectionBetween(@RequestBody Date start){
-		return this.connectionRepository.findByconnectionDateBetween(start, new Date()).stream().filter(_connection -> Arrays.asList(USER_EXCLU).indexOf(_connection.getUsername()) != -1).collect(Collectors.toList());
+		return this.connectionRepository.findByconnectionDateBetween(start, new Date()).stream().filter(_connection -> Arrays.asList(USER_EXCLU).indexOf(_connection.getUsername()) == -1).collect(Collectors.toList());
 	}
 	
 }
