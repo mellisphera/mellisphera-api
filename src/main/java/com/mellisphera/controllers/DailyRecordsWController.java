@@ -76,7 +76,7 @@ public class DailyRecordsWController {
 	}
 	
 	@PostMapping("weightMax/{idHive}")
-	public List<SimpleSeries> getTmaxByHive(@RequestBody Date[] range, @PathVariable String idHive){
+	public List<SimpleSeries> getWeightByHive(@RequestBody Date[] range, @PathVariable String idHive){
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsWRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
 				.getRecordDate(), _daily.getWeight_max())).collect(Collectors.toList());
