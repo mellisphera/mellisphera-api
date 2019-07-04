@@ -8,3 +8,5 @@ spring.datasource.driverClassName=net.sf.mongodb_jdbc_driver.MongoDbDriver
 #app
 apiwatch.app.geoip.timeout=1500
 apiwatch.app.geoip.url=https://ipapi.co/
+apiwatch.app.security.jwtSecret=
+apiwatch.app.security.jwtExpiration=86400
