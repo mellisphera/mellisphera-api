@@ -27,7 +27,7 @@ public class AlertController {
 	
 	@GetMapping("/apiary/{idApiary}")
 	public List<Alert> getByApiary(@PathVariable String idApiary) {
-		return this.alertRepository.findByIdHive(idApiary).stream().filter(_alert -> _alert.getLoc().equals("Apiary")).collect(Collectors.toList());
+		return this.alertRepository.findByIdApiary(idApiary).stream().filter(_alert -> _alert.getLoc().equals("Apiary")).collect(Collectors.toList());
 
 	}
 	
