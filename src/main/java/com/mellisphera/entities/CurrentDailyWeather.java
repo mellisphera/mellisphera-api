@@ -12,7 +12,7 @@ public class CurrentDailyWeather {
 	private Date date;
 	private Map<String, String> weather;
 	private Map<String, Float> main;
-	private Map<String, Float> wind;
+	private Map<String, Object> wind;
 	private Map<String, Float> rain;
 	private Map<String, Float> snow;
 	private String user;
@@ -23,7 +23,7 @@ public class CurrentDailyWeather {
 	
 	
 	public CurrentDailyWeather(String _id, Date date, Map<String, String> weather, Map<String, Float> main,
-			Map<String, Float> wind, Map<String, Float> rain, Map<String, Float> snow, String user, String apiary,
+			Map<String, Object> wind, Map<String, Float> rain, Map<String, Float> snow, String user, String apiary,
 			String idApiary, String city, String _origin) {
 		this._id = _id;
 		this.date = date;
@@ -80,12 +80,12 @@ public class CurrentDailyWeather {
 	}
 
 
-	public Map<String, Float> getWind() {
+	public Map<String, Object> getWind() {
 		return wind;
 	}
 
 
-	public void setWind(Map<String, Float> wind) {
+	public void setWind(Map<String, Object> wind) {
 		this.wind = wind;
 	}
 
