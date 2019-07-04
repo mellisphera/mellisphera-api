@@ -21,12 +21,6 @@ import com.mellisphera.weather.WeatherAPI;
 
 @Component
 public class ScheduledTasks {
-
-	@Autowired private HourlyWeatherRepository HourlyWeatherRepository;
-	@Autowired private ApiaryRepository apiaryRepository;
-	
-	@Autowired private WeatherAPIController WeatherController;
-	@Autowired private DailyWeatherController DailyWeatherController;
 	
     private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
 
