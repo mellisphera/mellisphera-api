@@ -11,22 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.mellisphera.controllers.DailyWeatherController;
-import com.mellisphera.controllers.WeatherAPIController;
 import com.mellisphera.entities.Apiary;
 import com.mellisphera.repositories.ApiaryRepository;
-import com.mellisphera.repositories.HourlyWeatherRepository;
-import com.mellisphera.weather.HourlyWeather;
-import com.mellisphera.weather.WeatherAPI;
+
 
 @Component
 public class ScheduledTasks {
-
-	@Autowired private HourlyWeatherRepository HourlyWeatherRepository;
-	@Autowired private ApiaryRepository apiaryRepository;
-	
-	@Autowired private WeatherAPIController WeatherController;
-	@Autowired private DailyWeatherController DailyWeatherController;
 	
     private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
 

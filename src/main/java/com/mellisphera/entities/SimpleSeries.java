@@ -10,6 +10,11 @@ public class SimpleSeries {
 		this.date = date;
 		this.value = value;
 	}
+	
+	public SimpleSeries(Date date, int value) {
+		this.date = date;
+		this.value = (float)value;
+	}
 
 	public Date getDate() {
 		return date;

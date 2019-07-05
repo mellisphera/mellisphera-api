@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mellisphera.entities.DailyRecordsTH;
 import com.mellisphera.entities.DailyRecordsW;
 import com.mellisphera.entities.Hive;
+import com.mellisphera.entities.SimpleSeries;
 import com.mellisphera.repositories.DailyRecordsWRepository;
 
 @Service
@@ -58,7 +59,27 @@ public class DailyRecordsWController {
 	public List<List<DailyRecordsW>> getDailyRecordsWByApiary(@PathVariable String idApiary, @RequestBody Date[] range) {
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.hiveController.getAllUserHives(idApiary).stream().map(hive -> this.dailyRecordsWRepository.findByIdHiveAndRecordDateBetween(hive.getId(), range[0], range[1], sort)).collect(Collectors.toList());
-		
+	}
+	
+	@PostMapping("tMin/{idHive}")
+	public List<SimpleSeries> getTminByHive(@RequestBody Date[] range, @PathVariable String idHive){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.dailyRecordsWRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
+				.getRecordDate(), _daily.getTemp_ext_min())).collect(Collectors.toList());
+	}
+	
+	@PostMapping("tMax/{idHive}")
+	public List<SimpleSeries> getTmaxByHive(@RequestBody Date[] range, @PathVariable String idHive){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.dailyRecordsWRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
+				.getRecordDate(), _daily.getTemp_ext_max())).collect(Collectors.toList());
+	}
+	
+	@PostMapping("weightMax/{idHive}")
+	public List<SimpleSeries> getWeightByHive(@RequestBody Date[] range, @PathVariable String idHive){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.dailyRecordsWRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
+				.getRecordDate(), _daily.getWeight_max())).collect(Collectors.toList());
 	}
 	
 }
