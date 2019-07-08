@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,8 +55,10 @@ public class ApiaryController {
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<Apiary> getAll(){
-	    List<Apiary> apiaries=this.apiaryRepository.findAll();
-	    return apiaries;
+	    return this.apiaryRepository.findAll().stream().map(_apiary -> {
+	    	_apiary.setPhoto(null);
+	    	return _apiary;
+	    }).collect(Collectors.toList());
     }
     
 	private String getJwt(HttpServletRequest request) {
