@@ -1,4 +1,4 @@
-## Mellisphera API
+## MelliHealth API
 
 This is the back-end of MelliHealth beekeeping platform. 
 It is closely linked with its front-end [mellihealth-web](https://github.com/mellisphera/mellihealth-web) .
@@ -7,13 +7,14 @@ An overview of the whole architecture is given below :
 ![](img/mellihealth_scheme.png)
 
 
-## Give it a test before downloading
-go to [app.mellisphera.com](https://app.mellisphera.com)
+## Give it a test
+Go to [app.mellisphera.com](https://app.mellisphera.com)
 create an account and visit a demo apiary
 
 
-## want to go further ?
-follow the next quick start guide
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
@@ -23,7 +24,7 @@ follow the next quick start guide
 
 
 ### Configuration
-configure the API with the `application.properties` file 
+Configure the API with the `application.properties` file 
 There is a template of this file into the setup folder
    ```
     cp ./setup/application.properties /src/main/ressources
@@ -53,6 +54,12 @@ or
 
 - then go to http://localhost:8080/
 
+## Install the front-end
+To have the whole platform running you need to install the front-end.\
+See details at [mellihealth-web](https://github.com/mellisphera/mellihealth-web).
 
 ## Need help?
 if something goes wrong, contact us at info@mellisphera.com we'll be glad to help.
+
+## Wish to contribute?
+Please review [CONTRIBUTING](https://github.com/mellisphera/mellihealth-web/blob/master/CONTRIBUTING.md) 
