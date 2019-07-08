@@ -1,4 +1,4 @@
-## MelliHealth API
+# MelliHealth API
 
 This is the back-end of MelliHealth beekeeping platform. 
 It is closely linked with its front-end [mellihealth-web](https://github.com/mellisphera/mellihealth-web) .
