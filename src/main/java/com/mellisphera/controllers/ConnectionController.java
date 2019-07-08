@@ -24,7 +24,7 @@ import com.mellisphera.security.entities.GeoIp;
 @RequestMapping("/logs")
 public class ConnectionController{
 	
-	private final static String[] USER_EXCLU = {"lpo", "admin", "mickael", "demo"};
+	private final static String[] USER_EXCLU = {"lpo", "admin", "mickael", "demo","florent"};
 	@Autowired
 	private ConnectionRepository connectionRepository;
 	
