@@ -13,6 +13,6 @@ import com.mellisphera.entities.Astro;
 @Repository
 public interface AstroRepository extends MongoRepository<Astro, String> {
 
-	public List<Astro> findBy_IdApiaryAndDateBetween(String _idApiary, Date start, Date end);
+	public List<Astro> findBy_idApiaryAndDateBetween(String _idApiary, Date start, Date end);
 
 }
