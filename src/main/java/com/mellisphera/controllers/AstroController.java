@@ -21,7 +21,7 @@ public class AstroController {
 	
 	@PostMapping("apiary/{idApiary}")
 	public List<Astro> getAstroByApiary(@PathVariable String idApiary, @RequestBody Date[] range) {
-		return this.astroRepositroy.findByIdApiaryAndDateBetween(idApiary, range[0], range[1]);
+		return this.astroRepositroy.findBy_IdApiaryAndDateBetween(idApiary, range[0], range[1]);
 	}
 
 }
