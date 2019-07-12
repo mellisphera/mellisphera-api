@@ -75,6 +75,7 @@ public class DailyRecordsWController {
 				.getRecordDate(), _daily.getTemp_ext_max())).collect(Collectors.toList());
 	}
 	
+
 	@PostMapping("weightMax/{idHive}")
 	public List<SimpleSeries> getWeightByHive(@RequestBody Date[] range, @PathVariable String idHive){
         Sort sort = new Sort(Direction.DESC, "timestamp");
