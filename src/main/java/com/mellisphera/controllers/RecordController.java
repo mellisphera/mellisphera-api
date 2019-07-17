@@ -132,7 +132,7 @@ public class RecordController {
         
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
         data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
-        		.filter(_filter  -> _filter.getSensorRef().contains("42") || _filter.getSensorRef().contains("41") || _filter.getSensorRef().contains("39") || _filter.getSensorRef().contains("B")).map(record -> {
+        		.filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
         	return new SimpleSeries(record.getRecordDate(), record.getTemp_ext());
         }).collect(Collectors.toList());
         if(data != null) {
