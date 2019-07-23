@@ -93,7 +93,7 @@ public class RecordController {
         
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
         data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream().filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
-        	return new SimpleSeries(record.getRecordDate(), record.getWeight());
+        	return new SimpleSeries(record.getRecordDate(), record.getWeight(), record.getSensorRef());
         }).collect(Collectors.toList());
         if(data != null) {
         	return new ResponseEntity<>(data, HttpStatus.OK);
@@ -113,7 +113,7 @@ public class RecordController {
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
         data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
         		.filter(_filter  -> _filter.getSensorRef().contains("42") || _filter.getSensorRef().contains("41") || _filter.getSensorRef().contains("39") || _filter.getSensorRef().contains("B5")).map(record -> {
-        	return new SimpleSeries(record.getRecordDate(), record.getTemp_int());
+        	return new SimpleSeries(record.getRecordDate(), record.getTemp_int(), record.getSensorRef());
         }).collect(Collectors.toList());
         if(data != null) {
         	return new ResponseEntity<>(data, HttpStatus.OK);
@@ -133,7 +133,7 @@ public class RecordController {
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
         data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
         		.filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
-        	return new SimpleSeries(record.getRecordDate(), record.getTemp_ext());
+        	return new SimpleSeries(record.getRecordDate(), record.getTemp_ext(), record.getSensorRef());
         }).collect(Collectors.toList());
         if(data != null) {
         	return new ResponseEntity<>(data, HttpStatus.OK);
@@ -152,7 +152,7 @@ public class RecordController {
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
         data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
         		.filter(_filter  -> _filter.getSensorRef().contains("42")).map(record -> {
-        	return new SimpleSeries(record.getRecordDate(), record.getHumidity_int());
+        	return new SimpleSeries(record.getRecordDate(), record.getHumidity_int(), record.getSensorRef());
         }).collect(Collectors.toList());
         if(data != null) {
         	return new ResponseEntity<>(data, HttpStatus.OK);
@@ -172,7 +172,7 @@ public class RecordController {
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
         data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
         		.filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
-        	return new SimpleSeries(record.getRecordDate(), record.getBattery_ext());
+        	return new SimpleSeries(record.getRecordDate(), record.getBattery_ext(), record.getSensorRef());
         }).collect(Collectors.toList());
         if(data != null) {
         	return new ResponseEntity<>(data, HttpStatus.OK);
@@ -192,7 +192,7 @@ public class RecordController {
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
         data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
         		.filter(_filter  -> _filter.getSensorRef().contains("42") || _filter.getSensorRef().contains("41") || _filter.getSensorRef().contains("39") ||  _filter.getSensorRef().contains("B5")).map(record -> {
-        	return new SimpleSeries(record.getRecordDate(), record.getBattery_int());
+        	return new SimpleSeries(record.getRecordDate(), record.getBattery_int(), record.getSensorRef());
         }).collect(Collectors.toList());
         if(data != null) {
         	return new ResponseEntity<>(data, HttpStatus.OK);

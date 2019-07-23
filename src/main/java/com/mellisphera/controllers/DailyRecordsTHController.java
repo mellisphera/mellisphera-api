@@ -89,14 +89,14 @@ public class DailyRecordsTHController {
 	public List<SimpleSeries> getTmaxByHive(@RequestBody Date[] range, @PathVariable String idHive){
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsTHRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
-				.getRecordDate(), _daily.getTemp_int_max())).collect(Collectors.toList());
+				.getRecordDate(), _daily.getTemp_int_max(), _daily.getSensorRef())).collect(Collectors.toList());
 	}
 	
 	@PostMapping("hInt/{idHive}")
 	public List<SimpleSeries> getHintByHive(@RequestBody Date[] range, @PathVariable String idHive){
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsTHRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
-				.getRecordDate(), _daily.getHumidity_int_max())).collect(Collectors.toList());
+				.getRecordDate(), _daily.getHumidity_int_max(), _daily.getSensorRef())).collect(Collectors.toList());
 	}
 	
 	@PostMapping("brood/{idHive}")
@@ -110,7 +110,7 @@ public class DailyRecordsTHController {
 	public List<SimpleSeries> getTMinByHive(@RequestBody Date[] range, @PathVariable String idHive){
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsTHRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
-				.getRecordDate(), _daily.getTemp_int_min())).collect(Collectors.toList());
+				.getRecordDate(), _daily.getTemp_int_min(), _daily.getSensorRef())).collect(Collectors.toList());
 	}
 	
 	

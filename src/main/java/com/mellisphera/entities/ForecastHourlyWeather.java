@@ -17,6 +17,7 @@ public class ForecastHourlyWeather {
 	private String city;
 	private Map<String, Float> main;
 	private String apiary;
+	private String idApiary;
 	private String _origin;
 	private Map<String, Float> wind;
 	
@@ -24,7 +25,7 @@ public class ForecastHourlyWeather {
 	
 	public ForecastHourlyWeather(String _id, String rain, Date date, String user, Float swon,
 			Map<String, String> weather, String city, Map<String, Float> main, String apiary, String _origin,
-			Map<String, Float> wind) {
+			Map<String, Float> wind, String idApiary) {
 		this._id = _id;
 		this.rain = rain;
 		this.date = date;
@@ -36,9 +37,18 @@ public class ForecastHourlyWeather {
 		this.apiary = apiary;
 		this._origin = _origin;
 		this.wind = wind;
+		this.idApiary = idApiary;
 	}
 	public String get_id() {
 		return _id;
+	}
+	
+	
+	public String getIdApiary() {
+		return idApiary;
+	}
+	public void setIdApiary(String idApiary) {
+		this.idApiary = idApiary;
 	}
 	public void set_id(String _id) {
 		this._id = _id;
@@ -100,7 +110,7 @@ public class ForecastHourlyWeather {
 	public Map<String, Float> getWind() {
 		return wind;
 	}
-	public void setWind(Map<String, Float> wind) {
+	public void setWind(Map<String, Float>  wind) {
 		this.wind = wind;
 	}
 	

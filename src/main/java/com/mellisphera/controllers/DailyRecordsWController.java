@@ -65,14 +65,14 @@ public class DailyRecordsWController {
 	public List<SimpleSeries> getTminByHive(@RequestBody Date[] range, @PathVariable String idHive){
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsWRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
-				.getRecordDate(), _daily.getTemp_ext_min())).collect(Collectors.toList());
+				.getRecordDate(), _daily.getTemp_ext_min(), _daily.getSensorRef())).collect(Collectors.toList());
 	}
 	
 	@PostMapping("tMax/{idHive}")
 	public List<SimpleSeries> getTmaxByHive(@RequestBody Date[] range, @PathVariable String idHive){
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsWRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
-				.getRecordDate(), _daily.getTemp_ext_max())).collect(Collectors.toList());
+				.getRecordDate(), _daily.getTemp_ext_max(), _daily.getSensorRef())).collect(Collectors.toList());
 	}
 	
 
@@ -80,7 +80,7 @@ public class DailyRecordsWController {
 	public List<SimpleSeries> getWeightByHive(@RequestBody Date[] range, @PathVariable String idHive){
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsWRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
-				.getRecordDate(), _daily.getWeight_max())).collect(Collectors.toList());
+				.getRecordDate(), _daily.getWeight_max(), _daily.getSensorRef())).collect(Collectors.toList());
 	}
 	
 }
