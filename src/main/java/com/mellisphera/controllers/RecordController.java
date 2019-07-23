@@ -124,6 +124,25 @@ public class RecordController {
         
     }
     
+    @PostMapping("/temp_ext/{idHive}")
+    public ResponseEntity<?> getTempExByHive(@PathVariable String idHive, @RequestBody Date [] range){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        Date start  = range[0];
+        Date end = range[1];
+        
+        List<SimpleSeries> data = new ArrayList<SimpleSeries>();
+        data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
+        		.filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
+        	return new SimpleSeries(record.getRecordDate(), record.getTemp_ext());
+        }).collect(Collectors.toList());
+        if(data != null) {
+        	return new ResponseEntity<>(data, HttpStatus.OK);
+        }
+        else {
+        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
+        }
+        
+    }
     @PostMapping("/hint/{idHive}")
     public ResponseEntity<?> getHUmidityByHive(@PathVariable String idHive, @RequestBody Date [] range){
         Sort sort = new Sort(Direction.DESC, "timestamp");
