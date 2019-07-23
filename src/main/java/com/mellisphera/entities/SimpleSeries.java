@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class SimpleSeries {
 	private Date date;
-	private Float value;
+	private Object value;
 	private String sensorRef;
 	
-	public SimpleSeries(Date date, Float value, String sensorRef) {
+	public SimpleSeries(Date date, Object value, String sensorRef) {
 		this.date = date;
 		this.value = value;
 		this.sensorRef = sensorRef;
@@ -37,7 +37,7 @@ public class SimpleSeries {
 		this.date = date;
 	}
 
-	public Float getValue() {
+	public Object getValue() {
 		return value;
 	}
 

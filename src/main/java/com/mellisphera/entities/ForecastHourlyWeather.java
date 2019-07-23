@@ -12,25 +12,25 @@ public class ForecastHourlyWeather {
 	private String rain;
 	private Date date;
 	private String user;
-	private Float swon;
-	private Map<String, String> weather;
+	private Object snow;
+	private Object weather;
 	private String city;
-	private Map<String, Float> main;
+	private Object main;
 	private String apiary;
 	private String idApiary;
 	private String _origin;
-	private Map<String, Float> wind;
+	private Object wind;
 	
 	
 	
-	public ForecastHourlyWeather(String _id, String rain, Date date, String user, Float swon,
-			Map<String, String> weather, String city, Map<String, Float> main, String apiary, String _origin,
-			Map<String, Float> wind, String idApiary) {
+	public ForecastHourlyWeather(String _id, String rain, Date date, String user, Object snow,
+			Object weather, String city, Object main, String apiary, String _origin,
+			Object wind, String idApiary) {
 		this._id = _id;
 		this.rain = rain;
 		this.date = date;
 		this.user = user;
-		this.swon = swon;
+		this.snow = snow;
 		this.weather = weather;
 		this.city = city;
 		this.main = main;
@@ -71,16 +71,16 @@ public class ForecastHourlyWeather {
 	public void setUser(String user) {
 		this.user = user;
 	}
-	public Float getSwon() {
-		return swon;
+	public Object getsnow() {
+		return snow;
 	}
-	public void setSwon(Float swon) {
-		this.swon = swon;
+	public void setsnow(Object snow) {
+		this.snow = snow;
 	}
-	public Map<String, String> getWeather() {
+	public Object getWeather() {
 		return weather;
 	}
-	public void setWeather(Map<String, String> weather) {
+	public void setWeather(Object weather) {
 		this.weather = weather;
 	}
 	public String getCity() {
@@ -89,10 +89,10 @@ public class ForecastHourlyWeather {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public Map<String, Float> getMain() {
+	public Object getMain() {
 		return main;
 	}
-	public void setMain(Map<String, Float> main) {
+	public void setMain(Object main) {
 		this.main = main;
 	}
 	public String getApiary() {
@@ -107,10 +107,10 @@ public class ForecastHourlyWeather {
 	public void set_origin(String _origin) {
 		this._origin = _origin;
 	}
-	public Map<String, Float> getWind() {
+	public Object getWind() {
 		return wind;
 	}
-	public void setWind(Map<String, Float>  wind) {
+	public void setWind(Object  wind) {
 		this.wind = wind;
 	}
 	

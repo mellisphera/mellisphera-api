@@ -10,11 +10,11 @@ public class CurrentHourlyWeather {
 	
 	private String _id;
 	private Date date;
-	private Map<String, String> weather;
-	private Map<String, Float> main;
-	private Map<String, Float> wind;
-	private Map<String, Float> rain;
-	private Float snow;
+	private Object weather;
+	private Object main;
+	private Object wind;
+	private Object rain;
+	private Object snow;
 	private String user;
 	private String apiary;
 	private String idApiary;
@@ -22,8 +22,8 @@ public class CurrentHourlyWeather {
 	private String _origin;
 	
 	
-	public CurrentHourlyWeather(String _id, Date date, Map<String, String> weather, Map<String, Float> main,
-			Map<String, Float> wind, Map<String, Float> rain, Float snow, String user, String apiary, String idApiary,
+	public CurrentHourlyWeather(String _id, Date date, Object weather, Object main,
+			Object wind, Object rain, Object snow, String user, String apiary, String idApiary,
 			String city, String _origin) {
 		this._id = _id;
 		this.date = date;
@@ -60,52 +60,52 @@ public class CurrentHourlyWeather {
 	}
 
 
-	public Map<String, String> getWeather() {
+	public Object getWeather() {
 		return weather;
 	}
 
 
-	public void setWeather(Map<String, String> weather) {
+	public void setWeather(Object weather) {
 		this.weather = weather;
 	}
 
 
-	public Map<String, Float> getMain() {
+	public Object getMain() {
 		return main;
 	}
 
 
-	public void setMain(Map<String, Float> main) {
+	public void setMain(Object main) {
 		this.main = main;
 	}
 
 
-	public Map<String, Float> getWind() {
+	public Object getWind() {
 		return wind;
 	}
 
 
-	public void setWind(Map<String, Float> wind) {
+	public void setWind(Object wind) {
 		this.wind = wind;
 	}
 
 
-	public Map<String, Float> getRain() {
+	public Object getRain() {
 		return rain;
 	}
 
 
-	public void setRain(Map<String, Float> rain) {
+	public void setRain(Object rain) {
 		this.rain = rain;
 	}
 
 
-	public Float getSnow() {
+	public Object getSnow() {
 		return snow;
 	}
 
 
-	public void setSnow(Float snow) {
+	public void setSnow(Object snow) {
 		this.snow = snow;
 	}
 
