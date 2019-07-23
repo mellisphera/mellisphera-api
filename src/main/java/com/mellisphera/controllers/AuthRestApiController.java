@@ -174,7 +174,7 @@ public class AuthRestApiController {
 		log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :" + credential);
 		//Search if user already exit
 		System.err.println(signUpRequest.getEmail());
-		if (userRepository.existsByEmail(signUpRequest.getUsername())) {
+		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
 					HttpStatus.BAD_REQUEST);
 		}
