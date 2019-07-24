@@ -28,9 +28,12 @@ public class CurrentHourlyWeatherController {
 	}
 	
 	@PostMapping("/temp/apiary/{idApiary}")
-	public List<SimpleSeries> getCurrentHourlyWeatherByApiary(@PathVariable String idApiary, @RequestBody Date[] range) {
+	public List<SimpleSeries> getMainCurrentHourlyWeatherByApiary(@PathVariable String idApiary, @RequestBody Date[] range) {
 		return this.currentHourlyWeatherRepository.findByIdApiaryAndDateBetween(idApiary, range[0], range[1]).stream().map(_elt -> {
 			return new SimpleSeries(_elt.getDate(), _elt.getMain(), _elt.get_origin());
 		}).collect(Collectors.toList());
 	}
+	
+	
+	
 }
