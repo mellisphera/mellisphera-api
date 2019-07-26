@@ -23,5 +23,10 @@ dist/
 nbdist/
 .nb-gradle/
 /.gradle/
-/repository/
-/src/
+src/main/ressources/application.properties
+logs
+application.properties
+# System Files
+.DS_Store
+Thumbs.db
+

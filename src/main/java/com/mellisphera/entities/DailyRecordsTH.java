@@ -18,6 +18,7 @@ public class DailyRecordsTH {
 	private float temp_int_stddev;
 	private String status;
 	private String trend;
+	private String sensorRef;
 	private float r_int_text;
 	public Long timestamp;
 	public int brood;
@@ -29,7 +30,7 @@ public class DailyRecordsTH {
 
 	public DailyRecordsTH(String id, Date recordDate, String idHive, float humidity_int_min, float humidity_int_max,
 			float temp_int_min, float temp_int_max, float temp_int_moy, float temp_int_stddev, String status,
-			String trend, float r_int_text, Long timestamp, int brood) {
+			String trend, float r_int_text, Long timestamp, int brood, String sensorRef) {
 		super();
 		this.id = id;
 		this.recordDate = recordDate;
@@ -45,12 +46,22 @@ public class DailyRecordsTH {
 		this.r_int_text = r_int_text;
 		this.timestamp = timestamp;
 		this.brood = brood;
+		this.sensorRef = sensorRef;
 		
 	}
 
 
 	public String getStatus() {
 		return status;
+	}
+	
+
+	public String getSensorRef() {
+		return sensorRef;
+	}
+
+	public void setSensorRef(String sensorRef) {
+		this.sensorRef = sensorRef;
 	}
 
 	public void setStatus(String status) {
