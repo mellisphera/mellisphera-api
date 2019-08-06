@@ -50,7 +50,7 @@ public class DailyRecordsWController {
 		return this.dailyRecordsWRepository.findById(id);
 	}
 	
-	@PostMapping(value="/hive/{idHive}")
+	@GetMapping(value="/hive/{idHive}")
 	public List<DailyRecordsW>getByidHive(@PathVariable("idHive") String idHive){
 		return this.dailyRecordsWRepository.findDailyRecordsWByIdHive(idHive);
 	}
