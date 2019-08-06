@@ -57,12 +57,7 @@ public class ProcessReportController {
     
     @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.POST, produces={"application/json"})
     public List<ProcessReport> getReportsHive(@PathVariable("idHive") String idHive, @RequestBody Date[] range){
-        Date start  = range[0];
-        Date end = range[1];
-        System.err.println(start + "---" + end);
-        List<ProcessReport> reportsL = this.processReportRepository.findByIdHiveAndDateBetween(idHive, start, new Date());
-        System.err.println(reportsL);
-        Collections.reverse(reportsL);
+        List<ProcessReport> reportsL = this.processReportRepository.findByIdHiveAndDateBetween(idHive, range[0], range[1]);
         return reportsL;
     }
     
