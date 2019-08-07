@@ -60,16 +60,12 @@ public class DailyRecordsTHController {
 	}
 	
 	@RequestMapping(value = "/apiary/{idApiary}", method = RequestMethod.POST, produces={"application/json"})
-	public List<DailyRecordsTH> getByApiary(@PathVariable String idApiary, @RequestBody Date range){
+	public List<DailyRecordsTH> getByApiary(@PathVariable String idApiary, @RequestBody Date[] range){
 		List<Hive> hives = this.hiveController.getAllUserHives(idApiary);
 		List<DailyRecordsTH> dailyRecTh = new ArrayList<>();
-		System.err.println(range);
-		Date start = range;
-		Date end = new Date();
-		end.setDate(start.getDate() + 1);
 		for(Hive h : hives) {
                     try{
-                    	List<DailyRecordsTH> rec = this.getLastDailyRecord(h.getId(), new Date[] {start, end});
+                    	List<DailyRecordsTH> rec = this.getLastDailyRecord(h.getId(), range);
                     	System.err.println(rec.get(rec.size() - 1));
                     	dailyRecTh.add(rec.get(rec.size() - 1));
                     }
