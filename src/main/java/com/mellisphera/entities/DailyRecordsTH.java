@@ -21,7 +21,7 @@ public class DailyRecordsTH {
 	private String sensorRef;
 	private float r_int_text;
 	public Long timestamp;
-	public int brood;
+	public Double brood;
 
 
 	public DailyRecordsTH(){
@@ -30,7 +30,7 @@ public class DailyRecordsTH {
 
 	public DailyRecordsTH(String id, Date recordDate, String idHive, float humidity_int_min, float humidity_int_max,
 			float temp_int_min, float temp_int_max, float temp_int_moy, float temp_int_stddev, String status,
-			String trend, float r_int_text, Long timestamp, int brood, String sensorRef) {
+			String trend, float r_int_text, Long timestamp, Double brood, String sensorRef) {
 		super();
 		this.id = id;
 		this.recordDate = recordDate;
@@ -76,11 +76,11 @@ public class DailyRecordsTH {
 		this.trend = trend;
 	}
 
-	public int getBrood() {
+	public Double getBrood() {
 		return brood;
 	}
 
-	public void setBrood(int brood) {
+	public void setBrood(Double brood) {
 		this.brood = brood;
 	}
 
