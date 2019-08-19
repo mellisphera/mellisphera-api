@@ -48,7 +48,7 @@ public class ProcessReportTempController {
 	    this.processReportTempRepository.deleteById(id);
 	 }
     
-    @RequestMapping(value = "/add/{username}", method = RequestMethod.GET, produces={"application/json"})
+    /*@RequestMapping(value = "/add/{username}", method = RequestMethod.GET, produces={"application/json"})
     public void addReports(@PathVariable("username") String username){
         List<ProcessReportTemp> reports = this.processReportTempRepository.findProcessReportTempByUsername(username);
         for(ProcessReportTemp temp : reports) {
@@ -64,6 +64,6 @@ public class ProcessReportTempController {
         	this.processReportRepository.insert(process);
                 this.delete(temp.getId());
         }
-    }
+    }*/
     
 }

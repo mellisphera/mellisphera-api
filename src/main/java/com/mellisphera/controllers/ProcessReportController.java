@@ -55,6 +55,11 @@ public class ProcessReportController {
         return reports;
     }
     
+    @GetMapping("/user/{idUsername}")
+    public List<ProcessReport> getReportsByUser(@PathVariable String idUsername) {
+    	return this.processReportRepository.findProcessReportByIdUsername(idUsername);
+    }
+    
     @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.POST, produces={"application/json"})
     public List<ProcessReport> getReportsHive(@PathVariable("idHive") String idHive, @RequestBody Date[] range){
         List<ProcessReport> reportsL = this.processReportRepository.findByIdHiveAndDateBetween(idHive, range[0], range[1]);

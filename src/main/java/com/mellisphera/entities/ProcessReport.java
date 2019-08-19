@@ -19,14 +19,14 @@ public class ProcessReport {
 	private String idHive;
 	private String idApiary;
 	private String nluScore;
-	private String username;
+	private String idUsername;
 	
 	public ProcessReport() {
 		
 	}
 	
 	public ProcessReport(String id, Date date, String type, String sentence,String[] idLHive, List<String> ruche,
-			String idHive, String idApiary, String nluScore) {
+			String idHive, String idApiary, String nluScore, String idUsername) {
 		super();
 		this.id = id;
 		this.date = date;
@@ -36,6 +36,7 @@ public class ProcessReport {
 		this.ruche = ruche;
 		this.idHive = idHive;
 		this.idApiary = idApiary;
+		this.idUsername = idUsername;
 		this.nluScore = nluScore;
 	}
 	
@@ -95,10 +96,14 @@ public class ProcessReport {
 		this.nluScore = nluScore;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-		
+	public String getIdUsername() {
+		return idUsername;
 	}
+
+	public void setIdUsername(String idUsername) {
+		this.idUsername = idUsername;
+	}
+
 	
 	
 	
