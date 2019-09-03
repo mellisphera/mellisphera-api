@@ -42,4 +42,18 @@ public class CurrentDailyWeatherController {
 			return new SimpleSeries(_elt.getDate(), _elt.getRain(), _elt.get_origin());
 		}).collect(Collectors.toList());
 	}
+
+	@PostMapping("tExt/apiary/{idApiary}")
+	public List<SimpleSeries> getTempMax(@PathVariable String idApiary, @RequestBody Date[] range) {
+		return this.dailyWearherRepository.findByIdApiaryAndDateBetween(idApiary, range[0], range[1]).stream().map(_elt -> {
+			return new SimpleSeries(_elt.getDate(), _elt.getMain(), _elt.get_origin());
+		}).collect(Collectors.toList());
+	}
+
+	@PostMapping("wind/apiary/{idApiary}")
+	public List<SimpleSeries> getWind(@PathVariable String idApiary, @RequestBody Date[] range) {
+		return this.dailyWearherRepository.findByIdApiaryAndDateBetween(idApiary, range[0], range[1]).stream().map(_elt -> {
+			return new SimpleSeries(_elt.getDate(), _elt.getWind(), _elt.get_origin());
+		}).collect(Collectors.toList());
+	}
 }
