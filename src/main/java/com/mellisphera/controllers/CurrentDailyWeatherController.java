@@ -39,7 +39,7 @@ public class CurrentDailyWeatherController {
 	@PostMapping("rain/apiary/{idApiary}")
 	public List<SimpleSeries> getRainCurrentDailyWeatherByApiary(@PathVariable String idApiary, @RequestBody Date[] range) {
 		return this.dailyWearherRepository.findByIdApiaryAndDateBetween(idApiary, range[0], range[1]).stream().map(_elt -> {
-			return new SimpleSeries(_elt.getDate(), _elt.getRain(), _elt.get_origin());
+			return new SimpleSeries(_elt.getDate(),  new Object[] {_elt.getRain(), _elt.getSnow()}, _elt.get_origin());
 		}).collect(Collectors.toList());
 	}
 

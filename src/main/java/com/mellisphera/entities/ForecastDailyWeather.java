@@ -18,14 +18,14 @@ public class ForecastDailyWeather {
 	private String city;
 	private Map<String, Float> rain;
 	private String idApiary;
-	private Map<String, Float> show;
+	private Map<String, Float> snow;
 	private String apiary;
 	
 	
 
 	public ForecastDailyWeather(String _id, Map<String, String> weather, Map<String, String> wind,
 			Map<String, String> main, String _origin, String user, Date date, String city, Map<String, Float> rain,
-			String idApiary, Map<String, Float> show, String apiary) {
+			String idApiary, Map<String, Float> snow, String apiary) {
 		this._id = _id;
 		this.weather = weather;
 		this.wind = wind;
@@ -36,7 +36,7 @@ public class ForecastDailyWeather {
 		this.city = city;
 		this.rain = rain;
 		this.idApiary = idApiary;
-		this.show = show;
+		this.snow = snow;
 		this.apiary = apiary;
 	}
 
@@ -120,12 +120,12 @@ public class ForecastDailyWeather {
 		this.idApiary = idApiary;
 	}
 
-	public Map<String, Float> getShow() {
-		return show;
+	public Map<String, Float> getSnow() {
+		return snow;
 	}
 
-	public void setShow(Map<String, Float> show) {
-		this.show = show;
+	public void setSnow(Map<String, Float> show) {
+		this.snow = snow;
 	}
 
 	public String getApiary() {
