@@ -141,6 +141,17 @@ public class ApiaryController {
     	apiary.setPhoto(imgB64);
     	this.apiaryRepository.save(apiary);
     }
+
+
+	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
+	@GetMapping("/notPicture/{username}")
+	public List<Apiary> getApiaryUserNoPicture(@PathVariable String username){
+		return this.apiaryRepository.findApiaryByUsername(username).stream().map(_apiary -> {
+			_apiary.setPhoto(null);
+			return _apiary;
+		}).collect(Collectors.toList());
+	}
+
     
     /*
     @DeleteMapping("/sharedUser/{id}")
