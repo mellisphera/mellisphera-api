@@ -24,7 +24,6 @@ import com.mellisphera.repositories.CurrentDailyWeatherRepository;
 public class CurrentDailyWeatherController {
 	
 	@Autowired private CurrentDailyWeatherRepository dailyWearherRepository;
-	
 	public CurrentDailyWeatherController() {
 		
 	}

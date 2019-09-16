@@ -144,7 +144,7 @@ public class AuthRestApiController {
 		apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
 		System.err.println(user);
 		String ipAddress = request.getRemoteAddr();
-		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
+			GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		Calendar calendar = new GregorianCalendar();
 		user.incrementConnexions();
 		Date date = new Date();

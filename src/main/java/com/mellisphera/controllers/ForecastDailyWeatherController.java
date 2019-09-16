@@ -53,5 +53,7 @@ public class ForecastDailyWeatherController {
 			return new SimpleSeries(_elt.getDate(), _elt.getWind(), _elt.get_origin());
 		}).collect(Collectors.toList());
 	}
+
+
 }
 
