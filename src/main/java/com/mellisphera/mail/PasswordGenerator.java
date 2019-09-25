@@ -18,9 +18,9 @@ public class PasswordGenerator {
 	public String getPassword() {
 		StringBuilder password = new StringBuilder();
 		int i = 0;
-		for (i = 0; i < this.NB_CARACTERE; i++) {
-			Integer randomInt = this.getRandomInt(this.CHARACTERS.length + 10);
-			if (randomInt < this.CHARACTERS.length) {
+		for (i = 0; i < NB_CARACTERE; i++) {
+			Integer randomInt = this.getRandomInt(CHARACTERS.length + 10);
+			if (randomInt < CHARACTERS.length) {
 				if (randomInt % 2 == 0) {
 					password.append(CHARACTERS[randomInt]);
 				}
