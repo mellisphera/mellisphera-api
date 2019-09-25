@@ -125,10 +125,10 @@ public class AuthRestApiController {
 		catch(AuthenticationException e) {
 			e.printStackTrace();
 			BmAuth bmAuth = bmAuthService.getBmAuth(loginRequest.getEmail(), loginRequest.getPassword());
-			if (bmAuth.getCode().equals("201")) {
+			if (!bmAuth.getCode().equals("200")) {
 				throw new UsernameNotFoundException("Login incorrecte");
 			} else {
-				this.registerUser(new SignUpForm(loginRequest.getEmail().split("@")[0], loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), request);
+				this.registerUser(new SignUpForm(loginRequest.getEmail().split("@")[0], loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), request, true);
 				user = this.userRepository.findUserByEmail(loginRequest.getEmail());
 				this.bmAuthService.saveBmData(bmAuth, user);
 				LogEvents logEventsBmAuth = new LogEvents(null, new Date(), user.getId(), loginRequest.getEmail(), LogType.INSCRIPTION_BM, bmAuth);
@@ -165,7 +165,7 @@ public class AuthRestApiController {
 	 * @return
 	 */
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest, HttpServletRequest request) {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest, HttpServletRequest request, Boolean bmSignup) {
 		log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :"+signUpRequest.getPassword()+" email:" + signUpRequest.getEmail());
 		//
 		//Login credential = new Login(signUpRequest.getUsername(),encoder.encode(signUpRequest.getPassword()));
@@ -191,7 +191,7 @@ public class AuthRestApiController {
 		//search country by ip
 		String ipAddress = ((WebAuthenticationDetails)SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
 		//String ipAddress = request.getRemoteAddr();
-		if (ipAddress.equals("127.0.0.1"))
+		if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1"))
 			ipAddress="87.100.21.93";
 		log.debug(" remote ip :"+ ipAddress);
 		//
@@ -201,8 +201,11 @@ public class AuthRestApiController {
 		user.setCity(geoIp.getCity());
 		// save user
 		User newUser = userRepository.insert(user);
-		LogEvents logEventsBmAuth = new LogEvents(null, new Date(), newUser.getId(), signUpRequest.getEmail(), LogType.INSCRIPTION, null);
-		this.logRepoitory.insert(logEventsBmAuth);
+		LogEvents logEventsBmAuth = null;
+		if (bmSignup == null) {
+			logEventsBmAuth = new LogEvents(null, new Date(), newUser.getId(), signUpRequest.getEmail(), LogType.INSCRIPTION, null);
+			this.logRepoitory.insert(logEventsBmAuth);
+		}
 		try {
 			this.sharingService.addDemoApiaryNewUser(newUser.getId());
 		} catch (ApiaryDemoNotFoundException e) {
