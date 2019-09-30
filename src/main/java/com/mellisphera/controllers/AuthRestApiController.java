@@ -202,12 +202,12 @@ public class AuthRestApiController {
 		// save user
 		User newUser = userRepository.insert(user);
 		
-		try {
+		/*try {
 			this.sharingService.addDemoApiaryNewUser(newUser.getId());
 		} catch (ApiaryDemoNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
 	}
 	
