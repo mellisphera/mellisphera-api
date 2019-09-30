@@ -8,10 +8,7 @@ import java.io.Serializable;
 public class BmData implements Serializable {
     @JsonProperty("apiaries")
     private BmApiary[] apiaries;
-
-    @JsonProperty("user")
-    private Object user;
-
+    
     @JsonProperty("userId")
     private String userId;
 
