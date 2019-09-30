@@ -22,7 +22,7 @@ public class BmSensor implements Serializable{
 		this.start = start;
 	}
 
-
+	public BmSensor(){}
 	public BmDevice getDevice() {
 		return device;
 	}
@@ -63,6 +63,7 @@ public class BmSensor implements Serializable{
 		@JsonProperty("model")
 		private String model;
 
+		public BmDevice() {}
 		public String getDeviceId() {
 			return deviceId;
 		}
