@@ -82,6 +82,7 @@ public class BmAuthServiceImpl implements BmAuthService {
 				newHive.setName(bmHive.getName());
 				newHive.setUsername(user.getUsername());
 				newHive.setName(bmHive.getName());
+				System.out.println(newHive);
 				this.hiveRepository.insert(newHive).get_id();
 				if (bmHive.getDevices() != null) {
 					for(BmSensor bmSensor : bmHive.getDevices()) {

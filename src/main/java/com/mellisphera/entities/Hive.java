@@ -113,4 +113,21 @@ public class Hive {
 	public void setHivePosY(float hivePosY) {
 		this.hivePosY = hivePosY;
 	}
+
+	@Override
+	public String toString() {
+		return "Hive{" +
+				"_id='" + _id + '\'' +
+				", name='" + name + '\'' +
+				", description='" + description + '\'' +
+				", username='" + username + '\'' +
+				", apiaryId='" + apiaryId + '\'' +
+				", userId='" + userId + '\'' +
+				", hidden=" + hidden +
+				", dataLastReceived=" + dataLastReceived +
+				", createDate=" + createDate +
+				", hivePosX=" + hivePosX +
+				", hivePosY=" + hivePosY +
+				'}';
+	}
 }
