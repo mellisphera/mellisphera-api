@@ -2,6 +2,7 @@ package com.mellisphera.entities.bm;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -136,6 +137,23 @@ public class BmApiary implements Serializable{
 
 	public void setNotes(BmNote[] notes) {
 		this.notes = notes;
+	}
+
+	@Override
+	public String toString() {
+		return "BmApiary{" +
+				"apiaryId='" + apiaryId + '\'' +
+				", createDate=" + createDate +
+				", name='" + name + '\'' +
+				", userId='" + userId + '\'' +
+				", zipCode='" + zipCode + '\'' +
+				", countryCode='" + countryCode + '\'' +
+				", privateApiary=" + privateApiary +
+				", hidden=" + hidden +
+				", dataLastReceived=" + dataLastReceived +
+				", hives=" + Arrays.toString(hives) +
+				", notes=" + Arrays.toString(notes) +
+				'}';
 	}
 }
 

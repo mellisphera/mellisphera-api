@@ -3,6 +3,7 @@ package com.mellisphera.entities.bm;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class BmNote {
 
@@ -96,5 +97,19 @@ public class BmNote {
 
     public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
+    }
+
+    @Override
+    public String toString() {
+        return "BmNote{" +
+                "noteId='" + noteId + '\'' +
+                ", description='" + description + '\'' +
+                ", tags=" + Arrays.toString(tags) +
+                ", hiveId='" + hiveId + '\'' +
+                ", apiaryId='" + apiaryId + '\'' +
+                ", opsDate=" + opsDate +
+                ", type='" + type + '\'' +
+                ", createDate=" + createDate +
+                '}';
     }
 }
