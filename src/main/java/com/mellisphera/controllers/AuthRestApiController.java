@@ -3,7 +3,6 @@
  */
 package com.mellisphera.controllers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,6 +14,9 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.mellisphera.entities.log.LogEvents;
+import com.mellisphera.entities.log.LogType;
+import com.mellisphera.repositories.LogRepoitory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -23,9 +25,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,7 +34,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,6 +87,7 @@ public class AuthRestApiController {
 	@Autowired
 	ConnectionRepository connectionRepository;
 
+	@Autowired private LogRepoitory logRepoitory;
 	@Autowired
 	PasswordEncoder encoder;
 
@@ -115,7 +115,6 @@ public class AuthRestApiController {
 		String jwt = null;
 		User user = null;
 		try {
-			System.err.println("ok");
 			authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -125,14 +124,15 @@ public class AuthRestApiController {
 		}
 		catch(AuthenticationException e) {
 			e.printStackTrace();
-			System.err.println("BM_AUTH_CHECk");
 			BmAuth bmAuth = bmAuthService.getBmAuth(loginRequest.getEmail(), loginRequest.getPassword());
-			if (bmAuth.getCode().equals("201")) {
+			if (!bmAuth.getCode().equals("200")) {
 				throw new UsernameNotFoundException("Login incorrecte");
 			} else {
-				this.registerUser(new SignUpForm(loginRequest.getEmail().split("@")[0], loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), request);
+				this.registerUser(new SignUpForm(loginRequest.getEmail().split("@")[0], loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), request, true);
 				user = this.userRepository.findUserByEmail(loginRequest.getEmail());
 				this.bmAuthService.saveBmData(bmAuth, user);
+				LogEvents logEventsBmAuth = new LogEvents(null, new Date(), user.getId(), loginRequest.getEmail(), LogType.INSCRIPTION_BM, bmAuth);
+				this.logRepoitory.insert(logEventsBmAuth);
 				authentication = authenticationManager.authenticate(
 						new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -165,7 +165,7 @@ public class AuthRestApiController {
 	 * @return
 	 */
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest, HttpServletRequest request) {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest, HttpServletRequest request, Boolean bmSignup) {
 		log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :"+signUpRequest.getPassword()+" email:" + signUpRequest.getEmail());
 		//
 		//Login credential = new Login(signUpRequest.getUsername(),encoder.encode(signUpRequest.getPassword()));
@@ -191,7 +191,7 @@ public class AuthRestApiController {
 		//search country by ip
 		String ipAddress = ((WebAuthenticationDetails)SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
 		//String ipAddress = request.getRemoteAddr();
-		if (ipAddress.equals("127.0.0.1"))
+		if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1"))
 			ipAddress="87.100.21.93";
 		log.debug(" remote ip :"+ ipAddress);
 		//
@@ -202,7 +202,12 @@ public class AuthRestApiController {
 		// save user
 		User newUser = userRepository.insert(user);
 		
-		/*try {
+		LogEvents logEventsBmAuth = null;
+		if (bmSignup == null) {
+			logEventsBmAuth = new LogEvents(null, new Date(), newUser.getId(), signUpRequest.getEmail(), LogType.INSCRIPTION, null);
+			this.logRepoitory.insert(logEventsBmAuth);
+		}
+	/*	try {
 			this.sharingService.addDemoApiaryNewUser(newUser.getId());
 		} catch (ApiaryDemoNotFoundException e) {
 			// TODO Auto-generated catch block
