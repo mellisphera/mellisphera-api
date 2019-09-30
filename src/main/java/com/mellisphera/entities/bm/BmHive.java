@@ -2,6 +2,7 @@ package com.mellisphera.entities.bm;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -111,5 +112,19 @@ public class BmHive implements Serializable{
 
 	public void setNotes(BmNote[] notes) {
 		this.notes = notes;
+	}
+
+	@Override
+	public String toString() {
+		return "BmHive{" +
+				"hiveId='" + hiveId + '\'' +
+				", apiaryId='" + apiaryId + '\'' +
+				", createDate=" + createDate +
+				", name='" + name + '\'' +
+				", hidden=" + hidden +
+				", dataLastReceived=" + dataLastReceived +
+				", devices=" + Arrays.toString(devices) +
+				", notes=" + Arrays.toString(notes) +
+				'}';
 	}
 }
