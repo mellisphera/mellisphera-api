@@ -86,6 +86,8 @@ public class BmAuthServiceImpl implements BmAuthService {
 				if (bmHive.getDevices() != null) {
 					for(BmSensor bmSensor : bmHive.getDevices()) {
 						Sensor sensor = new Sensor();
+						System.out.println(bmSensor.getDevice());
+						System.out.println(bmSensor.getDevice().getModel());
 						sensor.set_id(bmSensor.getDevice().getDeviceId());
 						sensor.setHiveId(bmHive.getHiveId());
 						sensor.setCreateDate(bmSensor.getDevice().getCreateDate());
