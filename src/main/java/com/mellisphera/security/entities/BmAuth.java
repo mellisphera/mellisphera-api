@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mellisphera.entities.bm.BmApiary;
+import com.mellisphera.entities.bm.BmData;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BmAuth implements Serializable {
@@ -26,46 +27,41 @@ public class BmAuth implements Serializable {
 	@JsonProperty("message")
 	private String message;
 	@JsonProperty("payload")
-	private BmApiary[] payload;
+	private BmData payload;
 	
 	public BmAuth() {
 		
 	}
 	
 	public BmAuth(String code, String message, String outputFormat, String clientIp, String servedByNode,
-			BmApiary[] payload) {
+                  BmData payload) {
 		this.code = code;
 		this.message = message;
 		this.payload = payload;
 	}
 
-	public String getCode() {
-		return code;
-	}
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public BmApiary[] getPayload() {
-		return payload;
-	}
+    public BmData getPayload() {
+        return payload;
+    }
 
-	public void setPayload(BmApiary[] payload) {
-		this.payload = payload;
-	}
-	
-	
-	
-	
-	
+    public void setPayload(BmData payload) {
+        this.payload = payload;
+    }
 }

@@ -68,7 +68,7 @@ public class BmAuthServiceImpl implements BmAuthService {
 			newApiary.setCountryCode(bmApiary.getCountryCode());
 			newApiary.setUsername(user.getUsername());
 			newApiary.setPhoto("./assets/imageClient/testAccount.png");
-			System.out.println(bmApiary);
+			System.out.println(bmApiary	);
 			this.apiaryRepository.insert(newApiary).get_id();
 			for(BmHive bmHive: bmApiary.getHives()) {
 				Hive newHive = new Hive();
