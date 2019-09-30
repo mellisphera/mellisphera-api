@@ -58,7 +58,7 @@ public class DailyRecordsWController {
 	@PostMapping("/apiary/{idApiary}")
 	public List<List<DailyRecordsW>> getDailyRecordsWByApiary(@PathVariable String idApiary, @RequestBody Date[] range) {
         Sort sort = new Sort(Direction.DESC, "timestamp");
-		return this.hiveController.getAllUserHives(idApiary).stream().map(hive -> this.dailyRecordsWRepository.findByIdHiveAndRecordDateBetween(hive.getId(), range[0], range[1], sort)).collect(Collectors.toList());
+		return this.hiveController.getAllUserHives(idApiary).stream().map(hive -> this.dailyRecordsWRepository.findByIdHiveAndRecordDateBetween(hive.get_id(), range[0], range[1], sort)).collect(Collectors.toList());
 	}
 	
 	@PostMapping("/hive/between/{idHive}")

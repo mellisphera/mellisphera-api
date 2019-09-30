@@ -9,9 +9,7 @@ import com.mellisphera.entities.bm.BmApiary;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BmAuth implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	/*
 			 * {
 		"code": "200",

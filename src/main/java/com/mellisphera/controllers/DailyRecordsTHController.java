@@ -65,7 +65,7 @@ public class DailyRecordsTHController {
 		List<DailyRecordsTH> dailyRecTh = new ArrayList<>();
 		for(Hive h : hives) {
                     try{
-                    	List<DailyRecordsTH> rec = this.getLastDailyRecord(h.getId(), range);
+                    	List<DailyRecordsTH> rec = this.getLastDailyRecord(h.get_id(), range);
                     	System.err.println(rec.get(rec.size() - 1));
                     	dailyRecTh.add(rec.get(rec.size() - 1));
                     }
@@ -82,12 +82,11 @@ public class DailyRecordsTHController {
 	}
 	
 	@PostMapping("tMax/{idHive}")
-	public List<SimpleSeries> getTmaxByHive(@RequestBody Date[] range, @PathVariable String idHive){
-        Sort sort = new Sort(Direction.DESC, "timestamp");
+	public List<SimpleSeries> getTmaxByHive(@RequestBody Date[] range, @PathVariable String idHive) {
+		Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsTHRepository.findByIdHiveAndRecordDateBetween(idHive, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
 				.getRecordDate(), _daily.getTemp_int_max(), _daily.getSensorRef())).collect(Collectors.toList());
 	}
-	
 	@PostMapping("hInt/{idHive}")
 	public List<SimpleSeries> getHintByHive(@RequestBody Date[] range, @PathVariable String idHive){
         Sort sort = new Sort(Direction.DESC, "timestamp");

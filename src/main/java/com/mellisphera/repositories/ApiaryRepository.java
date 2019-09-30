@@ -13,8 +13,6 @@ import com.mellisphera.entities.Apiary;
 public interface ApiaryRepository  extends MongoRepository<Apiary ,String>{
 	
 	List<Apiary> findApiaryByUsername(String username);
-	
-	Apiary findApiaryById(String id);
-		
+
 }
 

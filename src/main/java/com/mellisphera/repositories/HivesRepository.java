@@ -16,8 +16,6 @@ public interface HivesRepository  extends MongoRepository<Hive ,String>{
 	
 	List<Hive> findHiveByUsername(String username);
 	
-	List<Hive> findHiveByIdApiary(String idApiary);
-		
-	Hive findHiveById(String id);
-	
+	List<Hive> findHiveByApiaryId(String apiaryId);
+
 }

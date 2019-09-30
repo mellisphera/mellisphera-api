@@ -38,7 +38,7 @@ public class SharingService {
 	
 
 	public void addDemoApiaryNewUser(String idNewUser) throws ApiaryDemoNotFoundException {
-		Apiary demoApiary = this.apiaryRepository.findApiaryById(ID_DEMO_APIARY);
+		Apiary demoApiary = this.apiaryRepository.findById(ID_DEMO_APIARY).get();
 		if (demoApiary == null) {
 			throw new ApiaryDemoNotFoundException(EXCEPTION_MSG);
 		}
@@ -78,7 +78,7 @@ public class SharingService {
 	}
 
 	private int findApiary(Apiary apiaryDemo, ShareApiary sApiary) {
-		return sApiary.getsharingApiary().stream().map(apiary -> apiary.getId()).collect(Collectors.toList()).indexOf(apiaryDemo.getId());
+		return sApiary.getsharingApiary().stream().map(apiary -> apiary.get_id()).collect(Collectors.toList()).indexOf(apiaryDemo.get_id());
 	}
 	
 	

@@ -1,5 +1,8 @@
 package com.mellisphera.security.service;
 
+import com.mellisphera.entities.*;
+import com.mellisphera.entities.bm.BmNote;
+import com.mellisphera.repositories.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpRequest;
@@ -14,17 +17,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.mellisphera.entities.Apiary;
-import com.mellisphera.entities.Hive;
-import com.mellisphera.entities.Sensor;
-import com.mellisphera.entities.User;
 import com.mellisphera.entities.bm.BmApiary;
 import com.mellisphera.entities.bm.BmHive;
 import com.mellisphera.entities.bm.BmSensor;
-import com.mellisphera.repositories.ApiaryRepository;
-import com.mellisphera.repositories.HivesRepository;
-import com.mellisphera.repositories.SensorRepository;
-import com.mellisphera.repositories.UserRepository;
 import com.mellisphera.security.entities.BmAuth;
 
 @Service
@@ -43,6 +38,7 @@ public class BmAuthServiceImpl implements BmAuthService {
     @Autowired private ApiaryRepository apiaryRepository;
     @Autowired private HivesRepository hiveRepository;
     @Autowired private SensorRepository sensorRepository;
+    @Autowired private NoteRepository noteRepository;
     @Autowired private UserRepository userRepository;
     
 	@Override
@@ -63,34 +59,71 @@ public class BmAuthServiceImpl implements BmAuthService {
 	public void saveBmData(BmAuth bmData, User user) {
 		for(BmApiary bmApiary: bmData.getPayload()) {
 			Apiary newApiary = new Apiary();
-			newApiary.setCodePostal(bmApiary.getPostalCode());
+			newApiary.set_id(bmApiary.getApiaryId());
+			newApiary.setZipCode(bmApiary.getZipCode());
 			newApiary.setName(bmApiary.getName());
-			newApiary.setUser(user);
-			newApiary.setIdUsername(user.getId());
+			newApiary.setIdUser(user.getId());
+			newApiary.setCreateDate(bmApiary.getCreateDate());
+			newApiary.setPrivateApiary(bmApiary.getPrivateApiary());
+			newApiary.setCountryCode(bmApiary.getCountryCode());
 			newApiary.setUsername(user.getUsername());
 			newApiary.setPhoto("./assets/imageClient/testAccount.png");
-			String idApiary = this.apiaryRepository.insert(newApiary).getId();
+			this.apiaryRepository.insert(newApiary).get_id();
 			for(BmHive bmHive: bmApiary.getHives()) {
 				Hive newHive = new Hive();
-				newHive.setHivePos("0", "0");
-				newHive.setIdApiary(idApiary);
-				newHive.setIdUsername(user.getId());
+				newHive.set_id(bmHive.getHiveId());
+				newHive.setHivePosY(0);
+				newHive.setHivePosX(0);
+				newHive.setApiaryId(bmApiary.getApiaryId());
+				newHive.setUserId(user.getId());
+				newHive.setCreateDate(bmHive.getCreateDate());
+				newHive.setHidden(bmHive.getHidden());
+				newHive.setDataLastReceived(bmHive.getDataLastReceived());
+				newHive.setName(bmHive.getName());
 				newHive.setUsername(user.getUsername());
 				newHive.setName(bmHive.getName());
-				String idHive = this.hiveRepository.insert(newHive).getId();
+				this.hiveRepository.insert(newHive).get_id();
 				if (bmHive.getDevices() != null) {
 					for(BmSensor bmSensor : bmHive.getDevices()) {
 						Sensor sensor = new Sensor();
-						sensor.setApiaryName(bmApiary.getName());
+						sensor.set_id(bmSensor.getDevice().getDeviceId());
+						sensor.setHiveId(bmHive.getHiveId());
+						sensor.setCreateDate(bmSensor.getDevice().getCreateDate());
+						sensor.setDataLastReceived(bmSensor.getDevice().getDataLastReceived());
+						sensor.setSensorRef(bmSensor.getDevice().getDeviceAddress());
+						sensor.setModel(bmSensor.getDevice().getModel());
 						sensor.setHiveName(bmHive.getName());
-						sensor.setIdApiary(idApiary);
-						sensor.setIdHive(idHive);
-						sensor.setSensorRef(bmSensor.getDeviceId());
-						sensor.setUsername(user.getUsername());
-						sensor.setType(this.getTypeByRef(bmSensor.getDeviceId()));
+						sensor.setApiaryId(bmApiary.getApiaryId());
+						sensor.setHivePositionId(bmSensor.getHivePositionId());
+						sensor.setStart(bmSensor.getStart());
+						sensor.setType(this.getTypeByRef(bmSensor.getDevice().getDeviceAddress()));
 						this.sensorRepository.insert(sensor);
 					}
 				}
+				for (BmNote bmNote: bmHive.getNotes()) {
+					Note hiveNote = new Note(bmNote.getNoteId(),
+							bmNote.getCreateDate(),
+							bmNote.getType(),
+							bmNote.getTags(),
+							bmNote.getDescription(),
+							bmNote.getHiveId(),
+							bmNote.getApiaryId(),
+							bmNote.getOpsDate(),
+							bmApiary.getUserId());
+					this.noteRepository.insert(hiveNote);
+				}
+			}
+			for (BmNote bmNote: bmApiary.getNotes()) {
+				Note hiveNote = new Note(bmNote.getNoteId(),
+						bmNote.getCreateDate(),
+						bmNote.getType(),
+						bmNote.getTags(),
+						bmNote.getDescription(),
+						bmNote.getHiveId(),
+						bmNote.getApiaryId(),
+						bmNote.getOpsDate(),
+						bmApiary.getUserId());
+				this.noteRepository.insert(hiveNote);
 			}
 		}
 	}

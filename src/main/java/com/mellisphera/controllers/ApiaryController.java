@@ -45,10 +45,11 @@ public class ApiaryController {
     @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @DeleteMapping("/{id}")
 	 public void delete(@PathVariable("id") String id){
-    	this.sensorRepository.findSensorByIdApiary(id).stream().forEach(sensor -> {
-    		sensor.affectStock();
+    	this.sensorRepository.findSensorByApiaryId(id).stream().forEach(sensor -> {
+    		sensor.setApiaryId(null);
+    		sensor.setHiveId(null);
     		this.sensorRepository.save(sensor);
-    	});;
+    	});
 	    this.apiaryRepository.deleteById(id);
 	 }
     
@@ -74,7 +75,7 @@ public class ApiaryController {
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @RequestMapping(value = "/id/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
     public Apiary getByid(@PathVariable String idApiary){
-	    Apiary apiaries=this.apiaryRepository.findApiaryById(idApiary);
+	    Apiary apiaries=this.apiaryRepository.findById(idApiary).get();
 	    return apiaries;
     }
     
@@ -111,7 +112,7 @@ public class ApiaryController {
 	@PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "/details/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
     public Apiary getApiaryDetails(@PathVariable String idApiary, HttpServletResponse reponse){
-    	Apiary a = this.apiaryRepository.findApiaryById(idApiary);
+    	Apiary a = this.apiaryRepository.findById(idApiary).get();
     	if(a == null) {
     		reponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
     	}
@@ -123,11 +124,11 @@ public class ApiaryController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Apiary apiary){
  		Apiary apiarySave = this.apiaryRepository.save(apiary);
- 		List<Sensor> sensors = this.sensorRepository.findSensorByIdApiary(apiarySave.getId());
+ 		List<Sensor> sensors = this.sensorRepository.findSensorByApiaryId(apiarySave.get_id());
  		if (sensors != null) {
  			for(Sensor s: sensors) {
- 				if (!s.getApiaryName().equals(apiarySave.getName())) {
- 					s.setApiaryName(apiarySave.getName());
+ 				if (!s.getApiaryId().equals(apiarySave.get_id())) {
+ 					s.setApiaryId(apiarySave.get_id());
  					this.sensorRepository.save(s);
  				}
  			}

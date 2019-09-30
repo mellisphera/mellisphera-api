@@ -53,10 +53,9 @@ public class SensorController {
 	
 	@RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
 	public Sensor insert(@RequestBody Sensor sensor){
-		if (sensor.getIdHive() != null) {
-			Hive hive = this.hivesRepository.findHiveById(sensor.getIdHive());
-			List<Sensor> sensorHive = this.sensorRepository.findSensorByIdHive(hive.getId());
-			hive.setSensor(!sensorHive.isEmpty()); 
+		if (sensor.getHiveId() != null) {
+			Hive hive = this.hivesRepository.findById(sensor.getHiveId()).get();
+			List<Sensor> sensorHive = this.sensorRepository.findSensorByHiveId(hive.get_id());
 			this.hivesRepository.save(hive);
 		}
 		return this.sensorRepository.insert(sensor);
@@ -72,8 +71,7 @@ public class SensorController {
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") String id){
 		try {
-			Hive hive = this.hivesRepository.findHiveById(this.sensorRepository.findById(id).get().getIdHive());
-			hive.setSensor(false);
+			Hive hive = this.hivesRepository.findById(this.sensorRepository.findById(id).get().getHiveId()).get();
 			System.err.println(hive);
 			this.hivesRepository.save(hive);
 		}
@@ -98,6 +96,6 @@ public class SensorController {
 	}
 	
 	private Boolean checkIfHiveHaveSensor(Hive hive) {
-		return !this.sensorRepository.findSensorByIdHive(hive.getId()).isEmpty();
+		return !this.sensorRepository.findSensorByHiveId(hive.get_id()).isEmpty();
 	}
 }

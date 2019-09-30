@@ -1,138 +1,116 @@
 package com.mellisphera.entities;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Document(collection = "Hive")
 public class Hive {
 
-		private String id;
+		@Id
+		private String _id;
 		private String name ;
 		private String description;
-		// private String apiaryName;
-		private String username; 
-		private String idApiary;
-		private String idUsername;
+		private String username;
+		private String apiaryId;
+		private String userId;
+		private Boolean hidden;
+		private Timestamp dataLastReceived;
+		private Date createDate;
 		private float hivePosX;
 		private float hivePosY;
-		private User[] sharingUser;
-		private Boolean sensor;
-		
+
 		public Hive() {
 			super();
 		}
 
-		public Hive(String id, String name, String description, Boolean sensor, String username, String idApiary, String hivePosX, String hivePosY, Boolean shareStatus,String idUsername, User[] sharingUser) {
-			super();
-			this.id = id;
-			this.name = name;
-			this.description = description;
-			// this.apiaryName = apiaryName;
-			this.username = username;
-			this.idApiary = idApiary;
-			this.idUsername = idUsername;
-			this.hivePosX = Float.parseFloat(hivePosX);
-			this.hivePosY = Float.parseFloat(hivePosY);
-			this.sharingUser = sharingUser;
-			this.sensor = sensor;
-		}
+	public String get_id() {
+		return _id;
+	}
 
-		public Boolean getSensor() {
-			return sensor;
-		}
+	public void set_id(String _id) {
+		this._id = _id;
+	}
 
-		public void setSensor(Boolean sensor) {
-			this.sensor = sensor;
-		}
+	public String getName() {
+		return name;
+	}
 
-		public User[] getSharingUser() {
-			return sharingUser;
-		}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-		public void setSharingUser(User[] sharingUser) {
-			this.sharingUser = sharingUser;
-		}
+	public String getDescription() {
+		return description;
+	}
 
-		public String getId() {
-			return id;
-		}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-		
-		public String getIdUsername() {
-			return idUsername;
-		}
+	public String getUsername() {
+		return username;
+	}
 
-		public void setIdUsername(String idUsername) {
-			this.idUsername = idUsername;
-		}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-		public void setHivePosX(float hivePosX) {
-			this.hivePosX = hivePosX;
-		}
+	public String getApiaryId() {
+		return apiaryId;
+	}
 
-		public void setHivePosY(float hivePosY) {
-			this.hivePosY = hivePosY;
-		}
+	public void setApiaryId(String apiaryId) {
+		this.apiaryId = apiaryId;
+	}
 
-		public void setId(String id) {
-			this.id = id;
-		}
+	public String getUserId() {
+		return userId;
+	}
 
-		public String getName() {
-			return name;
-		}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-		public void setName(String name) {
-			this.name = name;
-		}
+	public Boolean getHidden() {
+		return hidden;
+	}
 
-		public String getDescription() {
-			return description;
-		}
+	public void setHidden(Boolean hidden) {
+		this.hidden = hidden;
+	}
 
-		public void setDescription(String description) {
-			this.description = description;
-		}
+	public Timestamp getDataLastReceived() {
+		return dataLastReceived;
+	}
 
-		public String getUsername() {
-			return username;
-		}
+	public void setDataLastReceived(Timestamp dataLastReceived) {
+		this.dataLastReceived = dataLastReceived;
+	}
 
-		public void setUsername(String username) {
-			this.username = username;
-		}
+	public Date getCreateDate() {
+		return createDate;
+	}
 
-		public String getIdApiary() {
-			return idApiary;
-		}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
-		public void setIdApiary(String idApiary) {
-			this.idApiary = idApiary;
-		}
-		
-		public String getHivePosX() {
-			return ""+this.hivePosX;
-		}
-		
-		public String getHivePosY() {
-			return ""+this.hivePosY;
-		}
-		public void setHivePos(String x, String y) {
-			this.hivePosX = Float.parseFloat(x);
-			this.hivePosY = Float.parseFloat(y);
-		}
-		
-		public void addSharingUser(User user) {
-			this.sharingUser[this.sharingUser.length] = user;
-		}
-		@Override
-		public String toString() {
-			return "Hive [id=" + id + ", name=" + name + ", description=" + description
-					+ ", username=" + username + ", idApiary=" + idApiary+"]";
-		}
-		
-		
-		
-	
-	
-	
+	public float getHivePosX() {
+		return hivePosX;
+	}
+
+	public void setHivePosX(float hivePosX) {
+		this.hivePosX = hivePosX;
+	}
+
+	public float getHivePosY() {
+		return hivePosY;
+	}
+
+	public void setHivePosY(float hivePosY) {
+		this.hivePosY = hivePosY;
+	}
 }

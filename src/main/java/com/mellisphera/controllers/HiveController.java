@@ -43,24 +43,18 @@ public class HiveController {
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAll(){
-    List<Hive> hives=this.hivesRepository.findAll();
-    for(Hive h: hives) {
-    	List<Sensor> sensor = this.sensorRepository.findSensorByIdHive(h.getId());
-    	h.setSensor((sensor.size() > 0));
-    	this.hivesRepository.save(h);
-    }
-    return hives;
+        return this.hivesRepository.findAll();
     }
     @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @RequestMapping(value = "/username/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllUserHives(@PathVariable String idApiary){
-    	return this.hivesRepository.findHiveByIdApiary(idApiary);
+    	return this.hivesRepository.findHiveByApiaryId(idApiary);
     }
     
     @PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "/id/{idHive}", method = RequestMethod.GET, produces={"application/json"})
     public Hive getById(@PathVariable String idHive){
-    	Hive hiveById = this.hivesRepository.findHiveById(idHive);
+    	Hive hiveById = this.hivesRepository.findById(idHive).get();
 	    return hiveById;
     }
     
@@ -79,7 +73,7 @@ public class HiveController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Hive hive){ 
  		Hive hiveSave = this.hivesRepository.save(hive);
- 		List<Sensor> sensors = this.sensorRepository.findSensorByIdHive(hiveSave.getId());
+ 		List<Sensor> sensors = this.sensorRepository.findSensorByHiveId(hiveSave.get_id());
  		if (sensors != null) {
  			for(Sensor s: sensors) {
  				if (!s.getHiveName().equals(hiveSave.getName())) {
@@ -92,7 +86,7 @@ public class HiveController {
     
     @RequestMapping(value = "/details/{idHive}", method = RequestMethod.GET, produces={"application/json"})
     public Hive getHiveDetails(@PathVariable String idHive){
-    	Hive h = this.hivesRepository.findHiveById(idHive);
+    	Hive h = this.hivesRepository.findById(idHive).get();
     	if (h != null) {
     	    return h;
     	} else {
@@ -103,9 +97,10 @@ public class HiveController {
     @PreAuthorize("hasRole('STANDARD') or hasRole('ADMIN') or hasRole('PREMIUM')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id){
-    	List<Sensor> sensorHive = this.sensorRepository.findSensorByIdHive(id);
+    	List<Sensor> sensorHive = this.sensorRepository.findSensorByHiveId(id);
     	sensorHive.stream().forEach(sensor -> {
-    		sensor.affectStock();
+    		sensor.setApiaryId(null);
+    		sensor.setHiveId(null);
     		this.sensorRepository.save(sensor);
     	});
     	this.hivesRepository.deleteById(id);
@@ -114,11 +109,12 @@ public class HiveController {
     @PreAuthorize("hasRole('STANDARD') or hasRole('ADMIN') or hasRole('PREMIUM')")
     @RequestMapping(value = "/update/coordonnees/{id}", method = RequestMethod.PUT)
     public void updateHivePos(@PathVariable("id") String id, @RequestBody Hive hive) {
-	Hive h = this.hivesRepository.findHiveById(id);
+	Hive h = this.hivesRepository.findById(id).get();
 	if(h!=null) {
-            h.setHivePos(hive.getHivePosX(), hive.getHivePosY());
+            h.setHivePosX(hive.getHivePosX());
+            h.setHivePosY(hive.getHivePosY());
             this.hivesRepository.save(h);
-	}
+	    }
     }
 	
 	/*@RequestMapping(value="/{username}/{idApiary}/{idHive}",method=RequestMethod.GET, produces= {"application/Json"})

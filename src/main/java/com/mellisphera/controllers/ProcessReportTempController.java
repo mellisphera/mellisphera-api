@@ -5,16 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mellisphera.entities.ProcessReport;
 import com.mellisphera.entities.ProcessReportTemp;
-import com.mellisphera.repositories.ProcessReportRepository;
+import com.mellisphera.repositories.NoteRepository;
 import com.mellisphera.repositories.ProcessReportTempRepository;
 
 @Service
@@ -25,7 +23,7 @@ public class ProcessReportTempController {
 	@Autowired
     private ProcessReportTempRepository processReportTempRepository;
 	@Autowired
-    private ProcessReportRepository processReportRepository;
+    private NoteRepository noteRepository;
 	
     public ProcessReportTempController() {
 	    }
@@ -61,7 +59,7 @@ public class ProcessReportTempController {
         	process.setSentence(temp.getSentence());
         	process.setUsername(temp.getUsername());
         	process.setType(temp.getType());
-        	this.processReportRepository.insert(process);
+        	this.noteRepository.insert(process);
                 this.delete(temp.getId());
         }
     }*/
