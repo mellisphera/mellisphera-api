@@ -1,9 +1,10 @@
 package com.mellisphera.entities.bm;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BmData implements Serializable {
     @JsonProperty("apiaries")
     private BmApiary[] apiaries;

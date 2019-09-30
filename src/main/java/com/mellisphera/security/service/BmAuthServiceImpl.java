@@ -57,6 +57,7 @@ public class BmAuthServiceImpl implements BmAuthService {
 
 	@Override
 	public void saveBmData(BmAuth bmData, User user) {
+		System.out.println(bmData);
 		for(BmApiary bmApiary: bmData.getPayload().getApiaries()) {
 			Apiary newApiary = new Apiary();
 			newApiary.set_id(bmApiary.getApiaryId());
