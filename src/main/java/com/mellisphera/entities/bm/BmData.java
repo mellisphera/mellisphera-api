@@ -8,6 +8,12 @@ public class BmData implements Serializable {
     @JsonProperty("apiaries")
     private BmApiary[] apiaries;
 
+    @JsonProperty("user")
+    private Object user;
+
+    @JsonProperty("userId")
+    private String userId;
+
     public BmData(BmApiary[] apiaries) {
         this.apiaries = apiaries;
     }
@@ -18,5 +24,21 @@ public class BmData implements Serializable {
 
     public void setApiaries(BmApiary[] apiaries) {
         this.apiaries = apiaries;
+    }
+
+    public Object getUser() {
+        return user;
+    }
+
+    public void setUser(Object user) {
+        this.user = user;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
