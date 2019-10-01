@@ -66,7 +66,7 @@ public class BmAuthServiceImpl implements BmAuthService {
 			newApiary.set_id(bmApiary.getApiaryId());
 			newApiary.setZipCode(bmApiary.getZipCode());
 			newApiary.setName(bmApiary.getName());
-			newApiary.setIdUser(user.getId());
+			newApiary.setUserId(user.getId());
 			newApiary.setCreateDate(bmApiary.getCreateDate());
 			newApiary.setPrivateApiary(bmApiary.getPrivateApiary());
 			newApiary.setCountryCode(bmApiary.getCountryCode());

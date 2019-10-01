@@ -18,7 +18,7 @@ public class Apiary {
 	private String zipCode;
 	private Boolean privateApiary;
 	private String city;
-	private String idUser;
+	private String userId;
 	private Date createDate;
 	private String countryCode;
 	private String photo;
@@ -31,14 +31,14 @@ public class Apiary {
 		super();
 	}
 
-	public Apiary(String _id, String name, String description, String zipCode, Boolean privateApiary, String city, String idUser, Date createDate, String countryCode, String photo, Date dataLastReceived, String username, List<User> sharedWith) {
+	public Apiary(String _id, String name, String description, String zipCode, Boolean privateApiary, String city, String userId, Date createDate, String countryCode, String photo, Date dataLastReceived, String username, List<User> sharedWith) {
 		this._id = _id;
 		this.name = name;
 		this.description = description;
 		this.zipCode = zipCode;
 		this.privateApiary = privateApiary;
 		this.city = city;
-		this.idUser = idUser;
+		this.userId = userId;
 		this.createDate = createDate;
 		this.countryCode = countryCode;
 		this.photo = photo;
@@ -95,12 +95,12 @@ public class Apiary {
 		this.city = city;
 	}
 
-	public String getIdUser() {
-		return idUser;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setIdUser(String idUser) {
-		this.idUser = idUser;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public Date getCreateDate() {

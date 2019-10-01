@@ -1,5 +1,6 @@
 package com.mellisphera.controllers;
 
+import com.mellisphera.ImgTool.ImageTool;
 import org.apache.catalina.connector.Response;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,6 +20,7 @@ import com.mellisphera.repositories.ShareRepository;
 import com.mellisphera.repositories.UserRepository;
 import com.mellisphera.security.jwt.JwtAuthTokenFilter;
 import com.mellisphera.security.jwt.JwtProvider;
+import sun.misc.BASE64Decoder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -107,6 +109,9 @@ public class ApiaryController {
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
     public Apiary insert(@RequestBody Apiary apiary){
+		ImageTool imageTool = new ImageTool(apiary.getPhoto(), apiary.getUserId());
+		imageTool.convertToFile();
+		apiary.setPhoto(imageTool.getPathClient());
         return this.apiaryRepository.insert(apiary);
     }
 	@PreAuthorize("hasRole('STANDARD')")
@@ -121,8 +126,14 @@ public class ApiaryController {
     }
 
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
+    @PutMapping("/update/{id}")
     public void update(@PathVariable("id") String id, @RequestBody Apiary apiary){
+		Apiary lastApiary = this.apiaryRepository.findById(id).get();
+		if (!lastApiary.getPhoto().equals(apiary.getPhoto())) {
+			ImageTool imageTool = new ImageTool(apiary.getPhoto(), apiary.getUserId());
+			imageTool.convertToFile();
+			apiary.setPhoto(imageTool.getPathClient());
+		}
  		Apiary apiarySave = this.apiaryRepository.save(apiary);
  		List<Sensor> sensors = this.sensorRepository.findSensorByApiaryId(apiarySave.get_id());
  		if (sensors != null) {
@@ -139,7 +150,9 @@ public class ApiaryController {
     @RequestMapping(value = "/update/background/{idApiary}", method = RequestMethod.PUT)
     public void updateBackground(@PathVariable String idApiary ,@RequestBody String imgB64) {
     	Apiary apiary = this.apiaryRepository.findById(idApiary).get();
-    	apiary.setPhoto(imgB64);
+		ImageTool imageTool = new ImageTool(imgB64, apiary.getUserId());
+		imageTool.convertToFile();
+		apiary.setPhoto(imageTool.getPathClient());
     	this.apiaryRepository.save(apiary);
     }
 

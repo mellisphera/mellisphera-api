@@ -66,7 +66,6 @@ public class DailyRecordsTHController {
 		for(Hive h : hives) {
                     try{
                     	List<DailyRecordsTH> rec = this.getLastDailyRecord(h.get_id(), range);
-                    	System.err.println(rec.get(rec.size() - 1));
                     	dailyRecTh.add(rec.get(rec.size() - 1));
                     }
                     catch(ArrayIndexOutOfBoundsException e){
