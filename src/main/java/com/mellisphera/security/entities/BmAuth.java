@@ -11,7 +11,7 @@ import com.mellisphera.entities.bm.BmData;
 public class BmAuth implements Serializable {
 
 
-	/*
+    /*
 			 * {
 		"code": "200",
 		"message": "Apiary tree for username 'lorenzo.pons@free.fr'",
@@ -22,24 +22,12 @@ public class BmAuth implements Serializable {
 		"payload": [
 		  {
 	 */
-	@JsonProperty("code")
-	private String code;
-	@JsonProperty("message")
-	private String message;
-	@JsonProperty("payload")
-	private BmData payload;
-	
-	public BmAuth() {
-		
-	}
-	
-	public BmAuth(String code, String message, String outputFormat, String clientIp, String servedByNode,
-                  BmData payload) {
-		this.code = code;
-		this.message = message;
-		this.payload = payload;
-	}
-
+    @JsonProperty("code")
+    private String code;
+    @JsonProperty("message")
+    private String message;
+    @JsonProperty("payload")
+    private BmData payload;
 
     public String getCode() {
         return code;
@@ -63,14 +51,5 @@ public class BmAuth implements Serializable {
 
     public void setPayload(BmData payload) {
         this.payload = payload;
-    }
-
-    @Override
-    public String toString() {
-        return "BmAuth{" +
-                "code='" + code + '\'' +
-                ", message='" + message + '\'' +
-                ", payload=" + payload +
-                '}';
     }
 }

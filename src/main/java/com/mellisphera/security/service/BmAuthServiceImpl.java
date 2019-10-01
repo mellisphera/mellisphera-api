@@ -22,6 +22,9 @@ import com.mellisphera.entities.bm.BmHive;
 import com.mellisphera.entities.bm.BmSensor;
 import com.mellisphera.security.entities.BmAuth;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 @Service
 public class BmAuthServiceImpl implements BmAuthService {
 	
@@ -78,9 +81,9 @@ public class BmAuthServiceImpl implements BmAuthService {
 				newHive.setHivePosX(0);
 				newHive.setApiaryId(bmApiary.getApiaryId());
 				newHive.setUserId(user.getId());
-				newHive.setCreateDate(bmHive.getCreateDate());
+				newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
 				newHive.setHidden(bmHive.getHidden());
-				newHive.setDataLastReceived(bmHive.getDataLastReceived());
+				newHive.setDataLastReceived(this.convertTimestampToDate(bmHive.getDataLastReceived()));
 				newHive.setName(bmHive.getName());
 				newHive.setUsername(user.getUsername());
 				newHive.setName(bmHive.getName());
@@ -88,50 +91,59 @@ public class BmAuthServiceImpl implements BmAuthService {
 				if (bmHive.getDevices() != null) {
 					for(BmSensor bmSensor : bmHive.getDevices()) {
 						Sensor sensor = new Sensor();
-						System.out.println(bmSensor.getDevice());
-						System.out.println(bmSensor.getDevice().getModel());
 						sensor.set_id(bmSensor.getDevice().getDeviceId());
 						sensor.setHiveId(bmHive.getHiveId());
-						sensor.setCreateDate(bmSensor.getDevice().getCreateDate());
-						sensor.setDataLastReceived(bmSensor.getDevice().getDataLastReceived());
+						sensor.setCreateDate(this.convertTimestampToDate(bmSensor.getDevice().getCreateDate()));
+						sensor.setDataLastReceived(this.convertTimestampToDate(bmSensor.getDevice().getDataLastReceived()));
 						sensor.setSensorRef(bmSensor.getDevice().getDeviceAddress());
 						sensor.setModel(bmSensor.getDevice().getModel());
 						sensor.setHiveName(bmHive.getName());
 						sensor.setApiaryId(bmApiary.getApiaryId());
 						sensor.setHivePositionId(bmSensor.getHivePositionId());
-						sensor.setStart(bmSensor.getStart());
+						sensor.setStart(this.convertTimestampToDate(bmSensor.getStart()));
 						sensor.setType(this.getTypeByRef(bmSensor.getDevice().getDeviceAddress()));
 						this.sensorRepository.insert(sensor);
 					}
 				}
+			if (bmHive.getNotes() != null) {
 				for (BmNote bmNote: bmHive.getNotes()) {
 					Note hiveNote = new Note(bmNote.getNoteId(),
-							bmNote.getCreateDate(),
+							this.convertTimestampToDate(bmNote.getCreateDate()),
 							bmNote.getType(),
 							bmNote.getTags(),
 							bmNote.getDescription(),
 							bmNote.getHiveId(),
 							bmNote.getApiaryId(),
-							bmNote.getOpsDate(),
+							this.convertTimestampToDate(bmNote.getOpsDate()),
 							bmApiary.getUserId());
 					this.noteRepository.insert(hiveNote);
 				}
 			}
-			for (BmNote bmNote: bmApiary.getNotes()) {
-				Note hiveNote = new Note(bmNote.getNoteId(),
-						bmNote.getCreateDate(),
-						bmNote.getType(),
-						bmNote.getTags(),
-						bmNote.getDescription(),
-						bmNote.getHiveId(),
-						bmNote.getApiaryId(),
-						bmNote.getOpsDate(),
-						bmApiary.getUserId());
-				this.noteRepository.insert(hiveNote);
+			}
+			if (bmApiary.getNotes() != null) {
+				for (BmNote bmNote: bmApiary.getNotes()) {
+					Note hiveNote = new Note(bmNote.getNoteId(),
+							this.convertTimestampToDate(bmNote.getCreateDate()),
+							bmNote.getType(),
+							bmNote.getTags(),
+							bmNote.getDescription(),
+							bmNote.getHiveId(),
+							bmNote.getApiaryId(),
+							this.convertTimestampToDate(bmNote.getOpsDate()),
+							bmApiary.getUserId());
+					this.noteRepository.insert(hiveNote);
+				}
 			}
 		}
 	}
-	
+
+	@Override
+	public Date convertTimestampToDate(int time){
+		Timestamp timestamp = new Timestamp(time);
+		return new Date(timestamp.getTime());
+	}
+
+
 	private String getTypeByRef(String ref) {
 		String prefix = ref.split(":")[0];
 		if (prefix.equals("41")) {

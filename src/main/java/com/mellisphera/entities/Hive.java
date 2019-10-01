@@ -17,7 +17,7 @@ public class Hive {
 		private String apiaryId;
 		private String userId;
 		private Boolean hidden;
-		private Timestamp dataLastReceived;
+		private Date dataLastReceived;
 		private Date createDate;
 		private float hivePosX;
 		private float hivePosY;
@@ -82,11 +82,11 @@ public class Hive {
 		this.hidden = hidden;
 	}
 
-	public Timestamp getDataLastReceived() {
+	public Date getDataLastReceived() {
 		return dataLastReceived;
 	}
 
-	public void setDataLastReceived(Timestamp dataLastReceived) {
+	public void setDataLastReceived(Date dataLastReceived) {
 		this.dataLastReceived = dataLastReceived;
 	}
 

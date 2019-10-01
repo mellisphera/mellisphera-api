@@ -2,8 +2,8 @@ package com.mellisphera.entities.bm;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 
 public class BmNote {
 
@@ -18,13 +18,14 @@ public class BmNote {
     @JsonProperty("apiaryId")
     private String apiaryId;
     @JsonProperty("opsDate")
-    private Timestamp opsDate;
+    private int opsDate;
     @JsonProperty("type ")
     private String type;
     @JsonProperty("createDate")
-    private Timestamp createDate;
+    private int createDate;
 
-    public BmNote(String noteId, String description, String[] tags, String hiveId, String apiaryId, Timestamp opsDate, String type, Timestamp createDate) {
+    public BmNote()  {}
+    public BmNote(String noteId, String description, String[] tags, String hiveId, String apiaryId, int opsDate, String type, int createDate) {
         this.noteId = noteId;
         this.description = description;
         this.tags = tags;
@@ -75,11 +76,11 @@ public class BmNote {
         this.apiaryId = apiaryId;
     }
 
-    public Timestamp getOpsDate() {
+    public int getOpsDate() {
         return opsDate;
     }
 
-    public void setOpsDate(Timestamp opsDate) {
+    public void setOpsDate(int opsDate) {
         this.opsDate = opsDate;
     }
 
@@ -91,11 +92,11 @@ public class BmNote {
         this.type = type;
     }
 
-    public Timestamp getCreateDate() {
+    public int getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(int createDate) {
         this.createDate = createDate;
     }
 

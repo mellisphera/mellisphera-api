@@ -1,8 +1,8 @@
 package com.mellisphera.entities.bm;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +13,7 @@ public class BmApiary implements Serializable{
 	@JsonProperty("apiaryId")
 	private String apiaryId;
 	@JsonProperty("createDate")
-	private Timestamp createDate;
+	private Date createDate;
 	@JsonProperty("name")
 	private String name;
 	@JsonProperty("userId")
@@ -27,7 +27,7 @@ public class BmApiary implements Serializable{
 	@JsonProperty("hidden")
 	private Boolean hidden;
 	@JsonProperty("dataLastReceived")
-	private Timestamp dataLastReceived;
+	private Date dataLastReceived;
 	@JsonProperty("hives")
 	private BmHive[] hives;
 	@JsonProperty("notes")
@@ -37,7 +37,7 @@ public class BmApiary implements Serializable{
 		
 	}
 
-	public BmApiary(String apiaryId, String userId, Timestamp createDate, String name, String zipCode, String countryCode, Boolean privateApiary, Boolean hidden, Timestamp dataLastReceived, BmHive[] hives, BmNote[] notes) {
+	public BmApiary(String apiaryId, String userId, Date createDate, String name, String zipCode, String countryCode, Boolean privateApiary, Boolean hidden, Date dataLastReceived, BmHive[] hives, BmNote[] notes) {
 		this.apiaryId = apiaryId;
 		this.createDate = createDate;
 		this.name = name;
@@ -59,11 +59,11 @@ public class BmApiary implements Serializable{
 		this.apiaryId = apiaryId;
 	}
 
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
@@ -115,11 +115,11 @@ public class BmApiary implements Serializable{
 		this.hidden = hidden;
 	}
 
-	public Timestamp getDataLastReceived() {
+	public Date getDataLastReceived() {
 		return dataLastReceived;
 	}
 
-	public void setDataLastReceived(Timestamp dataLastReceived) {
+	public void setDataLastReceived(Date dataLastReceived) {
 		this.dataLastReceived = dataLastReceived;
 	}
 

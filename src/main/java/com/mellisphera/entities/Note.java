@@ -1,7 +1,6 @@
 package com.mellisphera.entities;
 
 import java.sql.Array;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -13,13 +12,13 @@ public class Note {
 
 	@Id
 	private String _id;
-	private Timestamp createDate;
+	private Date createDate;
 	private String type;
 	private String[] tags;
 	private String description;
 	private String hiveId;
 	private String apiaryId;
-	private Timestamp opsDate;
+	private Date opsDate;
 	private String idUsername;
 
 
@@ -29,13 +28,13 @@ public class Note {
 
 
 	public Note(String _id,
-				Timestamp createDate,
+				Date createDate,
 				String type,
 				String[] tags,
 				String description,
 				String hiveId,
 				String apiaryId,
-				Timestamp opsDate,
+				Date opsDate,
 				String idUsername
 		) {
 		this._id = _id;
@@ -69,7 +68,7 @@ public class Note {
 		return createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
@@ -113,11 +112,11 @@ public class Note {
 		this.apiaryId = apiaryId;
 	}
 
-	public Timestamp getOpsDate() {
+	public Date getOpsDate() {
 		return opsDate;
 	}
 
-	public void setOpsDate(Timestamp opsDate) {
+	public void setOpsDate(Date opsDate) {
 		this.opsDate = opsDate;
 	}
 }

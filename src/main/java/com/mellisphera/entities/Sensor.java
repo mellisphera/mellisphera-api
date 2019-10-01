@@ -2,7 +2,6 @@ package com.mellisphera.entities;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -19,11 +18,11 @@ public class Sensor {
 	private String apiaryId;
 	private String hiveName;
 	private Date sensorTime;
-	private Timestamp createDate;
-	private Timestamp dataLastReceived;
+	private Date createDate;
+	private Date dataLastReceived;
 	private String username;
 	private String hivePositionId;
-	private Timestamp start;
+	private Date start;
 	private float sensorBat;
 
 	/*  "device": {
@@ -42,7 +41,7 @@ public class Sensor {
 		super();
 	}
 
-	public Sensor(String _id, String sensorRef, String model, String name, String type, String hiveId, String apiaryId, String hiveName, Date sensorTime, Timestamp createDate, Timestamp dataLastReceived, String username, String hivePositionId, Timestamp start, float sensorBat) {
+	public Sensor(String _id, String sensorRef, String model, String name, String type, String hiveId, String apiaryId, String hiveName, Date sensorTime, Date createDate, Date dataLastReceived, String username, String hivePositionId, Date start, float sensorBat) {
 		this._id = _id;
 		this.sensorRef = sensorRef;
 		this.model = model;
@@ -128,19 +127,19 @@ public class Sensor {
 		this.sensorTime = sensorTime;
 	}
 
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
-	public Timestamp getDataLastReceived() {
+	public Date getDataLastReceived() {
 		return dataLastReceived;
 	}
 
-	public void setDataLastReceived(Timestamp dataLastReceived) {
+	public void setDataLastReceived(Date dataLastReceived) {
 		this.dataLastReceived = dataLastReceived;
 	}
 
@@ -168,11 +167,11 @@ public class Sensor {
 		this.hivePositionId = hivePositionId;
 	}
 
-	public Timestamp getStart() {
+	public Date getStart() {
 		return start;
 	}
 
-	public void setStart(Timestamp start) {
+	public void setStart(Date start) {
 		this.start = start;
 	}
 

@@ -1,7 +1,6 @@
 package com.mellisphera.entities;
 
 import java.io.File;
-import java.sql.Timestamp;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -20,10 +19,10 @@ public class Apiary {
 	private Boolean privateApiary;
 	private String city;
 	private String idUser;
-	private Timestamp createDate;
+	private Date createDate;
 	private String countryCode;
 	private String photo;
-	private Timestamp dataLastReceived;
+	private Date dataLastReceived;
 	private String username; 
 	private List<User> sharedWith;
 	
@@ -32,7 +31,7 @@ public class Apiary {
 		super();
 	}
 
-	public Apiary(String _id, String name, String description, String zipCode, Boolean privateApiary, String city, String idUser, Timestamp createDate, String countryCode, String photo, Timestamp dataLastReceived, String username, List<User> sharedWith) {
+	public Apiary(String _id, String name, String description, String zipCode, Boolean privateApiary, String city, String idUser, Date createDate, String countryCode, String photo, Date dataLastReceived, String username, List<User> sharedWith) {
 		this._id = _id;
 		this.name = name;
 		this.description = description;
@@ -104,11 +103,11 @@ public class Apiary {
 		this.idUser = idUser;
 	}
 
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
@@ -128,11 +127,11 @@ public class Apiary {
 		this.photo = photo;
 	}
 
-	public Timestamp getDataLastReceived() {
+	public Date getDataLastReceived() {
 		return dataLastReceived;
 	}
 
-	public void setDataLastReceived(Timestamp dataLastReceived) {
+	public void setDataLastReceived(Date dataLastReceived) {
 		this.dataLastReceived = dataLastReceived;
 	}
 

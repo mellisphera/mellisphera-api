@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BmData implements Serializable {
+
     @JsonProperty("apiaries")
     private BmApiary[] apiaries;
 
@@ -16,6 +17,8 @@ public class BmData implements Serializable {
         this.apiaries = apiaries;
     }
 
+    public BmData() {}
+
     public BmApiary[] getApiaries() {
         return apiaries;
     }
@@ -23,7 +26,7 @@ public class BmData implements Serializable {
     public void setApiaries(BmApiary[] apiaries) {
         this.apiaries = apiaries;
     }
-    
+
     public String getUserId() {
         return userId;
     }

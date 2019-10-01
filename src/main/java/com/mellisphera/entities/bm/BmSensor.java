@@ -2,7 +2,6 @@ package com.mellisphera.entities.bm;
 
 import java.io.Serializable;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,9 +13,9 @@ public class BmSensor implements Serializable{
 	@JsonProperty("hivePositionId")
 	private String hivePositionId;
 	@JsonProperty("start")
-	private Timestamp start;
+	private int start;
 
-	public BmSensor(BmDevice device, String hivePositionId, Timestamp start) {
+	public BmSensor(BmDevice device, String hivePositionId, int start) {
 		this.device = device;
 		this.hivePositionId = hivePositionId;
 		this.start = start;
@@ -39,11 +38,11 @@ public class BmSensor implements Serializable{
 		this.hivePositionId = hivePositionId;
 	}
 
-	public Timestamp getStart() {
+	public int getStart() {
 		return start;
 	}
 
-	public void setStart(Timestamp start) {
+	public void setStart(int start) {
 		this.start = start;
 	}
 
@@ -53,9 +52,9 @@ public class BmSensor implements Serializable{
 		@JsonProperty("deviceId")
 		private String deviceId;
 		@JsonProperty("createDate")
-		private Timestamp createDate;
+		private int createDate;
 		@JsonProperty("dataLastReceived")
-		private Timestamp dataLastReceived;
+		private int dataLastReceived;
 		@JsonProperty("name")
 		private String name;
 		@JsonProperty("deviceAddress")
@@ -80,19 +79,19 @@ public class BmSensor implements Serializable{
 			this.deviceId = deviceId;
 		}
 
-		public Timestamp getCreateDate() {
+		public int getCreateDate() {
 			return createDate;
 		}
 
-		public void setCreateDate(Timestamp createDate) {
+		public void setCreateDate(int createDate) {
 			this.createDate = createDate;
 		}
 
-		public Timestamp getDataLastReceived() {
+		public int getDataLastReceived() {
 			return dataLastReceived;
 		}
 
-		public void setDataLastReceived(Timestamp dataLastReceived) {
+		public void setDataLastReceived(int dataLastReceived) {
 			this.dataLastReceived = dataLastReceived;
 		}
 
