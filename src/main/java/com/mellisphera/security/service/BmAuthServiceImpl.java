@@ -37,6 +37,8 @@ public class BmAuthServiceImpl implements BmAuthService {
     
     private HttpEntity<MultiValueMap<String, String>> requestEntity;
     private HttpHeaders header;
+
+    private String userId;
     
     @Autowired private ApiaryRepository apiaryRepository;
     @Autowired private HivesRepository hiveRepository;
@@ -59,35 +61,36 @@ public class BmAuthServiceImpl implements BmAuthService {
 	}
 
 	@Override
-	public void saveBmData(BmAuth bmData, User user) {
+	public void saveBmData(BmAuth bmData, String username) {
 		System.out.println(bmData);
+		this.userId = bmData.getPayload().getApiaries()[0].getUserId();
 		for(BmApiary bmApiary: bmData.getPayload().getApiaries()) {
 			Apiary newApiary = new Apiary();
 			newApiary.set_id(bmApiary.getApiaryId());
 			newApiary.setZipCode(bmApiary.getZipCode());
 			newApiary.setName(bmApiary.getName());
-			newApiary.setUserId(user.getId());
+			newApiary.setUserId(bmApiary.getUserId());
 			newApiary.setCreateDate(bmApiary.getCreateDate());
 			newApiary.setPrivateApiary(bmApiary.getPrivateApiary());
 			newApiary.setCountryCode(bmApiary.getCountryCode());
-			newApiary.setUsername(user.getUsername());
+			newApiary.setUsername(username);
 			newApiary.setPhoto("./assets/imageClient/testAccount.png");
 			System.out.println(bmApiary	);
-			this.apiaryRepository.insert(newApiary).get_id();
+			this.apiaryRepository.insert(newApiary);
 			for(BmHive bmHive: bmApiary.getHives()) {
 				Hive newHive = new Hive();
 				newHive.set_id(bmHive.getHiveId());
 				newHive.setHivePosY(0);
 				newHive.setHivePosX(0);
 				newHive.setApiaryId(bmApiary.getApiaryId());
-				newHive.setUserId(user.getId());
+				newHive.setUserId(bmApiary.getUserId());
 				newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
 				newHive.setHidden(bmHive.getHidden());
 				newHive.setDataLastReceived(this.convertTimestampToDate(bmHive.getDataLastReceived()));
 				newHive.setName(bmHive.getName());
-				newHive.setUsername(user.getUsername());
+				newHive.setUsername(username);
 				newHive.setName(bmHive.getName());
-				this.hiveRepository.insert(newHive).get_id();
+				this.hiveRepository.insert(newHive);
 				if (bmHive.getDevices() != null) {
 					for(BmSensor bmSensor : bmHive.getDevices()) {
 						Sensor sensor = new Sensor();
@@ -97,6 +100,8 @@ public class BmAuthServiceImpl implements BmAuthService {
 						sensor.setDataLastReceived(this.convertTimestampToDate(bmSensor.getDevice().getDataLastReceived()));
 						sensor.setSensorRef(bmSensor.getDevice().getDeviceAddress());
 						sensor.setModel(bmSensor.getDevice().getModel());
+						sensor.setName(bmSensor.getDevice().getName());
+						sensor.setUserId(bmApiary.getUserId());
 						sensor.setHiveName(bmHive.getName());
 						sensor.setApiaryId(bmApiary.getApiaryId());
 						sensor.setHivePositionId(bmSensor.getHivePositionId());
@@ -137,6 +142,10 @@ public class BmAuthServiceImpl implements BmAuthService {
 		}
 	}
 
+
+	public String getUserId() {
+		return this.userId;
+	}
 	@Override
 	public Date convertTimestampToDate(int time){
 		Timestamp timestamp = new Timestamp(time);

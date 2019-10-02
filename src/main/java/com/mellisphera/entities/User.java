@@ -15,7 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 @Document(collection = "User")
 public class User {
 	@Id
-	private String id;
+	private String _id;
 	private Date createdAt;
 	//private Login login;
 	private String username;
@@ -43,7 +43,7 @@ public class User {
 	public User(String id, Date createdAt, String username, String password, String phone, String email, long connexions,
 			Date lastConnection, String fullName, String position, String city, String country, UserPref userPref, String idUsername) {
 		super();
-		this.id = id;
+		this._id = id;
 		this.createdAt = createdAt;
 		//this.login = login;
 		this.username = username;
@@ -59,18 +59,18 @@ public class User {
 
 	}
 	
-	public User( Date createdAt, String username, String password, String email, Set<String> roles) {
+	public User(String _id,  Date createdAt, String username, String password, String email, Set<String> roles) {
 		super();
 		this.createdAt = createdAt;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.roles = roles;
-
+		this._id = _id;
 	}
 	public User(Boolean fail) {
 		super();
-		this.id = null;
+		this._id = null;
 		this.createdAt = null;
 		//this.login = null;
 		this.username = null;
@@ -124,11 +124,11 @@ public class User {
 	}
 
 	public String getId() {
-		return id;
+		return _id;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this._id = id;
 	}
 
 	public Date getCreatedAt() {
@@ -198,12 +198,22 @@ public class User {
 		return this.lastConnection;
 	}
 
-	
-
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", createdAt=" + createdAt + ", username=" + username + ", password="
-				+ password + ", phone=" + phone + ", email=" + email + ", connexions=" + connexions + "]";
+		return "User{" +
+				"id='" + _id + '\'' +
+				", createdAt=" + createdAt +
+				", username='" + username + '\'' +
+				", idUsername='" + idUsername + '\'' +
+				", password='" + password + '\'' +
+				", phone='" + phone + '\'' +
+				", email='" + email + '\'' +
+				", connexions=" + connexions +
+				", lastConnection=" + lastConnection +
+				", country='" + country + '\'' +
+				", city='" + city + '\'' +
+				", userPref=" + userPref +
+				", roles=" + roles +
+				'}';
 	}
-
 }

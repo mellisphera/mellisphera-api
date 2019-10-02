@@ -12,7 +12,7 @@ import com.mellisphera.entities.Sensor;
 @Repository
 public interface SensorRepository extends MongoRepository<Sensor,String>{
 
-	List<Sensor> findSensorByUsername(String username);
+	List<Sensor> findSensorByUserId(String userId);
 	List<Sensor> findSensorByHiveId(String hiveId);
 	List<Sensor> findSensorByApiaryId(String apiaryId);
 	Sensor findSensorsBySensorRef(String sensorRef);

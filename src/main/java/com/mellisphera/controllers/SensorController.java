@@ -89,10 +89,10 @@ public class SensorController {
 	public Sensor checkSensor(@PathVariable String reference) {
 		return this.sensorRepository.findSensorsBySensorRef(reference);
 	}
-	@RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
-	public List<Sensor> getUserSensors(@PathVariable String username){
+	@RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces={"application/json"})
+	public List<Sensor> getUserSensors(@PathVariable String userId){
 		// liste les capteurs pour un user
-		return this.sensorRepository.findSensorByUsername(username);
+		return this.sensorRepository.findSensorByUserId(userId);
 	}
 	
 	private Boolean checkIfHiveHaveSensor(Hive hive) {

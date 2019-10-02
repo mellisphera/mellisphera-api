@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import com.mellisphera.entities.log.LogEvents;
 import com.mellisphera.entities.log.LogType;
 import com.mellisphera.repositories.LogRepoitory;
+import com.mellisphera.security.service.SignupService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -68,10 +69,6 @@ import com.mellisphera.sharing.SharingService;
 public class AuthRestApiController {
 	public static Log log = LogFactory.getLog(AuthRestApiController.class);
 	//
-	private static final String DATE_FR = "D/M/Y h:m";
-	private static final String DATE_EN = "Y-M-D h:m";
-	private static final String METRIC = "METRIC";
-	private static final String IMPERIAL = "IMPERIAL";
 	public static final String[] SET_INITIAL_ROLE = new String[] { "ROLE_STANDARD" };
 
 	@Autowired
@@ -91,6 +88,7 @@ public class AuthRestApiController {
 	@Autowired
 	PasswordEncoder encoder;
 
+	@Autowired private SignupService signupService;
 	@Autowired
 	JwtProvider jwtProvider;
 
@@ -119,8 +117,6 @@ public class AuthRestApiController {
 					new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			user = this.userRepository.findUserByEmail(loginRequest.getEmail());
-
-			//
 		}
 		catch(AuthenticationException e) {
 			e.printStackTrace();
@@ -128,31 +124,35 @@ public class AuthRestApiController {
 			if (!bmAuth.getCode().equals("200")) {
 				throw new UsernameNotFoundException("Login incorrecte");
 			} else {
-				this.registerUser(new SignUpForm(loginRequest.getEmail().split("@")[0], loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), request, true);
-				user = this.userRepository.findUserByEmail(loginRequest.getEmail());
-				this.bmAuthService.saveBmData(bmAuth, user);
+				String username = loginRequest.getEmail().split("@")[0];
+
+				this.bmAuthService.saveBmData(bmAuth, username);
+				this.signupService.setUserId(this.bmAuthService.getUserId());
+				user = this.signupService.newUser(new SignUpForm(username, loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), true);
+				// this.registerUser(new SignUpForm(username, loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), request, true);
+
 				LogEvents logEventsBmAuth = new LogEvents(null, new Date(), user.getId(), loginRequest.getEmail(), LogType.INSCRIPTION_BM, bmAuth);
 				this.logRepoitory.insert(logEventsBmAuth);
 				authentication = authenticationManager.authenticate(
 						new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
-				//
 			}
 
 		}
 		jwt = jwtProvider.generateJwtToken(authentication);
 		apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
-		System.err.println(user);
+		System.err.println("AFTER");
 		String ipAddress = request.getRemoteAddr();
-			GeoIp geoIp = geoipService.getGeoIp(ipAddress);
+		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		Calendar calendar = new GregorianCalendar();
 		user.incrementConnexions();
 		Date date = new Date();
 		user.setLastConnection(date);
+		System.out.println(user);
 		this.userRepository.save(user);
 		if(ipAddress != "127.0.0.1" || ipAddress != "0:0:0:0:0:0:0:1") {
 			Connection connection = new Connection(date, user.getId(), user.getUsername(), geoIp);
-			System.err.println(this.connectionRepository.insert(connection));
+			this.connectionRepository.insert(connection);
 		} else {
 			geoIp = geoipService.getGeoIp("83.173.67.13");
 		}
@@ -169,9 +169,7 @@ public class AuthRestApiController {
 		log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :"+signUpRequest.getPassword()+" email:" + signUpRequest.getEmail());
 		//
 		//Login credential = new Login(signUpRequest.getUsername(),encoder.encode(signUpRequest.getPassword()));
-		String credential = encoder.encode(signUpRequest.getPassword());
 		//
-		log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :" + credential);
 		//Search if user already exit
 		System.err.println(signUpRequest.getEmail());
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -184,19 +182,22 @@ public class AuthRestApiController {
 					HttpStatus.BAD_REQUEST);
 		}
 		/** **/
+
+		this.signupService.setUserId(null);
+		User user = this.signupService.newUser(signUpRequest, false);
+		user.incrementConnexions();
+		Date date = new Date();
+		user.setLastConnection(date);
+		this.userRepository.save(user);
 		//public User(String id, Date createdAt, Login login, String phone, String email, long connexions,Date lastConnection, String fullName, String position, String city, int levelUser, String country)
 		//                    String id, Date createdAt, String username, String password, String phone, String email, long connexions,Date lastConnection, String fullName, String position, String city, int levelUser, String country
 		// Creating user's account
-		User user = new User(GregorianCalendar.getInstance().getTime(),signUpRequest.getUsername(), credential,signUpRequest.getEmail(),new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)));
-		//search country by ip
+/*		User user = new User(GregorianCalendar.getInstance().getTime(),signUpRequest.getUsername(), credential,signUpRequest.getEmail(),new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)));
 		String ipAddress = ((WebAuthenticationDetails)SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
-		//String ipAddress = request.getRemoteAddr();
 		if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1"))
 			ipAddress="87.100.21.93";
 		log.debug(" remote ip :"+ ipAddress);
-		//
 		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
-		//
 		user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL));
 		user.setCity(geoIp.getCity());
 		// save user
@@ -206,7 +207,7 @@ public class AuthRestApiController {
 		if (bmSignup == null) {
 			logEventsBmAuth = new LogEvents(null, new Date(), newUser.getId(), signUpRequest.getEmail(), LogType.INSCRIPTION, null);
 			this.logRepoitory.insert(logEventsBmAuth);
-		}
+		}*/
 	/*	try {
 			this.sharingService.addDemoApiaryNewUser(newUser.getId());
 		} catch (ApiaryDemoNotFoundException e) {
