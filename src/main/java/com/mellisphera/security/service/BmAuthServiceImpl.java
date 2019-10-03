@@ -103,9 +103,9 @@ public class BmAuthServiceImpl implements BmAuthService {
 						sensor.setName(bmSensor.getDevice().getName());
 						sensor.setUserId(bmApiary.getUserId());
 						sensor.setHiveName(bmHive.getName());
-						sensor.setApiaryId(bmApiary.getApiaryId());
 						sensor.setHivePositionId(bmSensor.getHivePositionId());
 						sensor.setStart(this.convertTimestampToDate(bmSensor.getStart()));
+						sensor.setApiaryId(bmApiary.getApiaryId());
 						sensor.setType(this.getTypeByRef(bmSensor.getDevice().getDeviceAddress()));
 						this.sensorRepository.insert(sensor);
 					}

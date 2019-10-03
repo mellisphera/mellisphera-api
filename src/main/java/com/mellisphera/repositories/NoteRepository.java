@@ -19,6 +19,6 @@ public interface NoteRepository extends MongoRepository<Note,String> {
 	List<Note> findNoteByHiveId(String hiveId);
 
 	List<Note> findByApiaryIdAndOpsDateBetween(String apiaryId, Timestamp start, Timestamp end);
-	List<Note> findByIdUsername(String idUsername);
+	List<Note> findByUserId(String userId);
 	List<Note> findByHiveIdAndOpsDateBetween(String hiveId, Timestamp start, Timestamp end);
 }

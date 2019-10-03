@@ -46,9 +46,9 @@ public class NoteController {
         return reports;
     }
     
-    @GetMapping("/user/{idUsername}")
-    public List<Note> getReportsByUser(@PathVariable String idUsername) {
-    	return this.noteRepository.findByIdUsername(idUsername);
+    @GetMapping("/user/{userId}")
+    public List<Note> getReportsByUser(@PathVariable String userId) {
+    	return this.noteRepository.findByUserId(userId);
     }
     
     @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.POST, produces={"application/json"})

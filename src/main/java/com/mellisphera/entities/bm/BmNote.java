@@ -19,7 +19,7 @@ public class BmNote {
     private String apiaryId;
     @JsonProperty("opsDate")
     private int opsDate;
-    @JsonProperty("type ")
+    @JsonProperty("type")
     private String type;
     @JsonProperty("createDate")
     private int createDate;

@@ -19,7 +19,7 @@ public class Note {
 	private String hiveId;
 	private String apiaryId;
 	private Date opsDate;
-	private String idUsername;
+	private String userId;
 
 
 	public Note() {
@@ -35,13 +35,13 @@ public class Note {
 				String hiveId,
 				String apiaryId,
 				Date opsDate,
-				String idUsername
+				String userId
 		) {
 		this._id = _id;
 		this.createDate = createDate;
 		this.type = type;
 		this.tags = tags;
-		this.idUsername = idUsername;
+		this.userId = userId;
 		this.description = description;
 		this.hiveId = hiveId;
 		this.apiaryId = apiaryId;
@@ -52,12 +52,12 @@ public class Note {
 		return _id;
 	}
 
-	public String getIdUsername() {
-		return idUsername;
+	public String getuserId() {
+		return userId;
 	}
 
-	public void setIdUsername(String idUsername) {
-		this.idUsername = idUsername;
+	public void setuserId(String userId) {
+		this.userId = userId;
 	}
 
 	public void set_id(String _id) {
