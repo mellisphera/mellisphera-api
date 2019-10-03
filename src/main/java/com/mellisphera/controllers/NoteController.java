@@ -52,7 +52,7 @@ public class NoteController {
     }
     
     @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.POST, produces={"application/json"})
-    public List<Note> getReportsHive(@PathVariable("idHive") String idHive, @RequestBody Timestamp[] range){
+    public List<Note> getReportsHive(@PathVariable("idHive") String idHive, @RequestBody Date[] range){
         List<Note> reportsL = this.noteRepository.findByHiveIdAndOpsDateBetween(idHive, range[0], range[1]);
         return reportsL;
     }

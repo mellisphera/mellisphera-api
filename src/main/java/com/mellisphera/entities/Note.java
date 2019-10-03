@@ -20,6 +20,7 @@ public class Note {
 	private String apiaryId;
 	private Date opsDate;
 	private String userId;
+	private String typeInspect;
 
 
 	public Note() {
@@ -34,6 +35,7 @@ public class Note {
 				String description,
 				String hiveId,
 				String apiaryId,
+				String typeInspect,
 				Date opsDate,
 				String userId
 		) {
@@ -43,6 +45,7 @@ public class Note {
 		this.tags = tags;
 		this.userId = userId;
 		this.description = description;
+		this.typeInspect = typeInspect;
 		this.hiveId = hiveId;
 		this.apiaryId = apiaryId;
 		this.opsDate = opsDate;
@@ -50,14 +53,6 @@ public class Note {
 
 	public String get_id() {
 		return _id;
-	}
-
-	public String getuserId() {
-		return userId;
-	}
-
-	public void setuserId(String userId) {
-		this.userId = userId;
 	}
 
 	public void set_id(String _id) {
@@ -118,5 +113,21 @@ public class Note {
 
 	public void setOpsDate(Date opsDate) {
 		this.opsDate = opsDate;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getTypeInspect() {
+		return typeInspect;
+	}
+
+	public void setTypeInspect(String typeInspect) {
+		this.typeInspect = typeInspect;
 	}
 }
