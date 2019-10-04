@@ -1,5 +1,6 @@
 package com.mellisphera.ImgTool;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -13,6 +14,8 @@ import java.util.Date;
 public class ImageTool {
 
     private static final String CLIENT_PATH = "./assets/client/";
+    @Value("${mellisphera.app.img.pathServer}")
+    private static String server_path;
     private String[] base64;
     private String extension;
     private String userId;
@@ -45,7 +48,7 @@ public class ImageTool {
     public void convertToFile() {
         byte[] data = DatatypeConverter.parseBase64Binary(this.base64[1]);
         this.fileName = this.userId + "-" + new Date().getTime() + "." + this.extension;
-        this.pathFile = "/home/mickael/IMG/" + this.fileName;
+        this.pathFile = server_path + this.fileName;
         File file = new File(this.pathFile);
         try{
             BufferedImage bufferedImg = ImageIO.read(new ByteArrayInputStream(data));
