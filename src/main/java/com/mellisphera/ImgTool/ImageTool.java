@@ -15,7 +15,7 @@ public class ImageTool {
 
     private static final String CLIENT_PATH = "./assets/client/";
     @Value("${mellisphera.app.img.pathServer}")
-    private static String server_path;
+    private String server_path;
     private String[] base64;
     private String extension;
     private String userId;

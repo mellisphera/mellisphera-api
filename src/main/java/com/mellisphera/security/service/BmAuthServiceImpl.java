@@ -119,7 +119,7 @@ public class BmAuthServiceImpl implements BmAuthService {
 							bmNote.getDescription(),
 							bmNote.getHiveId(),
 							bmNote.getApiaryId(),
-							"HiveObs",
+							this.checkObsHiveOrApiary(bmNote),
 							this.convertTimestampToDate(bmNote.getOpsDate()),
 							bmApiary.getUserId());
 					this.noteRepository.insert(hiveNote);
@@ -135,12 +135,20 @@ public class BmAuthServiceImpl implements BmAuthService {
 							bmNote.getDescription(),
 							bmNote.getHiveId(),
 							bmNote.getApiaryId(),
-							"HiveObs",
+							this.checkObsHiveOrApiary(bmNote),
 							this.convertTimestampToDate(bmNote.getOpsDate()),
 							bmApiary.getUserId());
 					this.noteRepository.insert(hiveNote);
 				}
 			}
+		}
+	}
+
+	public String checkObsHiveOrApiary(BmNote note) {
+		if (note.getHiveId() != null) {
+			return "HiveObs";
+		} else {
+			return "ApiaryObs";
 		}
 	}
 
