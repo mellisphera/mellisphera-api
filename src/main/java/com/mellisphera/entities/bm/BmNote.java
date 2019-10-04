@@ -18,14 +18,14 @@ public class BmNote {
     @JsonProperty("apiaryId")
     private String apiaryId;
     @JsonProperty("opsDate")
-    private int opsDate;
+    private long opsDate;
     @JsonProperty("type")
     private String type;
     @JsonProperty("createDate")
-    private int createDate;
+    private long createDate;
 
     public BmNote()  {}
-    public BmNote(String noteId, String description, String[] tags, String hiveId, String apiaryId, int opsDate, String type, int createDate) {
+    public BmNote(String noteId, String description, String[] tags, String hiveId, String apiaryId, long opsDate, String type, long createDate) {
         this.noteId = noteId;
         this.description = description;
         this.tags = tags;
@@ -76,7 +76,7 @@ public class BmNote {
         this.apiaryId = apiaryId;
     }
 
-    public int getOpsDate() {
+    public long getOpsDate() {
         return opsDate;
     }
 
@@ -92,7 +92,7 @@ public class BmNote {
         this.type = type;
     }
 
-    public int getCreateDate() {
+    public long getCreateDate() {
         return createDate;
     }
 

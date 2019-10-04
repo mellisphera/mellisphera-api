@@ -13,7 +13,7 @@ public class BmApiary implements Serializable{
 	@JsonProperty("apiaryId")
 	private String apiaryId;
 	@JsonProperty("createDate")
-	private Date createDate;
+	private long createDate;
 	@JsonProperty("name")
 	private String name;
 	@JsonProperty("userId")
@@ -27,7 +27,7 @@ public class BmApiary implements Serializable{
 	@JsonProperty("hidden")
 	private Boolean hidden;
 	@JsonProperty("dataLastReceived")
-	private Date dataLastReceived;
+	private long dataLastReceived;
 	@JsonProperty("hives")
 	private BmHive[] hives;
 	@JsonProperty("notes")
@@ -37,7 +37,7 @@ public class BmApiary implements Serializable{
 		
 	}
 
-	public BmApiary(String apiaryId, String userId, Date createDate, String name, String zipCode, String countryCode, Boolean privateApiary, Boolean hidden, Date dataLastReceived, BmHive[] hives, BmNote[] notes) {
+	public BmApiary(String apiaryId, String userId, long createDate, String name, String zipCode, String countryCode, Boolean privateApiary, Boolean hidden, long dataLastReceived, BmHive[] hives, BmNote[] notes) {
 		this.apiaryId = apiaryId;
 		this.createDate = createDate;
 		this.name = name;
@@ -59,11 +59,11 @@ public class BmApiary implements Serializable{
 		this.apiaryId = apiaryId;
 	}
 
-	public Date getCreateDate() {
+	public long getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(long createDate) {
 		this.createDate = createDate;
 	}
 
@@ -115,11 +115,11 @@ public class BmApiary implements Serializable{
 		this.hidden = hidden;
 	}
 
-	public Date getDataLastReceived() {
+	public long getDataLastReceived() {
 		return dataLastReceived;
 	}
 
-	public void setDataLastReceived(Date dataLastReceived) {
+	public void setDataLastReceived(long dataLastReceived) {
 		this.dataLastReceived = dataLastReceived;
 	}
 

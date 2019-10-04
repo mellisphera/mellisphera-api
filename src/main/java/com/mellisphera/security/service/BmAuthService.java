@@ -10,5 +10,5 @@ public interface BmAuthService {
 	BmAuth getBmAuth(String username, String password);
 	void saveBmData(BmAuth bmData, String username);
 
-	public Date convertTimestampToDate(int time);
+	public Date convertTimestampToDate(long time);
 }

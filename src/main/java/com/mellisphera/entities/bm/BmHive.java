@@ -23,13 +23,13 @@ public class BmHive implements Serializable{
 	@JsonProperty("apiaryId")
 	private String apiaryId;
 	@JsonProperty("createDate")
-	private int createDate;
+	private long createDate;
 	@JsonProperty("name")
 	private String name;
 	@JsonProperty("hidden")
 	private Boolean hidden;
 	@JsonProperty("dataLastReceived")
-	private int dataLastReceived;
+	private long dataLastReceived;
 	@JsonProperty("devices")
 	private BmSensor[] devices;
 	@JsonProperty("notes")
@@ -40,7 +40,7 @@ public class BmHive implements Serializable{
 
 	}
 
-	public BmHive(String hiveId, String apiaryId, int createDate, String name, Boolean hidden, int dataLastReceived, BmSensor[] devices) {
+	public BmHive(String hiveId, String apiaryId, long createDate, String name, Boolean hidden, long dataLastReceived, BmSensor[] devices) {
 		this.hiveId = hiveId;
 		this.apiaryId = apiaryId;
 		this.createDate = createDate;
@@ -66,7 +66,7 @@ public class BmHive implements Serializable{
 		this.apiaryId = apiaryId;
 	}
 
-	public int getCreateDate() {
+	public long getCreateDate() {
 		return createDate;
 	}
 
@@ -90,7 +90,7 @@ public class BmHive implements Serializable{
 		this.hidden = hidden;
 	}
 
-	public int getDataLastReceived() {
+	public long getDataLastReceived() {
 		return dataLastReceived;
 	}
 

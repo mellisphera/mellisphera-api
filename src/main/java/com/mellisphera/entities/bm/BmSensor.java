@@ -13,9 +13,9 @@ public class BmSensor implements Serializable{
 	@JsonProperty("hivePositionId")
 	private String hivePositionId;
 	@JsonProperty("start")
-	private int start;
+	private long start;
 
-	public BmSensor(BmDevice device, String hivePositionId, int start) {
+	public BmSensor(BmDevice device, String hivePositionId, long start) {
 		this.device = device;
 		this.hivePositionId = hivePositionId;
 		this.start = start;
@@ -38,11 +38,11 @@ public class BmSensor implements Serializable{
 		this.hivePositionId = hivePositionId;
 	}
 
-	public int getStart() {
+	public long getStart() {
 		return start;
 	}
 
-	public void setStart(int start) {
+	public void setStart(long start) {
 		this.start = start;
 	}
 
