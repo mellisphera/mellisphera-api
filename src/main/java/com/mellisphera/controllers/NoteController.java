@@ -29,7 +29,7 @@ public class NoteController {
     
     
     
-    @RequestMapping(value = "/insert", method = RequestMethod.PUT)
+    @PostMapping("/insert")
     public Note insert(@RequestBody Note observation){
         return this.noteRepository.insert(observation);
     }
