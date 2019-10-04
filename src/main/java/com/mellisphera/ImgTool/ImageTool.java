@@ -39,6 +39,9 @@ public class ImageTool {
             case "data:image/png;base64":
                 this.extension = "png";
                 break;
+            case "data:image/svg;base64":
+                this.extension = "svg";
+                break;
             default://should write cases for more images types
                 this.extension = "jpg";
                 break;
