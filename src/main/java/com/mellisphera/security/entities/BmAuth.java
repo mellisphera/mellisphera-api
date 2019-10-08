@@ -52,4 +52,13 @@ public class BmAuth implements Serializable {
     public void setPayload(BmData payload) {
         this.payload = payload;
     }
+
+    @Override
+    public String toString() {
+        return "BmAuth{" +
+                "code='" + code + '\'' +
+                ", message='" + message + '\'' +
+                ", payload=" + payload +
+                '}';
+    }
 }

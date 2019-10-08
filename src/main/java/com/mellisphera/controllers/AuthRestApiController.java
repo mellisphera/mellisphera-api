@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import com.mellisphera.entities.log.LogEvents;
 import com.mellisphera.entities.log.LogType;
 import com.mellisphera.repositories.LogRepoitory;
+import com.mellisphera.security.service.BmServiceImpl;
 import com.mellisphera.security.service.SignupService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,7 +34,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,8 +42,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mellisphera.entities.Connection;
 import com.mellisphera.entities.User;
-import com.mellisphera.entities.UserPref;
-import com.mellisphera.execption.ApiaryDemoNotFoundException;
 import com.mellisphera.mail.PasswordGenerator;
 import com.mellisphera.repositories.ConnectionRepository;
 import com.mellisphera.repositories.UserRepository;
@@ -55,7 +53,6 @@ import com.mellisphera.security.message.request.LoginForm;
 import com.mellisphera.security.message.request.SignUpForm;
 import com.mellisphera.security.message.response.JwtResponse;
 import com.mellisphera.security.message.response.ResponseMessage;
-import com.mellisphera.security.service.BmAuthServiceImpl;
 import com.mellisphera.security.service.GeoipServiceImpl;
 import com.mellisphera.sharing.SharingService;
 
@@ -96,7 +93,7 @@ public class AuthRestApiController {
 	GeoipServiceImpl geoipService;
 
 	@Autowired
-	BmAuthServiceImpl bmAuthService;
+    BmServiceImpl bmAuthService;
 	
 	@Autowired JavaMailSender emailSender;
 	/**
@@ -140,6 +137,7 @@ public class AuthRestApiController {
 
 		}
 		jwt = jwtProvider.generateJwtToken(authentication);
+		// this.bmAuthService.getChangeLog(user.getId(), user.getUsername());
 		apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
 		System.err.println("AFTER");
 		String ipAddress = request.getRemoteAddr();

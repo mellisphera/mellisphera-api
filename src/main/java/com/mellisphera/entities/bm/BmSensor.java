@@ -53,6 +53,8 @@ public class BmSensor implements Serializable{
 		private String deviceId;
 		@JsonProperty("createDate")
 		private int createDate;
+		@JsonProperty("apiaryId")
+		private String apiaryId;
 		@JsonProperty("dataLastReceived")
 		private int dataLastReceived;
 		@JsonProperty("name")
@@ -77,6 +79,14 @@ public class BmSensor implements Serializable{
 
 		public void setDeviceId(String deviceId) {
 			this.deviceId = deviceId;
+		}
+
+		public String getApiaryId() {
+			return apiaryId;
+		}
+
+		public void setApiaryId(String apiaryId) {
+			this.apiaryId = apiaryId;
 		}
 
 		public int getCreateDate() {

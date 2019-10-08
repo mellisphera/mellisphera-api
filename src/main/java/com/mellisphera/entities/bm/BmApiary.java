@@ -91,6 +91,8 @@ public class BmApiary implements Serializable{
 		this.zipCode = zipCode;
 	}
 
+
+
 	public String getCountryCode() {
 		return countryCode;
 	}
