@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.web.header.Header;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -66,28 +68,30 @@ public class BmServiceImpl implements BmService {
 
 	@Override
 	public void saveBmData(BmAuth bmData, String username) {
-		this.userId = bmData.getPayload().getApiaries()[0].getUserId();
-		for(BmApiary bmApiary: bmData.getPayload().getApiaries()) {
-			this.apiaryRepository.insert(this.getNewApiary(bmApiary, username));
-			for(BmHive bmHive: bmApiary.getHives()) {
-				this.hiveRepository.insert(this.getNewHive(bmHive, username, this.userId));
-				if (bmHive.getDevices() != null) {
-					for(BmSensor bmSensor : bmHive.getDevices()) {
-						this.sensorRepository.insert(this.getNewSensor(bmSensor, this.userId, bmHive));
+		try{
+			this.userId = bmData.getPayload().getApiaries()[0].getUserId();
+			for(BmApiary bmApiary: bmData.getPayload().getApiaries()) {
+				this.apiaryRepository.insert(this.getNewApiary(bmApiary, username));
+				for(BmHive bmHive: bmApiary.getHives()) {
+					this.hiveRepository.insert(this.getNewHive(bmHive, username, this.userId));
+					if (bmHive.getDevices() != null) {
+						for(BmSensor bmSensor : bmHive.getDevices()) {
+							this.sensorRepository.insert(this.getNewSensor(bmSensor, this.userId, bmHive));
+						}
+					}
+					if (bmHive.getNotes() != null) {
+						for (BmNote bmNote: bmHive.getNotes()) {
+							this.noteRepository.insert(this.getNewNote(bmNote));
+						}
 					}
 				}
-				if (bmHive.getNotes() != null) {
-					for (BmNote bmNote: bmHive.getNotes()) {
+				if (bmApiary.getNotes() != null) {
+					for (BmNote bmNote: bmApiary.getNotes()) {
 						this.noteRepository.insert(this.getNewNote(bmNote));
 					}
 				}
 			}
-			if (bmApiary.getNotes() != null) {
-				for (BmNote bmNote: bmApiary.getNotes()) {
-					this.noteRepository.insert(this.getNewNote(bmNote));
-				}
-			}
-		}
+		}catch (NullPointerException e){}
 	}
 
 	private String checkObsHiveOrApiary(BmNote note) {
@@ -192,13 +196,28 @@ public class BmServiceImpl implements BmService {
 		this.saveChangeLog(response.getBody(), username, userId);
 	}
 
+	@Override
+	public void deleteChangeLog(int modified, String userId) {
+		String urlRequest = this.bmUrl +  "user/changeLog";
+		HttpHeaders header = new HttpHeaders();
+		this.header.add("Content-Type", "application/json");
+		this.header.add("license_key", this.licenceKey);
+		JSONObject params = new JSONObject();
+		params.put("modified", modified);
+		params.put("userId", userId);
+		HttpEntity<String> requestEntity = new HttpEntity<>(params.toJSONString(), header);
+		RestTemplate restTemplate = new RestTemplate();
+		HttpEntity<String> entity = new HttpEntity<String>(params.toString(),header);
+		ResponseEntity resp = restTemplate.exchange(urlRequest, HttpMethod.DELETE, entity, String.class);
+	}
+
 	public String getUserId() {
 		return this.userId;
 	}
 
 	@Override
 	public BmNote postNote(BmNote bmNote){
-		String urlRequest = this.bmUrl +  "notes";
+		String urlRequest = this.bmUrl +  "user/changeLog";
 		this.header = new HttpHeaders();
 		this.header.add("Content-Type", "application/json");
 		this.header.add("license_key", this.licenceKey);
@@ -255,14 +274,19 @@ public class BmServiceImpl implements BmService {
 
 
 	public void saveChangeLog(BmAuth change, String username, String userId) {
-		if (change.getPayload().getApiaries() != null) {
-			this.saveApiaryFromBmApiary(change.getPayload().getApiaries(), username);
-		}
-		if (change.getPayload().getBmNote() != null) {
-			this.saveNoteFromBmNote(change.getPayload().getBmNote());
-		}
-		if (change.getPayload().getBmHive() != null) {
-			this.saveHiveFromBmHive(change.getPayload().getBmHive(), username);
+		try{
+			if (change.getPayload().getApiaries() != null) {
+				this.saveApiaryFromBmApiary(change.getPayload().getApiaries(), username);
+			}
+			if (change.getPayload().getBmNote() != null) {
+				this.saveNoteFromBmNote(change.getPayload().getBmNote());
+			}
+			if (change.getPayload().getBmHive() != null) {
+				this.saveHiveFromBmHive(change.getPayload().getBmHive(), username);
+			}
+			this.deleteChangeLog(change.getPayload().getModified(), change.getPayload().getUserId());
+		}catch (NullPointerException e) {
+
 		}
 	}
 

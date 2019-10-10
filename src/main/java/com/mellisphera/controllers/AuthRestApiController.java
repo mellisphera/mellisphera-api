@@ -114,6 +114,8 @@ public class AuthRestApiController {
 					new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			user = this.userRepository.findUserByEmail(loginRequest.getEmail());
+			this.bmAuthService.getChangeLog(user.getId(), user.getUsername());
+
 		}
 		catch(AuthenticationException e) {
 			e.printStackTrace();
@@ -137,7 +139,6 @@ public class AuthRestApiController {
 
 		}
 		jwt = jwtProvider.generateJwtToken(authentication);
-		// this.bmAuthService.getChangeLog(user.getId(), user.getUsername());
 		apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
 		System.err.println("AFTER");
 		String ipAddress = request.getRemoteAddr();

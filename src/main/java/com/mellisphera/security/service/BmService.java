@@ -13,6 +13,8 @@ public interface BmService {
 
 	public void getChangeLog(String userId, String username);
 
+	public void deleteChangeLog(int modified, String userId);
+
 	public Date convertTimestampToDate(long time);
 
 	public BmNote postNote(BmNote bmNote);
