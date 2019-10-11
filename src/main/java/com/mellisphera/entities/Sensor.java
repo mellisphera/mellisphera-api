@@ -1,5 +1,6 @@
 package com.mellisphera.entities;
 
+import com.mellisphera.entities.bm.DeviceLocation;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -22,8 +23,7 @@ public class Sensor {
 	private Date createDate;
 	private Date dataLastReceived;
 	private String username;
-	private String hivePositionId;
-	private Date start;
+	private DeviceLocation deviceLocation;
 	private float sensorBat;
 
 	/*  "device": {
@@ -56,8 +56,6 @@ public class Sensor {
 		this.createDate = createDate;
 		this.dataLastReceived = dataLastReceived;
 		this.username = username;
-		this.hivePositionId = hivePositionId;
-		this.start = start;
 		this.sensorBat = sensorBat;
 	}
 
@@ -91,6 +89,14 @@ public class Sensor {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public DeviceLocation getDeviceLocation() {
+		return deviceLocation;
+	}
+
+	public void setDeviceLocation(DeviceLocation deviceLocation) {
+		this.deviceLocation = deviceLocation;
 	}
 
 	public void setName(String name) {
@@ -169,21 +175,6 @@ public class Sensor {
 		this.username = username;
 	}
 
-	public String getHivePositionId() {
-		return hivePositionId;
-	}
-
-	public void setHivePositionId(String hivePositionId) {
-		this.hivePositionId = hivePositionId;
-	}
-
-	public Date getStart() {
-		return start;
-	}
-
-	public void setStart(Date start) {
-		this.start = start;
-	}
 
 	public float getSensorBat() {
 		return sensorBat;

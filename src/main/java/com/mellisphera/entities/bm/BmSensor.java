@@ -4,14 +4,18 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BmSensor implements Serializable{
 
 	@JsonProperty("device")
 	private BmDevice device;
 	@JsonProperty("hivePositionId")
 	private String hivePositionId;
+	@JsonProperty("deviceLocationId")
+	private String deviceLocationId;
 	@JsonProperty("start")
 	private long start;
 
@@ -42,85 +46,16 @@ public class BmSensor implements Serializable{
 		return start;
 	}
 
+	public String getDeviceLocationId() {
+		return deviceLocationId;
+	}
+
+	public void setDeviceLocationId(String deviceLocationId) {
+		this.deviceLocationId = deviceLocationId;
+	}
+
 	public void setStart(long start) {
 		this.start = start;
 	}
-
-
-
-	public class BmDevice implements Serializable {
-		@JsonProperty("deviceId")
-		private String deviceId;
-		@JsonProperty("createDate")
-		private int createDate;
-		@JsonProperty("apiaryId")
-		private String apiaryId;
-		@JsonProperty("dataLastReceived")
-		private int dataLastReceived;
-		@JsonProperty("name")
-		private String name;
-		@JsonProperty("deviceAddress")
-		private String deviceAddress;
-		@JsonProperty("model")
-		private String model;
-
-		public BmDevice() {}
-		public String getDeviceId() {
-			return deviceId;
-		}
-
-		public String getDeviceAddress() {
-			return deviceAddress;
-		}
-
-		public void setDeviceAddress(String deviceAddress) {
-			this.deviceAddress = deviceAddress;
-		}
-
-		public void setDeviceId(String deviceId) {
-			this.deviceId = deviceId;
-		}
-
-		public String getApiaryId() {
-			return apiaryId;
-		}
-
-		public void setApiaryId(String apiaryId) {
-			this.apiaryId = apiaryId;
-		}
-
-		public int getCreateDate() {
-			return createDate;
-		}
-
-		public void setCreateDate(int createDate) {
-			this.createDate = createDate;
-		}
-
-		public int getDataLastReceived() {
-			return dataLastReceived;
-		}
-
-		public void setDataLastReceived(int dataLastReceived) {
-			this.dataLastReceived = dataLastReceived;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public String getModel() {
-			return model;
-		}
-
-		public void setModel(String model) {
-			this.model = model;
-		}
-	}
-
 
 }

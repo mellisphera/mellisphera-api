@@ -2,7 +2,11 @@ package com.mellisphera.security.service;
 
 import com.google.gson.Gson;
 import com.mellisphera.entities.*;
-import com.mellisphera.entities.bm.BmNote;
+import com.mellisphera.entities.bm.*;
+import com.mellisphera.entities.bm.changeLog.BmApiaryUpdated;
+import com.mellisphera.entities.bm.changeLog.BmHiveUpdated;
+import com.mellisphera.entities.bm.changeLog.BmNoteUpdated;
+import com.mellisphera.entities.bm.changeLog.BmSensorUpdated;
 import com.mellisphera.repositories.*;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +23,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.mellisphera.entities.bm.BmApiary;
-import com.mellisphera.entities.bm.BmHive;
-import com.mellisphera.entities.bm.BmSensor;
 import com.mellisphera.security.entities.BmAuth;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -51,7 +52,10 @@ public class BmServiceImpl implements BmService {
     @Autowired private SensorRepository sensorRepository;
     @Autowired private NoteRepository noteRepository;
     @Autowired private UserRepository userRepository;
-    
+
+    @Autowired private BmDataToMellispheraData bmToMellispheraData;
+    @Autowired private BmChangeLogService changeLogService;
+
 	@Override
 	public BmAuth getBmAuth(String username, String password) {
 		String urlRequest = this.bmUrl + "user/data";
@@ -71,34 +75,28 @@ public class BmServiceImpl implements BmService {
 		try{
 			this.userId = bmData.getPayload().getApiaries()[0].getUserId();
 			for(BmApiary bmApiary: bmData.getPayload().getApiaries()) {
-				this.apiaryRepository.insert(this.getNewApiary(bmApiary, username));
+				this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username));
 				for(BmHive bmHive: bmApiary.getHives()) {
-					this.hiveRepository.insert(this.getNewHive(bmHive, username, this.userId));
+					this.hiveRepository.insert(this.bmToMellispheraData.getNewHive(bmHive, username, this.userId));
 					if (bmHive.getDevices() != null) {
 						for(BmSensor bmSensor : bmHive.getDevices()) {
-							this.sensorRepository.insert(this.getNewSensor(bmSensor, this.userId, bmHive));
+							this.sensorRepository.insert(this.bmToMellispheraData.getNewSensorFromFirstConnection(bmSensor, this.userId, bmHive));
 						}
 					}
 					if (bmHive.getNotes() != null) {
 						for (BmNote bmNote: bmHive.getNotes()) {
-							this.noteRepository.insert(this.getNewNote(bmNote));
+							this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
 						}
 					}
 				}
 				if (bmApiary.getNotes() != null) {
 					for (BmNote bmNote: bmApiary.getNotes()) {
-						this.noteRepository.insert(this.getNewNote(bmNote));
+						this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
 					}
 				}
 			}
-		}catch (NullPointerException e){}
-	}
-
-	private String checkObsHiveOrApiary(BmNote note) {
-		if (note.getHiveId() != null) {
-			return "HiveObs";
-		} else {
-			return "ApiaryObs";
+		}catch (NullPointerException e){
+			e.printStackTrace();
 		}
 	}
 
@@ -115,68 +113,6 @@ public class BmServiceImpl implements BmService {
 		restTemplate.put(urlRequest, requestEntity, BmNote.class);
 	}
 
-	private Note getNewNote(BmNote bmNote) {
-		return new Note(bmNote.getNoteId(),
-				this.convertTimestampToDate(bmNote.getCreateDate()),
-				bmNote.getType(),
-				bmNote.getTags(),
-				bmNote.getDescription(),
-				bmNote.getHiveId(),
-				bmNote.getApiaryId(),
-				this.checkObsHiveOrApiary(bmNote),
-				this.convertTimestampToDate(bmNote.getOpsDate()),
-				bmNote.getApiaryId());
-	}
-
-	private Hive getNewHive(BmHive bmHive, String username, String userId) {
-		Hive newHive = new Hive();
-		newHive.set_id(bmHive.getHiveId());
-		newHive.setHivePosY(0);
-		newHive.setHivePosX(0);
-		newHive.setApiaryId(bmHive.getApiaryId());
-		newHive.setUserId(userId);
-		newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
-		newHive.setHidden(bmHive.getHidden());
-		newHive.setDataLastReceived(this.convertTimestampToDate(bmHive.getDataLastReceived()));
-		newHive.setName(bmHive.getName());
-		newHive.setUsername(username);
-		newHive.setName(bmHive.getName());
-		return newHive;
-	}
-
-	public Sensor getNewSensor(BmSensor bmSensor, String userId, BmHive bmHive) {
-		Sensor sensor = new Sensor();
-		sensor.set_id(bmSensor.getDevice().getDeviceId());
-		sensor.setHiveId(bmHive.getHiveId());
-		sensor.setCreateDate(this.convertTimestampToDate(bmSensor.getDevice().getCreateDate()));
-		sensor.setDataLastReceived(this.convertTimestampToDate(bmSensor.getDevice().getDataLastReceived()));
-		sensor.setSensorRef(bmSensor.getDevice().getDeviceAddress());
-		sensor.setModel(bmSensor.getDevice().getModel());
-		sensor.setName(bmSensor.getDevice().getName());
-		sensor.setUserId(userId);
-		sensor.setHiveName(bmHive.getName());
-		sensor.setHivePositionId(bmSensor.getHivePositionId());
-		sensor.setStart(this.convertTimestampToDate(bmSensor.getStart()));
-		sensor.setApiaryId(bmHive.getApiaryId());
-		sensor.setType(this.getTypeByRef(bmSensor.getDevice().getDeviceAddress()));
-
-		return sensor;
-	}
-
-	private Apiary getNewApiary(BmApiary bmApiary, String username) {
-		Apiary newApiary = new Apiary();
-		newApiary.set_id(bmApiary.getApiaryId());
-		newApiary.setZipCode(bmApiary.getZipCode());
-		newApiary.setName(bmApiary.getName());
-		newApiary.setUserId(bmApiary.getUserId());
-		newApiary.setCreateDate(this.convertTimestampToDate(bmApiary.getCreateDate()));
-		newApiary.setDataLastReceived(this.convertTimestampToDate(bmApiary.getDataLastReceived()));
-		newApiary.setPrivateApiary(bmApiary.getPrivateApiary());
-		newApiary.setCountryCode(bmApiary.getCountryCode());
-		newApiary.setUsername(username);
-		newApiary.setPhoto("./assets/imageClient/testAccount.png");
-		return newApiary;
-	}
 
 	@Override
 	public void getChangeLog(String userId, String username) {
@@ -229,86 +165,80 @@ public class BmServiceImpl implements BmService {
 		return bmNote;
 	}
 
-	private void saveApiaryFromBmApiary(BmApiary[] bmApiary, String username) {
-		Arrays.stream(bmApiary).map(_apiary -> this.getNewApiary(_apiary, username)).collect(Collectors.toList()).forEach(_newApiary -> {
-			boolean apiaryExist = this.apiaryRepository.findById(_newApiary.get_id()).isPresent();
-			if (apiaryExist) {
-				this.apiaryRepository.save(_newApiary);
-			} else {
-				this.apiaryRepository.insert(_newApiary);
-			}
-		});
-	}
-	private void saveHiveFromBmHive(BmHive[] bmHive, String username) {
-		Arrays.stream(bmHive).map(_hive -> this.getNewHive(_hive, username, userId)).collect(Collectors.toList()).forEach(_newHive -> {
-			boolean hiveExist = this.hiveRepository.findById(_newHive.get_id()).isPresent();
+
+	public void saveSensorFronBmSensor(BmSensor[] bmSensors, String userId, BmHive _bmHive) {
+		Arrays.stream(bmSensors).map(_sensor -> this.bmToMellispheraData.getNewSensorFromFirstConnection(_sensor, userId, _bmHive)).collect(Collectors.toList()).forEach(_newSensor -> {
+			boolean hiveExist = this.sensorRepository.findById(_newSensor.get_id()).isPresent();
 			if (hiveExist) {
-				this.hiveRepository.save(_newHive);
+				this.sensorRepository.save(_newSensor);
 			} else {
-				this.hiveRepository.insert(_newHive);
+				this.sensorRepository.insert(_newSensor);
 			}
 		});
 	}
-
-	public void saveSensorFronBmSensor(BmSensor[] bmSensor) {
-		/*Arrays.stream(bmSensor).map(_sensor -> this.getNewSensor(_sensor, userId)).collect(Collectors.toList()).forEach(_newHive -> {
-			boolean hiveExist = this.hiveRepository.findById(_newHive.get_id()).isPresent();
-			if (hiveExist) {
-				this.hiveRepository.save(_newHive);
-			} else {
-				this.hiveRepository.insert(_newHive);
-			}
-		});*/
-	}
-
-	private void saveNoteFromBmNote(BmNote[] bmNote) {
-		Arrays.stream(bmNote).map(_note -> this.getNewNote(_note)).collect(Collectors.toList()).forEach(_newNote -> {
-			boolean noteExist = this.noteRepository.findById(_newNote.get_id()).isPresent();
-			if (noteExist) {
-				this.noteRepository.save(_newNote);
-			} else {
-				this.noteRepository.insert(_newNote);
-			}
-		});
-	}
-
 
 	public void saveChangeLog(BmAuth change, String username, String userId) {
 		try{
 			if (change.getPayload().getApiaries() != null) {
-				this.saveApiaryFromBmApiary(change.getPayload().getApiaries(), username);
+				this.changeLogService.saveApiaryFromBmApiary(change.getPayload().getApiaries(), username);
 			}
-			if (change.getPayload().getBmNote() != null) {
-				this.saveNoteFromBmNote(change.getPayload().getBmNote());
+			if (change.getPayload().getBmNoteCreate() != null) {
+				this.changeLogService.saveNoteFromBmNote(change.getPayload().getBmNoteCreate());
 			}
-			if (change.getPayload().getBmHive() != null) {
-				this.saveHiveFromBmHive(change.getPayload().getBmHive(), username);
+			if (change.getPayload().getBmHiveCreate() != null) {
+				this.changeLogService.saveHiveFromBmHive(change.getPayload().getBmHiveCreate(), username, userId);
 			}
-			this.deleteChangeLog(change.getPayload().getModified(), change.getPayload().getUserId());
+			if (change.getPayload().getDevicesCreate() != null) {
+				this.changeLogService.saveSensorFronBmDevice(change.getPayload().getDevicesCreate(), userId);
+			}
+			if (change.getPayload().getApiaryUpdate() != null) {
+				for (BmApiaryUpdated apiaryUpdate: change.getPayload().getApiaryUpdate()) {
+					this.apiaryRepository.save(this.bmToMellispheraData.getNewApiary(apiaryUpdate.getUpdatedData(), username));
+				}
+			}
+			if (change.getPayload().getHiveUpdate() != null) {
+				for (BmHiveUpdated hiveUpdated: change.getPayload().getHiveUpdate()) {
+					this.hiveRepository.save(this.bmToMellispheraData.getNewHive(hiveUpdated.getUpdatedData(), username, userId));
+				}
+			}
+			if (change.getPayload().getDeviceUpdate() != null) {
+				for (BmSensorUpdated sensorUpdated: change.getPayload().getDeviceUpdate()) {
+					this.sensorRepository.save(this.bmToMellispheraData.getNewSensorFromChangeLog(sensorUpdated.getUpdatedData(), userId));
+				}
+			}
+			if (change.getPayload().getNoteUpdate() != null) {
+				for (BmNoteUpdated noteUpdated: change.getPayload().getNoteUpdate()) {
+					this.noteRepository.save(this.bmToMellispheraData.getNewNote(noteUpdated.getUpdatedData()));
+				}
+			}
+
+			if (change.getPayload().getApiaryDelete() != null) {
+				for (String id: change.getPayload().getApiaryDelete()) {
+					this.apiaryRepository.deleteById(id);
+				}
+			}
+			if (change.getPayload().getHiveDelete() != null) {
+				for (String id: change.getPayload().getApiaryDelete()) {
+					this.hiveRepository.deleteById(id);
+				}
+			}
+			if (change.getPayload().getDeviceDelete() != null) {
+				for (String id: change.getPayload().getDeviceDelete()) {
+					this.sensorRepository.deleteById(id);
+				}
+			}
+			if (change.getPayload().getNoteDelete() != null) {
+				for (String id: change.getPayload().getApiaryDelete()) {
+					this.noteRepository.deleteById(id);
+				}
+			}
+			// this.deleteChangeLog(change.getPayload().getModified(), change.getPayload().getUserId());
 		}catch (NullPointerException e) {
-
+			e.printStackTrace();
 		}
 	}
 
 
-	@Override
-	public Date convertTimestampToDate(long time){
-		return new Date(time*1000);
-	}
-
-
-	private String getTypeByRef(String ref) {
-		String prefix = ref.split(":")[0];
-		if (prefix.equals("41")) {
-			return "T2";
-		} else if (prefix.equals("42")) {
-			return "T_HR";
-		} else if (prefix.equals("43")) {
-			return "WEIGHT";
-		} else {
-			return "ALIEN";
-		}
-	}
 	
     private ClientHttpRequestFactory getClientHttpRequestFactory() {
         HttpComponentsClientHttpRequestFactory clientHttpRequestFactory

@@ -3,6 +3,10 @@ package com.mellisphera.entities.bm;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mellisphera.entities.bm.changeLog.BmApiaryUpdated;
+import com.mellisphera.entities.bm.changeLog.BmHiveUpdated;
+import com.mellisphera.entities.bm.changeLog.BmNoteUpdated;
+import com.mellisphera.entities.bm.changeLog.BmSensorUpdated;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -19,18 +23,114 @@ public class BmData implements Serializable {
     @JsonProperty("modified")
     private int modified;
 
+    /* For Change Log */
+
+    // Upated
+    @JsonProperty("apiaryUpdate")
+    private BmApiaryUpdated[] apiaryUpdate;
+
+    @JsonProperty("hiveUpdate")
+    private BmHiveUpdated[] hiveUpdate;
+
+    @JsonProperty("deviceUpdate")
+    private BmSensorUpdated[] deviceUpdate;
+
+    @JsonProperty("noteUpdate")
+    private BmNoteUpdated[] noteUpdate;
+
+    // Create
+    @JsonProperty("deviceCreate")
+    private BmDevice[] devicesCreate;
+
     @JsonProperty("noteCreate")
-    private BmNote[] bmNote;
+    private BmNote[] bmNoteCreate;
 
     @JsonProperty("hiveCreate")
-    private BmHive[] bmHive;
+    private BmHive[] bmHiveCreate;
 
+
+    // Deleted
+    @JsonProperty("hiveDelete")
+    private String[] hiveDelete;
+
+    @JsonProperty("apiaryDelete")
+    private String[] apiaryDelete;
+
+    @JsonProperty("deviceDelete")
+    private String[] deviceDelete;
+
+    @JsonProperty("noteDelete")
+    private String[] noteDelete;
 
     public BmData(BmApiary[] apiaries) {
         this.apiaries = apiaries;
     }
 
     public BmData() {}
+
+    public BmApiaryUpdated[] getApiaryUpdate() {
+        return apiaryUpdate;
+    }
+
+    public void setApiaryUpdate(BmApiaryUpdated[] apiaryUpdate) {
+        this.apiaryUpdate = apiaryUpdate;
+    }
+
+    public BmHiveUpdated[] getHiveUpdate() {
+        return hiveUpdate;
+    }
+
+    public void setHiveUpdate(BmHiveUpdated[] hiveUpdate) {
+        this.hiveUpdate = hiveUpdate;
+    }
+
+    public BmSensorUpdated[] getDeviceUpdate() {
+        return deviceUpdate;
+    }
+
+    public void setDeviceUpdate(BmSensorUpdated[] deviceUpdate) {
+        this.deviceUpdate = deviceUpdate;
+    }
+
+    public BmNoteUpdated[] getNoteUpdate() {
+        return noteUpdate;
+    }
+
+    public String[] getHiveDelete() {
+        return hiveDelete;
+    }
+
+    public String[] getDeviceDelete() {
+        return deviceDelete;
+    }
+
+    public void setDeviceDelete(String[] deviceDelete) {
+        this.deviceDelete = deviceDelete;
+    }
+
+    public void setHiveDelete(String[] hiveDelete) {
+        this.hiveDelete = hiveDelete;
+    }
+
+    public String[] getApiaryDelete() {
+        return apiaryDelete;
+    }
+
+    public void setApiaryDelete(String[] apiaryDelete) {
+        this.apiaryDelete = apiaryDelete;
+    }
+
+    public String[] getNoteDelete() {
+        return noteDelete;
+    }
+
+    public void setNoteDelete(String[] noteDelete) {
+        this.noteDelete = noteDelete;
+    }
+
+    public void setNoteUpdate(BmNoteUpdated[] noteUpdate) {
+        this.noteUpdate = noteUpdate;
+    }
 
     public BmApiary[] getApiaries() {
         return apiaries;
@@ -56,20 +156,28 @@ public class BmData implements Serializable {
         this.modified = modified;
     }
 
-    public BmNote[] getBmNote() {
-        return bmNote;
+    public BmDevice[] getDevicesCreate() {
+        return devicesCreate;
     }
 
-    public void setBmNote(BmNote[] bmNote) {
-        this.bmNote = bmNote;
+    public void setDevicesCreate(BmDevice[] devicesCreate) {
+        this.devicesCreate = devicesCreate;
     }
 
-    public BmHive[] getBmHive() {
-        return bmHive;
+    public BmNote[] getBmNoteCreate() {
+        return bmNoteCreate;
     }
 
-    public void setBmHive(BmHive[] bmHive) {
-        this.bmHive = bmHive;
+    public void setBmNoteCreate(BmNote[] bmNoteCreate) {
+        this.bmNoteCreate = bmNoteCreate;
+    }
+
+    public BmHive[] getBmHiveCreate() {
+        return bmHiveCreate;
+    }
+
+    public void setBmHiveCreate(BmHive[] bmHiveCreate) {
+        this.bmHiveCreate = bmHiveCreate;
     }
 
     @Override
@@ -78,7 +186,12 @@ public class BmData implements Serializable {
                 "apiaries=" + Arrays.toString(apiaries) +
                 ", userId='" + userId + '\'' +
                 ", modified=" + modified +
-                ", bmNote=" + Arrays.toString(bmNote) +
+                ", apiaryUpdate=" + apiaryUpdate +
+                ", hiveUpdate=" + hiveUpdate +
+                ", deviceUpdate=" + deviceUpdate +
+                ", devicesCreate=" + Arrays.toString(devicesCreate) +
+                ", bmNoteCreate=" + Arrays.toString(bmNoteCreate) +
+                ", bmHiveCreate=" + Arrays.toString(bmHiveCreate) +
                 '}';
     }
 }
