@@ -136,15 +136,16 @@ public class BmServiceImpl implements BmService {
 	public void deleteChangeLog(int modified, String userId) {
 		String urlRequest = this.bmUrl +  "user/changeLog";
 		HttpHeaders header = new HttpHeaders();
-		this.header.add("Content-Type", "application/json");
-		this.header.add("license_key", this.licenceKey);
-		JSONObject params = new JSONObject();
-		params.put("modified", modified);
-		params.put("userId", userId);
-		HttpEntity<String> requestEntity = new HttpEntity<>(params.toJSONString(), header);
+		header.add("license_key", this.licenceKey);
+		HttpEntity<String> requestEntity = new HttpEntity<>(header);
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlRequest)
+			.queryParam("userId", userId)
+			.queryParam("modified", modified);
 		RestTemplate restTemplate = new RestTemplate();
-		HttpEntity<String> entity = new HttpEntity<String>(params.toString(),header);
-		ResponseEntity resp = restTemplate.exchange(urlRequest, HttpMethod.DELETE, entity, String.class);
+		HttpEntity<BmAuth> response  = restTemplate.exchange(builder.toUriString(),
+				HttpMethod.DELETE,
+				requestEntity,
+				BmAuth.class);
 	}
 
 	public String getUserId() {
@@ -232,7 +233,7 @@ public class BmServiceImpl implements BmService {
 					this.noteRepository.deleteById(id);
 				}
 			}
-			// this.deleteChangeLog(change.getPayload().getModified(), change.getPayload().getUserId());
+			this.deleteChangeLog(change.getPayload().getModified(), change.getPayload().getUserId());
 		}catch (NullPointerException e) {
 			e.printStackTrace();
 		}
