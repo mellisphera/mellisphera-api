@@ -117,7 +117,6 @@ public class BmServiceImpl implements BmService {
 	@Override
 	public void getChangeLog(String userId, String username) {
 		this.header = new HttpHeaders();
-		this.header.add("Content-Type", "application/x-www-form-urlencoded");
 		this.header.add("license_key", this.licenceKey);
 		String urlRequest = this.bmUrl + "user/changeLog";
 		HttpEntity entity = new HttpEntity(this.header);

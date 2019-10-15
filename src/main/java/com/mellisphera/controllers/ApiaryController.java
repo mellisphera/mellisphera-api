@@ -82,11 +82,11 @@ public class ApiaryController {
     }
     
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
-    public List<Apiary> getAllUserApiaries(@PathVariable String username, HttpServletResponse reponse){
-    	List<Apiary> userApiaries=this.apiaryRepository.findApiaryByUsername(username);    
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces={"application/json"})
+    public List<Apiary> getAllUserApiaries(@PathVariable String userId, HttpServletResponse response){
+    	List<Apiary> userApiaries=this.apiaryRepository.findApiaryByUserId(userId);
 	    if(userApiaries.isEmpty()) {
-	    	reponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	    	response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	    }
 	    return userApiaries;
     }
@@ -116,10 +116,10 @@ public class ApiaryController {
     }
 	@PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "/details/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
-    public Apiary getApiaryDetails(@PathVariable String idApiary, HttpServletResponse reponse){
+    public Apiary getApiaryDetails(@PathVariable String idApiary, HttpServletResponse response){
     	Apiary a = this.apiaryRepository.findById(idApiary).get();
     	if(a == null) {
-    		reponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
+    		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
     	}
     	return a;
     	    

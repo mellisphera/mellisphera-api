@@ -14,5 +14,8 @@ public interface ApiaryRepository  extends MongoRepository<Apiary ,String>{
 	
 	List<Apiary> findApiaryByUsername(String username);
 
+	List<Apiary> findApiaryByUserId(String userId);
+
+
 }
 
