@@ -4,8 +4,8 @@ import java.util.Date;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="Alert")
-public class Alert {
+@Document(collection="AlertSent")
+public class AlertSent {
 
 	/*
 	 *     "_id" : ObjectId("5d0e2face632a881d8d48181"),
@@ -34,7 +34,7 @@ public class Alert {
 	private Date date;
 	private Boolean check;
 	
-	public Alert() {
+	public AlertSent() {
 		// TODO Auto-generated constructor stub
 	}
 
