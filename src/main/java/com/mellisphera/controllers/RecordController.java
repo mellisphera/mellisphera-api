@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.controllers;
 
 import java.text.DateFormat;
@@ -69,13 +82,13 @@ public class RecordController {
     	return records;
     }
     
-    @RequestMapping(value = "/hive/{idHive}" , method = RequestMethod.POST, produces={"application/json"})
-    public ResponseEntity<?> getByIdHive(@PathVariable String idHive, @RequestBody Date [] range){
+    @RequestMapping(value = "/hive/{hiveId}" , method = RequestMethod.POST, produces={"application/json"})
+    public ResponseEntity<?> getByhiveId(@PathVariable String hiveId, @RequestBody Date [] range){
         Sort sort = new Sort(Direction.DESC, "timestamp");
         Date start  = range[0];
         Date end = range[1];
         List<Record> rec = null;
-        rec = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort);
+        rec = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort);
         if(rec != null) {
         	return new ResponseEntity<>(rec, HttpStatus.OK);
         }
@@ -85,14 +98,14 @@ public class RecordController {
         
     }
     
-    @PostMapping("/weight/{idHive}")
-    public ResponseEntity<?> getWeightByHive(@PathVariable String idHive, @RequestBody Date [] range){
+    @PostMapping("/weight/{hiveId}")
+    public ResponseEntity<?> getWeightByHive(@PathVariable String hiveId, @RequestBody Date [] range){
         Sort sort = new Sort(Direction.DESC, "timestamp");
         Date start  = range[0];
         Date end = range[1];
         
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
-        data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream().filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort).stream().filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
         	return new SimpleSeries(record.getRecordDate(), record.getWeight(), record.getSensorRef());
         }).collect(Collectors.toList());
         if(data != null) {
@@ -104,14 +117,14 @@ public class RecordController {
         
     }
     
-    @PostMapping("/temp_int/{idHive}")
-    public ResponseEntity<?> getTempByHive(@PathVariable String idHive, @RequestBody Date [] range){
+    @PostMapping("/temp_int/{hiveId}")
+    public ResponseEntity<?> getTempByHive(@PathVariable String hiveId, @RequestBody Date [] range){
         Sort sort = new Sort(Direction.DESC, "timestamp");
         Date start  = range[0];
         Date end = range[1];
         
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
-        data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort).stream()
         		.filter(_filter  -> _filter.getSensorRef().contains("42") || _filter.getSensorRef().contains("41") || _filter.getSensorRef().contains("39") || _filter.getSensorRef().contains("B5")).map(record -> {
         	return new SimpleSeries(record.getRecordDate(), record.getTemp_int(), record.getSensorRef());
         }).collect(Collectors.toList());
@@ -124,14 +137,14 @@ public class RecordController {
         
     }
     
-    @PostMapping("/temp_ext/{idHive}")
-    public ResponseEntity<?> getTempExByHive(@PathVariable String idHive, @RequestBody Date [] range){
+    @PostMapping("/temp_ext/{hiveId}")
+    public ResponseEntity<?> getTempExByHive(@PathVariable String hiveId, @RequestBody Date [] range){
         Sort sort = new Sort(Direction.DESC, "timestamp");
         Date start  = range[0];
         Date end = range[1];
         
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
-        data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort).stream()
         		.filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
         	return new SimpleSeries(record.getRecordDate(), record.getTemp_ext(), record.getSensorRef());
         }).collect(Collectors.toList());
@@ -143,14 +156,14 @@ public class RecordController {
         }
         
     }
-    @PostMapping("/hint/{idHive}")
-    public ResponseEntity<?> getHUmidityByHive(@PathVariable String idHive, @RequestBody Date [] range){
+    @PostMapping("/hint/{hiveId}")
+    public ResponseEntity<?> getHUmidityByHive(@PathVariable String hiveId, @RequestBody Date [] range){
         Sort sort = new Sort(Direction.DESC, "timestamp");
         Date start  = range[0];
         Date end = range[1];
         
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
-        data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort).stream()
         		.filter(_filter  -> _filter.getSensorRef().contains("42")).map(record -> {
         	return new SimpleSeries(record.getRecordDate(), record.getHumidity_int(), record.getSensorRef());
         }).collect(Collectors.toList());
@@ -163,14 +176,14 @@ public class RecordController {
         
     }
     
-    @PostMapping("/batExt/{idHive}")
-    public ResponseEntity<?> getBatteryExtByHive(@PathVariable String idHive, @RequestBody Date [] range){
+    @PostMapping("/batExt/{hiveId}")
+    public ResponseEntity<?> getBatteryExtByHive(@PathVariable String hiveId, @RequestBody Date [] range){
         Sort sort = new Sort(Direction.DESC, "timestamp");
         Date start  = range[0];
         Date end = range[1];
         
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
-        data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort).stream()
         		.filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
         	return new SimpleSeries(record.getRecordDate(), record.getBattery_ext(), record.getSensorRef());
         }).collect(Collectors.toList());
@@ -183,14 +196,14 @@ public class RecordController {
         
     }
     
-    @PostMapping("/batInt/{idHive}")
-    public ResponseEntity<?> getBatteryIntByHive(@PathVariable String idHive, @RequestBody Date [] range){
+    @PostMapping("/batInt/{hiveId}")
+    public ResponseEntity<?> getBatteryIntByHive(@PathVariable String hiveId, @RequestBody Date [] range){
         Sort sort = new Sort(Direction.DESC, "timestamp");
         Date start  = range[0];
         Date end = range[1];
         
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
-        data = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort).stream()
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort).stream()
         		.filter(_filter  -> _filter.getSensorRef().contains("42") || _filter.getSensorRef().contains("41") || _filter.getSensorRef().contains("39") ||  _filter.getSensorRef().contains("B5")).map(record -> {
         	return new SimpleSeries(record.getRecordDate(), record.getBattery_int(), record.getSensorRef());
         }).collect(Collectors.toList());

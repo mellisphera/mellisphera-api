@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.entities;
 
 import java.util.Date;
@@ -24,7 +37,7 @@ public class Astro {
         "city" : "Chagrin Falls"
     },
     "apiary" : "DSOhio",
-    "_idApiary" : ObjectId("5cdc38ffdc7d27578d9c8447"),
+    "apiaryId" : ObjectId("5cdc38ffdc7d27578d9c8447"),
     "_class" : "<class 'fonctions4DailyAstro.Astronomy'>"
 }
 	 * */
@@ -34,16 +47,16 @@ public class Astro {
 	private Map<String, Object> moon;
 	private Map<String, Object> sys;
 	private String apiary;
-	private String _idApiary;
+	private String apiaryId;
 	
 	public Astro(String _id, Date date, Map<String, Object> moon, Map<String, Object> sys, String apiary,
-			String _idApiary) {
+			String apiaryId) {
 		this._id = _id;
 		this.date = date;
 		this.moon = moon;
 		this.sys = sys;
 		this.apiary = apiary;
-		this._idApiary = _idApiary;
+		this.apiaryId = apiaryId;
 	}
 
 	public String get_id() {
@@ -86,12 +99,12 @@ public class Astro {
 		this.apiary = apiary;
 	}
 
-	public String get_idApiary() {
-		return _idApiary;
+	public String getapiaryId() {
+		return apiaryId;
 	}
 
-	public void set_idApiary(String _idApiary) {
-		this._idApiary = _idApiary;
+	public void setapiaryId(String apiaryId) {
+		this.apiaryId = apiaryId;
 	}
 	
 	

@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.entities;
 
 import java.util.ArrayList;
@@ -12,14 +25,14 @@ public class ShareApiary {
 	
 	@Id
 	private String id = null;
-	private String idUsername = null; // id du user avec qui sont partager les ruchers
+	private String userId = null; // id du user avec qui sont partager les ruchers
 	private String username = null;
 	private	ArrayList<Apiary> sharingApiary = null;
 	
-	public ShareApiary(String id, String idUsername, String username, ArrayList<Apiary> sharingApiary) {
+	public ShareApiary(String id, String userId, String username, ArrayList<Apiary> sharingApiary) {
 		super();
 		this.id = id;
-		this.idUsername = idUsername;
+		this.userId = userId;
 		this.username = username;
 		this.sharingApiary = sharingApiary;
 	}
@@ -32,13 +45,13 @@ public class ShareApiary {
 		this.id = id;
 	}
 
-	public String getIdUsername() {
-		return idUsername;
+	public String getuserId() {
+		return userId;
 	}
 
 
-	public void setIdUsername(String idUsername) {
-		this.idUsername = idUsername;
+	public void setuserId(String userId) {
+		this.userId = userId;
 	}
 	
 
@@ -60,6 +73,6 @@ public class ShareApiary {
 	
 	@Override
 	public String toString() {
-		return "["+this.idUsername+"-"+this.sharingApiary+"]";
+		return "["+this.userId+"-"+this.sharingApiary+"]";
 	}
 }

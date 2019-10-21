@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.entities;
 
 import java.util.Date;
@@ -9,7 +22,7 @@ public class DailyRecordsTH {
 
 	private String id;
 	private Date recordDate;
-	private String idHive;
+	private String hiveId;
 	private float humidity_int_min;
 	private float humidity_int_max;
 	private float temp_int_min;
@@ -28,13 +41,13 @@ public class DailyRecordsTH {
 
 	}
 
-	public DailyRecordsTH(String id, Date recordDate, String idHive, float humidity_int_min, float humidity_int_max,
+	public DailyRecordsTH(String id, Date recordDate, String hiveId, float humidity_int_min, float humidity_int_max,
 			float temp_int_min, float temp_int_max, float temp_int_moy, float temp_int_stddev, String status,
 			String trend, float r_int_text, Long timestamp, Double brood, String sensorRef) {
 		super();
 		this.id = id;
 		this.recordDate = recordDate;
-		this.idHive = idHive;
+		this.hiveId = hiveId;
 		this.humidity_int_min = humidity_int_min;
 		this.humidity_int_max = humidity_int_max;
 		this.temp_int_min = temp_int_min;
@@ -106,12 +119,12 @@ public class DailyRecordsTH {
 		this.recordDate = recordDate;
 	}
 
-	public String getIdHive() {
-		return idHive;
+	public String gethiveId() {
+		return hiveId;
 	}
 
-	public void setIdHive(String idHive) {
-		this.idHive = idHive;
+	public void sethiveId(String hiveId) {
+		this.hiveId = hiveId;
 	}
 
 	public float getHumidity_int_min() {
@@ -188,7 +201,7 @@ public class DailyRecordsTH {
 
 	@Override
 	public String toString() {
-		return "DailyRecordsTH [id=" + id + ", recordDate=" + recordDate + ", idHive=" + idHive + ", humidity_int_min="
+		return "DailyRecordsTH [id=" + id + ", recordDate=" + recordDate + ", hiveId=" + hiveId + ", humidity_int_min="
 				+ humidity_int_min + ", humidity_int_max=" + humidity_int_max + ", temp_int_min=" + temp_int_min
 				+ ", temp_int_max=" + temp_int_max + ", temp_int_moy=" + temp_int_moy + ", temp_int_stddev="
 				+ temp_int_stddev + ", status=" + status + ", trend=" + trend

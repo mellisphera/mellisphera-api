@@ -1,13 +1,28 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.entities;
 
 import java.util.Date;
 import java.util.Map;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "ForecastDailyWeather")
 public class ForecastDailyWeather {
 
+	@Id
 	private String _id;
 	private Map<String, String> weather;
 	private Map<String, String> wind;
@@ -17,7 +32,7 @@ public class ForecastDailyWeather {
 	private Date date;
 	private String city;
 	private Map<String, Float> rain;
-	private String idApiary;
+	private String apiaryId;
 	private Map<String, Float> snow;
 	private String apiary;
 	
@@ -25,7 +40,7 @@ public class ForecastDailyWeather {
 
 	public ForecastDailyWeather(String _id, Map<String, String> weather, Map<String, String> wind,
 			Map<String, String> main, String _origin, String user, Date date, String city, Map<String, Float> rain,
-			String idApiary, Map<String, Float> snow, String apiary) {
+			String apiaryId, Map<String, Float> snow, String apiary) {
 		this._id = _id;
 		this.weather = weather;
 		this.wind = wind;
@@ -35,7 +50,7 @@ public class ForecastDailyWeather {
 		this.date = date;
 		this.city = city;
 		this.rain = rain;
-		this.idApiary = idApiary;
+		this.apiaryId = apiaryId;
 		this.snow = snow;
 		this.apiary = apiary;
 	}
@@ -112,12 +127,12 @@ public class ForecastDailyWeather {
 		this.rain = rain;
 	}
 
-	public String getIdApiary() {
-		return idApiary;
+	public String getapiaryId() {
+		return apiaryId;
 	}
 
-	public void setIdApiary(String idApiary) {
-		this.idApiary = idApiary;
+	public void setapiaryId(String apiaryId) {
+		this.apiaryId = apiaryId;
 	}
 
 	public Map<String, Float> getSnow() {
