@@ -29,10 +29,12 @@ public class BmDataToMellispheraData {
 
     @Autowired
     private HivesRepository hiveRepository;
+    static float lastXpos = 0;
+    static float lastYpos = 0;
+    public BmDataToMellispheraData() {
+    }
 
-    public BmDataToMellispheraData() {}
-
-    public Note getNewNote(BmNote bmNote) {
+    Note getNewNote(BmNote bmNote) {
         return new Note(bmNote.getNoteId(),
                 this.convertTimestampToDate(bmNote.getCreateDate()),
                 bmNote.getType(),
@@ -45,11 +47,13 @@ public class BmDataToMellispheraData {
                 bmNote.getApiaryId());
     }
 
-    public Hive getNewHive(BmHive bmHive, String username, String userId) {
+    Hive getNewHive(BmHive bmHive, String username, String userId) {
         Hive newHive = new Hive();
         newHive.set_id(bmHive.getHiveId());
-        newHive.setHivePosY(0);
-        newHive.setHivePosX(0);
+        newHive.setHivePosY(lastXpos);
+        newHive.setHivePosX(lastYpos);
+        lastXpos += 5;
+        lastYpos += 5;
         newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setUserId(userId);
         newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
@@ -69,7 +73,10 @@ public class BmDataToMellispheraData {
         }
     }
 
-    public Sensor getNewSensorFromFirstConnection(BmSensor bmSensor, String userId, BmHive bmHive) {
+    void resetPos() {
+        lastYpos = lastXpos = 0;
+    }
+    Sensor getNewSensorFromFirstConnection(BmSensor bmSensor, String userId, BmHive bmHive) {
         System.out.println(bmSensor.getDevice());
         Sensor sensor = new Sensor();
         sensor.set_id(bmSensor.getDevice().getDeviceId());
@@ -88,7 +95,7 @@ public class BmDataToMellispheraData {
         return sensor;
     }
 
-    public Sensor getNewSensorFromChangeLog(BmDevice bmDevice, String userId) {
+    Sensor getNewSensorFromChangeLog(BmDevice bmDevice, String userId) {
         Hive hive = this.hiveRepository.findById(bmDevice.getCurrentLocation().getHiveId()).get();
         System.out.println(bmDevice.getDeviceId());
         Sensor sensor = new Sensor();
@@ -126,7 +133,7 @@ public class BmDataToMellispheraData {
     }
 
 
-    public Apiary getNewApiary(BmApiary bmApiary, String username) {
+    Apiary getNewApiary(BmApiary bmApiary, String username) {
         Apiary newApiary = new Apiary();
         newApiary.set_id(bmApiary.getApiaryId());
         newApiary.setZipCode(bmApiary.getZipCode());
@@ -141,7 +148,7 @@ public class BmDataToMellispheraData {
         return newApiary;
     }
 
-    public Date convertTimestampToDate(long time){
+    private Date convertTimestampToDate(long time){
         return new Date(time*1000);
     }
 

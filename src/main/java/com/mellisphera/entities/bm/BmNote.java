@@ -48,6 +48,16 @@ public class BmNote {
         this.type = type;
         this.createDate = createDate;
     }
+    public BmNote(String description, String[] tags, String hiveId, String apiaryId, long opsDate, String type, long createDate) {
+        this.description = description;
+        this.tags = tags;
+        this.hiveId = hiveId;
+        this.apiaryId = apiaryId;
+        this.opsDate = opsDate;
+        this.type = type;
+        this.createDate = createDate;
+    }
+
 
     public String getNoteId() {
         return noteId;

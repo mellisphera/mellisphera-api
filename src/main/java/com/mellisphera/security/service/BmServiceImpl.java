@@ -91,6 +91,7 @@ public class BmServiceImpl implements BmService {
 				this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username));
 				for(BmHive bmHive: bmApiary.getHives()) {
 					this.hiveRepository.insert(this.bmToMellispheraData.getNewHive(bmHive, username, this.userId));
+					this.bmToMellispheraData.resetPos();
 					if (bmHive.getDevices() != null) {
 						for(BmSensor bmSensor : bmHive.getDevices()) {
 							this.sensorRepository.insert(this.bmToMellispheraData.getNewSensorFromFirstConnection(bmSensor, this.userId, bmHive));
@@ -179,7 +180,7 @@ public class BmServiceImpl implements BmService {
 	}
 
 
-	public void saveSensorFronBmSensor(BmSensor[] bmSensors, String userId, BmHive _bmHive) {
+	public void saveSensorFromBmSensor(BmSensor[] bmSensors, String userId, BmHive _bmHive) {
 		Arrays.stream(bmSensors).map(_sensor -> this.bmToMellispheraData.getNewSensorFromFirstConnection(_sensor, userId, _bmHive)).collect(Collectors.toList()).forEach(_newSensor -> {
 			boolean hiveExist = this.sensorRepository.findById(_newSensor.get_id()).isPresent();
 			if (hiveExist) {
@@ -190,7 +191,7 @@ public class BmServiceImpl implements BmService {
 		});
 	}
 
-	public void saveChangeLog(BmAuth change, String username, String userId) {
+	private void saveChangeLog(BmAuth change, String username, String userId) {
 		try{
 			if (change.getPayload().getApiaries() != null) {
 				this.changeLogService.saveApiaryFromBmApiary(change.getPayload().getApiaries(), username);
@@ -212,6 +213,7 @@ public class BmServiceImpl implements BmService {
 			if (change.getPayload().getHiveUpdate() != null) {
 				for (BmHiveUpdated hiveUpdated: change.getPayload().getHiveUpdate()) {
 					this.hiveRepository.save(this.bmToMellispheraData.getNewHive(hiveUpdated.getUpdatedData(), username, userId));
+					this.bmToMellispheraData.resetPos();
 				}
 			}
 			if (change.getPayload().getDeviceUpdate() != null) {

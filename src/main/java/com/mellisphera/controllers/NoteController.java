@@ -19,7 +19,9 @@ import java.util.Date;
 import java.util.List;
 
 import com.mellisphera.entities.Note;
+import com.mellisphera.entities.bm.BmNote;
 import com.mellisphera.repositories.NoteRepository;
+import com.mellisphera.security.service.BmServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,7 @@ public class NoteController {
 
 	@Autowired
     private NoteRepository noteRepository;
+	@Autowired private BmServiceImpl bmService;
 	
     public NoteController() {
 	    }
@@ -44,6 +47,14 @@ public class NoteController {
     
     @PostMapping("/insert")
     public Note insert(@RequestBody Note observation){
+        /*this.bmService.postNote(new BmNote(
+                observation.getDescription(),
+                new String[]{},
+                observation.getHiveId(),
+                observation.getApiaryId(),
+                observation.getOpsDate().getTime(),
+                observation.getType(),
+                observation.getCreateDate().getTime()));*/
         return this.noteRepository.insert(observation);
     }
     
@@ -77,7 +88,15 @@ public class NoteController {
     
     @PutMapping("/update/{id}")
     public void update(@PathVariable("id") String id, @RequestBody Note note){
- 		this.noteRepository.save(note);
+        /*this.bmService.putNote(new BmNote(
+                note.getDescription(),
+                new String[]{},
+                note.getHiveId(),
+                note.getApiaryId(),
+                note.getOpsDate().getTime(),
+                note.getType(),
+                note.getCreateDate().getTime()));*/
+        this.noteRepository.save(note);
     }
    
 	
