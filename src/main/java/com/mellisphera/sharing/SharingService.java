@@ -60,7 +60,7 @@ public class SharingService {
 			User newUser = this.getNewUser(idNewUser);
 			ArrayList<Apiary> apiaryList = new ArrayList<Apiary>();
 			apiaryList.add(demoApiary);
-			ShareApiary onSharing = new ShareApiary(null,newUser.getId(),newUser.getUsername(), apiaryList);
+			ShareApiary onSharing = new ShareApiary(null, newUser.getId(), apiaryList);
 			this.shareRepository.insert(onSharing);
 		}
 		catch(UserNotFoundException e) {

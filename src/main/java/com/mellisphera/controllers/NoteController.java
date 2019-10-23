@@ -47,14 +47,14 @@ public class NoteController {
     
     @PostMapping("/insert")
     public Note insert(@RequestBody Note observation){
-        /*this.bmService.postNote(new BmNote(
+        System.out.println(this.bmService.postNote(new BmNote(
                 observation.getDescription(),
                 new String[]{},
                 observation.getHiveId(),
                 observation.getApiaryId(),
                 observation.getOpsDate().getTime(),
                 observation.getType(),
-                observation.getCreateDate().getTime()));*/
+                observation.getCreateDate().getTime())));
         return this.noteRepository.insert(observation);
     }
     
@@ -88,14 +88,15 @@ public class NoteController {
     
     @PutMapping("/update/{id}")
     public void update(@PathVariable("id") String id, @RequestBody Note note){
-        /*this.bmService.putNote(new BmNote(
+        this.bmService.putNote(new BmNote(
+                note.get_id(),
                 note.getDescription(),
                 new String[]{},
                 note.getHiveId(),
                 note.getApiaryId(),
                 note.getOpsDate().getTime(),
                 note.getType(),
-                note.getCreateDate().getTime()));*/
+                note.getCreateDate().getTime()));
         this.noteRepository.save(note);
     }
    

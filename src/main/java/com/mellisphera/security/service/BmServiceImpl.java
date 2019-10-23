@@ -116,16 +116,17 @@ public class BmServiceImpl implements BmService {
 
 	@Override
 	public void putNote(BmNote bmNote){
-		String urlRequest = this.bmUrl = "notes";
+		String urlRequest = this.bmUrl + "notes";
 		this.header = new HttpHeaders();
-		this.header.add("Content-Type", "application/json");
-		this.header.add("license_key", this.licenceKey);
+        this.header.add("Content-Type", "application/json");
+        this.header.add("license_key", this.licenceKey);
 		Gson gson = new Gson();
 		String noteJson = gson.toJson(bmNote);
 		this.notePostRequestEntity = new HttpEntity<>(noteJson, this.header);
 		RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
-		restTemplate.put(urlRequest, requestEntity, BmNote.class);
-	}
+        //restTemplate.put(urlRequest, this.notePostRequestEntity);
+        restTemplate.exchange(urlRequest,HttpMethod.PUT,this.notePostRequestEntity, Object.class);
+    }
 
 
 	@Override
@@ -146,7 +147,7 @@ public class BmServiceImpl implements BmService {
 	}
 
 	@Override
-	public void deleteChangeLog(int modified, String userId) {
+	public void deleteChangeLog(long modified, String userId) {
 		String urlRequest = this.bmUrl +  "user/changeLog";
 		HttpHeaders header = new HttpHeaders();
 		header.add("license_key", this.licenceKey);
@@ -167,15 +168,15 @@ public class BmServiceImpl implements BmService {
 
 	@Override
 	public BmNote postNote(BmNote bmNote){
-		String urlRequest = this.bmUrl +  "user/changeLog";
+		String urlRequest = this.bmUrl +  "notes";
 		this.header = new HttpHeaders();
-		this.header.add("Content-Type", "application/json");
+		// this.header.add("Content-Type", "application/json");
 		this.header.add("license_key", this.licenceKey);
 		Gson gson = new Gson();
 		String noteJson = gson.toJson(bmNote);
 		this.notePostRequestEntity = new HttpEntity<>(noteJson, this.header);
 		RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
-		BmNote note = restTemplate.postForObject(urlRequest, requestEntity, BmNote.class);
+		Object note = restTemplate.postForObject(urlRequest, this.notePostRequestEntity, Object.class);
 		return bmNote;
 	}
 

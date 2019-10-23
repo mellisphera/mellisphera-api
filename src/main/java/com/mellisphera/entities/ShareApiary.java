@@ -24,25 +24,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ShareApiary {
 	
 	@Id
-	private String id = null;
-	private String userId = null; // id du user avec qui sont partager les ruchers
-	private String username = null;
+	private String _id = null;
+	private String userId = null; // _id du user avec qui sont partager les ruchers
 	private	ArrayList<Apiary> sharingApiary = null;
 	
-	public ShareApiary(String id, String userId, String username, ArrayList<Apiary> sharingApiary) {
+	public ShareApiary(String _id, String userId, ArrayList<Apiary> sharingApiary) {
 		super();
-		this.id = id;
+		this._id = _id;
 		this.userId = userId;
-		this.username = username;
 		this.sharingApiary = sharingApiary;
 	}
 
-	public String getId() {
-		return id;
+	public String get_id() {
+		return _id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 
 	public String getuserId() {

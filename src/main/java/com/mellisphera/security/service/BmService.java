@@ -28,7 +28,7 @@ public interface BmService {
 
 	public void getChangeLog(String userId, String username);
 
-	public void deleteChangeLog(int modified, String userId);
+	public void deleteChangeLog(long modified, String userId);
 
 	public BmNote postNote(BmNote bmNote);
 

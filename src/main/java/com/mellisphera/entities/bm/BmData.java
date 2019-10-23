@@ -34,7 +34,7 @@ public class BmData implements Serializable {
     private String userId;
 
     @JsonProperty("modified")
-    private int modified;
+    private long modified;
 
     /* For Change Log */
 
@@ -161,11 +161,11 @@ public class BmData implements Serializable {
         this.userId = userId;
     }
 
-    public int getModified() {
+    public long getModified() {
         return modified;
     }
 
-    public void setModified(int modified) {
+    public void setModified(long modified) {
         this.modified = modified;
     }
 

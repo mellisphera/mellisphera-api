@@ -103,7 +103,7 @@ public class BmNote {
         return opsDate;
     }
 
-    public void setOpsDate(int opsDate) {
+    public void setOpsDate(long opsDate) {
         this.opsDate = opsDate;
     }
 
@@ -119,7 +119,7 @@ public class BmNote {
         return createDate;
     }
 
-    public void setCreateDate(int createDate) {
+    public void setCreateDate(long createDate) {
         this.createDate = createDate;
     }
 
