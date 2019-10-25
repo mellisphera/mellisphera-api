@@ -34,6 +34,11 @@ public class AlertUser {
         this.alertConf = alertConf;
     }
 
+    public AlertUser(String userId, Map<String , AlertConf> alertConf) {
+        this.userId = userId;
+        this.alertConf = alertConf;
+    }
+
     public String get_id() {
         return _id;
     }

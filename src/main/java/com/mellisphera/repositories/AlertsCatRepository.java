@@ -13,10 +13,10 @@ limitations under the License. */
 
 package com.mellisphera.repositories;
 
-import com.mellisphera.entities.Alerts;
+import com.mellisphera.entities.AlertsCat;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface AlertRepository extends MongoRepository<Alerts, String> {
+public interface AlertsCatRepository extends MongoRepository<AlertsCat, String> {
 
 
 }

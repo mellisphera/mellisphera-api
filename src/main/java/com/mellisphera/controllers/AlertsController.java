@@ -13,8 +13,8 @@ limitations under the License. */
 
 package com.mellisphera.controllers;
 
-import com.mellisphera.entities.Alerts;
-import com.mellisphera.repositories.AlertRepository;
+import com.mellisphera.entities.AlertsCat;
+import com.mellisphera.repositories.AlertsCatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +27,12 @@ import java.util.List;
 public class AlertsController {
 
 
-    @Autowired private AlertRepository alertRepository;
+    @Autowired private AlertsCatRepository alertsCatRepository;
 
 
     @GetMapping("/all")
-    public List<Alerts> getAllAlerts() {
-        return this.alertRepository.findAll();
+    public List<AlertsCat> getAllAlerts() {
+        return this.alertsCatRepository.findAll();
     }
 
 }

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mellisphera.repositories.AlertSendRepository;
+import com.mellisphera.repositories.AlertSentRepository;
 
 @Service
 @RestController
@@ -36,34 +36,34 @@ import com.mellisphera.repositories.AlertSendRepository;
 public class AlertSendController {
 	
 	static final private String NOTIF = "NOTIF";
-	@Autowired private AlertSendRepository alertSendRepository;
+	@Autowired private AlertSentRepository alertSentRepository;
 	
 	@GetMapping("/apiary/{idApiary}")
 	public List<AlertSent> getByApiary(@PathVariable String idApiary) {
-		return this.alertSendRepository.findByIdApiary(idApiary).stream().filter(_alertSent -> _alertSent.getLoc().equals("Apiary")).collect(Collectors.toList());
+		return this.alertSentRepository.findByIdApiary(idApiary).stream().filter(_alertSent -> _alertSent.getLoc().equals("Apiary")).collect(Collectors.toList());
 
 	}
 	
 	@GetMapping("/hive/{idHive}")
 	public List<AlertSent> getByHive(@PathVariable String idHive){
-		return this.alertSendRepository.findByIdHive(idHive).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
+		return this.alertSentRepository.findByIdHive(idHive).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
 	}
 	
 	@GetMapping("/apiary/hiveAllert/{idApiary}")
 	public List<AlertSent> getHiveAlertByApiary(@PathVariable String idApiary) {
-		return this.alertSendRepository.findByIdApiary(idApiary).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
+		return this.alertSentRepository.findByIdApiary(idApiary).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
 	}
 	
 	@PutMapping("/update/{id}")
 	public AlertSent checkAlert(@PathVariable String id, @RequestBody Boolean check){
-		AlertSent alertSent = this.alertSendRepository.findById(id).get();
+		AlertSent alertSent = this.alertSentRepository.findById(id).get();
 		alertSent.setCheck(check);
-		return this.alertSendRepository.save(alertSent);
+		return this.alertSentRepository.save(alertSent);
 	}
 	
 	@PostMapping("/between/hive/{idHive}")
 	public List<AlertSent> getHiveAlert(@PathVariable String idHive, @RequestBody Date[] range) {
-		return this.alertSendRepository.findByIdHiveAndDateBetween(idHive, range[0], range[1]).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
+		return this.alertSentRepository.findByIdHiveAndDateBetween(idHive, range[0], range[1]).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
 	}
 
 }

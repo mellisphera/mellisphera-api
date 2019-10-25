@@ -14,10 +14,11 @@ limitations under the License. */
 package com.mellisphera.security.service;
 
 import com.mellisphera.controllers.AuthRestApiController;
-import com.mellisphera.entities.User;
-import com.mellisphera.entities.UserPref;
+import com.mellisphera.entities.*;
 import com.mellisphera.entities.log.LogEvents;
 import com.mellisphera.entities.log.LogType;
+import com.mellisphera.repositories.AlertUserRepository;
+import com.mellisphera.repositories.AlertsCatRepository;
 import com.mellisphera.repositories.LogRepoitory;
 import com.mellisphera.repositories.UserRepository;
 import com.mellisphera.security.entities.GeoIp;
@@ -30,10 +31,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
+import java.util.*;
 
 @Service
 public class SignupService {
@@ -42,6 +40,8 @@ public class SignupService {
     @Autowired private UserRepository userRepository;
     @Autowired private GeoipServiceImpl geoipService;
     @Autowired private LogRepoitory logRepoitory;
+    @Autowired private AlertsCatRepository alertsCatRepository;
+    @Autowired private AlertUserRepository alertUserRepository;
     @Autowired private PasswordEncoder encoder;
     private static final String DATE_FR = "D/M/Y h:m";
     private static final String DATE_EN = "Y-M-D h:m";
@@ -72,10 +72,22 @@ public class SignupService {
             this.logRepoitory.insert(logEventsBmAuth);
         }
 
+        this.setAlertUser(user);
         return newUser;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+
+    private void setAlertUser(User user) {
+        List<AlertsCat> alertCat = this.alertsCatRepository.findAll();
+        Map<String, AlertConf> alertConf = new HashMap<>();
+        alertCat.forEach(_alert -> {
+            alertConf.put(_alert.get_id(), new AlertConf(true, _alert.getBasicValue()));
+        });
+        AlertUser alertUser = new AlertUser(user.getId(), alertConf);
+        this.alertUserRepository.insert(alertUser);
     }
 }

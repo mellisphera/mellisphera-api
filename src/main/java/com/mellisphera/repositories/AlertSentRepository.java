@@ -19,7 +19,7 @@ import java.util.List;
 import com.mellisphera.entities.AlertSent;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface AlertSendRepository extends MongoRepository<AlertSent, String>{
+public interface AlertSentRepository extends MongoRepository<AlertSent, String>{
 	
 	public List<AlertSent> findByIdApiary(String idApiary);
 	
