@@ -119,9 +119,11 @@ public class ApiaryController {
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
     public Apiary insert(@RequestBody Apiary apiary){
-		ImageTool imageTool = new ImageTool(apiary.getPhoto(), apiary.getUserId());
-		imageTool.convertToFile();
-		apiary.setPhoto(imageTool.getPathClient());
+		if (!apiary.getPhoto().contains("background_draw_color")) {
+			ImageTool imageTool = new ImageTool(apiary.getPhoto(), apiary.getUserId());
+			imageTool.convertToFile();
+			apiary.setPhoto(imageTool.getPathClient());
+		}
         return this.apiaryRepository.insert(apiary);
     }
 	@PreAuthorize("hasRole('STANDARD')")
