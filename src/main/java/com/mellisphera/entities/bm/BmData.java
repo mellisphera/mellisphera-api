@@ -199,12 +199,17 @@ public class BmData implements Serializable {
                 "apiaries=" + Arrays.toString(apiaries) +
                 ", userId='" + userId + '\'' +
                 ", modified=" + modified +
-                ", apiaryUpdate=" + apiaryUpdate +
-                ", hiveUpdate=" + hiveUpdate +
-                ", deviceUpdate=" + deviceUpdate +
+                ", apiaryUpdate=" + Arrays.toString(apiaryUpdate) +
+                ", hiveUpdate=" + Arrays.toString(hiveUpdate) +
+                ", deviceUpdate=" + Arrays.toString(deviceUpdate) +
+                ", noteUpdate=" + Arrays.toString(noteUpdate) +
                 ", devicesCreate=" + Arrays.toString(devicesCreate) +
                 ", bmNoteCreate=" + Arrays.toString(bmNoteCreate) +
                 ", bmHiveCreate=" + Arrays.toString(bmHiveCreate) +
+                ", hiveDelete=" + Arrays.toString(hiveDelete) +
+                ", apiaryDelete=" + Arrays.toString(apiaryDelete) +
+                ", deviceDelete=" + Arrays.toString(deviceDelete) +
+                ", noteDelete=" + Arrays.toString(noteDelete) +
                 '}';
     }
 }

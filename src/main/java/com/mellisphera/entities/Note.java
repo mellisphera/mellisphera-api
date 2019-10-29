@@ -14,6 +14,7 @@ limitations under the License. */
 package com.mellisphera.entities;
 
 import java.sql.Array;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -143,4 +144,20 @@ public class Note {
 	public void setTypeInspect(String typeInspect) {
 		this.typeInspect = typeInspect;
 	}
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "_id='" + _id + '\'' +
+                ", createDate=" + createDate +
+                ", type='" + type + '\'' +
+                ", tags=" + Arrays.toString(tags) +
+                ", description='" + description + '\'' +
+                ", hiveId='" + hiveId + '\'' +
+                ", apiaryId='" + apiaryId + '\'' +
+                ", opsDate=" + opsDate +
+                ", userId='" + userId + '\'' +
+                ", typeInspect='" + typeInspect + '\'' +
+                '}';
+    }
 }

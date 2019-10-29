@@ -28,6 +28,8 @@ public class AlertUser {
     /* Key: alertId, value: Conf */
     private Map<String , AlertConf> alertConf;
 
+    public AlertUser(){}
+
     public AlertUser(String _id, String userId, Map<String , AlertConf> alertConf) {
         this._id = _id;
         this.userId = userId;
@@ -38,6 +40,7 @@ public class AlertUser {
         this.userId = userId;
         this.alertConf = alertConf;
     }
+
 
     public String get_id() {
         return _id;

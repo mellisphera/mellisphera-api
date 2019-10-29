@@ -24,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/alerts")
-public class AlertsController {
+public class AlertsCatController {
 
 
     @Autowired private AlertsCatRepository alertsCatRepository;

@@ -14,6 +14,8 @@ limitations under the License. */
 package com.mellisphera.security.service;
 
 import com.mellisphera.entities.Hive;
+import com.mellisphera.entities.Note;
+import com.mellisphera.entities.Swarm;
 import com.mellisphera.entities.bm.BmApiary;
 import com.mellisphera.entities.bm.BmDevice;
 import com.mellisphera.entities.bm.BmHive;
@@ -23,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,12 +78,21 @@ public class BmChangeLogService {
     public void saveNoteFromBmNote(BmNote[] bmNote) {
         Arrays.stream(bmNote).map(_note -> this.bmToMellispheraData.getNewNote(_note)).collect(Collectors.toList()).forEach(_newNote -> {
             boolean noteExist = this.noteRepository.findById(_newNote.get_id()).isPresent();
-            if (noteExist) {
-                this.noteRepository.save(_newNote);
+            Note note = null;
+            note = this.noteRepository.findByOpsDate(_newNote.getOpsDate());
+            System.out.println(note);
+            if (noteExist || note != null) {
+                note = _newNote;
+                this.noteRepository.save(note);
             } else {
                 this.noteRepository.insert(_newNote);
             }
         });
     }
+
+    private Date convertTimestampToDate(long time){
+        return new Date(time*1000);
+    }
+
 
 }

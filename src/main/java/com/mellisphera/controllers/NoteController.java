@@ -20,6 +20,7 @@ import java.util.List;
 
 import com.mellisphera.entities.Note;
 import com.mellisphera.entities.bm.BmNote;
+import com.mellisphera.entities.bm.BmNoteCreate;
 import com.mellisphera.repositories.NoteRepository;
 import com.mellisphera.security.service.BmServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +48,17 @@ public class NoteController {
     
     @PostMapping("/insert")
     public Note insert(@RequestBody Note observation){
-        System.out.println(this.bmService.postNote(new BmNote(
+        BmNoteCreate createNote = this.bmService.postNote(new BmNote(
                 observation.getDescription(),
                 new String[]{},
                 observation.getHiveId(),
                 observation.getApiaryId(),
-                observation.getOpsDate().getTime(),
+                observation.getOpsDate().getTime()/1000,
                 observation.getType(),
-                observation.getCreateDate().getTime())));
+                observation.getCreateDate().getTime() / 1000));
+
+        observation.set_id(createNote.getBmNote().getNoteId());
+        System.out.println(observation);
         return this.noteRepository.insert(observation);
     }
     

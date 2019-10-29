@@ -167,7 +167,7 @@ public class BmServiceImpl implements BmService {
 	}
 
 	@Override
-	public BmNote postNote(BmNote bmNote){
+	public BmNoteCreate postNote(BmNote bmNote){
 		String urlRequest = this.bmUrl +  "notes";
 		this.header = new HttpHeaders();
 		// this.header.add("Content-Type", "application/json");
@@ -176,8 +176,8 @@ public class BmServiceImpl implements BmService {
 		String noteJson = gson.toJson(bmNote);
 		this.notePostRequestEntity = new HttpEntity<>(noteJson, this.header);
 		RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
-		Object note = restTemplate.postForObject(urlRequest, this.notePostRequestEntity, Object.class);
-		return bmNote;
+		BmNoteCreate note = restTemplate.postForObject(urlRequest, this.notePostRequestEntity, BmNoteCreate.class);
+		return note;
 	}
 
 
@@ -244,7 +244,7 @@ public class BmServiceImpl implements BmService {
 				}
 			}
 			if (change.getPayload().getNoteDelete() != null) {
-				for (String id: change.getPayload().getApiaryDelete()) {
+				for (String id: change.getPayload().getNoteDelete()) {
 					this.noteRepository.deleteById(id);
 				}
 			}

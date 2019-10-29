@@ -30,11 +30,9 @@ public class AlertConfController {
         return this.alertUserRepository.findByUserId(userId);
     }
 
-    @PutMapping("/update/{userId}/{alertId}")
-    public String updateConf(@PathVariable String userId, @PathVariable String alertId, @RequestBody AlertConf alert) {
-        AlertUser alertUser = this.alertUserRepository.findByUserId(userId);
-        alertUser.getAlertConf().put(alertId, alert);
+    @PutMapping("/update")
+    public String updateConf(@RequestBody AlertUser alertUser) {
         this.alertUserRepository.save(alertUser);
-        return alertId + "updated";
+        return alertUser.get_id() + "updated";
     }
 }
