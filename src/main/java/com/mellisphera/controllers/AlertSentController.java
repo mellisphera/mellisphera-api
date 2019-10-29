@@ -33,25 +33,25 @@ import com.mellisphera.repositories.AlertSentRepository;
 @Service
 @RestController
 @RequestMapping("/alertSend")
-public class AlertSendController {
+public class AlertSentController {
 	
 	static final private String NOTIF = "NOTIF";
 	@Autowired private AlertSentRepository alertSentRepository;
 	
 	@GetMapping("/apiary/{idApiary}")
 	public List<AlertSent> getByApiary(@PathVariable String idApiary) {
-		return this.alertSentRepository.findByIdApiary(idApiary).stream().filter(_alertSent -> _alertSent.getLoc().equals("Apiary")).collect(Collectors.toList());
+		return this.alertSentRepository.findByApiaryId(idApiary).stream().filter(_alertSent -> _alertSent.getLoc().equals("Apiary")).collect(Collectors.toList());
 
 	}
 	
 	@GetMapping("/hive/{idHive}")
 	public List<AlertSent> getByHive(@PathVariable String idHive){
-		return this.alertSentRepository.findByIdHive(idHive).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
+		return this.alertSentRepository.findByHiveId(idHive).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
 	}
 	
 	@GetMapping("/apiary/hiveAllert/{idApiary}")
 	public List<AlertSent> getHiveAlertByApiary(@PathVariable String idApiary) {
-		return this.alertSentRepository.findByIdApiary(idApiary).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
+		return this.alertSentRepository.findByApiaryId(idApiary).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
 	}
 	
 	@PutMapping("/update/{id}")
@@ -63,7 +63,7 @@ public class AlertSendController {
 	
 	@PostMapping("/between/hive/{idHive}")
 	public List<AlertSent> getHiveAlert(@PathVariable String idHive, @RequestBody Date[] range) {
-		return this.alertSentRepository.findByIdHiveAndDateBetween(idHive, range[0], range[1]).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
+		return this.alertSentRepository.findByHiveIdAndOpsDateBetween(idHive, range[0], range[1]).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
 	}
 
 }

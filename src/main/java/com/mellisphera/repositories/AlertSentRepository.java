@@ -21,9 +21,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface AlertSentRepository extends MongoRepository<AlertSent, String>{
 	
-	public List<AlertSent> findByIdApiary(String idApiary);
+	public List<AlertSent> findByApiaryId(String apiaryId);
 	
-	public List<AlertSent> findByIdHive(String idHive);
+	public List<AlertSent> findByHiveId(String hiveid);
 	
-	public List<AlertSent> findByIdHiveAndDateBetween(String idHive, Date start, Date end);
+	public List<AlertSent> findByHiveIdAndOpsDateBetween(String hiveId, Date start, Date end);
 }

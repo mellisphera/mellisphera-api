@@ -33,67 +33,53 @@ public class AlertSent {
 	 * */
 	
 	private String _id;
-	private String idUser;
+	private String userId;
 	private String user;
 	private String apiary;
-	private String idApiary;
-	private String idHive;
+	private String apiaryId;
+	private String hiveId;
 	private String hive;
 	private String type;
 	private String time;
 	private String loc;
 	private String alert;
 	private String message;
-	private Date date;
+	private Date opsDate;
 	private Boolean check;
-	
-	public AlertSent() {
-		// TODO Auto-generated constructor stub
-	}
 
-	
-	public String getTime() {
-		return time;
-	}
-
-
-	public void setTime(String time) {
+	public AlertSent(String _id, String userId, String user, String apiary, String apiaryId, String hiveId, String hive, String type, String time, String loc, String alert, String message, Date opsDate, Boolean check) {
+		this._id = _id;
+		this.userId = userId;
+		this.user = user;
+		this.apiary = apiary;
+		this.apiaryId = apiaryId;
+		this.hiveId = hiveId;
+		this.hive = hive;
+		this.type = type;
 		this.time = time;
-	}
-
-
-	public String getLoc() {
-		return loc;
-	}
-
-
-	public void setLoc(String loc) {
 		this.loc = loc;
+		this.alert = alert;
+		this.message = message;
+		this.opsDate = opsDate;
+		this.check = check;
 	}
 
+	public AlertSent() {}
 
 	public String get_id() {
 		return _id;
-	}
-
-	public Boolean getCheck() {
-		return check;
-	}
-
-	public void setCheck(Boolean check) {
-		this.check = check;
 	}
 
 	public void set_id(String _id) {
 		this._id = _id;
 	}
 
-	public String getIdUser() {
-		return idUser;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setIdUser(String idUser) {
-		this.idUser = idUser;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getUser() {
@@ -112,20 +98,20 @@ public class AlertSent {
 		this.apiary = apiary;
 	}
 
-	public String getIdApiary() {
-		return idApiary;
+	public String getApiaryId() {
+		return apiaryId;
 	}
 
-	public void setIdApiary(String idApiary) {
-		this.idApiary = idApiary;
+	public void setApiaryId(String apiaryId) {
+		this.apiaryId = apiaryId;
 	}
 
-	public String getIdHive() {
-		return idHive;
+	public String getHiveId() {
+		return hiveId;
 	}
 
-	public void setIdHive(String idHive) {
-		this.idHive = idHive;
+	public void setHiveId(String hiveId) {
+		this.hiveId = hiveId;
 	}
 
 	public String getHive() {
@@ -144,6 +130,22 @@ public class AlertSent {
 		this.type = type;
 	}
 
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getLoc() {
+		return loc;
+	}
+
+	public void setLoc(String loc) {
+		this.loc = loc;
+	}
+
 	public String getAlert() {
 		return alert;
 	}
@@ -160,16 +162,20 @@ public class AlertSent {
 		this.message = message;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getOpsDate() {
+		return opsDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setOpsDate(Date opsDate) {
+		this.opsDate = opsDate;
 	}
-	
-	
-	
-	
+
+	public Boolean getCheck() {
+		return check;
+	}
+
+	public void setCheck(Boolean check) {
+		this.check = check;
+	}
 }
 
