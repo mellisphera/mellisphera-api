@@ -26,45 +26,44 @@ public class AlertSent {
     "user" : "lpo",
     "apiary" : "Guindalos",
     "hive" : "R6",
-    "type" : "Daily",
+    "icon" : "Daily",
     "alert" : "Changement important du poids pour Guindalos-R6",
     "message" : "Alerte - Le poids a varié de plus de 5kg lors des derniers jours! Vous devriez aller vérifier votre ruche.",
     "date" : ISODate("2019-06-21T00:00:00.000Z")
 	 * */
-	
+
 	private String _id;
 	private String userId;
 	private String user;
-	private String apiary;
+	private String apiaryName;
 	private String apiaryId;
 	private String hiveId;
-	private String hive;
-	private String type;
+	private String hiveName;
+	private String icon;
 	private String time;
 	private String loc;
-	private String alert;
+	private String notif;
 	private String message;
 	private Date opsDate;
 	private Boolean check;
 
-	public AlertSent(String _id, String userId, String user, String apiary, String apiaryId, String hiveId, String hive, String type, String time, String loc, String alert, String message, Date opsDate, Boolean check) {
+	public AlertSent() {}
+	public AlertSent(String _id, String userId, String user, String apiaryName, String apiaryId, String hiveId, String hiveName, String icon, String time, String loc, String notif, String message, Date opsDate, Boolean check) {
 		this._id = _id;
 		this.userId = userId;
 		this.user = user;
-		this.apiary = apiary;
+		this.apiaryName = apiaryName;
 		this.apiaryId = apiaryId;
 		this.hiveId = hiveId;
-		this.hive = hive;
-		this.type = type;
+		this.hiveName = hiveName;
+		this.icon = icon;
 		this.time = time;
 		this.loc = loc;
-		this.alert = alert;
+		this.notif = notif;
 		this.message = message;
 		this.opsDate = opsDate;
 		this.check = check;
 	}
-
-	public AlertSent() {}
 
 	public String get_id() {
 		return _id;
@@ -90,12 +89,12 @@ public class AlertSent {
 		this.user = user;
 	}
 
-	public String getApiary() {
-		return apiary;
+	public String getApiaryName() {
+		return apiaryName;
 	}
 
-	public void setApiary(String apiary) {
-		this.apiary = apiary;
+	public void setApiaryName(String apiaryName) {
+		this.apiaryName = apiaryName;
 	}
 
 	public String getApiaryId() {
@@ -114,20 +113,20 @@ public class AlertSent {
 		this.hiveId = hiveId;
 	}
 
-	public String getHive() {
-		return hive;
+	public String getHiveName() {
+		return hiveName;
 	}
 
-	public void setHive(String hive) {
-		this.hive = hive;
+	public void setHiveName(String hiveName) {
+		this.hiveName = hiveName;
 	}
 
-	public String getType() {
-		return type;
+	public String getIcon() {
+		return icon;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 	public String getTime() {
@@ -146,12 +145,12 @@ public class AlertSent {
 		this.loc = loc;
 	}
 
-	public String getAlert() {
-		return alert;
+	public String getNotif() {
+		return notif;
 	}
 
-	public void setAlert(String alert) {
-		this.alert = alert;
+	public void setNotif(String notif) {
+		this.notif = notif;
 	}
 
 	public String getMessage() {
