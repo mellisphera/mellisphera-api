@@ -21,6 +21,8 @@ import com.mellisphera.entities.bm.changeLog.BmHiveUpdated;
 import com.mellisphera.entities.bm.changeLog.BmNoteUpdated;
 import com.mellisphera.entities.bm.changeLog.BmSensorUpdated;
 import com.mellisphera.repositories.*;
+import com.mongodb.DuplicateKeyException;
+import com.mongodb.MongoWriteException;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -66,7 +68,7 @@ public class BmServiceImpl implements BmService {
     @Autowired private NoteRepository noteRepository;
     @Autowired private UserRepository userRepository;
 
-    @Autowired private BmDataToMellispheraData bmToMellispheraData;
+    @Autowired private BmDataToMellispheraData 	bmToMellispheraData;
     @Autowired private BmChangeLogService changeLogService;
 
 	@Override
@@ -88,24 +90,56 @@ public class BmServiceImpl implements BmService {
 		try{
 			this.userId = bmData.getPayload().getApiaries()[0].getUserId();
 			for(BmApiary bmApiary: bmData.getPayload().getApiaries()) {
-				this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username));
+				try {
+					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username));
+				}
+				catch (Exception e) {
+					System.out.println("error key apiary");
+					this.apiaryRepository.deleteById(bmApiary.getApiaryId());
+					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username));
+				}
 				for(BmHive bmHive: bmApiary.getHives()) {
-					this.hiveRepository.insert(this.bmToMellispheraData.getNewHive(bmHive, username, this.userId));
+					try {
+						this.hiveRepository.insert(this.bmToMellispheraData.getNewHive(bmHive, username, this.userId));
+					}
+					catch (Exception e) {
+						this.hiveRepository.deleteById(bmHive.getHiveId());
+						this.hiveRepository.insert(this.bmToMellispheraData.getNewHive(bmHive, username, this.userId));
+
+					}
 					this.bmToMellispheraData.resetPos();
 					if (bmHive.getDevices() != null) {
 						for(BmSensor bmSensor : bmHive.getDevices()) {
-							this.sensorRepository.insert(this.bmToMellispheraData.getNewSensorFromFirstConnection(bmSensor, this.userId, bmHive));
+							try {
+								this.sensorRepository.insert(this.bmToMellispheraData.getNewSensorFromFirstConnection(bmSensor, this.userId, bmHive));
+							} catch (Exception e){
+								this.sensorRepository.deleteById(bmSensor.getDevice().getDeviceId());
+								this.sensorRepository.insert(this.bmToMellispheraData.getNewSensorFromFirstConnection(bmSensor, this.userId, bmHive));
+							}
 						}
 					}
 					if (bmHive.getNotes() != null) {
 						for (BmNote bmNote: bmHive.getNotes()) {
-							this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
+							try {
+								this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
+							}
+							catch (Exception e)  {
+								System.err.println("note error");
+								this.noteRepository.deleteById(bmNote.getNoteId());
+								this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
+							}
 						}
 					}
 				}
 				if (bmApiary.getNotes() != null) {
 					for (BmNote bmNote: bmApiary.getNotes()) {
-						this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
+						try {
+							this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
+						}
+						catch (Exception e)  {
+							this.noteRepository.deleteById(bmNote.getNoteId());
+							this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
+						}
 					}
 				}
 			}

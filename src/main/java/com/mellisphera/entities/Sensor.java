@@ -196,4 +196,25 @@ public class Sensor {
 	public void setSensorBat(float sensorBat) {
 		this.sensorBat = sensorBat;
 	}
+
+	@Override
+	public String toString() {
+		return "Sensor{" +
+				"_id='" + _id + '\'' +
+				", sensorRef='" + sensorRef + '\'' +
+				", model='" + model + '\'' +
+				", name='" + name + '\'' +
+				", type='" + type + '\'' +
+				", hiveId='" + hiveId + '\'' +
+				", apiaryId='" + apiaryId + '\'' +
+				", userId='" + userId + '\'' +
+				", hiveName='" + hiveName + '\'' +
+				", sensorTime=" + sensorTime +
+				", createDate=" + createDate +
+				", dataLastReceived=" + dataLastReceived +
+				", username='" + username + '\'' +
+				", deviceLocation=" + deviceLocation +
+				", sensorBat=" + sensorBat +
+				'}';
+	}
 }
