@@ -26,4 +26,7 @@ public interface AlertSentRepository extends MongoRepository<AlertSent, String>{
 	public List<AlertSent> findByHiveId(String hiveid);
 	
 	public List<AlertSent> findByHiveIdAndOpsDateBetween(String hiveId, Date start, Date end);
+
+	public List<AlertSent> findByApiaryIdAndOpsDateBetween(String apiaryId, Date start, Date end);
+
 }
