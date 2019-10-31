@@ -16,10 +16,15 @@ package com.mellisphera.entities;
 public class AlertConf {
 
     private Boolean enable;
-    private Float value;
-    public AlertConf(Boolean enable, Float value) {
+    private Float valueMet;
+    private Float valueImp;
+
+    public AlertConf() {}
+
+    public AlertConf(Boolean enable, Float valueMet, Float valueImp) {
         this.enable = enable;
-        this.value = value;
+        this.valueMet = valueMet;
+        this.valueImp = valueImp;
     }
 
     public Boolean getEnable() {
@@ -30,11 +35,19 @@ public class AlertConf {
         this.enable = enable;
     }
 
-    public Float getValue() {
-        return value;
+    public Float getValueMet() {
+        return valueMet;
     }
 
-    public void setValue(Float value) {
-        this.value = value;
+    public void setValueMet(Float valueMet) {
+        this.valueMet = valueMet;
+    }
+
+    public Float getValueImp() {
+        return valueImp;
+    }
+
+    public void setValueImp(Float valueImp) {
+        this.valueImp = valueImp;
     }
 }

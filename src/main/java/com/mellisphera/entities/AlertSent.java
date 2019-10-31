@@ -42,139 +42,160 @@ public class AlertSent {
 	private String icon;
 	private String time;
 	private String loc;
+	private String code;
 	private String notif;
 	private String message;
 	private Date opsDate;
+	private String sensorRef;
 	private Boolean check;
 
 	public AlertSent() {}
-	public AlertSent(String _id, String userId, String user, String apiaryName, String apiaryId, String hiveId, String hiveName, String icon, String time, String loc, String notif, String message, Date opsDate, Boolean check) {
-		this._id = _id;
-		this.userId = userId;
-		this.user = user;
-		this.apiaryName = apiaryName;
-		this.apiaryId = apiaryId;
-		this.hiveId = hiveId;
-		this.hiveName = hiveName;
-		this.icon = icon;
-		this.time = time;
-		this.loc = loc;
-		this.notif = notif;
-		this.message = message;
-		this.opsDate = opsDate;
-		this.check = check;
-	}
 
-	public String get_id() {
-		return _id;
-	}
+    public AlertSent(String _id, String userId, String user, String apiaryName, String apiaryId, String hiveId, String hiveName, String icon, String time, String loc, String code, String notif, String message, Date opsDate, String sensorRef, Boolean check) {
+        this._id = _id;
+        this.userId = userId;
+        this.user = user;
+        this.apiaryName = apiaryName;
+        this.apiaryId = apiaryId;
+        this.hiveId = hiveId;
+        this.hiveName = hiveName;
+        this.icon = icon;
+        this.time = time;
+        this.loc = loc;
+        this.code = code;
+        this.notif = notif;
+        this.message = message;
+        this.opsDate = opsDate;
+        this.sensorRef = sensorRef;
+        this.check = check;
+    }
 
-	public void set_id(String _id) {
-		this._id = _id;
-	}
+    public String get_id() {
+        return _id;
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public void set_id(String _id) {
+        this._id = _id;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public String getUser() {
-		return user;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public void setUser(String user) {
-		this.user = user;
-	}
+    public String getUser() {
+        return user;
+    }
 
-	public String getApiaryName() {
-		return apiaryName;
-	}
+    public void setUser(String user) {
+        this.user = user;
+    }
 
-	public void setApiaryName(String apiaryName) {
-		this.apiaryName = apiaryName;
-	}
+    public String getApiaryName() {
+        return apiaryName;
+    }
 
-	public String getApiaryId() {
-		return apiaryId;
-	}
+    public void setApiaryName(String apiaryName) {
+        this.apiaryName = apiaryName;
+    }
 
-	public void setApiaryId(String apiaryId) {
-		this.apiaryId = apiaryId;
-	}
+    public String getApiaryId() {
+        return apiaryId;
+    }
 
-	public String getHiveId() {
-		return hiveId;
-	}
+    public void setApiaryId(String apiaryId) {
+        this.apiaryId = apiaryId;
+    }
 
-	public void setHiveId(String hiveId) {
-		this.hiveId = hiveId;
-	}
+    public String getHiveId() {
+        return hiveId;
+    }
 
-	public String getHiveName() {
-		return hiveName;
-	}
+    public void setHiveId(String hiveId) {
+        this.hiveId = hiveId;
+    }
 
-	public void setHiveName(String hiveName) {
-		this.hiveName = hiveName;
-	}
+    public String getHiveName() {
+        return hiveName;
+    }
 
-	public String getIcon() {
-		return icon;
-	}
+    public void setHiveName(String hiveName) {
+        this.hiveName = hiveName;
+    }
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
+    public String getIcon() {
+        return icon;
+    }
 
-	public String getTime() {
-		return time;
-	}
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
-	public void setTime(String time) {
-		this.time = time;
-	}
+    public String getTime() {
+        return time;
+    }
 
-	public String getLoc() {
-		return loc;
-	}
+    public void setTime(String time) {
+        this.time = time;
+    }
 
-	public void setLoc(String loc) {
-		this.loc = loc;
-	}
+    public String getLoc() {
+        return loc;
+    }
 
-	public String getNotif() {
-		return notif;
-	}
+    public void setLoc(String loc) {
+        this.loc = loc;
+    }
 
-	public void setNotif(String notif) {
-		this.notif = notif;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public String getNotif() {
+        return notif;
+    }
 
-	public Date getOpsDate() {
-		return opsDate;
-	}
+    public void setNotif(String notif) {
+        this.notif = notif;
+    }
 
-	public void setOpsDate(Date opsDate) {
-		this.opsDate = opsDate;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public Boolean getCheck() {
-		return check;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public void setCheck(Boolean check) {
-		this.check = check;
-	}
+    public Date getOpsDate() {
+        return opsDate;
+    }
+
+    public void setOpsDate(Date opsDate) {
+        this.opsDate = opsDate;
+    }
+
+    public String getSensorRef() {
+        return sensorRef;
+    }
+
+    public void setSensorRef(String sensorRef) {
+        this.sensorRef = sensorRef;
+    }
+
+    public Boolean getCheck() {
+        return check;
+    }
+
+    public void setCheck(Boolean check) {
+        this.check = check;
+    }
 }
 

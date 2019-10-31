@@ -31,8 +31,7 @@ public class AlertConfController {
     }
 
     @PutMapping("/update")
-    public String updateConf(@RequestBody AlertUser alertUser) {
+    public void updateConf(@RequestBody AlertUser alertUser) {
         this.alertUserRepository.save(alertUser);
-        return alertUser.get_id() + "updated";
     }
 }

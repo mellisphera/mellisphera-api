@@ -21,34 +21,35 @@ public class AlertsCat {
 
     @Id
     private String _id;
-    private String type;
+    private String icon;
     private Boolean alterable;
     private Boolean disable;
-    private Float basicValue;
+    private Float basicValueMet;
+    private Float basicValueImp;
     private int priority;
-    private Integer[] rangeValue;
-    private String unite;
+    private Integer[] rangeValueMet;
+    private Integer[] rangeValueImp;
+    private int stepMet;
+    private int stepImp;
+    private String unitMet;
+    private String unitImp;
 
     public AlertsCat(){}
-    public AlertsCat(String _id, String type, Boolean alterable, Boolean disable, Float basicValue, int priority, Integer[] rangeValue, String unite) {
-        this._id = _id;
-        this.type = type;
-        this.alterable = alterable;
-        this.disable = disable;
-        this.basicValue = basicValue;
-        this.priority = priority;
-        this.rangeValue = rangeValue;
-        this.unite = unite;
-    }
 
-    public AlertsCat(String type, Boolean alterable, Boolean disable, Float basicValue, int priority, Integer[] rangeValue, String unite) {
-        this.type = type;
+    public AlertsCat(String _id, String icon, Boolean alterable, Boolean disable, Float basicValueMet, Float basicValueImp, int priority, Integer[] rangeValueMet, Integer[] rangeValueImp, int stepMet, int stepImp, String unitMet, String unitImp) {
+        this._id = _id;
+        this.icon = icon;
         this.alterable = alterable;
         this.disable = disable;
-        this.basicValue = basicValue;
+        this.basicValueMet = basicValueMet;
+        this.basicValueImp = basicValueImp;
         this.priority = priority;
-        this.rangeValue = rangeValue;
-        this.unite = unite;
+        this.rangeValueMet = rangeValueMet;
+        this.rangeValueImp = rangeValueImp;
+        this.stepMet = stepMet;
+        this.stepImp = stepImp;
+        this.unitMet = unitMet;
+        this.unitImp = unitImp;
     }
 
     public String get_id() {
@@ -59,12 +60,12 @@ public class AlertsCat {
         this._id = _id;
     }
 
-    public String getType() {
-        return type;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public Boolean getAlterable() {
@@ -83,12 +84,20 @@ public class AlertsCat {
         this.disable = disable;
     }
 
-    public Float getBasicValue() {
-        return basicValue;
+    public Float getBasicValueMet() {
+        return basicValueMet;
     }
 
-    public void setBasicValue(Float basicValue) {
-        this.basicValue = basicValue;
+    public void setBasicValueMet(Float basicValueMet) {
+        this.basicValueMet = basicValueMet;
+    }
+
+    public Float getBasicValueImp() {
+        return basicValueImp;
+    }
+
+    public void setBasicValueImp(Float basicValueImp) {
+        this.basicValueImp = basicValueImp;
     }
 
     public int getPriority() {
@@ -99,19 +108,51 @@ public class AlertsCat {
         this.priority = priority;
     }
 
-    public Integer[] getRangeValue() {
-        return rangeValue;
+    public Integer[] getRangeValueMet() {
+        return rangeValueMet;
     }
 
-    public void setRangeValue(Integer[] rangeValue) {
-        this.rangeValue = rangeValue;
+    public void setRangeValueMet(Integer[] rangeValueMet) {
+        this.rangeValueMet = rangeValueMet;
     }
 
-    public String getUnite() {
-        return unite;
+    public Integer[] getRangeValueImp() {
+        return rangeValueImp;
     }
 
-    public void setUnite(String unite) {
-        this.unite = unite;
+    public void setRangeValueImp(Integer[] rangeValueImp) {
+        this.rangeValueImp = rangeValueImp;
+    }
+
+    public int getStepMet() {
+        return stepMet;
+    }
+
+    public void setStepMet(int stepMet) {
+        this.stepMet = stepMet;
+    }
+
+    public int getStepImp() {
+        return stepImp;
+    }
+
+    public void setStepImp(int stepImp) {
+        this.stepImp = stepImp;
+    }
+
+    public String getUnitMet() {
+        return unitMet;
+    }
+
+    public void setUnitMet(String unitMet) {
+        this.unitMet = unitMet;
+    }
+
+    public String getUnitImp() {
+        return unitImp;
+    }
+
+    public void setUnitImp(String unitImp) {
+        this.unitImp = unitImp;
     }
 }

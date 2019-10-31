@@ -72,7 +72,7 @@ public class SignupService {
             this.logRepoitory.insert(logEventsBmAuth);
         }
 
-        this.setAlertUser(user);
+        this.setAlertUser(user, geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL);
         return newUser;
     }
 
@@ -81,11 +81,11 @@ public class SignupService {
     }
 
 
-    private void setAlertUser(User user) {
+    private void setAlertUser(User user, String unitType) {
         List<AlertsCat> alertCat = this.alertsCatRepository.findAll();
         Map<String, AlertConf> alertConf = new HashMap<>();
         alertCat.forEach(_alert -> {
-            alertConf.put(_alert.get_id(), new AlertConf(true, _alert.getBasicValue()));
+            alertConf.put(_alert.get_id(), new AlertConf(true, _alert.getBasicValueMet(), _alert.getBasicValueImp()));
         });
         AlertUser alertUser = new AlertUser(user.getId(), alertConf);
         this.alertUserRepository.insert(alertUser);
