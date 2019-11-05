@@ -30,8 +30,24 @@ public class BmDataToMellispheraData {
 
     @Autowired private SensorRepository sensorRepository;
     @Autowired private HivesRepository hiveRepository;
+    private static  String PREFIX_BACKGROUND_DIRECTORY = "./assets/imageClient/";
     static float lastXpos = 0;
     static float lastYpos = 0;
+    private static final String[] BACKGROUND_APIARY_EN = {
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default.png",
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_EN_BLUE.png",
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_EN_FUSCHIA.png",
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_EN_GREEN.png",
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_EN_RED.png"
+    };
+
+    private static final String[] BACKGROUND_APIARY_FR = {
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default._FR.png",
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_BLUE.png",
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_FUSCHIA.png",
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_GREEN.png",
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_RED.png"
+    }
     public BmDataToMellispheraData() {
     }
 
