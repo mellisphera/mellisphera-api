@@ -47,7 +47,7 @@ public class BmDataToMellispheraData {
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_FUSCHIA.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_GREEN.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_RED.png"
-    }
+    };
     public BmDataToMellispheraData() {
     }
 
