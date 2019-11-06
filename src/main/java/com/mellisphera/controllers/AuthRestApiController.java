@@ -168,7 +168,8 @@ public class AuthRestApiController {
 		} else {
 			geoIp = geoipService.getGeoIp("83.173.67.13");
 		}
-		return ResponseEntity.ok(new JwtResponse(user.getId(),jwt, user.getConnexions(), apiWatchUserDetails.getUsername(),user.getEmail(), apiWatchUserDetails.getAuthorities(),geoIp.getCountry(), user.getUserPref()));
+		//public JwtResponse(String idUser, String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country, UserPref userPref, String lang)
+		return ResponseEntity.ok(new JwtResponse(user.getId(), jwt, user.getConnexions(), apiWatchUserDetails.getUsername(),user.getEmail(), apiWatchUserDetails.getAuthorities(),geoIp.getCountry(), user.getUserPref(), user.getUserPref().getLang()));
 	}
 
 	/**

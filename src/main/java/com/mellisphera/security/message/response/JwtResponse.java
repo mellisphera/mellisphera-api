@@ -24,13 +24,15 @@ public class JwtResponse {
 	private String type = "Bearer";
 	private String username;
 	private String email;
+	private String lang;
 	private Long connexions;
 	private String country;
 	private UserPref userPref;
 	private String idUser;
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public JwtResponse(String idUser, String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country, UserPref userPref) {
+	public JwtResponse(String idUser, String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country, UserPref userPref, String lang) {
+		this.lang = lang;
 		this.token = accessToken;
 		this.username = username;
 		this.email = email;
@@ -39,15 +41,6 @@ public class JwtResponse {
 		this.country = country;
 		this.idUser = idUser;
 		this.userPref = userPref;
-	}
-	
-	public JwtResponse(String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country) {
-		this.token = accessToken;
-		this.username = username;
-		this.email = email;
-		this.authorities = authorities;
-		this.connexions = connexions;
-		this.country = country;
 	}
 
 	public String getToken() {
@@ -60,6 +53,14 @@ public class JwtResponse {
 
 	public String getType() {
 		return type;
+	}
+
+	public String getLang() {
+		return lang;
+	}
+
+	public void setLang(String lang) {
+		this.lang = lang;
 	}
 
 	public UserPref getUserPref() {
