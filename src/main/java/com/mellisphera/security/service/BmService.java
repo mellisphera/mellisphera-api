@@ -25,9 +25,9 @@ public interface BmService {
 
 	BmAuth getBmAuth(String username, String password);
 
-	void saveBmData(BmAuth bmData, String username);
+	void saveBmData(BmAuth bmData, String username, String countryCode);
 
-	public void getChangeLog(String userId, String username);
+	public void getChangeLog(String userId, String username, String countryCode);
 
 	public void deleteChangeLog(long modified, String userId);
 

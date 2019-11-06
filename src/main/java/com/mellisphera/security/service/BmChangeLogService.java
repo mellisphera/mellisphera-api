@@ -41,8 +41,8 @@ public class BmChangeLogService {
 
     public BmChangeLogService() {}
 
-    public void saveApiaryFromBmApiary(BmApiary[] bmApiary, String username) {
-        Arrays.stream(bmApiary).map(_apiary -> this.bmToMellispheraData.getNewApiary(_apiary, username)).collect(Collectors.toList()).forEach(_newApiary -> {
+    public void saveApiaryFromBmApiary(BmApiary[] bmApiary, String username, String countryCode) {
+        Arrays.stream(bmApiary).map(_apiary -> this.bmToMellispheraData.getNewApiary(_apiary, username, countryCode)).collect(Collectors.toList()).forEach(_newApiary -> {
             boolean apiaryExist = this.apiaryRepository.findById(_newApiary.get_id()).isPresent();
             if (apiaryExist) {
                 this.apiaryRepository.save(_newApiary);

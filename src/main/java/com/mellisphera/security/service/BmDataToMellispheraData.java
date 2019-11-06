@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Random;
 
 @Service
 public class BmDataToMellispheraData {
@@ -31,8 +32,6 @@ public class BmDataToMellispheraData {
     @Autowired private SensorRepository sensorRepository;
     @Autowired private HivesRepository hiveRepository;
     private static  String PREFIX_BACKGROUND_DIRECTORY = "./assets/imageClient/";
-    static float lastXpos = 0;
-    static float lastYpos = 0;
     private static final String[] BACKGROUND_APIARY_EN = {
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_EN_BLUE.png",
@@ -42,7 +41,7 @@ public class BmDataToMellispheraData {
     };
 
     private static final String[] BACKGROUND_APIARY_FR = {
-            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default._FR.png",
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default.FR.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_BLUE.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_FUSCHIA.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_GREEN.png",
@@ -67,10 +66,8 @@ public class BmDataToMellispheraData {
     Hive getNewHive(BmHive bmHive, String username, String userId) {
         Hive newHive = new Hive();
         newHive.set_id(bmHive.getHiveId());
-        newHive.setHivePosY(lastXpos);
-        newHive.setHivePosX(lastYpos);
-        lastXpos += 5;
-        lastYpos += 5;
+        newHive.setHivePosY(this.getRandomValue(100));
+        newHive.setHivePosX(this.getRandomValue(100));
         newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setUserId(userId);
         newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
@@ -90,10 +87,6 @@ public class BmDataToMellispheraData {
         }
     }
 
-    void resetPos() {
-        lastYpos = 0;
-        lastXpos = 0;
-    }
     Sensor getNewSensorFromFirstConnection(BmSensor bmSensor, String userId, BmHive bmHive) {
         System.out.println(bmSensor.getDevice());
         Sensor sensor = new Sensor();
@@ -120,12 +113,8 @@ public class BmDataToMellispheraData {
             System.out.println(bmDevice.getDeviceId());
 
         } catch (NullPointerException e) {
-            System.err.println("lala");
-            System.out.println("sensorId -> " + bmDevice.getDeviceId());
             Sensor lastSensor = this.sensorRepository.findById(bmDevice.getDeviceId()).get();
             System.out.println(lastSensor);
-            System.out.println("HIVE ->"  + lastSensor.getHiveId());
-            System.out.println("TEST" + this.hiveRepository.findById(lastSensor.getHiveId().trim()).isPresent());
             hive = this.hiveRepository.findById(lastSensor.getHiveId()).get();
             System.out.println(hive);
         }
@@ -166,7 +155,8 @@ public class BmDataToMellispheraData {
     }
 
 
-    Apiary getNewApiary(BmApiary bmApiary, String username) {
+    Apiary getNewApiary(BmApiary bmApiary, String username, String countryCode) {
+        System.err.println(countryCode);
         Apiary newApiary = new Apiary();
         newApiary.set_id(bmApiary.getApiaryId());
         newApiary.setZipCode(bmApiary.getZipCode());
@@ -177,10 +167,19 @@ public class BmDataToMellispheraData {
         newApiary.setPrivateApiary(bmApiary.getPrivateApiary());
         newApiary.setCountryCode(bmApiary.getCountryCode());
         newApiary.setUsername(username);
-        newApiary.setPhoto("./assets/imageClient/testAccount.png");
+        String photos;
+        if (countryCode.equals("FR")) {
+            photos = BACKGROUND_APIARY_FR[this.getRandomValue(BACKGROUND_APIARY_FR.length)];
+        } else {
+            photos = BACKGROUND_APIARY_EN[this.getRandomValue(BACKGROUND_APIARY_EN.length)];
+        }
+        newApiary.setPhoto(photos);
         return newApiary;
     }
 
+    private int getRandomValue(int max) {
+        return new Random().nextInt(max);
+    }
     private Date convertTimestampToDate(long time){
         return new Date(time*1000);
     }

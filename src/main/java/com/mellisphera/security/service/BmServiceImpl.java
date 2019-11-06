@@ -86,17 +86,17 @@ public class BmServiceImpl implements BmService {
 	}
 
 	@Override
-	public void saveBmData(BmAuth bmData, String username) {
+	public void saveBmData(BmAuth bmData, String username, String countryCode) {
 		try{
 			this.userId = bmData.getPayload().getApiaries()[0].getUserId();
 			for(BmApiary bmApiary: bmData.getPayload().getApiaries()) {
 				try {
-					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username));
+					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username, countryCode));
 				}
 				catch (Exception e) {
 					System.out.println("error key apiary");
 					this.apiaryRepository.deleteById(bmApiary.getApiaryId());
-					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username));
+					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username, countryCode));
 				}
 				for(BmHive bmHive: bmApiary.getHives()) {
 					try {
@@ -107,7 +107,6 @@ public class BmServiceImpl implements BmService {
 						this.hiveRepository.insert(this.bmToMellispheraData.getNewHive(bmHive, username, this.userId));
 
 					}
-					this.bmToMellispheraData.resetPos();
 					if (bmHive.getDevices() != null) {
 						for(BmSensor bmSensor : bmHive.getDevices()) {
 							try {
@@ -164,7 +163,7 @@ public class BmServiceImpl implements BmService {
 
 
 	@Override
-	public void getChangeLog(String userId, String username) {
+	public void getChangeLog(String userId, String username, String countryCode) {
 		this.header = new HttpHeaders();
 		this.header.add("license_key", this.licenceKey);
 		String urlRequest = this.bmUrl + "user/changeLog";
@@ -177,7 +176,7 @@ public class BmServiceImpl implements BmService {
 				entity,
 				BmAuth.class);
 		System.out.println(response.getBody());
-		this.saveChangeLog(response.getBody(), username, userId);
+		this.saveChangeLog(response.getBody(), username, userId, countryCode);
 	}
 
 	@Override
@@ -226,10 +225,10 @@ public class BmServiceImpl implements BmService {
 		});
 	}
 
-	private void saveChangeLog(BmAuth change, String username, String userId) {
+	private void saveChangeLog(BmAuth change, String username, String userId, String countryCode) {
 		try{
 			if (change.getPayload().getApiaries() != null) {
-				this.changeLogService.saveApiaryFromBmApiary(change.getPayload().getApiaries(), username);
+				this.changeLogService.saveApiaryFromBmApiary(change.getPayload().getApiaries(), username, countryCode);
 			}
 			if (change.getPayload().getBmNoteCreate() != null) {
 				this.changeLogService.saveNoteFromBmNote(change.getPayload().getBmNoteCreate());
@@ -242,13 +241,12 @@ public class BmServiceImpl implements BmService {
 			}
 			if (change.getPayload().getApiaryUpdate() != null) {
 				for (BmApiaryUpdated apiaryUpdate: change.getPayload().getApiaryUpdate()) {
-					this.apiaryRepository.save(this.bmToMellispheraData.getNewApiary(apiaryUpdate.getUpdatedData(), username));
+					this.apiaryRepository.save(this.bmToMellispheraData.getNewApiary(apiaryUpdate.getUpdatedData(), username, countryCode));
 				}
 			}
 			if (change.getPayload().getHiveUpdate() != null) {
 				for (BmHiveUpdated hiveUpdated: change.getPayload().getHiveUpdate()) {
 					this.hiveRepository.save(this.bmToMellispheraData.getNewHive(hiveUpdated.getUpdatedData(), username, userId));
-					this.bmToMellispheraData.resetPos();
 				}
 			}
 			if (change.getPayload().getDeviceUpdate() != null) {

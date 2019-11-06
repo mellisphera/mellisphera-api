@@ -122,23 +122,32 @@ public class AuthRestApiController {
 		Authentication authentication = null;
 		String jwt = null;
 		User user = null;
+		String ipAddress = request.getRemoteAddr();
+		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
+		if(geoIp.getCity() == null) {
+			System.err.println("ICI");
+			geoIp = geoipService.getGeoIp("83.173.67.13");
+		}
+		System.out.println(geoIp);
 		try {
 			authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			user = this.userRepository.findUserByEmail(loginRequest.getEmail());
-			this.bmAuthService.getChangeLog(user.getId(), user.getUsername());
+
+			System.out.println(geoIp);
+			this.bmAuthService.getChangeLog(user.getId(), user.getUsername(),geoIp.getCountry());
 
 		}
 		catch(AuthenticationException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			BmAuth bmAuth = bmAuthService.getBmAuth(loginRequest.getEmail(), loginRequest.getPassword());
 			if (!bmAuth.getCode().equals("200")) {
 				throw new UsernameNotFoundException("Login incorrecte");
 			} else {
 				String username = loginRequest.getEmail().split("@")[0];
 
-				this.bmAuthService.saveBmData(bmAuth, username);
+				this.bmAuthService.saveBmData(bmAuth, username,geoIp.getCountry());
 				this.signupService.setUserId(this.bmAuthService.getUserId());
 				user = this.signupService.newUser(new SignUpForm(username, loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), true);
 				// this.registerUser(new SignUpForm(username, loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), request, true);
@@ -154,8 +163,6 @@ public class AuthRestApiController {
 		jwt = jwtProvider.generateJwtToken(authentication);
 		apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
 		System.err.println("AFTER");
-		String ipAddress = request.getRemoteAddr();
-		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		Calendar calendar = new GregorianCalendar();
 		user.incrementConnexions();
 		Date date = new Date();
@@ -165,8 +172,6 @@ public class AuthRestApiController {
 		if(ipAddress != "127.0.0.1" || ipAddress != "0:0:0:0:0:0:0:1") {
 			Connection connection = new Connection(date, user.getId(), user.getUsername(), geoIp);
 			this.connectionRepository.insert(connection);
-		} else {
-			geoIp = geoipService.getGeoIp("83.173.67.13");
 		}
 		//public JwtResponse(String idUser, String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country, UserPref userPref, String lang)
 		return ResponseEntity.ok(new JwtResponse(user.getId(), jwt, user.getConnexions(), apiWatchUserDetails.getUsername(),user.getEmail(), apiWatchUserDetails.getAuthorities(),geoIp.getCountry(), user.getUserPref(), user.getUserPref().getLang()));
