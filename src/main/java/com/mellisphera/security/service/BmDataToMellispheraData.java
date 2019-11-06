@@ -91,7 +91,8 @@ public class BmDataToMellispheraData {
     }
 
     void resetPos() {
-        lastYpos = lastXpos = 0;
+        lastYpos = 0;
+        lastXpos = 0;
     }
     Sensor getNewSensorFromFirstConnection(BmSensor bmSensor, String userId, BmHive bmHive) {
         System.out.println(bmSensor.getDevice());

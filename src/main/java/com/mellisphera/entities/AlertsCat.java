@@ -22,6 +22,8 @@ public class AlertsCat {
     @Id
     private String _id;
     private String icon;
+    private String nameFr;
+    private String nameEn;
     private Boolean alterable;
     private Boolean disable;
     private Float basicValueMet;
@@ -29,16 +31,18 @@ public class AlertsCat {
     private int priority;
     private Integer[] rangeValueMet;
     private Integer[] rangeValueImp;
-    private int stepMet;
-    private int stepImp;
+    private float stepMet;
+    private float stepImp;
     private String unitMet;
     private String unitImp;
 
-    public AlertsCat(){}
+    public AlertsCat() {}
 
-    public AlertsCat(String _id, String icon, Boolean alterable, Boolean disable, Float basicValueMet, Float basicValueImp, int priority, Integer[] rangeValueMet, Integer[] rangeValueImp, int stepMet, int stepImp, String unitMet, String unitImp) {
+    public AlertsCat(String _id, String icon, String nameFr, String nameEn, Boolean alterable, Boolean disable, Float basicValueMet, Float basicValueImp, int priority, Integer[] rangeValueMet, Integer[] rangeValueImp, float stepMet, float stepImp, String unitMet, String unitImp) {
         this._id = _id;
         this.icon = icon;
+        this.nameFr = nameFr;
+        this.nameEn = nameEn;
         this.alterable = alterable;
         this.disable = disable;
         this.basicValueMet = basicValueMet;
@@ -66,6 +70,22 @@ public class AlertsCat {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getNameFr() {
+        return nameFr;
+    }
+
+    public void setNameFr(String nameFr) {
+        this.nameFr = nameFr;
+    }
+
+    public String getNameEn() {
+        return nameEn;
+    }
+
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
     }
 
     public Boolean getAlterable() {
@@ -124,19 +144,19 @@ public class AlertsCat {
         this.rangeValueImp = rangeValueImp;
     }
 
-    public int getStepMet() {
+    public float getStepMet() {
         return stepMet;
     }
 
-    public void setStepMet(int stepMet) {
+    public void setStepMet(float stepMet) {
         this.stepMet = stepMet;
     }
 
-    public int getStepImp() {
+    public float getStepImp() {
         return stepImp;
     }
 
-    public void setStepImp(int stepImp) {
+    public void setStepImp(float stepImp) {
         this.stepImp = stepImp;
     }
 
