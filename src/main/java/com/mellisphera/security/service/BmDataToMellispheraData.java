@@ -109,13 +109,10 @@ public class BmDataToMellispheraData {
         Hive hive = null;
         try {
             hive = this.hiveRepository.findById(bmDevice.getCurrentLocation().getHiveId()).get();
-            System.out.println(bmDevice.getDeviceId());
 
         } catch (NullPointerException e) {
             Sensor lastSensor = this.sensorRepository.findById(bmDevice.getDeviceId()).get();
-            System.out.println(lastSensor);
             hive = this.hiveRepository.findById(lastSensor.getHiveId()).get();
-            System.out.println(hive);
         }
         Sensor sensor = new Sensor();
         sensor.set_id(bmDevice.getDeviceId());
@@ -154,7 +151,6 @@ public class BmDataToMellispheraData {
 
 
     Apiary getNewApiary(BmApiary bmApiary, String username, String countryCode) {
-        System.err.println(countryCode);
         Apiary newApiary = new Apiary();
         newApiary.set_id(bmApiary.getApiaryId());
         newApiary.setZipCode(bmApiary.getZipCode());

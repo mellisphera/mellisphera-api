@@ -13,7 +13,7 @@ limitations under the License. */
 
 package com.mellisphera.entities.bm;
 
-public interface ChangeLogUpdate<Old, Update> {
+public interface  ChangeLogUpdate<Old, Update> {
 
     public Old getOldData();
 
