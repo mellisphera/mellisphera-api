@@ -25,16 +25,18 @@ public class Connection {
 
 	private String id = null;
 	private Date connectionDate = null;
+	private String origin_url;
 	private String idUsername = null;
 	private String username;
 	private GeoIp location = null;
 
-	public Connection(Date connectionDate, String idUsername, String username,
+	public Connection(Date connectionDate, String idUsername, String origin_url, String username,
 			GeoIp location) {
 		super();
 		this.connectionDate = connectionDate;
 		this.idUsername = idUsername;
 		this.username = username;
+		this.origin_url = origin_url;
 		this.location = location;
 	}
 
@@ -48,6 +50,14 @@ public class Connection {
 
 	public String getId() {
 		return id;
+	}
+
+	public String getOrigin_url() {
+		return origin_url;
+	}
+
+	public void setOrigin_url(String origin_url) {
+		this.origin_url = origin_url;
 	}
 
 	public void setId(String id) {

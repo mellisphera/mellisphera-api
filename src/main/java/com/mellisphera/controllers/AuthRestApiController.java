@@ -118,6 +118,7 @@ public class AuthRestApiController {
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest, HttpServletRequest request) {
 		log.debug(" Sign Up : username :" + loginRequest.getEmail() + " password:" + loginRequest.getPassword());
 		//
+		System.out.println("HOST -> " + request.getHeader("originURL"));
 		ApiWatchUserDetails apiWatchUserDetails = null;
 		Authentication authentication = null;
 		String jwt = null;
@@ -170,7 +171,7 @@ public class AuthRestApiController {
 		System.out.println(user);
 		this.userRepository.save(user);
 		if(ipAddress != "127.0.0.1" || ipAddress != "0:0:0:0:0:0:0:1") {
-			Connection connection = new Connection(date, user.getId(), user.getUsername(), geoIp);
+			Connection connection = new Connection(date, user.getId(), request.getHeader("originURL"), user.getUsername(),  geoIp);
 			this.connectionRepository.insert(connection);
 		}
 		//public JwtResponse(String idUser, String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country, UserPref userPref, String lang)
