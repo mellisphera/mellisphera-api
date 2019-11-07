@@ -68,7 +68,6 @@ public class DailyRecordsTHController {
         Sort sort = new Sort(Direction.DESC, "timestamp");
         Date start  = range[0];
         Date end = range[1];
-        System.err.println(end);
         return this.dailyRecordsTHRepository.findByHiveIdAndRecordDateBetween(hiveId, start, end, sort);
 	}
 	

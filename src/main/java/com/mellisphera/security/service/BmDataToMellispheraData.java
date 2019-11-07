@@ -98,7 +98,6 @@ public class BmDataToMellispheraData {
         sensor.setModel(bmSensor.getDevice().getModel());
         sensor.setName(bmSensor.getDevice().getName());
         sensor.setUserId(userId);
-        sensor.setHiveName(bmHive.getName());
         sensor.setDeviceLocation(null);
         sensor.setApiaryId(bmHive.getApiaryId());
         sensor.setType(this.getTypeByRef(bmSensor.getDevice().getDeviceAddress()));
@@ -127,7 +126,6 @@ public class BmDataToMellispheraData {
         sensor.setModel(bmDevice.getModel());
         sensor.setName(bmDevice.getName());
         sensor.setUserId(userId);
-        sensor.setHiveName(hive.getName());
         if (bmDevice.getCurrentLocation() != null) {
             sensor.setDeviceLocation(
                     new DeviceLocation(bmDevice.getCurrentLocation().getDeviceLocationId(),

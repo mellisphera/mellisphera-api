@@ -31,7 +31,6 @@ public class Sensor {
 	private String hiveId ;
 	private String apiaryId;
 	private String userId;
-	private String hiveName;
 	private Date sensorTime;
 	private Date createDate;
 	private Date dataLastReceived;
@@ -55,7 +54,7 @@ public class Sensor {
 		super();
 	}
 
-	public Sensor(String _id, String sensorRef, String model, String name, String type, String hiveId, String apiaryId, String userId, String hiveName, Date sensorTime, Date createDate, Date dataLastReceived, String username, String hivePositionId, Date start, float sensorBat) {
+	public Sensor(String _id, String sensorRef, String model, String name, String type, String hiveId, String apiaryId, String userId, Date sensorTime, Date createDate, Date dataLastReceived, String username, String hivePositionId, Date start, float sensorBat) {
 		this._id = _id;
 		this.sensorRef = sensorRef;
 		this.model = model;
@@ -64,7 +63,6 @@ public class Sensor {
 		this.hiveId = hiveId;
 		this.apiaryId = apiaryId;
 		this.userId = userId;
-		this.hiveName = hiveName;
 		this.sensorTime = sensorTime;
 		this.createDate = createDate;
 		this.dataLastReceived = dataLastReceived;
@@ -140,14 +138,6 @@ public class Sensor {
 		this.apiaryId = apiaryId;
 	}
 
-	public String getHiveName() {
-		return hiveName;
-	}
-
-	public void setHiveName(String hiveName) {
-		this.hiveName = hiveName;
-	}
-
 	public Date getSensorTime() {
 		return sensorTime;
 	}
@@ -208,7 +198,6 @@ public class Sensor {
 				", hiveId='" + hiveId + '\'' +
 				", apiaryId='" + apiaryId + '\'' +
 				", userId='" + userId + '\'' +
-				", hiveName='" + hiveName + '\'' +
 				", sensorTime=" + sensorTime +
 				", createDate=" + createDate +
 				", dataLastReceived=" + dataLastReceived +

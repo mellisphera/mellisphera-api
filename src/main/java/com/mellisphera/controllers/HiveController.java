@@ -86,15 +86,6 @@ public class HiveController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
     public void update(@PathVariable("id") String id, @RequestBody Hive hive){ 
  		Hive hiveSave = this.hivesRepository.save(hive);
- 		List<Sensor> sensors = this.sensorRepository.findSensorByHiveId(hiveSave.get_id());
- 		if (sensors != null) {
- 			for(Sensor s: sensors) {
- 				if (!s.getHiveName().equals(hiveSave.getName())) {
- 					s.setHiveName(hiveSave.getName());
- 					this.sensorRepository.save(s);
- 				}
- 			}
- 		}
     }
     
     @RequestMapping(value = "/details/{idHive}", method = RequestMethod.GET, produces={"application/json"})

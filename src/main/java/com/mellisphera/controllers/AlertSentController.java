@@ -49,9 +49,9 @@ public class AlertSentController {
 		return this.alertSentRepository.findByHiveId(idHive).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
 	}
 	
-	@GetMapping("/apiary/hiveAllert/{idApiary}")
-	public List<AlertSent> getHiveAlertByApiary(@PathVariable String idApiary) {
-		return this.alertSentRepository.findByApiaryId(idApiary).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
+	@GetMapping("/apiary/hiveAllert/{idApiary}/{start}/{end}")
+	public List<AlertSent> getHiveAlertByApiary(@PathVariable String idApiary, @PathVariable long start, @PathVariable long end) {
+		return this.alertSentRepository.findByApiaryIdAndOpsDateBetween(idApiary, new Date(start), new Date(end)).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
 	}
 	
 	@PutMapping("/update/{id}")
@@ -60,7 +60,14 @@ public class AlertSentController {
 		alertSent.setCheck(check);
 		return this.alertSentRepository.save(alertSent);
 	}
-	
+
+	@PutMapping("/check")
+	public void checkNotif(@RequestBody List<AlertSent> checkAlert) {
+		checkAlert.forEach(_notif -> {
+			_notif.setCheck(true);
+			this.alertSentRepository.save(_notif);
+		});
+	}
 	@PostMapping("/between/hive/{idHive}")
 	public List<AlertSent> getHiveAlert(@PathVariable String idHive, @RequestBody Date[] range) {
 		return this.alertSentRepository.findByHiveIdAndOpsDateBetween(idHive, range[0], range[1]).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
@@ -69,6 +76,10 @@ public class AlertSentController {
 	@PostMapping("/between/apiary/{idApiary}")
 	public List<AlertSent> getApiaryAlert(@PathVariable String idApiary, @RequestBody Date[] range) {
 		return this.alertSentRepository.findByApiaryIdAndOpsDateBetween(idApiary, range[0], range[1]).stream().filter(_alertSent -> _alertSent.getLoc().equals("Apiary")).collect(Collectors.toList());
+	}
+
+	private Date convertTimestampToDate(long time){
+		return new Date(time*1000);
 	}
 
 }
