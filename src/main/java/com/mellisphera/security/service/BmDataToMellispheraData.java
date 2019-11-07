@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 @Service
@@ -113,6 +114,8 @@ public class BmDataToMellispheraData {
         } catch (NullPointerException e) {
             Sensor lastSensor = this.sensorRepository.findById(bmDevice.getDeviceId()).get();
             hive = this.hiveRepository.findById(lastSensor.getHiveId()).get();
+        } catch (NoSuchElementException e) {
+            return null;
         }
         Sensor sensor = new Sensor();
         sensor.set_id(bmDevice.getDeviceId());

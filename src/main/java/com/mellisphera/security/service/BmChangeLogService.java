@@ -65,11 +65,13 @@ public class BmChangeLogService {
 
     public void saveSensorFronBmDevice(BmDevice[] bmDevices, String userId) {
         Arrays.stream(bmDevices).map(_sensor ->this.bmToMellispheraData.getNewSensorFromChangeLog(_sensor, userId)).collect(Collectors.toList()).forEach(_newSensor -> {
-            boolean hiveExist = this.sensorRepository.findById(_newSensor.get_id()).isPresent();
-            if (hiveExist) {
-                this.sensorRepository.save(_newSensor);
-            } else {
-                this.sensorRepository.insert(_newSensor);
+            if (_newSensor != null) {
+                boolean hiveExist = this.sensorRepository.findById(_newSensor.get_id()).isPresent();
+                if (hiveExist) {
+                    this.sensorRepository.save(_newSensor);
+                } else {
+                    this.sensorRepository.insert(_newSensor);
+                }
             }
         });
     }
