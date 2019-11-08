@@ -15,6 +15,7 @@ package com.mellisphera.controllers;
 
 import java.sql.Timestamp;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -76,7 +77,9 @@ public class NoteController {
     
     @GetMapping("/user/{userId}")
     public List<Note> getReportsByUser(@PathVariable String userId) {
-    	return this.noteRepository.findByUserId(userId);
+        List<Note> noteByApiary = this.noteRepository.findByUserId(userId);
+        noteByApiary.sort(Comparator.comparing(o -> o.getOpsDate()));
+        return noteByApiary;
     }
     
     @RequestMapping(value = "/hive/{idHive}", method = RequestMethod.POST, produces={"application/json"})
