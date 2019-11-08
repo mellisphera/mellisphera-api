@@ -13,6 +13,7 @@ limitations under the License. */
 
 package com.mellisphera.controllers;
 
+import com.mellisphera.security.service.BmServiceImpl;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -52,6 +53,8 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    BmServiceImpl bmAuthService;
 	
     @Autowired
     private ConnectionRepository connectionRepository;
@@ -59,6 +62,7 @@ public class UserController {
     public UserController() {
 
     }
+
 
     public UserController(UserRepository userRepository, ConnectionRepository connectionRepository) {
         this.userRepository = userRepository;
@@ -80,6 +84,12 @@ public class UserController {
             names.add(e.getUsername());
         }
         return names;
+    }
+
+    @GetMapping("/update/{userId}")
+    public void getChangeLogByUserId(@PathVariable String userId) {
+        User user = this.userRepository.findById(userId).get();
+        this.bmAuthService.getChangeLog(user.getId(), user.getUsername(), user.getUserPref().getLang().toUpperCase());
     }
     
     @GetMapping("/createdAt")

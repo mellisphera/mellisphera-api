@@ -108,33 +108,40 @@ public class BmDataToMellispheraData {
 
     Sensor getNewSensorFromChangeLog(BmDevice bmDevice, String userId) {
         Hive hive = null;
-        try {
-            hive = this.hiveRepository.findById(bmDevice.getCurrentLocation().getHiveId()).get();
-
-        } catch (NullPointerException e) {
-            Sensor lastSensor = this.sensorRepository.findById(bmDevice.getDeviceId()).get();
-            hive = this.hiveRepository.findById(lastSensor.getHiveId()).get();
-        } catch (NoSuchElementException e) {
-            return null;
-        }
         Sensor sensor = new Sensor();
         sensor.set_id(bmDevice.getDeviceId());
-        sensor.setHiveId(hive.get_id());
+
+        try {
+            hive = this.hiveRepository.findById(bmDevice.getCurrentLocation().getHiveId()).get();
+            sensor.setHiveId(hive.get_id());
+            sensor.setApiaryId(hive.getApiaryId());
+            if (bmDevice.getCurrentLocation() != null) {
+                sensor.setDeviceLocation(
+                        new DeviceLocation(bmDevice.getCurrentLocation().getDeviceLocationId(),
+                                bmDevice.getDeviceId(),
+                                hive.get_id(),
+                                bmDevice.getCurrentLocation().getHivePositionId(),
+                                bmDevice.getCurrentLocation().getStart()));
+            }
+        } catch (NullPointerException e) {
+            System.out.println(bmDevice.getDeviceId());
+            try {
+                Sensor lastSensor = this.sensorRepository.findById(bmDevice.getDeviceId()).get();
+                hive = this.hiveRepository.findById(lastSensor.getHiveId()).get();
+                sensor.setHiveId(hive.get_id());
+                sensor.setApiaryId(hive.getApiaryId());
+            }
+            catch (NoSuchElementException except) {
+                sensor.setHiveId(null);
+                sensor.setApiaryId(null);
+            }
+        }
         sensor.setCreateDate(this.convertTimestampToDate(bmDevice.getCreateDate()));
         sensor.setDataLastReceived(this.convertTimestampToDate(bmDevice.getDataLastReceived()));
         sensor.setSensorRef(bmDevice.getDeviceAddress());
         sensor.setModel(bmDevice.getModel());
         sensor.setName(bmDevice.getName());
         sensor.setUserId(userId);
-        if (bmDevice.getCurrentLocation() != null) {
-            sensor.setDeviceLocation(
-                    new DeviceLocation(bmDevice.getCurrentLocation().getDeviceLocationId(),
-                            bmDevice.getDeviceId(),
-                            hive.get_id(),
-                            bmDevice.getCurrentLocation().getHivePositionId(),
-                            bmDevice.getCurrentLocation().getStart()));
-        }
-        sensor.setApiaryId(hive.getApiaryId());
         sensor.setType(this.getTypeByRef(bmDevice.getDeviceAddress()));
         return sensor;
     }

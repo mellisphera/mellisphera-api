@@ -30,16 +30,11 @@ public class User {
 	@Id
 	private String _id;
 	private Date createdAt;
-	//private Login login;
 	private String username;
-	private String idUsername;
 	private String password;
-	private String phone;
 	private String email;
 	private long connexions;
 	private Date lastConnection;
-	private String country;
-	private String city;
 	private UserPref userPref;
 
 	// ADD for spring security compatibility
@@ -53,21 +48,17 @@ public class User {
 		this.roles = roles;
 	}
 
-	public User(String id, Date createdAt, String username, String password, String phone, String email, long connexions,
-			Date lastConnection, String fullName, String position, String city, String country, UserPref userPref, String idUsername) {
+	public User(String id, Date createdAt, String username, String password, String email, long connexions,
+			Date lastConnection, UserPref userPref) {
 		super();
 		this._id = id;
 		this.createdAt = createdAt;
 		//this.login = login;
 		this.username = username;
 		this.password = password;
-		this.phone = phone;
 		this.email = email;
 		this.connexions = connexions;
-		this.idUsername = idUsername;
 		this.lastConnection = lastConnection;
-		this.country = country;
-		this.city = city;
 		this.userPref = userPref;
 
 	}
@@ -88,12 +79,9 @@ public class User {
 		//this.login = null;
 		this.username = null;
 		this.password = null;
-		this.phone = null;
 		this.email = null;
 		this.connexions = 0;
 		this.lastConnection = null;
-		this.country = null;
-		this.city = null;
 	}
 	
 	public String getUsername() {
@@ -107,16 +95,6 @@ public class User {
 
 	public void setUserPref(UserPref userPref) {
 		this.userPref = userPref;
-	}
-	
-	
-
-	public String getIdUsername() {
-		return idUsername;
-	}
-
-	public void setIdUsername(String idUsername) {
-		this.idUsername = idUsername;
 	}
 
 	public void setUsername(String username) {
@@ -148,21 +126,7 @@ public class User {
 		return createdAt;
 	}
 
-	public String getCountry() {
-		return country;
-	}
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
 /**
 	public void setLogin(Login login) {
 		this.login = login;
@@ -173,14 +137,6 @@ public class User {
 **/
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
 	}
 
 	public String getEmail() {
@@ -217,14 +173,10 @@ public class User {
 				"id='" + _id + '\'' +
 				", createdAt=" + createdAt +
 				", username='" + username + '\'' +
-				", idUsername='" + idUsername + '\'' +
 				", password='" + password + '\'' +
-				", phone='" + phone + '\'' +
 				", email='" + email + '\'' +
 				", connexions=" + connexions +
 				", lastConnection=" + lastConnection +
-				", country='" + country + '\'' +
-				", city='" + city + '\'' +
 				", userPref=" + userPref +
 				", roles=" + roles +
 				'}';
