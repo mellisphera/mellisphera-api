@@ -82,7 +82,6 @@ public class BmChangeLogService {
             boolean noteExist = this.noteRepository.findById(_newNote.get_id()).isPresent();
             Note note = null;
             note = this.noteRepository.findByOpsDate(_newNote.getOpsDate());
-            System.out.println(note);
             if (noteExist || note != null) {
                 note = _newNote;
                 this.noteRepository.save(note);

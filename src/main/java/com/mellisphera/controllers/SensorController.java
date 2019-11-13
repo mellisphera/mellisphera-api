@@ -85,7 +85,6 @@ public class SensorController {
 	public void delete(@PathVariable("id") String id){
 		try {
 			Hive hive = this.hivesRepository.findById(this.sensorRepository.findById(id).get().getHiveId()).get();
-			System.err.println(hive);
 			this.hivesRepository.save(hive);
 		}
 		catch(NoSuchElementException e) {}

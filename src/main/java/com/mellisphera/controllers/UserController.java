@@ -99,7 +99,6 @@ public class UserController {
         List<User> todayUsers = new ArrayList<>();
         //System.out.println("Today date : "+ nowAsISO );
 
-        System.out.println("new Date().getDate(): " + df.format(new Date()));
         for (User e : Users) {
             //System.out.println("e.getCreatedAt.getDate(): " + df.format(e.getCreatedAt()));
             //System.out.println("USERNAME : " + e.getUsername());

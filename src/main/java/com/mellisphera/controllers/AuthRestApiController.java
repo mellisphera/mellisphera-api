@@ -118,7 +118,6 @@ public class AuthRestApiController {
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest, HttpServletRequest request) {
 		log.debug(" Sign Up : username :" + loginRequest.getEmail() + " password:" + loginRequest.getPassword());
 		//
-		System.out.println("HOST -> " + request.getHeader("originURL"));
 		ApiWatchUserDetails apiWatchUserDetails = null;
 		Authentication authentication = null;
 		String jwt = null;
@@ -126,17 +125,14 @@ public class AuthRestApiController {
 		String ipAddress = request.getRemoteAddr();
 		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		if(geoIp.getCity() == null) {
-			System.err.println("ICI");
 			geoIp = geoipService.getGeoIp("83.173.67.13");
 		}
-		System.out.println(geoIp);
 		try {
 			authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			user = this.userRepository.findUserByEmail(loginRequest.getEmail());
 
-			System.out.println(geoIp);
 			this.bmAuthService.getChangeLog(user.getId(), user.getUsername(),geoIp.getCountry());
 
 		}
@@ -163,12 +159,10 @@ public class AuthRestApiController {
 		}
 		jwt = jwtProvider.generateJwtToken(authentication);
 		apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
-		System.err.println("AFTER");
 		Calendar calendar = new GregorianCalendar();
 		user.incrementConnexions();
 		Date date = new Date();
 		user.setLastConnection(date);
-		System.out.println(user);
 		this.userRepository.save(user);
 		if(ipAddress != "127.0.0.1" || ipAddress != "0:0:0:0:0:0:0:1") {
 			Connection connection = new Connection(date, user.getId(), request.getHeader("originURL"), user.getUsername(),  geoIp);
@@ -190,7 +184,6 @@ public class AuthRestApiController {
 		//Login credential = new Login(signUpRequest.getUsername(),encoder.encode(signUpRequest.getPassword()));
 		//
 		//Search if user already exit
-		System.err.println(signUpRequest.getEmail());
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
 					HttpStatus.BAD_REQUEST);
@@ -238,7 +231,6 @@ public class AuthRestApiController {
 	
 	@PostMapping("/reset")
 	public void sendMail(@RequestBody String email)  throws MessagingException {
-		System.err.println(email);
 		User user = this.userRepository.findUserByEmail(email);
 		if (user != null) {
 			String newPassword = this.passwordGenerator.getPassword();

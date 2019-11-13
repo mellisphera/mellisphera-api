@@ -123,7 +123,6 @@ public class BmServiceImpl implements BmService {
 								this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
 							}
 							catch (Exception e)  {
-								System.err.println("note error");
 								this.noteRepository.deleteById(bmNote.getNoteId());
 								this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
 							}
@@ -175,7 +174,6 @@ public class BmServiceImpl implements BmService {
 				HttpMethod.GET,
 				entity,
 				BmAuth.class);
-		System.out.println(response.getBody());
 		this.saveChangeLog(response.getBody(), username, userId, countryCode);
 	}
 

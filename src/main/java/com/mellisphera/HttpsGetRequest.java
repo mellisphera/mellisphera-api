@@ -45,11 +45,9 @@ public class HttpsGetRequest{
 				this.connection = (HttpURLConnection) url.openConnection();
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
-				System.err.println(e.getMessage());
 			}
 			catch (IOException e) {
 				e.printStackTrace();
-				System.err.println(e.getMessage());
 			}
 			finally {
 				if(url != null) {

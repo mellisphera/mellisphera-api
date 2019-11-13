@@ -64,7 +64,7 @@ public class SharingService {
 			this.shareRepository.insert(onSharing);
 		}
 		catch(UserNotFoundException e) {
-			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
@@ -77,14 +77,12 @@ public class SharingService {
 	}
 	
 	public void renameApiaryDemo(String name) {
-		System.err.println(name);
 		int indexApiaryDemo = 0;
 		Apiary apiaryDemo = this.apiaryRepository.findById(ID_DEMO_APIARY).get();
 		List<ShareApiary> shareApiary = this.shareRepository.findAll();
 		for (ShareApiary sApiary: shareApiary) {
 			if ((indexApiaryDemo = findApiary(apiaryDemo, sApiary)) != -1) {
 				sApiary.getsharingApiary().get(indexApiaryDemo).setName(name);
-				System.err.println(sApiary.getuserId());
 				this.shareRepository.save(sApiary);
 			}
 		}

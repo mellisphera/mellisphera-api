@@ -160,7 +160,6 @@ public class ObservedFlowerController {
 	 @RequestMapping(value = "/updateDebd/{id}/{annee}", method = RequestMethod.PUT) 
 	 public void updateDebutd(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateDebut){ 	//Recupère if, annee & dateDebut	 
 		 ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id); // recupère la fleur
-		 System.out.println("datD : "+dateDebut);
                  /* Ajout dans map mois -> num */
 		 this.mois.put("decembre","12");
 		 this.mois.put("novembre","11");
@@ -196,8 +195,7 @@ public class ObservedFlowerController {
 	 	 
 	 	 ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id);
 	 	 
-	 	System.out.println("datF : "+dateFin);
-	 	 
+
 		 this.mois.put("decembre","12");
 		 this.mois.put("novembre","11");
 		 this.mois.put("octobre","10");

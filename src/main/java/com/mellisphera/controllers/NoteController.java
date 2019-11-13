@@ -59,7 +59,6 @@ public class NoteController {
                 observation.getCreateDate().getTime() / 1000));
 
         observation.set_id(createNote.getBmNote().getNoteId());
-        System.out.println(observation);
         return this.noteRepository.insert(observation);
     }
     

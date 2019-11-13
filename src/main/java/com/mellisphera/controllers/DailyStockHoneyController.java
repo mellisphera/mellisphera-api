@@ -58,7 +58,6 @@ public class DailyStockHoneyController {
         Sort sort = new Sort(Sort.Direction.DESC, "timestamp");	
         List<DailyStockHoney> stockByHive = this.dailyStockHoneyRepository.findDailyStockHoneyByHiveId(hiveId, sort);
         if(stockByHive.isEmpty()) {
-        	System.err.println("EMPTY");
         	response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
         return stockByHive;

@@ -81,10 +81,10 @@ public class DailyRecordsTHController {
                     	dailyRecTh.add(rec.get(rec.size() - 1));
                     }
                     catch(ArrayIndexOutOfBoundsException e){
-                        System.err.println(e.getMessage());
+                       // e.printStackTrace();
                     }
-                    catch(IndexOutOfBoundsException e){
-                        System.err.println(e.getMessage());
+                    catch(IndexOutOfBoundsException err){
+                        //err.printStackTrace();
                     }
 
 		}

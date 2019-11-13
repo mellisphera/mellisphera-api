@@ -89,7 +89,6 @@ public class BmDataToMellispheraData {
     }
 
     Sensor getNewSensorFromFirstConnection(BmSensor bmSensor, String userId, BmHive bmHive) {
-        System.out.println(bmSensor.getDevice());
         Sensor sensor = new Sensor();
         sensor.set_id(bmSensor.getDevice().getDeviceId());
         sensor.setHiveId(bmHive.getHiveId());
@@ -124,7 +123,6 @@ public class BmDataToMellispheraData {
                                 bmDevice.getCurrentLocation().getStart()));
             }
         } catch (NullPointerException e) {
-            System.out.println(bmDevice.getDeviceId());
             try {
                 Sensor lastSensor = this.sensorRepository.findById(bmDevice.getDeviceId()).get();
                 hive = this.hiveRepository.findById(lastSensor.getHiveId()).get();
