@@ -26,32 +26,30 @@ public class Kpisynclog {
 	private String user;
 	private Date date;
 	private int lastSync;
+	private String inscription;
+	private int nbLogBM;
+	private int nbLogMS;
+	private int nbLogTot;
+	private int nbLogUnknown;
 	private int lastLog;
 	private Date createdAt;
-	
-	
 
-	public Kpisynclog(String _id, String user, Date date, int lastSync, int lastLog, Date createdAt) {
-		super();
+	public Kpisynclog(String _id, String user, Date date, int lastSync, String inscription, int nbLogBM, int nbLogMS, int nbLogTot, int nbLogUnknown, int lastLog, Date createdAt) {
 		this._id = _id;
 		this.user = user;
 		this.date = date;
 		this.lastSync = lastSync;
+		this.inscription = inscription;
+		this.nbLogBM = nbLogBM;
+		this.nbLogMS = nbLogMS;
+		this.nbLogTot = nbLogTot;
+		this.nbLogUnknown = nbLogUnknown;
 		this.lastLog = lastLog;
 		this.createdAt = createdAt;
 	}
 
 	public String get_id() {
 		return _id;
-	}
-
-	
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
 	}
 
 	public void set_id(String _id) {
@@ -82,6 +80,46 @@ public class Kpisynclog {
 		this.lastSync = lastSync;
 	}
 
+	public String getInscription() {
+		return inscription;
+	}
+
+	public void setInscription(String inscription) {
+		this.inscription = inscription;
+	}
+
+	public int getNbLogBM() {
+		return nbLogBM;
+	}
+
+	public void setNbLogBM(int nbLogBM) {
+		this.nbLogBM = nbLogBM;
+	}
+
+	public int getNbLogMS() {
+		return nbLogMS;
+	}
+
+	public void setNbLogMS(int nbLogMS) {
+		this.nbLogMS = nbLogMS;
+	}
+
+	public int getNbLogTot() {
+		return nbLogTot;
+	}
+
+	public void setNbLogTot(int nbLogTot) {
+		this.nbLogTot = nbLogTot;
+	}
+
+	public int getNbLogUnknown() {
+		return nbLogUnknown;
+	}
+
+	public void setNbLogUnknown(int nbLogUnknown) {
+		this.nbLogUnknown = nbLogUnknown;
+	}
+
 	public int getLastLog() {
 		return lastLog;
 	}
@@ -90,5 +128,11 @@ public class Kpisynclog {
 		this.lastLog = lastLog;
 	}
 
+	public Date getCreatedAt() {
+		return createdAt;
+	}
 
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 }
