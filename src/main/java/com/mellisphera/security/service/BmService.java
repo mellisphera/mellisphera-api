@@ -16,6 +16,7 @@ package com.mellisphera.security.service;
 import com.mellisphera.entities.User;
 import com.mellisphera.entities.bm.BmNote;
 import com.mellisphera.entities.bm.BmNoteCreate;
+import com.mellisphera.entities.bm.changeLog.BmNoteUpdated;
 import com.mellisphera.security.entities.BmAuth;
 
 import java.sql.Timestamp;
@@ -33,7 +34,7 @@ public interface BmService {
 
 	public BmNoteCreate postNote(BmNote bmNote);
 
-	public void putNote(BmNote bmNote);
+	public Object putNote(BmNote bmNote);
 
 
 }

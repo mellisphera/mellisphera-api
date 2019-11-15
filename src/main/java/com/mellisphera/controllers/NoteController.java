@@ -22,16 +22,21 @@ import java.util.List;
 import com.mellisphera.entities.Note;
 import com.mellisphera.entities.bm.BmNote;
 import com.mellisphera.entities.bm.BmNoteCreate;
+import com.mellisphera.entities.bm.changeLog.BmNoteUpdated;
 import com.mellisphera.repositories.NoteRepository;
 import com.mellisphera.security.service.BmServiceImpl;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 @Service
 @RestController
 @RequestMapping("/report")
 public class NoteController {
+    public static Log log = LogFactory.getLog(NoteController.class);
 
 	@Autowired
     private NoteRepository noteRepository;
@@ -94,16 +99,22 @@ public class NoteController {
     
     @PutMapping("/update/{id}")
     public void update(@PathVariable("id") String id, @RequestBody Note note){
-        this.bmService.putNote(new BmNote(
-                note.get_id(),
-                note.getDescription(),
-                new String[]{},
-                note.getHiveId(),
-                note.getApiaryId(),
-                note.getOpsDate().getTime(),
-                note.getType(),
-                note.getCreateDate().getTime()));
-        this.noteRepository.save(note);
+        try{
+            this.bmService.putNote(new BmNote(
+                    note.get_id(),
+                    note.getDescription(),
+                    new String[]{},
+                    note.getHiveId(),
+                    note.getApiaryId(),
+                    note.getOpsDate().getTime()/1000,
+                    note.getType(),
+                    note.getCreateDate().getTime() / 1000));
+        }
+        catch (HttpClientErrorException e) {
+            log.debug("Note not found bm");
+        } finally {
+            this.noteRepository.save(note);
+        }
     }
    
 	

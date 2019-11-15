@@ -147,17 +147,17 @@ public class BmServiceImpl implements BmService {
 	}
 
 	@Override
-	public void putNote(BmNote bmNote){
+	public Object putNote(BmNote bmNote){
 		String urlRequest = this.bmUrl + "notes";
 		this.header = new HttpHeaders();
-        this.header.add("Content-Type", "application/json");
+        //this.header.add("Content-Type", "application/json");
         this.header.add("license_key", this.licenceKey);
 		Gson gson = new Gson();
 		String noteJson = gson.toJson(bmNote);
 		this.notePostRequestEntity = new HttpEntity<>(noteJson, this.header);
 		RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
         //restTemplate.put(urlRequest, this.notePostRequestEntity);
-        restTemplate.exchange(urlRequest,HttpMethod.PUT,this.notePostRequestEntity, Object.class);
+       return restTemplate.exchange(urlRequest, HttpMethod.PUT, this.notePostRequestEntity, Object.class);
     }
 
 
