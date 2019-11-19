@@ -43,8 +43,8 @@ public class SignupService {
     @Autowired private AlertsCatRepository alertsCatRepository;
     @Autowired private AlertUserRepository alertUserRepository;
     @Autowired private PasswordEncoder encoder;
-    private static final String DATE_FR = "D/M/Y h:m";
-    private static final String DATE_EN = "Y-M-D h:m";
+    private static final String DATE_FR = "DD/MM/YYYY HH:mm";
+    private static final String DATE_EN = "YYYY-MM-DD HH:m";
     private static final String METRIC = "METRIC";
     private static final String IMPERIAL = "IMPERIAL";
     public static final String[] SET_INITIAL_ROLE = new String[] { "ROLE_STANDARD" };
@@ -62,7 +62,7 @@ public class SignupService {
         if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1"))
             ipAddress="87.100.21.93";
         GeoIp geoIp = geoipService.getGeoIp(ipAddress);
-        user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL));
+        user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL, "OpenWeatherMap"));
         user.setLastConnection(new Date());
         User newUser = this.userRepository.insert(user);
 

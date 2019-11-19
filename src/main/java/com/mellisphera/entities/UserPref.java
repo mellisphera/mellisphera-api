@@ -18,14 +18,16 @@ public class UserPref {
 	private String timeZone;
 	private String timeFormat;
 	private String lang;
+	private String weatherSource;
 	private String unitSystem;
 	
-	public UserPref(String timeZone, String timeFormat, String lang, String unitSystem) {
+	public UserPref(String timeZone, String timeFormat, String lang, String unitSystem, String weatherSource) {
 		super();
 		this.timeZone = timeZone;
 		this.timeFormat = timeFormat;
 		this.lang = lang;
 		this.unitSystem = unitSystem;
+		this.weatherSource = weatherSource;
 	}
 
 	public String getTimeZone() {
@@ -59,8 +61,12 @@ public class UserPref {
 	public void setUnitSystem(String unitSystem) {
 		this.unitSystem = unitSystem;
 	}
-	
-	
-	
 
+	public String getWeatherSource() {
+		return weatherSource;
+	}
+
+	public void setWeatherSource(String weatherSource) {
+		this.weatherSource = weatherSource;
+	}
 }
