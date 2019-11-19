@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.mellisphera.entities.Note;
 import com.mellisphera.entities.bm.BmNote;
@@ -74,7 +75,7 @@ public class NoteController {
     
     @RequestMapping(value = "/apiary/{idApiary}", method = RequestMethod.POST, produces={"application/json"})
     public List<Note> getReportsApiray(@PathVariable("idApiary") String idApiary, @RequestBody Timestamp[] range){
-        List<Note> reports = this.noteRepository.findByApiaryIdAndOpsDateBetween(idApiary, range[0], range[1]);
+        List<Note> reports = this.noteRepository.findByApiaryIdAndOpsDateBetween(idApiary, range[0], range[1]).stream().filter(_note -> _note.getType().equals("apiary")).collect(Collectors.toList());
         Collections.reverse(reports);
         return reports;
     }

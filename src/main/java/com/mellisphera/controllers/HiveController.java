@@ -59,9 +59,9 @@ public class HiveController {
         return this.hivesRepository.findAll();
     }
     @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
-    @RequestMapping(value = "/username/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
-    public List<Hive> getAllUserHives(@PathVariable String idApiary){
-    	return this.hivesRepository.findHiveByApiaryId(idApiary);
+    @RequestMapping(value = "/username/{apiaryId}", method = RequestMethod.GET, produces={"application/json"})
+    public List<Hive> getAllUserHives(@PathVariable String apiaryId){
+    	return this.hivesRepository.findHiveByApiaryId(apiaryId);
     }
     
     @PreAuthorize("hasRole('STANDARD')")
