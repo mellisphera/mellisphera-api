@@ -13,21 +13,25 @@ limitations under the License. */
 
 package com.mellisphera.entities;
 
+import java.util.Arrays;
+
 public class UserPref {
 	
 	private String timeZone;
 	private String timeFormat;
 	private String lang;
 	private String weatherSource;
+	private String[] availableSource;
 	private String unitSystem;
 	
-	public UserPref(String timeZone, String timeFormat, String lang, String unitSystem, String weatherSource) {
+	public UserPref(String timeZone, String timeFormat, String lang, String unitSystem, String weatherSource, String[] availableSource) {
 		super();
 		this.timeZone = timeZone;
 		this.timeFormat = timeFormat;
 		this.lang = lang;
 		this.unitSystem = unitSystem;
 		this.weatherSource = weatherSource;
+		this.availableSource = availableSource;
 	}
 
 	public String getTimeZone() {
@@ -68,5 +72,25 @@ public class UserPref {
 
 	public void setWeatherSource(String weatherSource) {
 		this.weatherSource = weatherSource;
+	}
+
+	public String[] getAvailableSource() {
+		return availableSource;
+	}
+
+	public void setAvailableSource(String[] availableSource) {
+		this.availableSource = availableSource;
+	}
+
+	@Override
+	public String toString() {
+		return "UserPref{" +
+				"timeZone='" + timeZone + '\'' +
+				", timeFormat='" + timeFormat + '\'' +
+				", lang='" + lang + '\'' +
+				", weatherSource='" + weatherSource + '\'' +
+				", availableSource=" + Arrays.toString(availableSource) +
+				", unitSystem='" + unitSystem + '\'' +
+				'}';
 	}
 }

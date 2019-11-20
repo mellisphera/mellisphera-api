@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RestController
@@ -61,7 +62,7 @@ public class HiveController {
     @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @RequestMapping(value = "/username/{apiaryId}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllUserHives(@PathVariable String apiaryId){
-    	return this.hivesRepository.findHiveByApiaryId(apiaryId);
+    	return this.hivesRepository.findHiveByApiaryId(apiaryId).stream().filter(_hive -> !_hive.getHidden()).collect(Collectors.toList());
     }
     
     @PreAuthorize("hasRole('STANDARD')")
@@ -74,7 +75,7 @@ public class HiveController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('STANDARD')")
     @RequestMapping(value="/{userId}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllByUsername(@PathVariable String userId){
-        return this.hivesRepository.findHiveByUserId(userId);
+        return this.hivesRepository.findHiveByUserId(userId).stream().filter(_hive -> !_hive.getHidden()).collect(Collectors.toList());
     }
     @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @PostMapping
