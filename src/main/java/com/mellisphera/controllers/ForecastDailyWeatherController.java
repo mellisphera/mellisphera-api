@@ -40,29 +40,29 @@ public class ForecastDailyWeatherController {
 		
 	}
 	
-	@PostMapping("apiary/{apiaryId}")
-	public List<SimpleSeries> getCurrentDailyWeatherByApiary(@PathVariable String apiaryId, @RequestBody Date[] range) {
-		return this.forecastDailyWeatherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().map(_elt -> {
+	@PostMapping("apiary/{apiaryId}/{weatherSource}")
+	public List<SimpleSeries> getCurrentDailyWeatherByApiary(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource) {
+		return this.forecastDailyWeatherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().filter(_elt -> _elt.get_origin().contains(weatherSource)).map(_elt -> {
 			return new SimpleSeries(_elt.getDate(), new Object[] {_elt.getWeather(), _elt.getMain()}, _elt.get_origin());
 		}).collect(Collectors.toList());
 	}
 	
-	@PostMapping("rain/apiary/{apiaryId}")
-	public List<SimpleSeries> getRainCurrentDailyWeatherByApiary(@PathVariable String apiaryId, @RequestBody Date[] range) {
-		return this.forecastDailyWeatherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().map(_elt -> {
+	@PostMapping("rain/apiary/{apiaryId}/{weatherSource}")
+	public List<SimpleSeries> getRainCurrentDailyWeatherByApiary(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource) {
+		return this.forecastDailyWeatherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().filter(_elt -> _elt.get_origin().contains(weatherSource)).map(_elt -> {
 			return new SimpleSeries(_elt.getDate(), new Object[] {_elt.getRain(), _elt.getSnow()}, _elt.get_origin());
 		}).collect(Collectors.toList());
 	}
 
-	@PostMapping("tExt/apiary/{apiaryId}")
-	public List<SimpleSeries> getTempMax(@PathVariable String apiaryId, @RequestBody Date[] range) {
-		return this.forecastDailyWeatherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().map(_elt -> {
+	@PostMapping("tExt/apiary/{apiaryId}/{weatherSource}")
+	public List<SimpleSeries> getTempMax(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource) {
+		return this.forecastDailyWeatherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().filter(_elt -> _elt.get_origin().contains(weatherSource)).map(_elt -> {
 			return new SimpleSeries(_elt.getDate(), _elt.getMain(), _elt.get_origin());
 		}).collect(Collectors.toList());
 	}
-	@PostMapping("wind/apiary/{apiaryId}")
-	public List<SimpleSeries> getWind(@PathVariable String apiaryId, @RequestBody Date[] range) {
-		return this.forecastDailyWeatherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().map(_elt -> {
+	@PostMapping("wind/apiary/{apiaryId}/{weatherSource}")
+	public List<SimpleSeries> getWind(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource) {
+		return this.forecastDailyWeatherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().filter(_elt -> _elt.get_origin().contains(weatherSource)).map(_elt -> {
 			return new SimpleSeries(_elt.getDate(), _elt.getWind(), _elt.get_origin());
 		}).collect(Collectors.toList());
 	}
