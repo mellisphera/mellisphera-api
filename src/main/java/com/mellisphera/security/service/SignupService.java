@@ -66,6 +66,7 @@ public class SignupService {
         user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL, WEATHER_SOURCE[0], WEATHER_SOURCE ));
         user.setLastConnection(new Date());
         User newUser = this.userRepository.insert(user);
+        //this.sharingService.addDemoApiaryNewUser(newUser.getId());
 
         if (!bmSignup) {
             LogEvents logEventsBmAuth = new LogEvents(null, new Date(), newUser.getId(), signUpRequest.getEmail(), LogType.INSCRIPTION, null);

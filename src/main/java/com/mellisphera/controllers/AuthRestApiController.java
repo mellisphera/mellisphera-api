@@ -35,6 +35,7 @@ import com.mellisphera.security.service.SignupService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -201,31 +202,6 @@ public class AuthRestApiController {
 		Date date = new Date();
 		user.setLastConnection(date);
 		this.userRepository.save(user);
-		//public User(String id, Date createdAt, Login login, String phone, String email, long connexions,Date lastConnection, String fullName, String position, String city, int levelUser, String country)
-		//                    String id, Date createdAt, String username, String password, String phone, String email, long connexions,Date lastConnection, String fullName, String position, String city, int levelUser, String country
-		// Creating user's account
-/*		User user = new User(GregorianCalendar.getInstance().getTime(),signUpRequest.getUsername(), credential,signUpRequest.getEmail(),new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)));
-		String ipAddress = ((WebAuthenticationDetails)SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
-		if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1"))
-			ipAddress="87.100.21.93";
-		log.debug(" remote ip :"+ ipAddress);
-		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
-		user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL));
-		user.setCity(geoIp.getCity());
-		// save user
-		User newUser = userRepository.insert(user);
-		
-		LogEvents logEventsBmAuth = null;
-		if (bmSignup == null) {
-			logEventsBmAuth = new LogEvents(null, new Date(), newUser.getId(), signUpRequest.getEmail(), LogType.INSCRIPTION, null);
-			this.logRepoitory.insert(logEventsBmAuth);
-		}*/
-	/*	try {
-			this.sharingService.addDemoApiaryNewUser(newUser.getId());
-		} catch (ApiaryDemoNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
 	}
 	

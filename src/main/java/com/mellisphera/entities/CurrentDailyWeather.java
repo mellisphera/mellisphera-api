@@ -171,10 +171,23 @@ public class CurrentDailyWeather {
 	public void set_origin(String _origin) {
 		this._origin = _origin;
 	}
-	
-	
-	
-	
-	
-	
+
+
+	@Override
+	public String toString() {
+		return "CurrentDailyWeather{" +
+				"_id='" + _id + '\'' +
+				", date=" + date +
+				", weather=" + weather +
+				", main=" + main +
+				", wind=" + wind +
+				", rain=" + rain +
+				", snow=" + snow +
+				", user='" + user + '\'' +
+				", apiary='" + apiary + '\'' +
+				", apiaryId='" + apiaryId + '\'' +
+				", city='" + city + '\'' +
+				", _origin='" + _origin + '\'' +
+				'}';
+	}
 }
