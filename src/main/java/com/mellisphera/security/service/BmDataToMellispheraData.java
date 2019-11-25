@@ -164,6 +164,7 @@ public class BmDataToMellispheraData {
         newApiary.setZipCode(bmApiary.getZipCode());
         newApiary.setName(bmApiary.getName());
         newApiary.setUserId(bmApiary.getUserId());
+        newApiary.setHidden(bmApiary.getHidden());
         newApiary.setCreateDate(this.convertTimestampToDate(bmApiary.getCreateDate()));
         newApiary.setDataLastReceived(this.convertTimestampToDate(bmApiary.getDataLastReceived()));
         newApiary.setPrivateApiary(bmApiary.getPrivateApiary());

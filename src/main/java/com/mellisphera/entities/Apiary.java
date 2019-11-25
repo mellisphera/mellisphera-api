@@ -31,6 +31,7 @@ public class Apiary {
 	private String zipCode;
 	private Boolean privateApiary;
 	private String city;
+	private Boolean hidden;
 	private String userId;
 	private Date createDate;
 	private String countryCode;
@@ -44,9 +45,10 @@ public class Apiary {
 		super();
 	}
 
-	public Apiary(String _id, String name, String description, String zipCode, Boolean privateApiary, String city, String userId, Date createDate, String countryCode, String photo, Date dataLastReceived, String username, List<User> sharedWith) {
+	public Apiary(String _id, String name, String description, String zipCode, Boolean privateApiary, String city, String userId, Date createDate, String countryCode, String photo, Date dataLastReceived, String username, List<User> sharedWith, Boolean hidden) {
 		this._id = _id;
 		this.name = name;
+		this.hidden = hidden;
 		this.description = description;
 		this.zipCode = zipCode;
 		this.privateApiary = privateApiary;
@@ -162,5 +164,13 @@ public class Apiary {
 
 	public void setSharedWith(List<User> sharedWith) {
 		this.sharedWith = sharedWith;
+	}
+
+	public Boolean getHidden() {
+		return hidden;
+	}
+
+	public void setHidden(Boolean hidden) {
+		this.hidden = hidden;
 	}
 }
