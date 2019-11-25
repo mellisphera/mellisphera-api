@@ -46,7 +46,13 @@ public class JwtProvider {
 
     @Value("${apiwatch.app.security.jwtExpiration}")
     private int jwtExpiration;
-    
+
+    @Value("${mellisphera.app.public_token}")
+    private String publicJwt ;
+
+    @Value("${mellisphera.app.public_token.email}")
+    private String publicEmail;
+
     /**
      * 
      * @param authentication
@@ -72,6 +78,10 @@ public class JwtProvider {
      */
     public boolean validateJwtToken(String authToken) {
         try {
+            if (authToken.equals(publicJwt)) {
+                System.out.println("PUBLIC TOKEN");
+                return true;
+            }
         	log.debug("Token :"+authToken);
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             log.debug("Token PARSING :"+Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken).getBody());
@@ -97,6 +107,9 @@ public class JwtProvider {
      * @return
      */
     public String getUserNameFromJwtToken(String token) {
+        if (token.equals(publicJwt)) {
+            return publicEmail;
+        }
         return Jwts.parser()
 			                .setSigningKey(jwtSecret)
 			                .parseClaimsJws(token)
