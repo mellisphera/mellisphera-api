@@ -15,19 +15,37 @@ package com.mellisphera.controllers;
 
 import com.mellisphera.entities.AlertUser;
 import com.mellisphera.entities.AlertConf;
+import com.mellisphera.entities.AlertsCat;
 import com.mellisphera.repositories.AlertUserRepository;
+import com.mellisphera.repositories.AlertsCatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/alertsConf")
 public class AlertConfController {
 
     @Autowired private AlertUserRepository alertUserRepository;
+    @Autowired private AlertsCatRepository alertsCatRepository;
 
     @GetMapping("/{userId}")
     public AlertUser getConfByUser(@PathVariable String userId) {
         return this.alertUserRepository.findByUserId(userId);
+    }
+
+    @GetMapping("rez")
+    public void rezConf() {
+        List<AlertUser> alerts = this.alertUserRepository.findAll();
+        alerts.forEach(_al -> {
+            _al.getAlertConf().forEach((key, value) -> {
+                AlertsCat origin = this.alertsCatRepository.findById(key).get();
+                value.setValueImp(origin.getBasicValueImp());
+                value.setValueMet(origin.getBasicValueMet());
+            });
+            this.alertUserRepository.save(_al);
+        });
     }
 
     @PutMapping("/update")

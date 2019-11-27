@@ -46,10 +46,6 @@ public class NoteController {
     public NoteController() {
 	    }
 
-    public NoteController(NoteRepository noteRepository) {
-	        this.noteRepository = noteRepository;
-	        //this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
     
     
     
@@ -64,6 +60,7 @@ public class NoteController {
                 observation.getType(),
                 observation.getCreateDate().getTime() / 1000));
 
+        System.out.println("REQUEST");
         observation.set_id(createNote.getBmNote().getNoteId());
         return this.noteRepository.insert(observation);
     }
