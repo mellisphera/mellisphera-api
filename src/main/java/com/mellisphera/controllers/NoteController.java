@@ -60,7 +60,6 @@ public class NoteController {
                 observation.getType(),
                 observation.getCreateDate().getTime() / 1000));
 
-        System.out.println("REQUEST");
         observation.set_id(createNote.getBmNote().getNoteId());
         return this.noteRepository.insert(observation);
     }
