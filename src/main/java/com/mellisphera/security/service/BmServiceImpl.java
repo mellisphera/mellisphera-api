@@ -237,26 +237,6 @@ public class BmServiceImpl implements BmService {
 			if (change.getPayload().getDevicesCreate() != null) {
 				this.changeLogService.saveSensorFronBmDevice(change.getPayload().getDevicesCreate(), userId);
 			}
-			if (change.getPayload().getApiaryUpdate() != null) {
-				for (BmApiaryUpdated apiaryUpdate: change.getPayload().getApiaryUpdate()) {
-					this.apiaryRepository.save(this.bmToMellispheraData.getNewApiary(apiaryUpdate.getUpdatedData(), username, countryCode));
-				}
-			}
-			if (change.getPayload().getHiveUpdate() != null) {
-				for (BmHiveUpdated hiveUpdated: change.getPayload().getHiveUpdate()) {
-					this.hiveRepository.save(this.bmToMellispheraData.getNewHive(hiveUpdated.getUpdatedData(), username, userId));
-				}
-			}
-			if (change.getPayload().getDeviceUpdate() != null) {
-				for (BmSensorUpdated sensorUpdated: change.getPayload().getDeviceUpdate()) {
-					this.sensorRepository.save(this.bmToMellispheraData.getNewSensorFromChangeLog(sensorUpdated.getUpdatedData(), userId));
-				}
-			}
-			if (change.getPayload().getNoteUpdate() != null) {
-				for (BmNoteUpdated noteUpdated: change.getPayload().getNoteUpdate()) {
-					this.noteRepository.save(this.bmToMellispheraData.getNewNote(noteUpdated.getUpdatedData()));
-				}
-			}
 
 			if (change.getPayload().getApiaryDelete() != null) {
 				for (String id: change.getPayload().getApiaryDelete()) {
@@ -276,6 +256,26 @@ public class BmServiceImpl implements BmService {
 			if (change.getPayload().getNoteDelete() != null) {
 				for (String id: change.getPayload().getNoteDelete()) {
 					this.noteRepository.deleteById(id);
+				}
+			}
+			if (change.getPayload().getApiaryUpdate() != null) {
+				for (BmApiaryUpdated apiaryUpdate: change.getPayload().getApiaryUpdate()) {
+					this.apiaryRepository.save(this.bmToMellispheraData.getNewApiary(apiaryUpdate.getUpdatedData(), username, countryCode));
+				}
+			}
+			if (change.getPayload().getHiveUpdate() != null) {
+				for (BmHiveUpdated hiveUpdated: change.getPayload().getHiveUpdate()) {
+					this.hiveRepository.save(this.bmToMellispheraData.getNewHive(hiveUpdated.getUpdatedData(), username, userId));
+				}
+			}
+			if (change.getPayload().getDeviceUpdate() != null) {
+				for (BmSensorUpdated sensorUpdated: change.getPayload().getDeviceUpdate()) {
+					this.sensorRepository.save(this.bmToMellispheraData.getNewSensorFromChangeLog(sensorUpdated.getUpdatedData(), userId));
+				}
+			}
+			if (change.getPayload().getNoteUpdate() != null) {
+				for (BmNoteUpdated noteUpdated: change.getPayload().getNoteUpdate()) {
+					this.noteRepository.save(this.bmToMellispheraData.getNewNote(noteUpdated.getUpdatedData()));
 				}
 			}
 			this.deleteChangeLog(change.getPayload().getModified(), change.getPayload().getUserId());

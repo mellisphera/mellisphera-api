@@ -133,6 +133,11 @@ public class BmDataToMellispheraData {
                 sensor.setHiveId(null);
                 sensor.setApiaryId(null);
             }
+            catch (IllegalArgumentException ex) {
+                sensor.setHiveId(null);
+                sensor.setApiaryId(null);
+                System.out.println(sensor);
+            }
         }
         sensor.setCreateDate(this.convertTimestampToDate(bmDevice.getCreateDate()));
         sensor.setDataLastReceived(this.convertTimestampToDate(bmDevice.getDataLastReceived()));
