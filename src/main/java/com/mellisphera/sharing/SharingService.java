@@ -38,10 +38,12 @@ public class SharingService {
 	@Autowired private ApiaryRepository apiaryRepository;
 	@Autowired private ShareRepository shareRepository;	
 
-	private static final String ID_DEMO_APIARY = "5bcde872dc7d274ec35e87cf";
+	private static final String ID_DEMO_APIARY = "UjpRybCZ2IXFOf8hx4dJGo9PnH0Qs5Bc";
 	private static final String EXCEPTION_MSG = "Demo apiary not found";
 	private static final String EXCEPTION_USER = "User not found";
-	private static final String NAME_DEMO_APIARy = "Rucher demo";
+	private static final String NAME_DEMO_APIARY_FR = "Rucher démo";
+	private static final String NAME_DEMO_APIARY_EN = "Demo Apiary";
+	private static final String NAME_DEMO_APIARY_ES = "Apiario de demostración";
 	
 	private Apiary apiaryDemo;
 
@@ -56,8 +58,15 @@ public class SharingService {
 			throw new ApiaryDemoNotFoundException(EXCEPTION_MSG);
 		}
 		try {
-			demoApiary.setName(NAME_DEMO_APIARy);
+
 			User newUser = this.getNewUser(idNewUser);
+			if (newUser.getUserPref().getLang().equals("fr")) {
+				demoApiary.setName(NAME_DEMO_APIARY_FR);
+			} else if (newUser.getUserPref().getLang().equals("es")) {
+				demoApiary.setName(NAME_DEMO_APIARY_ES);
+			} else {
+				demoApiary.setName(NAME_DEMO_APIARY_EN);
+			}
 			ArrayList<Apiary> apiaryList = new ArrayList<Apiary>();
 			apiaryList.add(demoApiary);
 			ShareApiary onSharing = new ShareApiary(null, newUser.getId(), apiaryList);

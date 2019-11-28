@@ -45,7 +45,8 @@ public class HiveController {
 
 	@Autowired
     private HivesRepository hivesRepository;
-	@Autowired private SensorRepository sensorRepository;
+    @Autowired private ShareRepository shareRepository;
+    @Autowired private SensorRepository sensorRepository;
 	
     public HiveController() {
     }
@@ -75,7 +76,11 @@ public class HiveController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('STANDARD')")
     @RequestMapping(value="/{userId}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllByUsername(@PathVariable String userId){
-        return this.hivesRepository.findHiveByUserId(userId).stream().filter(_hive -> !_hive.getHidden()).collect(Collectors.toList());
+        List<Hive> hiveUser = this.hivesRepository.findHiveByUserId(userId).stream().filter(_hive -> !_hive.getHidden()).collect(Collectors.toList());
+        this.shareRepository.findSharingApiaryByUserId(userId).getsharingApiary().forEach(_apiary -> {
+            hiveUser.addAll(this.hivesRepository.findHiveByApiaryId(_apiary.get_id()));
+        });
+        return hiveUser;
     }
     @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @PostMapping

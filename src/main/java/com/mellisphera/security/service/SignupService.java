@@ -17,12 +17,14 @@ import com.mellisphera.controllers.AuthRestApiController;
 import com.mellisphera.entities.*;
 import com.mellisphera.entities.log.LogEvents;
 import com.mellisphera.entities.log.LogType;
+import com.mellisphera.execption.ApiaryDemoNotFoundException;
 import com.mellisphera.repositories.AlertUserRepository;
 import com.mellisphera.repositories.AlertsCatRepository;
 import com.mellisphera.repositories.LogRepoitory;
 import com.mellisphera.repositories.UserRepository;
 import com.mellisphera.security.entities.GeoIp;
 import com.mellisphera.security.message.request.SignUpForm;
+import com.mellisphera.sharing.SharingService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,7 @@ public class SignupService {
 
     @Autowired private UserRepository userRepository;
     @Autowired private GeoipServiceImpl geoipService;
+    @Autowired private SharingService sharingService;
     @Autowired private LogRepoitory logRepoitory;
     @Autowired private AlertsCatRepository alertsCatRepository;
     @Autowired private AlertUserRepository alertUserRepository;
@@ -66,7 +69,11 @@ public class SignupService {
         user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL, WEATHER_SOURCE[0], WEATHER_SOURCE ));
         user.setLastConnection(new Date());
         User newUser = this.userRepository.insert(user);
-        //this.sharingService.addDemoApiaryNewUser(newUser.getId());
+        try{
+            this.sharingService.addDemoApiaryNewUser(newUser.getId());
+        } catch (ApiaryDemoNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
 
         if (!bmSignup) {
             LogEvents logEventsBmAuth = new LogEvents(null, new Date(), newUser.getId(), signUpRequest.getEmail(), LogType.INSCRIPTION, null);

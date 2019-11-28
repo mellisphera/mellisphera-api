@@ -26,9 +26,9 @@ public class ShareApiary {
 	@Id
 	private String _id = null;
 	private String userId = null; // _id du user avec qui sont partager les ruchers
-	private	ArrayList<Apiary> sharingApiary = null;
+	private	List<Apiary> sharingApiary = null;
 	
-	public ShareApiary(String _id, String userId, ArrayList<Apiary> sharingApiary) {
+	public ShareApiary(String _id, String userId, List<Apiary> sharingApiary) {
 		super();
 		this._id = _id;
 		this.userId = userId;
@@ -53,11 +53,11 @@ public class ShareApiary {
 	}
 	
 
-	public ArrayList<Apiary> getsharingApiary() {
+	public List<Apiary> getsharingApiary() {
 		return sharingApiary;
 	}
 
-	public void setSharingApiary(ArrayList<Apiary> sharingApiary) {
+	public void setSharingApiary(List<Apiary> sharingApiary) {
 		this.sharingApiary = sharingApiary;
 	}
 	
