@@ -99,7 +99,11 @@ public class ApiaryController {
 	    if(userApiaries.isEmpty()) {
 	    	response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	    }
-		userApiaries.addAll(sharingApiary.getsharingApiary());
+		try {
+			userApiaries.addAll(sharingApiary.getsharingApiary());
+		}catch (NullPointerException e) {
+
+		}
 	    return userApiaries;
     }
    

@@ -77,9 +77,14 @@ public class HiveController {
     @RequestMapping(value="/{userId}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllByUsername(@PathVariable String userId){
         List<Hive> hiveUser = this.hivesRepository.findHiveByUserId(userId).stream().filter(_hive -> !_hive.getHidden()).collect(Collectors.toList());
-        this.shareRepository.findSharingApiaryByUserId(userId).getsharingApiary().forEach(_apiary -> {
-            hiveUser.addAll(this.hivesRepository.findHiveByApiaryId(_apiary.get_id()));
-        });
+
+        try{
+            this.shareRepository.findSharingApiaryByUserId(userId).getsharingApiary().forEach(_apiary -> {
+                hiveUser.addAll(this.hivesRepository.findHiveByApiaryId(_apiary.get_id()));
+            });
+        } catch (NullPointerException e) {
+
+        }
         return hiveUser;
     }
     @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
