@@ -37,12 +37,13 @@ public class AlertsCat {
     private String unitMet;
     private String unitImp;
     private String period;
+    private String category;
 
     public AlertsCat() {}
 
     public AlertsCat(String _id, String icon, String nameFr, String nameEn, Boolean alterable,
                      Boolean disable, Float basicValueMet, Float basicValueImp, int priority, Integer[] rangeValueMet,
-                     Integer[] rangeValueImp, float stepMet, float stepImp, String unitMet, String unitImp, String period, String nameEs) {
+                     Integer[] rangeValueImp, float stepMet, float stepImp, String unitMet, String unitImp, String period, String nameEs, String category) {
         this._id = _id;
         this.icon = icon;
         this.nameFr = nameFr;
@@ -58,6 +59,7 @@ public class AlertsCat {
         this.period = period;
         this.stepMet = stepMet;
         this.stepImp = stepImp;
+        this.category = category;
         this.unitMet = unitMet;
         this.unitImp = unitImp;
     }
@@ -96,6 +98,14 @@ public class AlertsCat {
 
     public Boolean getAlterable() {
         return alterable;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void setAlterable(Boolean alterable) {
