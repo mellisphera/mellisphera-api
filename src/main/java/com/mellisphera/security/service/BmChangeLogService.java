@@ -77,8 +77,8 @@ public class BmChangeLogService {
     }
 
 
-    public void saveNoteFromBmNote(BmNote[] bmNote) {
-        Arrays.stream(bmNote).map(_note -> this.bmToMellispheraData.getNewNote(_note)).collect(Collectors.toList()).forEach(_newNote -> {
+    public void saveNoteFromBmNote(BmNote[] bmNote, String userId) {
+        Arrays.stream(bmNote).map(_note -> this.bmToMellispheraData.getNewNote(_note, userId)).collect(Collectors.toList()).forEach(_newNote -> {
             boolean noteExist = this.noteRepository.findById(_newNote.get_id()).isPresent();
             Note note = null;
             note = this.noteRepository.findByOpsDate(_newNote.getOpsDate());

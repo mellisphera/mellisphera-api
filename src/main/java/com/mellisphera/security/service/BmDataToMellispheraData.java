@@ -32,6 +32,8 @@ public class BmDataToMellispheraData {
 
     @Autowired private SensorRepository sensorRepository;
     @Autowired private HivesRepository hiveRepository;
+    private static int xPos = 0;
+    private static int yPos = 0;
     private static  String PREFIX_BACKGROUND_DIRECTORY = "./assets/imageClient/";
     private static final String[] BACKGROUND_APIARY_EN = {
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default.png",
@@ -51,7 +53,7 @@ public class BmDataToMellispheraData {
     public BmDataToMellispheraData() {
     }
 
-    Note getNewNote(BmNote bmNote) {
+    Note getNewNote(BmNote bmNote, String userId) {
         return new Note(bmNote.getNoteId(),
                 this.convertTimestampToDate(bmNote.getCreateDate()),
                 bmNote.getType(),
@@ -61,12 +63,16 @@ public class BmDataToMellispheraData {
                 bmNote.getApiaryId(),
                 this.checkObsHiveOrApiary(bmNote),
                 this.convertTimestampToDate(bmNote.getOpsDate()),
-                bmNote.getApiaryId());
+                userId);
     }
 
     Hive getNewHive(BmHive bmHive, String username, String userId) {
         Hive newHive = new Hive();
         newHive.set_id(bmHive.getHiveId());
+       /* if (xPos == 0) {
+            xPos += 5;
+            yPos += 5;
+        }*/
         newHive.setHivePosY(this.getRandomValue(100));
         newHive.setHivePosX(this.getRandomValue(100));
         newHive.setApiaryId(bmHive.getApiaryId());

@@ -120,11 +120,11 @@ public class BmServiceImpl implements BmService {
 					if (bmHive.getNotes() != null) {
 						for (BmNote bmNote: bmHive.getNotes()) {
 							try {
-								this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
+								this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote, this.userId));
 							}
 							catch (Exception e)  {
 								this.noteRepository.deleteById(bmNote.getNoteId());
-								this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
+								this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote, this.userId));
 							}
 						}
 					}
@@ -132,11 +132,11 @@ public class BmServiceImpl implements BmService {
 				if (bmApiary.getNotes() != null) {
 					for (BmNote bmNote: bmApiary.getNotes()) {
 						try {
-							this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
+							this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote, this.userId));
 						}
 						catch (Exception e)  {
 							this.noteRepository.deleteById(bmNote.getNoteId());
-							this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote));
+							this.noteRepository.insert(this.bmToMellispheraData.getNewNote(bmNote, this.userId));
 						}
 					}
 				}
@@ -229,7 +229,7 @@ public class BmServiceImpl implements BmService {
 				this.changeLogService.saveApiaryFromBmApiary(change.getPayload().getApiaries(), username, countryCode);
 			}
 			if (change.getPayload().getBmNoteCreate() != null) {
-				this.changeLogService.saveNoteFromBmNote(change.getPayload().getBmNoteCreate());
+				this.changeLogService.saveNoteFromBmNote(change.getPayload().getBmNoteCreate(), userId);
 			}
 			if (change.getPayload().getBmHiveCreate() != null) {
 				this.changeLogService.saveHiveFromBmHive(change.getPayload().getBmHiveCreate(), username, userId);
@@ -275,7 +275,7 @@ public class BmServiceImpl implements BmService {
 			}
 			if (change.getPayload().getNoteUpdate() != null) {
 				for (BmNoteUpdated noteUpdated: change.getPayload().getNoteUpdate()) {
-					this.noteRepository.save(this.bmToMellispheraData.getNewNote(noteUpdated.getUpdatedData()));
+					this.noteRepository.save(this.bmToMellispheraData.getNewNote(noteUpdated.getUpdatedData(), userId));
 				}
 			}
 			this.deleteChangeLog(change.getPayload().getModified(), change.getPayload().getUserId());
