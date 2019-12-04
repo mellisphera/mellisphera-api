@@ -72,8 +72,9 @@ public class BmDataToMellispheraData {
        if (xPos >= 93) {
            yPos += 5;
            xPos = 0;
+       } else {
+           xPos += 5;
        }
-        xPos += 5;
         newHive.setHivePosY(yPos);
         newHive.setHivePosX(xPos);
         newHive.setApiaryId(bmHive.getApiaryId());
