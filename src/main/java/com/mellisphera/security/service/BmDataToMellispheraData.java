@@ -70,10 +70,10 @@ public class BmDataToMellispheraData {
         Hive newHive = new Hive();
         newHive.set_id(bmHive.getHiveId());
        if (xPos >= 93) {
-           yPos += 5;
+           yPos += 10;
            xPos = 0;
        } else {
-           xPos += 5;
+           xPos += 10;
        }
         newHive.setHivePosY(yPos);
         newHive.setHivePosX(xPos);
