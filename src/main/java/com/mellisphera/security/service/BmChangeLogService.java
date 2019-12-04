@@ -60,6 +60,7 @@ public class BmChangeLogService {
                 this.hiveRepository.insert(_newHive);
             }
         });
+        this.bmToMellispheraData.resetPos();
     }
 
 

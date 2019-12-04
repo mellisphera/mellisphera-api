@@ -69,12 +69,13 @@ public class BmDataToMellispheraData {
     Hive getNewHive(BmHive bmHive, String username, String userId) {
         Hive newHive = new Hive();
         newHive.set_id(bmHive.getHiveId());
-       /* if (xPos == 0) {
-            xPos += 5;
-            yPos += 5;
-        }*/
-        newHive.setHivePosY(this.getRandomValue(100));
-        newHive.setHivePosX(this.getRandomValue(100));
+       if (xPos >= 100) {
+           yPos += 5;
+           xPos = 0;
+       }
+        xPos += 5;
+        newHive.setHivePosY(yPos);
+        newHive.setHivePosX(xPos);
         newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setUserId(userId);
         newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
@@ -86,6 +87,10 @@ public class BmDataToMellispheraData {
         return newHive;
     }
 
+    public void resetPos() {
+        yPos = 0;
+        xPos = 0;
+    }
     private String checkObsHiveOrApiary(BmNote note) {
         if (note.getHiveId() != null) {
             return "HiveObs";

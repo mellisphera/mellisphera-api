@@ -141,6 +141,7 @@ public class BmServiceImpl implements BmService {
 					}
 				}
 			}
+			this.bmToMellispheraData.resetPos();
 		}catch (NullPointerException e){
 			e.printStackTrace();
 		}
