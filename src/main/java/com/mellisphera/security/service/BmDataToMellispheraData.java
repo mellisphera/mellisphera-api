@@ -69,7 +69,7 @@ public class BmDataToMellispheraData {
     Hive getNewHive(BmHive bmHive, String username, String userId) {
         Hive newHive = new Hive();
         newHive.set_id(bmHive.getHiveId());
-       if (xPos >= 100) {
+       if (xPos >= 93) {
            yPos += 5;
            xPos = 0;
        }
