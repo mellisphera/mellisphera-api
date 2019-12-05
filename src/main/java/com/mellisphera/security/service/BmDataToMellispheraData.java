@@ -44,7 +44,7 @@ public class BmDataToMellispheraData {
     };
 
     private static final String[] BACKGROUND_APIARY_FR = {
-            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default.FR.png",
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_BLUE.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_FUSCHIA.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_GREEN.png",
@@ -69,11 +69,9 @@ public class BmDataToMellispheraData {
     Hive getNewHive(BmHive bmHive, String username, String userId) {
         Hive newHive = new Hive();
         newHive.set_id(bmHive.getHiveId());
-       if (xPos >= 93) {
-           yPos += 10;
+       if (xPos >= 90) {
+           yPos += 25;
            xPos = 0;
-       } else {
-           xPos += 10;
        }
         newHive.setHivePosY(yPos);
         newHive.setHivePosX(xPos);
@@ -85,6 +83,7 @@ public class BmDataToMellispheraData {
         newHive.setName(bmHive.getName());
         newHive.setUsername(username);
         newHive.setName(bmHive.getName());
+        xPos += 12;
         return newHive;
     }
 
