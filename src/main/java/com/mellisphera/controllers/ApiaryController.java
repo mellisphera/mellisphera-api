@@ -96,9 +96,6 @@ public class ApiaryController {
     public List<Apiary> getAllUserApiaries(@PathVariable String userId, HttpServletResponse response){
     	List<Apiary> userApiaries=this.apiaryRepository.findApiaryByUserId(userId).stream().filter(_apiary -> !_apiary.getHidden()).collect(Collectors.toList());
     	ShareApiary sharingApiary = this.shareRepository.findSharingApiaryByUserId(userId);
-	    if(userApiaries.isEmpty()) {
-	    	response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-	    }
 		try {
 			userApiaries.addAll(sharingApiary.getsharingApiary());
 		}catch (NullPointerException e) {
