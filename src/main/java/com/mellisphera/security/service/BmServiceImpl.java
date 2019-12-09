@@ -129,6 +129,7 @@ public class BmServiceImpl implements BmService {
 						}
 					}
 				}
+				this.bmToMellispheraData.resetPos();
 				if (bmApiary.getNotes() != null) {
 					for (BmNote bmNote: bmApiary.getNotes()) {
 						try {

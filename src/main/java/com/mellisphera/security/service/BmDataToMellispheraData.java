@@ -120,7 +120,6 @@ public class BmDataToMellispheraData {
         Hive hive = null;
         Sensor sensor = new Sensor();
         sensor.set_id(bmDevice.getDeviceId());
-
         try {
             hive = this.hiveRepository.findById(bmDevice.getCurrentLocation().getHiveId()).get();
             sensor.setHiveId(hive.get_id());
@@ -132,6 +131,7 @@ public class BmDataToMellispheraData {
                                 hive.get_id(),
                                 bmDevice.getCurrentLocation().getHivePositionId(),
                                 bmDevice.getCurrentLocation().getStart()));
+                System.out.println(sensor);
             }
         } catch (NullPointerException e) {
             try {
