@@ -246,7 +246,8 @@ public class BmServiceImpl implements BmService {
 				}
 			}
 			if (change.getPayload().getHiveDelete() != null) {
-				for (String id: change.getPayload().getApiaryDelete()) {
+				for (String id: change.getPayload().getHiveDelete()) {
+					System.out.println(id);
 					this.hiveRepository.deleteById(id);
 				}
 			}
