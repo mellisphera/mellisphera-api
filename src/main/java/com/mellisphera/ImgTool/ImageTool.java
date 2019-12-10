@@ -1,16 +1,3 @@
-/* Copyright 2018-present Mellisphera
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License. */ 
-
-
-
 package com.mellisphera.ImgTool;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +24,7 @@ public class ImageTool {
     public ImageTool(String base64, String userId){
         this.base64 = base64.split(",");
         this.userId = userId;
+	this.server_path = "/apiwatch/production/imgClient/";
         this.getExtension();
 
     }
@@ -52,9 +40,6 @@ public class ImageTool {
             case "data:image/png;base64":
                 this.extension = "png";
                 break;
-            case "data:image/svg;base64":
-                this.extension = "svg";
-                break;
             default://should write cases for more images types
                 this.extension = "jpg";
                 break;
@@ -64,9 +49,10 @@ public class ImageTool {
     public void convertToFile() {
         byte[] data = DatatypeConverter.parseBase64Binary(this.base64[1]);
         this.fileName = this.userId + "-" + new Date().getTime() + "." + this.extension;
-        this.pathFile = server_path + this.fileName;
+        this.pathFile = this.server_path + this.fileName;
         File file = new File(this.pathFile);
-        try{
+        System.out.println(this.pathFile);
+	try{
             BufferedImage bufferedImg = ImageIO.read(new ByteArrayInputStream(data));
             ImageIO.write(bufferedImg, this.extension, file);
             Runtime rt = Runtime.getRuntime();
