@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.Date;
 
 @Service
-public class ImageTool {
+public class    ImageTool {
 
     private static final String CLIENT_PATH = "./assets/client/";
     @Value("${mellisphera.app.img.pathServer}")

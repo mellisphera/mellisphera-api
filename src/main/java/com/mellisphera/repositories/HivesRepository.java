@@ -30,7 +30,9 @@ public interface HivesRepository  extends MongoRepository<Hive ,String>{
 	List<Hive> findHiveByUsername(String username);
 
 	List<Hive> findHiveByUserId(String userId);
-	
+
+	void deleteHiveByApiaryId(String apiaryId);
+
 	List<Hive> findHiveByApiaryId(String apiaryId);
 
 }
