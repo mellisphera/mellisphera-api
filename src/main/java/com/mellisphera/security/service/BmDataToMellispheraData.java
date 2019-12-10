@@ -33,7 +33,7 @@ public class BmDataToMellispheraData {
     @Autowired private SensorRepository sensorRepository;
     @Autowired private HivesRepository hiveRepository;
     private static int xPos = 0;
-    private static int yPos = 10;
+    private static int yPos = 20;
     private static  String PREFIX_BACKGROUND_DIRECTORY = "./assets/imageClient/";
     private static final String[] BACKGROUND_APIARY_EN = {
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default.png",
