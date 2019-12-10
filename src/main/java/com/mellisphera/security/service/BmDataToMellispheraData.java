@@ -89,7 +89,7 @@ public class BmDataToMellispheraData {
 
     public void resetPos() {
         yPos = 0;
-        xPos = 10;
+        xPos = 20;
     }
     private String checkObsHiveOrApiary(BmNote note) {
         if (note.getHiveId() != null) {
