@@ -22,12 +22,6 @@ public class DeviceLocation implements Serializable {
     @JsonProperty("deviceLocationId")
     private String deviceLocationId;
 
-    @JsonProperty("deviceId")
-    private String deviceId;
-
-    @JsonProperty("hiveId")
-    private String hiveId;
-
     @JsonProperty("hivePositionId")
     private String hivePositionId;
 

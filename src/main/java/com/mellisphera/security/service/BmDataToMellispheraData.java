@@ -121,10 +121,10 @@ public class BmDataToMellispheraData {
         Sensor sensor = new Sensor();
         sensor.set_id(bmDevice.getDeviceId());
         try {
-            hive = this.hiveRepository.findById(bmDevice.getCurrentLocation().getHiveId()).get();
-            sensor.setHiveId(hive.get_id());
-            sensor.setApiaryId(hive.getApiaryId());
             if (bmDevice.getCurrentLocation() != null) {
+                hive = this.hiveRepository.findById(bmDevice.getCurrentLocation().getHiveId()).get();
+                sensor.setHiveId(hive.get_id());
+                sensor.setApiaryId(hive.getApiaryId());
                 sensor.setDeviceLocation(
                         new DeviceLocation(bmDevice.getCurrentLocation().getDeviceLocationId(),
                                 bmDevice.getDeviceId(),
