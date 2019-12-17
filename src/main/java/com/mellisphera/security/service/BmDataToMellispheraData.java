@@ -133,6 +133,10 @@ public class BmDataToMellispheraData {
                                 bmDevice.getCurrentLocation().getStart()));
                 System.out.println(sensor);
             }
+            else{
+                sensor.setHiveId(null);
+                sensor.setApiaryId(null);
+            }
         } catch (NullPointerException e) {
             try {
                 Sensor lastSensor = this.sensorRepository.findById(bmDevice.getDeviceId()).get();
