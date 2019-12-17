@@ -166,7 +166,7 @@ public class BmDataToMellispheraData {
 
     private String getTypeByRef(String ref) {
         String prefix = ref.split(":")[0];
-        if (prefix.equals("41")) {
+        if (prefix.equals("41") || prefix.equals("47")) {
             return "T2";
         } else if (prefix.equals("42")) {
             return "T_HR";
