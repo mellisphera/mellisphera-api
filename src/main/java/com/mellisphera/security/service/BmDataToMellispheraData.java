@@ -23,6 +23,7 @@ import com.mellisphera.repositories.SensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -54,16 +55,24 @@ public class BmDataToMellispheraData {
     }
 
     Note getNewNote(BmNote bmNote, String userId) {
-        return new Note(bmNote.getNoteId(),
+        byte[] byteStr = bmNote.getDescription().getBytes();
+        Note newNote =  new Note(bmNote.getNoteId(),
                 this.convertTimestampToDate(bmNote.getCreateDate()),
                 bmNote.getType(),
                 bmNote.getTags(),
-                bmNote.getDescription(),
+                "",
                 bmNote.getHiveId(),
                 bmNote.getApiaryId(),
                 this.checkObsHiveOrApiary(bmNote),
                 this.convertTimestampToDate(bmNote.getOpsDate()),
                 userId);
+        try{
+            newNote.setDescription(new String(byteStr, "UTF-8"));
+        }
+        catch (UnsupportedEncodingException e) {
+            newNote.setDescription(bmNote.getDescription());
+        }
+        return newNote;
     }
 
     Hive getNewHive(BmHive bmHive, String username, String userId) {
