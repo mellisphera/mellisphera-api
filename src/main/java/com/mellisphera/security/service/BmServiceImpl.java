@@ -87,7 +87,7 @@ public class BmServiceImpl implements BmService {
 
 
 	@Override
-	BmAuth getUserData(String userId) {
+	public BmAuth getUserData(String userId) {
 		this.header = new HttpHeaders();
 		this.header.add("license_key", this.licenceKey);
 		String urlRequest = this.bmUrl + "user/data";

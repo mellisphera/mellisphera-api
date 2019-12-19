@@ -13,6 +13,7 @@ limitations under the License. */
 
 package com.mellisphera.controllers;
 
+import com.mellisphera.security.entities.BmAuth;
 import com.mellisphera.security.service.BmServiceImpl;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -122,7 +123,9 @@ public class UserController {
         return User;
     }
     @GetMapping("/check/{userId}")
-    public void checkDataForUser(@PathVariable String userId) {
+    public void checkDataForUser(@PathVariable String userId){
+        BmAuth userData = this.bmAuthService.getUserData(userId);
+
 
     }
 }
