@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -104,7 +105,7 @@ public class SensorController {
 	@RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces={"application/json"})
 	public List<Sensor> getUserSensors(@PathVariable String userId){
 		// liste les capteurs pour un user
-		return this.sensorRepository.findSensorByUserId(userId);
+		return this.sensorRepository.findSensorByUserId(userId).stream().filter(_sensor -> _sensor.getDeviceLocation() != null).collect(Collectors.toList());
 	}
 	
 	private Boolean checkIfHiveHaveSensor(Hive hive) {

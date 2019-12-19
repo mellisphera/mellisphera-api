@@ -22,9 +22,10 @@ public class UserPref {
 	private String lang;
 	private String weatherSource;
 	private String[] availableSource;
+	private Boolean weatherStation;
 	private String unitSystem;
 	
-	public UserPref(String timeZone, String timeFormat, String lang, String unitSystem, String weatherSource, String[] availableSource) {
+	public UserPref(String timeZone, String timeFormat, String lang, String unitSystem, String weatherSource, String[] availableSource, Boolean weatherStation) {
 		super();
 		this.timeZone = timeZone;
 		this.timeFormat = timeFormat;
@@ -32,6 +33,7 @@ public class UserPref {
 		this.unitSystem = unitSystem;
 		this.weatherSource = weatherSource;
 		this.availableSource = availableSource;
+		this.weatherStation = weatherStation;
 	}
 
 	public String getTimeZone() {
@@ -76,6 +78,14 @@ public class UserPref {
 
 	public String[] getAvailableSource() {
 		return availableSource;
+	}
+
+	public Boolean getWeatherStation() {
+		return weatherStation;
+	}
+
+	public void setWeatherStation(Boolean weatherStation) {
+		this.weatherStation = weatherStation;
 	}
 
 	public void setAvailableSource(String[] availableSource) {

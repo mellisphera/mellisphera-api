@@ -23,6 +23,7 @@ import com.mellisphera.repositories.SensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -32,6 +33,8 @@ public class BmDataToMellispheraData {
 
     @Autowired private SensorRepository sensorRepository;
     @Autowired private HivesRepository hiveRepository;
+    private static int xPos = 0;
+    private static int yPos = 15;
     private static  String PREFIX_BACKGROUND_DIRECTORY = "./assets/imageClient/";
     private static final String[] BACKGROUND_APIARY_EN = {
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default.png",
@@ -42,7 +45,7 @@ public class BmDataToMellispheraData {
     };
 
     private static final String[] BACKGROUND_APIARY_FR = {
-            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default.FR.png",
+            PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_BLUE.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_FUSCHIA.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_GREEN.png",
@@ -51,24 +54,36 @@ public class BmDataToMellispheraData {
     public BmDataToMellispheraData() {
     }
 
-    Note getNewNote(BmNote bmNote) {
-        return new Note(bmNote.getNoteId(),
+    Note getNewNote(BmNote bmNote, String userId) {
+        byte[] byteStr = bmNote.getDescription().getBytes();
+        Note newNote =  new Note(bmNote.getNoteId(),
                 this.convertTimestampToDate(bmNote.getCreateDate()),
                 bmNote.getType(),
                 bmNote.getTags(),
-                bmNote.getDescription(),
+                "",
                 bmNote.getHiveId(),
                 bmNote.getApiaryId(),
                 this.checkObsHiveOrApiary(bmNote),
                 this.convertTimestampToDate(bmNote.getOpsDate()),
-                bmNote.getApiaryId());
+                userId);
+        try{
+            newNote.setDescription(new String(byteStr, "UTF-8"));
+        }
+        catch (UnsupportedEncodingException e) {
+            newNote.setDescription(bmNote.getDescription());
+        }
+        return newNote;
     }
 
     Hive getNewHive(BmHive bmHive, String username, String userId) {
         Hive newHive = new Hive();
         newHive.set_id(bmHive.getHiveId());
-        newHive.setHivePosY(this.getRandomValue(100));
-        newHive.setHivePosX(this.getRandomValue(100));
+       if (xPos >= 90) {
+           yPos += 25;
+           xPos = 0;
+       }
+        newHive.setHivePosY(yPos);
+        newHive.setHivePosX(xPos);
         newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setUserId(userId);
         newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
@@ -77,9 +92,14 @@ public class BmDataToMellispheraData {
         newHive.setName(bmHive.getName());
         newHive.setUsername(username);
         newHive.setName(bmHive.getName());
+        xPos += 12;
         return newHive;
     }
 
+    public void resetPos() {
+        yPos = 15;
+        xPos = 0;
+    }
     private String checkObsHiveOrApiary(BmNote note) {
         if (note.getHiveId() != null) {
             return "HiveObs";
@@ -109,18 +129,22 @@ public class BmDataToMellispheraData {
         Hive hive = null;
         Sensor sensor = new Sensor();
         sensor.set_id(bmDevice.getDeviceId());
-
         try {
-            hive = this.hiveRepository.findById(bmDevice.getCurrentLocation().getHiveId()).get();
-            sensor.setHiveId(hive.get_id());
-            sensor.setApiaryId(hive.getApiaryId());
             if (bmDevice.getCurrentLocation() != null) {
+                hive = this.hiveRepository.findById(bmDevice.getCurrentLocation().getHiveId()).get();
+                sensor.setHiveId(hive.get_id());
+                sensor.setApiaryId(hive.getApiaryId());
                 sensor.setDeviceLocation(
                         new DeviceLocation(bmDevice.getCurrentLocation().getDeviceLocationId(),
                                 bmDevice.getDeviceId(),
                                 hive.get_id(),
                                 bmDevice.getCurrentLocation().getHivePositionId(),
                                 bmDevice.getCurrentLocation().getStart()));
+                System.out.println(sensor);
+            }
+            else{
+                sensor.setHiveId(null);
+                sensor.setApiaryId(null);
             }
         } catch (NullPointerException e) {
             try {
@@ -151,7 +175,7 @@ public class BmDataToMellispheraData {
 
     private String getTypeByRef(String ref) {
         String prefix = ref.split(":")[0];
-        if (prefix.equals("41")) {
+        if (prefix.equals("41") || prefix.equals("47")) {
             return "T2";
         } else if (prefix.equals("42")) {
             return "T_HR";
