@@ -85,6 +85,23 @@ public class BmServiceImpl implements BmService {
 		return restTemplate.postForObject(urlRequest, requestEntity, BmAuth.class);
 	}
 
+
+	@Override
+	BmAuth getUserData(String userId) {
+		this.header = new HttpHeaders();
+		this.header.add("license_key", this.licenceKey);
+		String urlRequest = this.bmUrl + "user/data";
+		HttpEntity entity = new HttpEntity(this.header);
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlRequest)
+				.queryParam("userId", userId);
+		RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
+		HttpEntity<BmAuth> response  = restTemplate.exchange(builder.toUriString(),
+				HttpMethod.GET,
+				entity,
+				BmAuth.class);
+		return response.getBody();
+	}
+
 	@Override
 	public void saveBmData(BmAuth bmData, String username, String countryCode) {
 		try{

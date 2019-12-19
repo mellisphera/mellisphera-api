@@ -83,6 +83,7 @@ public class UserController {
         for (User e : Users) {
             names.add(e.getUsername());
         }
+
         return names;
     }
 
@@ -119,5 +120,9 @@ public class UserController {
     public Optional<User> getById(@PathVariable("id") String id) {
         Optional<User> User = this.userRepository.findById(id);
         return User;
+    }
+    @GetMapping("/check/{userId}")
+    public void checkDataForUser(@PathVariable String userId) {
+
     }
 }
