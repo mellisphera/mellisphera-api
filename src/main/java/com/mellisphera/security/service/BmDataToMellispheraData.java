@@ -18,6 +18,7 @@ import com.mellisphera.entities.Hive;
 import com.mellisphera.entities.Note;
 import com.mellisphera.entities.Sensor;
 import com.mellisphera.entities.bm.*;
+import com.mellisphera.entities.bm.changeLog.BmHiveUpdated;
 import com.mellisphera.repositories.HivesRepository;
 import com.mellisphera.repositories.SensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,6 +107,14 @@ public class BmDataToMellispheraData {
         } else {
             return "ApiaryObs";
         }
+    }
+
+    public Hive updateHiveChangeLog(Hive hive, BmHive bmHive) {
+        hive.setName(bmHive.getName());
+        hive.setApiaryId(bmHive.getApiaryId());
+        hive.setHidden(bmHive.getHidden());
+
+        return hive;
     }
 
     Sensor getNewSensorFromFirstConnection(BmSensor bmSensor, String userId, BmHive bmHive) {

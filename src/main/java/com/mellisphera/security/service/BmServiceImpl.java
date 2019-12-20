@@ -285,7 +285,8 @@ public class BmServiceImpl implements BmService {
 			}
 			if (change.getPayload().getHiveUpdate() != null) {
 				for (BmHiveUpdated hiveUpdated: change.getPayload().getHiveUpdate()) {
-					this.hiveRepository.save(this.bmToMellispheraData.getNewHive(hiveUpdated.getUpdatedData(), username, userId));
+					Hive oldHive = this.hiveRepository.findById(hiveUpdated.getOldData().getHiveId()).get();
+					this.hiveRepository.save(this.bmToMellispheraData.updateHiveChangeLog(oldHive, hiveUpdated.getUpdatedData()));
 				}
 			}
 			if (change.getPayload().getDeviceUpdate() != null) {

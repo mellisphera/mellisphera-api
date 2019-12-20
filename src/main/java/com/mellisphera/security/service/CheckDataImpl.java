@@ -25,6 +25,7 @@ public class CheckDataImpl implements  CheckDataService{
         if (this.apiaryRepository.existsById(bmApiary.getApiaryId())) {
             Apiary msApiary = this.apiaryRepository.findById(bmApiary.getApiaryId()).get();
             String[] err;
+            return new IntegrityStatus(400, new String[]{});
 
         } else {
             return new IntegrityStatus(400, new String[]{});
@@ -34,6 +35,7 @@ public class CheckDataImpl implements  CheckDataService{
     @Override
     public IntegrityStatus checkHive(BmHive bmHive) {
         if (this.hiveRepository.existsById(bmHive.getHiveId())) {
+            return new IntegrityStatus(400, new String[]{});
 
         } else {
             return new IntegrityStatus(400, new String[]{});
@@ -43,6 +45,7 @@ public class CheckDataImpl implements  CheckDataService{
     @Override
     public IntegrityStatus checkSensor(BmSensor bmSensor) {
         if (this.sensorRepository.existsById(bmSensor.getDevice().getDeviceId())) {
+            return new IntegrityStatus(400, new String[]{});
 
         } else {
             return new IntegrityStatus(400, new String[]{});
