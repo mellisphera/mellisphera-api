@@ -25,30 +25,30 @@ public class CheckDataImpl implements  CheckDataService{
         if (this.apiaryRepository.existsById(bmApiary.getApiaryId())) {
             Apiary msApiary = this.apiaryRepository.findById(bmApiary.getApiaryId()).get();
             String[] err;
-            return new IntegrityStatus(400, new String[]{});
+            return new IntegrityStatus(NOT_FOUND, msApiary,  new String[]{});
 
         } else {
-            return new IntegrityStatus(400, new String[]{});
+            return new IntegrityStatus(NOT_FOUND, bmApiary, new String[]{});
         }
     }
 
     @Override
     public IntegrityStatus checkHive(BmHive bmHive) {
         if (this.hiveRepository.existsById(bmHive.getHiveId())) {
-            return new IntegrityStatus(400, new String[]{});
+            return new IntegrityStatus(400, bmHive, new String[]{});
 
         } else {
-            return new IntegrityStatus(400, new String[]{});
+            return new IntegrityStatus(400, bmHive, new String[]{});
         }
     }
 
     @Override
     public IntegrityStatus checkSensor(BmSensor bmSensor) {
         if (this.sensorRepository.existsById(bmSensor.getDevice().getDeviceId())) {
-            return new IntegrityStatus(400, new String[]{});
+            return new IntegrityStatus(400, bmSensor, new String[]{});
 
         } else {
-            return new IntegrityStatus(400, new String[]{});
+            return new IntegrityStatus(400, bmSensor, new String[]{});
         }
     }
 }

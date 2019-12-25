@@ -25,22 +25,26 @@ public class AlertUser {
     @Id
     private String _id;
     private String userId;
+    private String [] availableFrequency;
+    private int dayFrequency;
+    private String[] email;
+    private Boolean emailEnable;
+    private String frequency;
     /* Key: alertId, value: Conf */
     private Map<String , AlertConf> alertConf;
 
     public AlertUser(){}
 
-    public AlertUser(String _id, String userId, Map<String , AlertConf> alertConf) {
+    public AlertUser(String userId, String[] availableFrequency, int dayFrequency, String[] email, Boolean emailEnable, String frequency, Map<String, AlertConf> alertConf) {
         this._id = _id;
         this.userId = userId;
+        this.availableFrequency = availableFrequency;
+        this.dayFrequency = dayFrequency;
+        this.email = email;
+        this.emailEnable = emailEnable;
+        this.frequency = frequency;
         this.alertConf = alertConf;
     }
-
-    public AlertUser(String userId, Map<String , AlertConf> alertConf) {
-        this.userId = userId;
-        this.alertConf = alertConf;
-    }
-
 
     public String get_id() {
         return _id;
@@ -58,11 +62,51 @@ public class AlertUser {
         this.userId = userId;
     }
 
-    public Map<String , AlertConf>getAlertConf() {
+    public String[] getAvailableFrequency() {
+        return availableFrequency;
+    }
+
+    public void setAvailableFrequency(String[] availableFrequency) {
+        this.availableFrequency = availableFrequency;
+    }
+
+    public int getDayFrequency() {
+        return dayFrequency;
+    }
+
+    public void setDayFrequency(int dayFrequency) {
+        this.dayFrequency = dayFrequency;
+    }
+
+    public String[] getEmail() {
+        return email;
+    }
+
+    public void setEmail(String[] email) {
+        this.email = email;
+    }
+
+    public Boolean getEmailEnable() {
+        return emailEnable;
+    }
+
+    public void setEmailEnable(Boolean emailEnable) {
+        this.emailEnable = emailEnable;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
+    }
+
+    public Map<String, AlertConf> getAlertConf() {
         return alertConf;
     }
 
-    public void setAlertConf(Map<String , AlertConf> alertConf) {
+    public void setAlertConf(Map<String, AlertConf> alertConf) {
         this.alertConf = alertConf;
     }
 }

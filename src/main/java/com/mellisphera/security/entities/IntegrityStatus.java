@@ -7,7 +7,7 @@ public class IntegrityStatus {
     private int code;
     private String args[];
 
-    public IntegrityStatus(int code, String[] args) {
+    public IntegrityStatus(int code, Object obj, String[] args) {
         this.code = code;
         this.args = args;
     }

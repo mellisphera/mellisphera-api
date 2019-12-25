@@ -49,6 +49,9 @@ public class SignupService {
     private static final String DATE_FR = "DD/MM/YYYY HH:mm";
     private static final String DATE_EN = "YYYY-MM-DD HH:m";
     private static final String METRIC = "METRIC";
+    private static final String[] AVAILABLE_FREQUENCY = {"EVERY_X_DAY", "DAILY", "WEEKLY"};
+    private static final int DAY_FREQUENCY = 1;
+    private static final String FREQUENCY = AVAILABLE_FREQUENCY[0];
     private static final String IMPERIAL = "IMPERIAL";
     private static final String[] WEATHER_SOURCE = new String[]{"WeatherSource", "OpenWeatherMap"};
     private static final String[] SET_INITIAL_ROLE = new String[]{ "ROLE_STANDARD" };
@@ -105,7 +108,7 @@ public class SignupService {
         alertCat.forEach(_alert -> {
             alertConf.put(_alert.get_id(), new AlertConf(true, _alert.getBasicValueMet(), _alert.getBasicValueImp()));
         });
-        AlertUser alertUser = new AlertUser(user.getId(), alertConf);
+        AlertUser alertUser = new AlertUser(user.getId(), AVAILABLE_FREQUENCY, DAY_FREQUENCY, new String[]{user.getEmail()}, true, FREQUENCY, alertConf);
         this.alertUserRepository.insert(alertUser);
     }
 }
