@@ -13,6 +13,7 @@ limitations under the License. */
 
 package com.mellisphera.controllers;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,6 +52,14 @@ public class NoteController {
     
     @PostMapping("/insert")
     public Note insert(@RequestBody Note observation){
+        String value = "";
+        try{
+            byte ptext[] = observation.getDescription().getBytes();
+            value = new String(ptext, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            //
+            value = observation.getDescription();
+        }
         BmNoteCreate createNote = this.bmService.postNote(new BmNote(
                 observation.getDescription(),
                 new String[]{},
