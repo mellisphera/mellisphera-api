@@ -72,14 +72,13 @@ public class SignupService {
         user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, this.getLangByGeoipLangage(geoIp.getLanguages()), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL, WEATHER_SOURCE[0], WEATHER_SOURCE, false));
         user.setLastConnection(new Date());
         User newUser = this.userRepository.insert(user);
-        try{
-            this.sharingService.addDemoApiaryNewUser(newUser.getId());
-        } catch (ApiaryDemoNotFoundException e) {
-            System.err.println(e.getMessage());
-        }
-
         if (!bmSignup) {
             LogEvents logEventsBmAuth = new LogEvents(null, new Date(), newUser.getId(), signUpRequest.getEmail(), LogType.INSCRIPTION, null);
+            try{
+                this.sharingService.addDemoApiaryNewUser(newUser.getId());
+            } catch (ApiaryDemoNotFoundException e) {
+                System.err.println(e.getMessage());
+            }
             this.logRepoitory.insert(logEventsBmAuth);
         }
 
