@@ -14,6 +14,7 @@ limitations under the License. */
 package com.mellisphera.controllers;
 
 import com.mellisphera.security.entities.BmAuth;
+import com.mellisphera.security.message.response.JwtResponse;
 import com.mellisphera.security.service.BmServiceImpl;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -86,6 +87,13 @@ public class UserController {
         }
 
         return names;
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("adminLogin/{userId}")
+    public JwtResponse loginFromAdmin(@PathVariable String userId) {
+        User user = this.userRepository.findById(userId).get();
+        return new JwtResponse(user.getId(), null, user.getConnexions(), user.getUsername(),user.getEmail(), null,null, user.getUserPref(), user.getUserPref().getLang());
     }
 
     @GetMapping("/update/{userId}")
