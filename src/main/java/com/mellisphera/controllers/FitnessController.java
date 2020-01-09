@@ -18,12 +18,8 @@ public class FitnessController {
     @Autowired private FitnessRepository fitnessRepository;
 
 
-    @GetMapping("/daily/{userId}")
-    public List<Fitness> getDailyFintnessByUserId(@PathVariable String userId){
-        Date start = new Date();
-        start.setDate(new Date().getDate() - 1);
-        start.setHours(0);
-        start.setMinutes(0);
-        return this.fitnessRepository.findByUserIdAndDateBetween(userId, start, new Date());
+    @GetMapping("/daily/{userId}/{start}/{end}")
+    public List<Fitness> getDailyFintnessByUserId(@PathVariable String userId, @PathVariable long start, @PathVariable long end){
+        return this.fitnessRepository.findByUserIdAndDateBetween(userId, new Date(start), new Date(end));
     }
 }

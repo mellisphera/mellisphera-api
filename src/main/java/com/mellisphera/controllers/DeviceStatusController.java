@@ -17,12 +17,8 @@ public class DeviceStatusController {
 
     @Autowired private DeviceStatusRepository deviceStatusRepository;
 
-    @GetMapping("/user/{userId}")
-    public List<DeviceStatus> getByUserId(@PathVariable String userId) {
-        Date start = new Date();
-        start.setDate(new Date().getDate() - 1);
-        start.setHours(0);
-        start.setMinutes(0);
-        return this.deviceStatusRepository.findByUserIdAndOpsDateBetween(userId, start, new Date());
+    @GetMapping("/user/{userId}/{start}/{end}")
+    public List<DeviceStatus> getByUserId(@PathVariable String userId, @PathVariable long start, @PathVariable long end) {
+        return this.deviceStatusRepository.findByUserIdAndOpsDateBetween(userId, new Date(start), new Date(end));
     }
 }
