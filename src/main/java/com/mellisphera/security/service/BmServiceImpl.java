@@ -193,7 +193,11 @@ public class BmServiceImpl implements BmService {
 				HttpMethod.GET,
 				entity,
 				BmAuth.class);
-		this.saveChangeLog(response.getBody(), username, userId, countryCode);
+		if (response.getBody() != null) {
+			this.saveChangeLog(response.getBody(), username, userId, countryCode);
+		} else {
+			System.err.println("Aucune mise à jours");
+		}
 	}
 
 	@Override
