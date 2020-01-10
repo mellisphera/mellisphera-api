@@ -15,15 +15,17 @@ public class HubReferences {
     private Date lastUpload;
     private int working;
     private String userId;
+    private String hubRef;
     private String apiaryId;
 
-    public HubReferences(String _id, int hub, String user, Date lastUpload, int working, String userId, String apiaryId) {
+    public HubReferences(String _id, int hub, String user, Date lastUpload, int working, String userId, String hubRef, String apiaryId) {
         this._id = _id;
         this.hub = hub;
         this.user = user;
         this.lastUpload = lastUpload;
         this.working = working;
         this.userId = userId;
+        this.hubRef = hubRef;
         this.apiaryId = apiaryId;
     }
 
@@ -73,6 +75,14 @@ public class HubReferences {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getHubRef() {
+        return hubRef;
+    }
+
+    public void setHubRef(String hubRef) {
+        this.hubRef = hubRef;
     }
 
     public String getApiaryId() {
