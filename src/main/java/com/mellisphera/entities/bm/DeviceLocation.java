@@ -83,4 +83,15 @@ public class DeviceLocation implements Serializable {
     public void setStart(long start) {
         this.start = start;
     }
+
+    @Override
+    public String toString() {
+        return "DeviceLocation{" +
+                "deviceLocationId='" + deviceLocationId + '\'' +
+                ", deviceId='" + deviceId + '\'' +
+                ", hiveId='" + hiveId + '\'' +
+                ", hivePositionId='" + hivePositionId + '\'' +
+                ", start=" + start +
+                '}';
+    }
 }

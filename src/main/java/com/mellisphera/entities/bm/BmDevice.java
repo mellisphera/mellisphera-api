@@ -35,6 +35,7 @@ public class BmDevice implements Serializable {
     @JsonProperty("model")
     private String model;
 
+
     public BmDevice(String deviceId, int createDate, int dataLastReceived, String name, DeviceLocation currentLocation, String deviceAddress, String model) {
         this.deviceId = deviceId;
         this.createDate = createDate;

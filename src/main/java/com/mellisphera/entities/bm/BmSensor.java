@@ -71,4 +71,13 @@ public class BmSensor implements Serializable{
 		this.start = start;
 	}
 
+	@Override
+	public String toString() {
+		return "BmSensor{" +
+				"device=" + device +
+				", hivePositionId='" + hivePositionId + '\'' +
+				", deviceLocationId='" + deviceLocationId + '\'' +
+				", start=" + start +
+				'}';
+	}
 }
