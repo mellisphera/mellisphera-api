@@ -69,7 +69,7 @@ public class SignupService {
         if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1"))
             ipAddress="87.100.21.93";
         GeoIp geoIp = geoipService.getGeoIp(ipAddress);
-        user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? DATE_EN: DATE_FR, this.getLangByGeoipLangage(geoIp.getLanguages()), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL, WEATHER_SOURCE[0], WEATHER_SOURCE, false));
+        user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("EN") ? DATE_EN: DATE_FR, this.getLangByGeoipLangage(geoIp.getCountry()), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL, WEATHER_SOURCE[0], WEATHER_SOURCE, false));
         user.setLastConnection(new Date());
         User newUser = this.userRepository.insert(user);
         if (!bmSignup) {
@@ -87,9 +87,9 @@ public class SignupService {
     }
 
     private String getLangByGeoipLangage(String geoLang) {
-        if (geoLang.contains("fr")) {
+        if (geoLang.contains("FR")) {
             return "fr";
-        } else if (geoLang.contains("es")) {
+        } else if (geoLang.contains("ES")) {
             return "es";
         } else {
             return "en";
