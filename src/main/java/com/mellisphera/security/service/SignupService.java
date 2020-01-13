@@ -47,7 +47,7 @@ public class SignupService {
     @Autowired private AlertUserRepository alertUserRepository;
     @Autowired private PasswordEncoder encoder;
     private static final String DATE_FR = "DD/MM/YYYY HH:mm";
-    private static final String DATE_EN = "YYYY-MM-DD HH:m";
+    private static final String DATE_EN = "MM-DD-YYYY HH:m";
     private static final String METRIC = "METRIC";
     private static final String[] AVAILABLE_FREQUENCY = {"EVERY_X_DAY", "DAILY", "WEEKLY"};
     private static final int DAY_FREQUENCY = 1;
@@ -69,7 +69,7 @@ public class SignupService {
         if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1"))
             ipAddress="87.100.21.93";
         GeoIp geoIp = geoipService.getGeoIp(ipAddress);
-        user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("EN") ? DATE_EN: DATE_FR, this.getLangByGeoipLangage(geoIp.getCountry()), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL, WEATHER_SOURCE[0], WEATHER_SOURCE, false));
+        user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("US") ? DATE_EN: DATE_FR, this.getLangByGeoipLangage(geoIp.getCountry()), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL, WEATHER_SOURCE[0], WEATHER_SOURCE, false));
         user.setLastConnection(new Date());
         User newUser = this.userRepository.insert(user);
         if (!bmSignup) {
