@@ -107,7 +107,7 @@ public class SignupService {
         alertCat.forEach(_alert -> {
             alertConf.put(_alert.get_id(), new AlertConf(true, _alert.getBasicValueMet(), _alert.getBasicValueImp()));
         });
-        AlertUser alertUser = new AlertUser(user.getId(), AVAILABLE_FREQUENCY, DAY_FREQUENCY, new String[]{user.getEmail(), ""}, true, FREQUENCY, alertConf);
+        AlertUser alertUser = new AlertUser(user.getId(), AVAILABLE_FREQUENCY, DAY_FREQUENCY, new String[]{user.getEmail(), ""}, false, FREQUENCY, alertConf);
         this.alertUserRepository.insert(alertUser);
     }
 }
