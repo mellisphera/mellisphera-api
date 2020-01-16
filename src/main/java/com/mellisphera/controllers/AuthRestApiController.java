@@ -149,7 +149,7 @@ public class AuthRestApiController {
 
 				this.bmAuthService.saveBmData(bmAuth, username,geoIp.getCountry());
 				this.signupService.setUserId(this.bmAuthService.getUserId());
-				user = this.signupService.newUser(new SignUpForm(username, loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), true);
+				user = this.signupService.newUser(new SignUpForm(username, loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), true, geoIp);
 				// this.registerUser(new SignUpForm(username, loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), request, true);
 
 				LogEvents logEventsBmAuth = new LogEvents(null, new Date(), user.getId(), loginRequest.getEmail(), LogType.INSCRIPTION_BM, bmAuth);

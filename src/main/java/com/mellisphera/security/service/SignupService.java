@@ -61,14 +61,13 @@ public class SignupService {
         this.userId = null;
     }
 
-    public User newUser(SignUpForm signUpRequest, Boolean bmSignup) {
+    public User newUser(SignUpForm signUpRequest, Boolean bmSignup, GeoIp geoIp) {
         String credential = encoder.encode(signUpRequest.getPassword());
         //log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :" + credential);
         User user = new User(this.userId, GregorianCalendar.getInstance().getTime(),signUpRequest.getUsername(), credential,signUpRequest.getEmail(),new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)));
         String ipAddress = ((WebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
         if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1"))
             ipAddress="87.100.21.93";
-        GeoIp geoIp = geoipService.getGeoIp(ipAddress);
         user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("US") ? DATE_EN: DATE_FR, this.getLangByGeoipLangage(geoIp.getCountry()), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL, WEATHER_SOURCE[0], WEATHER_SOURCE, false));
         user.setLastConnection(new Date());
         User newUser = this.userRepository.insert(user);
