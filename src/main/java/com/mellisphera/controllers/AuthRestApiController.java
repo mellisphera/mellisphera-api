@@ -197,9 +197,16 @@ public class AuthRestApiController {
 					HttpStatus.BAD_REQUEST);
 		}
 		/** **/
-
+		String ipAddress = request.getRemoteAddr();
+		GeoIp geoIp = null;
+		try{
+			geoIp = geoipService.getGeoIp(ipAddress);
+		}
+		catch (Exception e) {
+			geoIp = geoipService.getGeoIp("73.31.36.97");
+		}
 		this.signupService.setUserId(null);
-		User user = this.signupService.newUser(signUpRequest, false);
+		User user = this.signupService.newUser(signUpRequest, false, geoIp);
 		user.incrementConnexions();
 		Date date = new Date();
 		user.setLastConnection(date);
