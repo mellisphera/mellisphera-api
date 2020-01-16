@@ -35,6 +35,11 @@ public class AlertConfController {
         return this.alertUserRepository.findByUserId(userId);
     }
 
+    @GetMapping("/all")
+    public List<AlertUser> getAll() {
+        return this.alertUserRepository.findAll();
+    }
+
     @GetMapping("rez")
     public void rezConf() {
         List<AlertUser> alerts = this.alertUserRepository.findAll();
