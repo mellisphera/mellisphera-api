@@ -63,7 +63,7 @@ public class SignupService {
 
     public User newUser(SignUpForm signUpRequest, Boolean bmSignup) {
         String credential = encoder.encode(signUpRequest.getPassword());
-        log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :" + credential);
+        //log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :" + credential);
         User user = new User(this.userId, GregorianCalendar.getInstance().getTime(),signUpRequest.getUsername(), credential,signUpRequest.getEmail(),new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)));
         String ipAddress = ((WebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
         if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1"))
