@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -52,7 +53,7 @@ public class BmChangeLogService {
         });
     }
     public void saveHiveFromBmHive(BmHive[] bmHive, String username, String userId) {
-        Arrays.stream(bmHive).map(_hive -> this.bmToMellispheraData.getNewHive(_hive, username, userId)).collect(Collectors.toList()).forEach(_newHive -> {
+        Arrays.stream(bmHive).sorted(Comparator.comparing(BmHive::getName)).map(_hive -> this.bmToMellispheraData.getNewHive(_hive, username, userId)).collect(Collectors.toList()).forEach(_newHive -> {
             boolean hiveExist = this.hiveRepository.findById(_newHive.get_id()).isPresent();
             if (hiveExist) {
                 this.hiveRepository.save(_newHive);
