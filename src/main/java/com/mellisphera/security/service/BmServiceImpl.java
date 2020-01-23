@@ -21,18 +21,13 @@ import com.mellisphera.entities.bm.changeLog.BmHiveUpdated;
 import com.mellisphera.entities.bm.changeLog.BmNoteUpdated;
 import com.mellisphera.entities.bm.changeLog.BmSensorUpdated;
 import com.mellisphera.repositories.*;
-import com.mongodb.DuplicateKeyException;
-import com.mongodb.MongoWriteException;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.security.web.header.Header;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -41,9 +36,7 @@ import org.springframework.web.client.RestTemplate;
 import com.mellisphera.security.entities.BmAuth;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -258,7 +251,7 @@ public class BmServiceImpl implements BmService {
 				this.changeLogService.saveHiveFromBmHive(change.getPayload().getBmHiveCreate(), username, userId);
 			}
 			if (change.getPayload().getDevicesCreate() != null) {
-				this.changeLogService.saveSensorFronBmDevice(change.getPayload().getDevicesCreate(), userId);
+				this.changeLogService.saveSensorFromBmDevice(change.getPayload().getDevicesCreate(), userId);
 			}
 
 			if (change.getPayload().getApiaryDelete() != null) {

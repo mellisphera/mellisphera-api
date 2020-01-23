@@ -68,7 +68,7 @@ public class BmDataToMellispheraData {
                 this.convertTimestampToDate(bmNote.getOpsDate()),
                 userId);
         try{
-            newNote.setDescription(new String(byteStr, "UTF-8"));
+            newNote.setDescription(new String(byteStr, "UTF-8").replaceAll ("<.*?>", ""));
         }
         catch (UnsupportedEncodingException e) {
             newNote.setDescription(bmNote.getDescription());
