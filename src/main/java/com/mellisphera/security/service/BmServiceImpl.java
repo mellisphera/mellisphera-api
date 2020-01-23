@@ -108,7 +108,7 @@ public class BmServiceImpl implements BmService {
 					this.apiaryRepository.deleteById(bmApiary.getApiaryId());
 					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username, countryCode));
 				}
-				for(BmHive bmHive: bmApiary.getHives()) {
+				for(BmHive bmHive: Arrays.stream(bmApiary.getHives()).sorted(Comparator.comparing(BmHive::getName)).collect(Collectors.toList())) {
 					try {
 						this.hiveRepository.insert(this.bmToMellispheraData.getNewHive(bmHive, username, this.userId));
 					}
