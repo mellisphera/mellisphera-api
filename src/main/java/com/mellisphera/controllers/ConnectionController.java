@@ -37,7 +37,7 @@ import com.mellisphera.security.entities.GeoIp;
 @RequestMapping("/logs")
 public class ConnectionController{
 	
-	private final static String[] USER_EXCLU = {"lpo", "admin", "mickael", "demo","florent"};
+	private final static String[] IP_EXCLU = {"83.193.59.211"};
 	@Autowired
 	private ConnectionRepository connectionRepository;
 	
@@ -49,7 +49,7 @@ public class ConnectionController{
 	
 	@PostMapping("/between")
 	public List<Connection> getConnectionBetween(@RequestBody Date start){
-		return this.connectionRepository.findByconnectionDateBetween(start, new Date()).stream().filter(_connection -> Arrays.asList(USER_EXCLU).indexOf(_connection.getUsername()) == -1).collect(Collectors.toList());
+		return this.connectionRepository.findByconnectionDateBetween(start, new Date()).stream().filter(_connection -> Arrays.asList(IP_EXCLU).indexOf(_connection.getUsername()) == -1).collect(Collectors.toList());
 	}
 	
 }
