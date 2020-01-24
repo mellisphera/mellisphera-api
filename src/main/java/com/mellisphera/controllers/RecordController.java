@@ -96,7 +96,13 @@ public class RecordController {
         Map<String, List<Record>> mapData = new HashMap<>();
         List<Record> record = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, new Date(start), new Date(end), sort);
         sensorUser.forEach(_sensor -> {
-            mapData.put(_sensor.getSensorRef(), record.parallelStream().filter(_rec -> _rec.getSensorRef().equals(_sensor.getSensorRef())).collect(Collectors.toList()));
+            mapData.put(_sensor.getSensorRef(), record.parallelStream().filter(_rec -> _rec.getSensorRef().equals(_sensor.getSensorRef())).map(_data -> {
+                _data.setTemp_ext(this.unitService.convertTempFromUsePref(_data.getTemp_ext(), unit));
+                _data.setTemp_int(this.unitService.convertTempFromUsePref(_data.getTemp_int(), unit));
+                _data.setWeight(this.unitService.convertWeightFromUserPref(_data.getWeight(), unit));
+                _data.setWeight_icome(this.unitService.convertWeightFromUserPref(_data.getWeight_icome(), unit));
+                return _data;
+            }).collect(Collectors.toList()));
         });
         return mapData;
         

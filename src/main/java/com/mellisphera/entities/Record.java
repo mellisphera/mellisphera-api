@@ -21,17 +21,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Record {
 	
 	private String id;
-	private Float battery_ext ;
-	private Float battery_int;
-	private Float humidity_ext;
-	private Float humidity_int;
+	private Double battery_ext ;
+	private Double battery_int;
+	private Double humidity_ext;
+	private Double humidity_int;
 	private Date recordDate;
-	private Float weight_icome;
+	private Double weight_icome;
 	private String recordsType;
 	private String sensorRef;
-	private Float temp_ext;
-	private Float temp_int;
-	private Float weight;
+	private Double temp_ext;
+	private Double temp_int;
+	private Double weight;
 	private String hiveId;
 	private Long timestamp;
 	
@@ -40,9 +40,9 @@ public class Record {
 		super();
 	}
 
-	public Record(String id, Float battery_ext, Float battery_int, Float humidity_ext, Float humidity_int,
-			Date recordDate, Float weight_icome, String recordsType, String sensorRef, Float temp_ext, Float temp_int,
-			Float weight, String hiveId, Long timestamp) {
+	public Record(String id, Double battery_ext, Double battery_int, Double humidity_ext, Double humidity_int,
+			Date recordDate, Double weight_icome, String recordsType, String sensorRef, Double temp_ext, Double temp_int,
+			Double weight, String hiveId, Long timestamp) {
 		super();
 		this.id = id;
 		this.battery_ext = battery_ext;
@@ -60,7 +60,7 @@ public class Record {
                 this.timestamp = timestamp;
 	}
 
-	public Record(Date recordDate, Float weight) {
+	public Record(Date recordDate, Double weight) {
 		this.recordDate = recordDate;
 		this.weight = weight;
 	}
@@ -82,42 +82,42 @@ public class Record {
 	}
 
 
-	public Float getBattery_ext() {
+	public Double getBattery_ext() {
 		return battery_ext;
 	}
 
 
-	public void setBattery_ext(Float battery_ext) {
+	public void setBattery_ext(Double battery_ext) {
 		this.battery_ext = battery_ext;
 	}
 
 
-	public Float getBattery_int() {
+	public Double getBattery_int() {
 		return battery_int;
 	}
 
 
-	public void setBattery_int(Float battery_int) {
+	public void setBattery_int(Double battery_int) {
 		this.battery_int = battery_int;
 	}
 
 
-	public Float getHumidity_ext() {
+	public Double getHumidity_ext() {
 		return humidity_ext;
 	}
 
 
-	public void setHumidity_ext(Float humidity_ext) {
+	public void setHumidity_ext(Double humidity_ext) {
 		this.humidity_ext = humidity_ext;
 	}
 
 
-	public Float getHumidity_int() {
+	public Double getHumidity_int() {
 		return humidity_int;
 	}
 
 
-	public void setHumidity_int(Float humidity_int) {
+	public void setHumidity_int(Double humidity_int) {
 		this.humidity_int = humidity_int;
 	}
 
@@ -132,12 +132,12 @@ public class Record {
 	}
 
 
-	public Float getWeight_icome() {
+	public Double getWeight_icome() {
 		return weight_icome;
 	}
 
 
-	public void setWeight_icome(Float weight_icome) {
+	public void setWeight_icome(Double weight_icome) {
 		this.weight_icome = weight_icome;
 	}
 
@@ -162,32 +162,32 @@ public class Record {
 	}
 
 
-	public Float getTemp_ext() {
+	public Double getTemp_ext() {
 		return temp_ext;
 	}
 
 
-	public void setTemp_ext(Float temp_ext) {
+	public void setTemp_ext(Double temp_ext) {
 		this.temp_ext = temp_ext;
 	}
 
 
-	public Float getTemp_int() {
+	public Double getTemp_int() {
 		return temp_int;
 	}
 
 
-	public void setTemp_int(Float temp_int) {
+	public void setTemp_int(Double temp_int) {
 		this.temp_int = temp_int;
 	}
 
 
-	public Float getWeight() {
+	public Double getWeight() {
 		return weight;
 	}
 
 
-	public void setWeight(Float weight) {
+	public void setWeight(Double weight) {
 		this.weight = weight;
 	}
 
