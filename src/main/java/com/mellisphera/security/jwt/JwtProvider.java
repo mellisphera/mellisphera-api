@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 /**
  * 
  */
@@ -33,7 +46,13 @@ public class JwtProvider {
 
     @Value("${apiwatch.app.security.jwtExpiration}")
     private int jwtExpiration;
-    
+
+    @Value("${mellisphera.app.public_token}")
+    private String publicJwt ;
+
+    @Value("${mellisphera.app.public_token.email}")
+    private String publicEmail;
+
     /**
      * 
      * @param authentication
@@ -59,6 +78,10 @@ public class JwtProvider {
      */
     public boolean validateJwtToken(String authToken) {
         try {
+            if (authToken.equals(publicJwt)) {
+                System.out.println("PUBLIC TOKEN");
+                return true;
+            }
         	log.debug("Token :"+authToken);
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             log.debug("Token PARSING :"+Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken).getBody());
@@ -84,6 +107,9 @@ public class JwtProvider {
      * @return
      */
     public String getUserNameFromJwtToken(String token) {
+        if (token.equals(publicJwt)) {
+            return publicEmail;
+        }
         return Jwts.parser()
 			                .setSigningKey(jwtSecret)
 			                .parseClaimsJws(token)

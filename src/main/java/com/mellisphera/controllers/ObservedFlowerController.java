@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.controllers;
 
 import java.text.Normalizer;
@@ -147,7 +160,6 @@ public class ObservedFlowerController {
 	 @RequestMapping(value = "/updateDebd/{id}/{annee}", method = RequestMethod.PUT) 
 	 public void updateDebutd(@PathVariable("id") String id, @PathVariable String annee, @RequestBody String dateDebut){ 	//Recupère if, annee & dateDebut	 
 		 ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id); // recupère la fleur
-		 System.out.println("datD : "+dateDebut);
                  /* Ajout dans map mois -> num */
 		 this.mois.put("decembre","12");
 		 this.mois.put("novembre","11");
@@ -183,8 +195,7 @@ public class ObservedFlowerController {
 	 	 
 	 	 ObservedFlower flower = this.observedFlowerRepository.findObservedFlowerById(id);
 	 	 
-	 	System.out.println("datF : "+dateFin);
-	 	 
+
 		 this.mois.put("decembre","12");
 		 this.mois.put("novembre","11");
 		 this.mois.put("octobre","10");

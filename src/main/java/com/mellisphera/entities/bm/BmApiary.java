@@ -1,65 +1,83 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.entities.bm;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mellisphera.entities.Note;
 
 public class BmApiary implements Serializable{
-	
-	
-	/*
-	 * "uuid": "UjpRybCZ2IXFOf8hx4dJGo9PnH0Qs5Bc",
-		"created": "2017-11-18 21:50:39",
-		"name": "ZGELOS",
-		"postal_code": "64110",
-		"country_code": "FR",
-		"data_last_received": "2019-04-10 12:45:22",
-		"hives": []
-	 */
-	@JsonProperty("uuid")
-	private String uuid;
-	@JsonProperty("created")
-	private String created;
+
+	@JsonProperty("apiaryId")
+	private String apiaryId;
+	@JsonProperty("createDate")
+	private long createDate;
 	@JsonProperty("name")
 	private String name;
-	@JsonProperty("postal_code")
-	private String postalCode;
-	@JsonProperty("country_code")
+	@JsonProperty("userId")
+	private String userId;
+	@JsonProperty("zipCode")
+	private String zipCode;
+	@JsonProperty("countryCode")
 	private String countryCode;
-	@JsonProperty("data_last_received")
-	private String dataLastReceived;
+	@JsonProperty("private")
+	private Boolean privateApiary;
+	@JsonProperty("hidden")
+	private Boolean hidden;
+	@JsonProperty("dataLastReceived")
+	private long dataLastReceived;
 	@JsonProperty("hives")
 	private BmHive[] hives;
+	@JsonProperty("notes")
+	private BmNote[] notes;
 	
 	public BmApiary() {
 		
 	}
-	public BmApiary(String uuid, String created, String name, String postalCode, String countryCode,
-			String dataLastReceived, BmHive[] hives) {
-		this.uuid = uuid;
-		this.created = created;
+
+	public BmApiary(String apiaryId, String userId, long createDate, String name, String zipCode, String countryCode, Boolean privateApiary, Boolean hidden, long dataLastReceived, BmHive[] hives, BmNote[] notes) {
+		this.apiaryId = apiaryId;
+		this.createDate = createDate;
 		this.name = name;
-		this.postalCode = postalCode;
+		this.zipCode = zipCode;
 		this.countryCode = countryCode;
+		this.privateApiary = privateApiary;
+		this.hidden = hidden;
+		this.userId = userId;
 		this.dataLastReceived = dataLastReceived;
 		this.hives = hives;
+		this.notes = notes;
 	}
 
-	public String getUuid() {
-		return uuid;
+	public String getApiaryId() {
+		return apiaryId;
 	}
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
+	public void setApiaryId(String apiaryId) {
+		this.apiaryId = apiaryId;
 	}
 
-	public String getCreated() {
-		return created;
+	public long getCreateDate() {
+		return createDate;
 	}
 
-	public void setCreated(String created) {
-		this.created = created;
+	public void setCreateDate(long createDate) {
+		this.createDate = createDate;
 	}
 
 	public String getName() {
@@ -70,13 +88,23 @@ public class BmApiary implements Serializable{
 		this.name = name;
 	}
 
-	public String getPostalCode() {
-		return postalCode;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+
 
 	public String getCountryCode() {
 		return countryCode;
@@ -86,11 +114,27 @@ public class BmApiary implements Serializable{
 		this.countryCode = countryCode;
 	}
 
-	public String getDataLastReceived() {
+	public Boolean getPrivateApiary() {
+		return privateApiary;
+	}
+
+	public void setPrivateApiary(Boolean privateApiary) {
+		this.privateApiary = privateApiary;
+	}
+
+	public Boolean getHidden() {
+		return hidden;
+	}
+
+	public void setHidden(Boolean hidden) {
+		this.hidden = hidden;
+	}
+
+	public long getDataLastReceived() {
 		return dataLastReceived;
 	}
 
-	public void setDataLastReceived(String dataLastReceived) {
+	public void setDataLastReceived(long dataLastReceived) {
 		this.dataLastReceived = dataLastReceived;
 	}
 
@@ -101,12 +145,31 @@ public class BmApiary implements Serializable{
 	public void setHives(BmHive[] hives) {
 		this.hives = hives;
 	}
-	
-	
-	
-	
-	
-	
+
+	public BmNote[] getNotes() {
+		return notes;
+	}
+
+	public void setNotes(BmNote[] notes) {
+		this.notes = notes;
+	}
+
+	@Override
+	public String toString() {
+		return "BmApiary{" +
+				"apiaryId='" + apiaryId + '\'' +
+				", createDate=" + createDate +
+				", name='" + name + '\'' +
+				", userId='" + userId + '\'' +
+				", zipCode='" + zipCode + '\'' +
+				", countryCode='" + countryCode + '\'' +
+				", privateApiary=" + privateApiary +
+				", hidden=" + hidden +
+				", dataLastReceived=" + dataLastReceived +
+				", hives=" + Arrays.toString(hives) +
+				", notes=" + Arrays.toString(notes) +
+				'}';
+	}
 }
 
 

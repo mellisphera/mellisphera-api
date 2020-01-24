@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.controllers;
 
 import java.text.DateFormat;
@@ -9,9 +22,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,10 +41,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.sym.Name;
 import com.mellisphera.entities.Apiary;
 import com.mellisphera.entities.Hive;
 import com.mellisphera.entities.Record;
 import com.mellisphera.entities.Sensor;
+import com.mellisphera.entities.SimpleSeries;
 import com.mellisphera.entities.User;
 import com.mellisphera.repositories.RecordRepository;
 
@@ -42,7 +59,7 @@ import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/records")
 public class RecordController {
-	
+		
 	@Autowired private RecordRepository recordRepository;
 	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
@@ -65,13 +82,13 @@ public class RecordController {
     	return records;
     }
     
-    @RequestMapping(value = "/hive/{idHive}" , method = RequestMethod.POST, produces={"application/json"})
-    public ResponseEntity<?> getByIdHive(@PathVariable String idHive, @RequestBody Date [] range){
+    @RequestMapping(value = "/hive/{hiveId}" , method = RequestMethod.POST, produces={"application/json"})
+    public ResponseEntity<?> getByhiveId(@PathVariable String hiveId, @RequestBody Date [] range){
         Sort sort = new Sort(Direction.DESC, "timestamp");
         Date start  = range[0];
         Date end = range[1];
         List<Record> rec = null;
-        rec = this.recordRepository.findByIdHiveAndRecordDateBetween(idHive, start,end, sort);
+        rec = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort);
         if(rec != null) {
         	return new ResponseEntity<>(rec, HttpStatus.OK);
         }
@@ -81,44 +98,121 @@ public class RecordController {
         
     }
     
-    @GetMapping("/weight")
-    public Float[] getJCPWeightRecords(){
-    List<Record> records=this.recordRepository.findAll();
-    List<Float> weightList = new ArrayList<>();
-    
-    DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    for(Record r : records) {
-    	//df.parse(r.getRecordDate());
-    	//weightRecords.add(r.getWeight());
-	    	if(r.getSensorRef().equals("43:10:A2"))
-	    	{
-	    		weightList.add(r.getWeight());
-	    	}
-    	}
-    Float[] recArray = new Float[weightList.size()];
-    recArray = weightList.toArray(recArray);
-    
-    return recArray;
+    @PostMapping("/weight/{hiveId}")
+    public ResponseEntity<?> getWeightByHive(@PathVariable String hiveId, @RequestBody Date [] range){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        Date start  = range[0];
+        Date end = range[1];
+        
+        List<SimpleSeries> data = new ArrayList<SimpleSeries>();
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort).stream().filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
+        	return new SimpleSeries(record.getRecordDate(), record.getWeight(), record.getSensorRef());
+        }).collect(Collectors.toList());
+        if(data != null) {
+        	return new ResponseEntity<>(data, HttpStatus.OK);
+        }
+        else {
+        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
+        }
+        
     }
     
-    /*@GetMapping("/weightDates")
-    public String[] getJCPWeightRecordDates(){
-    List<Record> records=this.recordRepository.findAll();
-    List<String> weightDates = new ArrayList<>();
-    
-    DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    for(Record r : records) {
-    	if(r.getSensorRef().equals("43:10:A2"))
-    	{
-    		//String s = formatter.format();
-    		weightDates.add(r.getRecordDate().substring(0,19));
-    	}
+    @PostMapping("/temp_int/{hiveId}")
+    public ResponseEntity<?> getTempByHive(@PathVariable String hiveId, @RequestBody Date [] range){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        Date start  = range[0];
+        Date end = range[1];
+        
+        List<SimpleSeries> data = new ArrayList<SimpleSeries>();
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort).stream()
+        		.filter(_filter  -> _filter.getSensorRef().contains("42") || _filter.getSensorRef().contains("41") || _filter.getSensorRef().contains("39") || _filter.getSensorRef().contains("B5")).map(record -> {
+        	return new SimpleSeries(record.getRecordDate(), record.getTemp_int(), record.getSensorRef());
+        }).collect(Collectors.toList());
+        if(data != null) {
+        	return new ResponseEntity<>(data, HttpStatus.OK);
+        }
+        else {
+        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
+        }
+        
     }
     
-    String[] recArray = new String[weightDates.size()];
-    recArray = weightDates.toArray(recArray);
+    @PostMapping("/temp_ext/{hiveId}")
+    public ResponseEntity<?> getTempExByHive(@PathVariable String hiveId, @RequestBody Date [] range){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        Date start  = range[0];
+        Date end = range[1];
+        
+        List<SimpleSeries> data = new ArrayList<SimpleSeries>();
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort).stream()
+        		.filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
+        	return new SimpleSeries(record.getRecordDate(), record.getTemp_ext(), record.getSensorRef());
+        }).collect(Collectors.toList());
+        if(data != null) {
+        	return new ResponseEntity<>(data, HttpStatus.OK);
+        }
+        else {
+        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
+        }
+        
+    }
+    @PostMapping("/hint/{hiveId}")
+    public ResponseEntity<?> getHUmidityByHive(@PathVariable String hiveId, @RequestBody Date [] range){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        Date start  = range[0];
+        Date end = range[1];
+        
+        List<SimpleSeries> data = new ArrayList<SimpleSeries>();
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort).stream()
+        		.filter(_filter  -> _filter.getSensorRef().contains("42")).map(record -> {
+        	return new SimpleSeries(record.getRecordDate(), record.getHumidity_int(), record.getSensorRef());
+        }).collect(Collectors.toList());
+        if(data != null) {
+        	return new ResponseEntity<>(data, HttpStatus.OK);
+        }
+        else {
+        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
+        }
+        
+    }
     
-    return recArray;
-    }*/
+    @PostMapping("/batExt/{hiveId}")
+    public ResponseEntity<?> getBatteryExtByHive(@PathVariable String hiveId, @RequestBody Date [] range){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        Date start  = range[0];
+        Date end = range[1];
+        
+        List<SimpleSeries> data = new ArrayList<SimpleSeries>();
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort).stream()
+        		.filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
+        	return new SimpleSeries(record.getRecordDate(), record.getBattery_ext(), record.getSensorRef());
+        }).collect(Collectors.toList());
+        if(data != null) {
+        	return new ResponseEntity<>(data, HttpStatus.OK);
+        }
+        else {
+        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
+        }
+        
+    }
     
+    @PostMapping("/batInt/{hiveId}")
+    public ResponseEntity<?> getBatteryIntByHive(@PathVariable String hiveId, @RequestBody Date [] range){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        Date start  = range[0];
+        Date end = range[1];
+        
+        List<SimpleSeries> data = new ArrayList<SimpleSeries>();
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, start,end, sort).stream()
+        		.filter(_filter  -> _filter.getSensorRef().contains("42") || _filter.getSensorRef().contains("41") || _filter.getSensorRef().contains("39") ||  _filter.getSensorRef().contains("B5")).map(record -> {
+        	return new SimpleSeries(record.getRecordDate(), record.getBattery_int(), record.getSensorRef());
+        }).collect(Collectors.toList());
+        if(data != null) {
+        	return new ResponseEntity<>(data, HttpStatus.OK);
+        }
+        else {
+        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
+        }
+        
+    }
 }

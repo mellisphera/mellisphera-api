@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.security.entities;
 
 import java.io.Serializable;
@@ -5,14 +18,13 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mellisphera.entities.bm.BmApiary;
+import com.mellisphera.entities.bm.BmData;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BmAuth implements Serializable {
 
-	/**
-	 * 
-	 */
-	/*
+
+    /*
 			 * {
 		"code": "200",
 		"message": "Apiary tree for username 'lorenzo.pons@free.fr'",
@@ -23,87 +35,43 @@ public class BmAuth implements Serializable {
 		"payload": [
 		  {
 	 */
-	@JsonProperty("code")
-	private String code;
-	@JsonProperty("message")
-	private String message;
-	@JsonProperty("output_format")
-	private String outputFormat;
-	@JsonProperty("client_ip")
-	private String clientIp;
-	@JsonProperty("served_by_node")
-	private String servedByNode;
-	@JsonProperty("payload")
-	private BmApiary[] payload;
-	
-	public BmAuth() {
-		
-	}
-	
-	public BmAuth(String code, String message, String outputFormat, String clientIp, String servedByNode,
-			BmApiary[] payload) {
-		this.code = code;
-		this.message = message;
-		this.outputFormat = outputFormat;
-		this.clientIp = clientIp;
-		this.servedByNode = servedByNode;
-		this.payload = payload;
-	}
+    @JsonProperty("code")
+    private String code;
+    @JsonProperty("message")
+    private String message;
+    @JsonProperty("payload")
+    private BmData payload;
 
-	public String getCode() {
-		return code;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public String getOutputFormat() {
-		return outputFormat;
-	}
+    public BmData getPayload() {
+        return payload;
+    }
 
-	public void setOutputFormat(String outputFormat) {
-		this.outputFormat = outputFormat;
-	}
+    public void setPayload(BmData payload) {
+        this.payload = payload;
+    }
 
-	public String getClientIp() {
-		return clientIp;
-	}
-
-	public void setClientIp(String clientIp) {
-		this.clientIp = clientIp;
-	}
-
-	public String getServedByNode() {
-		return servedByNode;
-	}
-
-	public void setServedByNode(String servedByNode) {
-		this.servedByNode = servedByNode;
-	}
-
-	public BmApiary[] getPayload() {
-		return payload;
-	}
-
-	public void setPayload(BmApiary[] payload) {
-		this.payload = payload;
-	}
-	@Override
-	public String toString() {
-		return "Bm {" + this.getCode() + " - " + this.getMessage() + " - " + this.getClientIp() + " - "+ " - " + this.getPayload() + "}"; 
-	}
-	
-	
-	
-	
-	
+    @Override
+    public String toString() {
+        return "BmAuth{" +
+                "code='" + code + '\'' +
+                ", message='" + message + '\'' +
+                ", payload=" + payload +
+                '}';
+    }
 }

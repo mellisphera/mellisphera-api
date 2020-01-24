@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.controllers;
 
 import java.text.DateFormat;
@@ -11,8 +24,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,14 +64,18 @@ public class SensorController {
 		//this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
+	
 	@RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
 	public Sensor insert(@RequestBody Sensor sensor){
-		Hive hive = this.hivesRepository.findHiveById(sensor.getIdHive());
-		hive.setSensor(true);
-		this.hivesRepository.save(hive);
+		if (sensor.getHiveId() != null) {
+			Hive hive = this.hivesRepository.findById(sensor.getHiveId()).get();
+			List<Sensor> sensorHive = this.sensorRepository.findSensorByHiveId(hive.get_id());
+			this.hivesRepository.save(hive);
+		}
 		return this.sensorRepository.insert(sensor);
 	}
 
+    @PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/all")
 	public List<Sensor> getAllSensors(){
 		List<Sensor> sensors=this.sensorRepository.findAll();
@@ -66,9 +85,7 @@ public class SensorController {
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") String id){
 		try {
-			Hive hive = this.hivesRepository.findHiveById(this.sensorRepository.findById(id).get().getIdHive());
-			hive.setSensor(false);
-			System.err.println(hive);
+			Hive hive = this.hivesRepository.findById(this.sensorRepository.findById(id).get().getHiveId()).get();
 			this.hivesRepository.save(hive);
 		}
 		catch(NoSuchElementException e) {}
@@ -78,75 +95,20 @@ public class SensorController {
 
 	@PutMapping
 	public void update(@RequestBody Sensor sensor){
-		Sensor lastSensor = this.sensorRepository.findSensorById(sensor.getId());
-		if (!lastSensor.getIdHive().equals(sensor.getIdHive())) {
-			Hive lastHive = this.hivesRepository.findById(lastSensor.getIdHive()).get();
-			Hive newHive = this.hivesRepository.findById(sensor.getIdHive()).get();
-			System.out.println(lastHive);
-			if (lastHive != null) {
-				lastHive.setSensor(false);
-				this.hivesRepository.save(lastHive);
-			}
-			if (newHive != null) {
-				newHive.setSensor(true);
-				this.hivesRepository.save(newHive);
-			}
-		}
-		System.err.println(sensor);
 		this.sensorRepository.save(sensor);
 	}
 
 	@GetMapping(value="/check/{reference}")
 	public Sensor checkSensor(@PathVariable String reference) {
-		//System.err.println(this.sensorRepository.findSensorsByReference(reference).getReference());
 		return this.sensorRepository.findSensorsBySensorRef(reference);
-		//return (this.sensorRepository.findSensorsByReference(reference) != null ? true : false) ;
 	}
-	@RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
-	public List<Sensor> getUserSensors(@PathVariable String username){
+	@RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces={"application/json"})
+	public List<Sensor> getUserSensors(@PathVariable String userId){
 		// liste les capteurs pour un user
-		List<Sensor> sensors = this.sensorRepository.findSensorByUsername(username);
-		return sensors;
-
+		return this.sensorRepository.findSensorByUserId(userId).stream().filter(_sensor -> _sensor.getDeviceLocation() != null).collect(Collectors.toList());
 	}
-
-	@RequestMapping(value = "/weight/{username}", method = RequestMethod.GET, produces={"application/json"})
-	public List<Sensor> getUserWeightSensors(@PathVariable String username){
-		List<Sensor> allSensors=this.sensorRepository.findSensorByUsername(username);
-		List<Sensor> apiarySensors = new ArrayList<>();
-
-		for(Sensor a : allSensors) {
-			if(a.getType().equals("weight")) {
-				apiarySensors.add(a);
-			}
-		}
-		return apiarySensors;
+	
+	private Boolean checkIfHiveHaveSensor(Hive hive) {
+		return !this.sensorRepository.findSensorByHiveId(hive.get_id()).isEmpty();
 	}
-
-	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
-	public void update(@PathVariable("id") String id, @RequestBody Sensor sensor){
-		Sensor lastSensor = this.sensorRepository.findSensorById(sensor.getId());
-		System.err.println(lastSensor.getHiveName());
-		if (lastSensor.getIdHive() != null && !lastSensor.getIdHive().equals(sensor.getIdHive())) {
-			try {
-				Hive lastHive = this.hivesRepository.findById(lastSensor.getIdHive()).get();
-				if (lastHive != null) {
-					lastHive.setSensor(false);
-					this.hivesRepository.save(lastHive);
-				}
-				Hive newHive = this.hivesRepository.findById(sensor.getIdHive()).get();
-				System.err.println(newHive);
-				if (newHive != null) {
-					newHive.setSensor(true);
-					this.hivesRepository.save(newHive);
-				}
-			}
-			catch(NoSuchElementException e) {}
-		}
-		this.sensorRepository.save(sensor);
-	}
-
-
-
-
 }

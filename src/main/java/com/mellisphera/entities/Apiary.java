@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.entities;
 
 import java.io.File;
@@ -12,130 +25,152 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Apiary {
 
 	@Id
-	private String id;
-	private float latitude;
-	private float longitude;
+	private String _id;
 	private String name;
 	private String description;
-	private String codePostal;
-	private String ville;
-	private Date createdAt;
+	private String zipCode;
+	private Boolean privateApiary;
+	private String city;
+	private Boolean hidden;
+	private String userId;
+	private Date createDate;
+	private String countryCode;
 	private String photo;
+	private Date dataLastReceived;
 	private String username; 
-	private User user;
 	private List<User> sharedWith;
 	
 	
 	public Apiary() {
 		super();
 	}
-	
-	public Apiary(String id, float latitude, float longitude, String name, String description, String codePostal,
-			String ville, Date createdAt, String photo, String username, User user, List<User>  sharedWith) {
-		super();
-		this.id = id;
-		this.latitude = latitude;
-		this.longitude = longitude;
+
+	public Apiary(String _id, String name, String description, String zipCode, Boolean privateApiary, String city, String userId, Date createDate, String countryCode, String photo, Date dataLastReceived, String username, List<User> sharedWith, Boolean hidden) {
+		this._id = _id;
 		this.name = name;
+		this.hidden = hidden;
 		this.description = description;
-		this.codePostal = codePostal;
-		this.ville = ville;
-		this.createdAt = createdAt;
+		this.zipCode = zipCode;
+		this.privateApiary = privateApiary;
+		this.city = city;
+		this.userId = userId;
+		this.createDate = createDate;
+		this.countryCode = countryCode;
 		this.photo = photo;
+		this.dataLastReceived = dataLastReceived;
 		this.username = username;
-		this.user = user;
 		this.sharedWith = sharedWith;
 	}
 
+	public String get_id() {
+		return _id;
+	}
 
-	public String getId() {
-		return id;
+	public void set_id(String _id) {
+		this._id = _id;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public float getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
-	}
-	public float getLongitude() {
-		return longitude;
-	}
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
-	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getCodePostal() {
-		return codePostal;
+
+	public String getZipCode() {
+		return zipCode;
 	}
-	public void setCodePostal(String codePostal) {
-		this.codePostal = codePostal;
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
-	public Date getCreatedAt() {
-		return createdAt;
+
+	public Boolean getPrivateApiary() {
+		return privateApiary;
 	}
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+
+	public void setPrivateApiary(Boolean privateApiary) {
+		this.privateApiary = privateApiary;
 	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
 	public String getPhoto() {
 		return photo;
 	}
+
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+
+	public Date getDataLastReceived() {
+		return dataLastReceived;
+	}
+
+	public void setDataLastReceived(Date dataLastReceived) {
+		this.dataLastReceived = dataLastReceived;
+	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
+
 	public List<User> getSharedWith() {
-		return this.sharedWith;
+		return sharedWith;
 	}
-	public void setSharedWith(List<User>  sharedWith) {
+
+	public void setSharedWith(List<User> sharedWith) {
 		this.sharedWith = sharedWith;
 	}
 
-	public void addSharedUser(User user) {
-		this.sharedWith.add(user);
-	}
-	
-	public Boolean removeSharedUser(User user) {
-		return this.sharedWith.remove(user);
-	}
-	public String getVille() {
-		return ville;
+	public Boolean getHidden() {
+		return hidden;
 	}
 
-	public void setVille(String ville) {
-		this.ville = ville;
+	public void setHidden(Boolean hidden) {
+		this.hidden = hidden;
 	}
-
-
-	@Override
-	public String toString() {
-		return "Apiary [id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + ", name=" + name
-				+ ", description=" + description + ", codePostal=" + codePostal + ", ville=" + ville + ", createdAt="
-				+ createdAt + ", photo=" + photo + ", username=" + username + ", user=" + user  + "]";
-	}
-	
 }

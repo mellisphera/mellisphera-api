@@ -1,5 +1,19 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.controllers;
 
+import com.mellisphera.ImgTool.ImageTool;
 import org.apache.catalina.connector.Response;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,11 +33,13 @@ import com.mellisphera.repositories.ShareRepository;
 import com.mellisphera.repositories.UserRepository;
 import com.mellisphera.security.jwt.JwtAuthTokenFilter;
 import com.mellisphera.security.jwt.JwtProvider;
+import sun.misc.BASE64Decoder;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,30 +60,18 @@ public class ApiaryController {
     @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @DeleteMapping("/{id}")
 	 public void delete(@PathVariable("id") String id){
+    	this.sensorRepository.findSensorByApiaryId(id).stream().forEach(sensor -> {
+    		sensor.setApiaryId(null);
+    		sensor.setHiveId(null);
+    		this.sensorRepository.save(sensor);
+    	});
 	    this.apiaryRepository.deleteById(id);
 	 }
     
-    @DeleteMapping("/sharing/{idUsername}/{idApiary}")
-    public void deleteSharing(@PathVariable String idUsername, @PathVariable String idApiary, HttpServletResponse reponse, HttpServletRequest request) {
-    	Optional<User> userTarget = this.userRepository.findById(idUsername);
-    	Optional<Apiary> apiary = this.apiaryRepository.findById(idApiary);
-    	ShareApiary sharing = this.shareRepository.findShareHiveByidUsername(idUsername);
-    	String username = this.tokenProvider.getUserNameFromJwtToken(getJwt(request));
-    	User user = this.userRepository.findUserByUsername(username);
-    	if(userTarget.isPresent() && apiary.isPresent()) {
-    		apiary.get().removeSharedUser(userTarget.get());
-    		sharing.removeApiary(apiary.get(), user.getId());
-    		reponse.setStatus(Response.SC_OK);
-    	}
-    	else {
-    		reponse.setStatus(Response.SC_NOT_FOUND);
-    	}
-    }
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json"})
     public List<Apiary> getAll(){
-	    List<Apiary> apiaries=this.apiaryRepository.findAll();
-	    return apiaries;
+	    return this.apiaryRepository.findAll();
     }
     
 	private String getJwt(HttpServletRequest request) {
@@ -83,17 +87,20 @@ public class ApiaryController {
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @RequestMapping(value = "/id/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
     public Apiary getByid(@PathVariable String idApiary){
-	    Apiary apiaries=this.apiaryRepository.findApiaryById(idApiary);
+	    Apiary apiaries=this.apiaryRepository.findById(idApiary).get();
 	    return apiaries;
     }
     
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces={"application/json"})
-    public List<Apiary> getAllUserApiaries(@PathVariable String username, HttpServletResponse reponse){
-    	List<Apiary> userApiaries=this.apiaryRepository.findApiaryByUsername(username);    
-	    if(userApiaries.isEmpty()) {
-	    	reponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
-	    }
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces={"application/json"})
+    public List<Apiary> getAllUserApiaries(@PathVariable String userId, HttpServletResponse response){
+    	List<Apiary> userApiaries=this.apiaryRepository.findApiaryByUserId(userId).stream().filter(_apiary -> !_apiary.getHidden()).collect(Collectors.toList());
+    	ShareApiary sharingApiary = this.shareRepository.findSharingApiaryByUserId(userId);
+		try {
+			userApiaries.addAll(sharingApiary.getsharingApiary());
+		}catch (NullPointerException e) {
+
+		}
 	    return userApiaries;
     }
    
@@ -115,28 +122,39 @@ public class ApiaryController {
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
     public Apiary insert(@RequestBody Apiary apiary){
+		if (!apiary.getPhoto().contains("background_draw_color")) {
+			ImageTool imageTool = new ImageTool(apiary.getPhoto(), apiary.getUserId());
+			imageTool.convertToFile();
+			apiary.setPhoto(imageTool.getPathClient());
+		}
         return this.apiaryRepository.insert(apiary);
     }
 	@PreAuthorize("hasRole('STANDARD')")
     @RequestMapping(value = "/details/{idApiary}", method = RequestMethod.GET, produces={"application/json"})
-    public Apiary getApiaryDetails(@PathVariable String idApiary, HttpServletResponse reponse){
-    	Apiary a = this.apiaryRepository.findApiaryById(idApiary);
+    public Apiary getApiaryDetails(@PathVariable String idApiary, HttpServletResponse response){
+    	Apiary a = this.apiaryRepository.findById(idApiary).get();
     	if(a == null) {
-    		reponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
+    		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
     	}
     	return a;
     	    
     }
 
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT) 
+    @PutMapping("/update/{id}")
     public void update(@PathVariable("id") String id, @RequestBody Apiary apiary){
+		Apiary lastApiary = this.apiaryRepository.findById(id).get();
+		if (!lastApiary.getPhoto().equals(apiary.getPhoto())) {
+			ImageTool imageTool = new ImageTool(apiary.getPhoto(), apiary.getUserId());
+			imageTool.convertToFile();
+			apiary.setPhoto(imageTool.getPathClient());
+		}
  		Apiary apiarySave = this.apiaryRepository.save(apiary);
- 		List<Sensor> sensors = this.sensorRepository.findSensorByIdApiary(apiarySave.getId());
+ 		List<Sensor> sensors = this.sensorRepository.findSensorByApiaryId(apiarySave.get_id());
  		if (sensors != null) {
  			for(Sensor s: sensors) {
- 				if (!s.getApiaryName().equals(apiarySave.getName())) {
- 					s.setApiaryName(apiarySave.getName());
+ 				if (!s.getApiaryId().equals(apiarySave.get_id())) {
+ 					s.setApiaryId(apiarySave.get_id());
  					this.sensorRepository.save(s);
  				}
  			}
@@ -147,9 +165,22 @@ public class ApiaryController {
     @RequestMapping(value = "/update/background/{idApiary}", method = RequestMethod.PUT)
     public void updateBackground(@PathVariable String idApiary ,@RequestBody String imgB64) {
     	Apiary apiary = this.apiaryRepository.findById(idApiary).get();
-    	apiary.setPhoto(imgB64);
+		ImageTool imageTool = new ImageTool(imgB64, apiary.getUserId());
+		imageTool.convertToFile();
+		apiary.setPhoto(imageTool.getPathClient());
     	this.apiaryRepository.save(apiary);
     }
+
+
+	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
+	@GetMapping("/notPicture/{username}")
+	public List<Apiary> getApiaryUserNoPicture(@PathVariable String username){
+		return this.apiaryRepository.findApiaryByUsername(username).stream().map(_apiary -> {
+			_apiary.setPhoto(null);
+			return _apiary;
+		}).collect(Collectors.toList());
+	}
+
     
     /*
     @DeleteMapping("/sharedUser/{id}")

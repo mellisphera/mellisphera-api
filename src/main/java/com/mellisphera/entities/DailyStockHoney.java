@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.entities;
 
 import java.util.Date;
@@ -13,20 +26,20 @@ public class DailyStockHoney {
 	private double stockJ;
 	private double apportJ;
 	private String date;
-	private String idApiary;
-	private String idHive;
+	private String apiaryId;
+	private String hiveId;
 	private Long timestamp;
 	
-	public DailyStockHoney(String id, String nom, double stockJ, double apportJ, String date, String idApiary,
-			String idHive, Long timestamp) {
+	public DailyStockHoney(String id, String nom, double stockJ, double apportJ, String date, String apiaryId,
+			String hiveId, Long timestamp) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.stockJ = stockJ;
 		this.apportJ = apportJ;
 		this.date = date;
-		this.idApiary = idApiary;
-		this.idHive = idHive;
+		this.apiaryId = apiaryId;
+		this.hiveId = hiveId;
         this.timestamp = timestamp;
 	}
 	
@@ -44,13 +57,13 @@ public class DailyStockHoney {
 		return nom;
 	}
         
-        public Long getTimestamp(){
-            return this.timestamp;
-        }
+	public Long getTimestamp(){
+		return this.timestamp;
+    }
         
-        public void setTimestamp(Long newTimestamp){
-            this.timestamp = newTimestamp;
-        }
+    public void setTimestamp(Long newTimestamp){
+		this.timestamp = newTimestamp;
+    }
                 
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -73,22 +86,22 @@ public class DailyStockHoney {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getIdApiary() {
-		return idApiary;
+	public String getapiaryId() {
+		return apiaryId;
 	}
-	public void setIdApiary(String idApiary) {
-		this.idApiary = idApiary;
+	public void setapiaryId(String apiaryId) {
+		this.apiaryId = apiaryId;
 	}
-	public String getIdHive() {
-		return idHive;
+	public String gethiveId() {
+		return hiveId;
 	}
-	public void setIdHive(String idHive) {
-		this.idHive = idHive;
+	public void sethiveId(String hiveId) {
+		this.hiveId = hiveId;
 	}
 	@Override
 	public String toString() {
 		return "DailyStockMiel [id=" + id + ", nom=" + nom + ", stockJ=" + stockJ + ", apportJ=" + apportJ + ", date="
-				+ date + ", idApiary=" + idApiary + ", idHive=" + idHive + "]";
+				+ date + ", apiaryId=" + apiaryId + ", hiveId=" + hiveId + "]";
 	}
 	
 	

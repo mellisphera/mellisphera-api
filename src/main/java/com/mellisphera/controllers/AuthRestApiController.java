@@ -1,9 +1,21 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 /**
  * 
  */
 package com.mellisphera.controllers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,34 +27,31 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.mellisphera.entities.log.LogEvents;
+import com.mellisphera.entities.log.LogType;
+import com.mellisphera.repositories.LogRepoitory;
+import com.mellisphera.security.service.BmServiceImpl;
+import com.mellisphera.security.service.SignupService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.mellisphera.entities.Connection;
 import com.mellisphera.entities.User;
-import com.mellisphera.entities.UserPref;
 import com.mellisphera.mail.PasswordGenerator;
 import com.mellisphera.repositories.ConnectionRepository;
 import com.mellisphera.repositories.UserRepository;
@@ -54,8 +63,8 @@ import com.mellisphera.security.message.request.LoginForm;
 import com.mellisphera.security.message.request.SignUpForm;
 import com.mellisphera.security.message.response.JwtResponse;
 import com.mellisphera.security.message.response.ResponseMessage;
-import com.mellisphera.security.service.BmAuthServiceImpl;
 import com.mellisphera.security.service.GeoipServiceImpl;
+import com.mellisphera.sharing.SharingService;
 
 /**
  * @author epa
@@ -75,15 +84,18 @@ public class AuthRestApiController {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired SharingService sharingService;
 	@Autowired PasswordGenerator passwordGenerator;
 	
 	
 	@Autowired
 	ConnectionRepository connectionRepository;
 
+	@Autowired private LogRepoitory logRepoitory;
 	@Autowired
 	PasswordEncoder encoder;
 
+	@Autowired private SignupService signupService;
 	@Autowired
 	JwtProvider jwtProvider;
 
@@ -91,7 +103,7 @@ public class AuthRestApiController {
 	GeoipServiceImpl geoipService;
 
 	@Autowired
-	BmAuthServiceImpl bmAuthService;
+    BmServiceImpl bmAuthService;
 	
 	@Autowired JavaMailSender emailSender;
 	/**
@@ -103,55 +115,64 @@ public class AuthRestApiController {
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest, HttpServletRequest request) {
 		log.debug(" Sign Up : username :" + loginRequest.getEmail() + " password:" + loginRequest.getPassword());
 		//
-		System.err.println(loginRequest);
 		ApiWatchUserDetails apiWatchUserDetails = null;
 		Authentication authentication = null;
 		String jwt = null;
 		User user = null;
+		String ipAddress = request.getRemoteAddr();
+		GeoIp geoIp = null;
+		try{
+			geoIp = geoipService.getGeoIp(ipAddress);
+		}
+		catch (Exception e) {
+			geoIp = geoipService.getGeoIp("73.31.36.97");
+		}
+		if(geoIp.getCity() == null) {
+			geoIp = geoipService.getGeoIp("83.173.67.13");
+		}
 		try {
-			System.err.println("ok");
 			authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			user = this.userRepository.findUserByEmail(loginRequest.getEmail());
 
-			//
+			this.bmAuthService.getChangeLog(user.getId(), user.getUsername(),geoIp.getCountry());
+
 		}
 		catch(AuthenticationException e) {
-			e.printStackTrace();
-			System.err.println("BM_AUTH_CHECk");
+			// e.printStackTrace();
 			BmAuth bmAuth = bmAuthService.getBmAuth(loginRequest.getEmail(), loginRequest.getPassword());
-			if (bmAuth.getCode().equals("201")) {
+			if (!bmAuth.getCode().equals("200")) {
 				throw new UsernameNotFoundException("Login incorrecte");
 			} else {
-				this.registerUser(new SignUpForm(loginRequest.getEmail().split("@")[0], loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), request);
-				user = this.userRepository.findUserByEmail(loginRequest.getEmail());
-				this.bmAuthService.saveBmData(bmAuth, user);
+				String username = loginRequest.getEmail().split("@")[0];
+
+				this.bmAuthService.saveBmData(bmAuth, username,geoIp.getCountry());
+				this.signupService.setUserId(this.bmAuthService.getUserId());
+				user = this.signupService.newUser(new SignUpForm(username, loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), true, geoIp);
+				// this.registerUser(new SignUpForm(username, loginRequest.getEmail(), new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)), loginRequest.getPassword()), request, true);
+
+				LogEvents logEventsBmAuth = new LogEvents(null, new Date(), user.getId(), loginRequest.getEmail(), LogType.INSCRIPTION_BM, bmAuth);
+				this.logRepoitory.insert(logEventsBmAuth);
 				authentication = authenticationManager.authenticate(
 						new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
-				//
 			}
 
 		}
 		jwt = jwtProvider.generateJwtToken(authentication);
 		apiWatchUserDetails = (ApiWatchUserDetails) authentication.getPrincipal();
-		System.err.println(user);
-		String ipAddress = request.getRemoteAddr();
-		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
 		Calendar calendar = new GregorianCalendar();
 		user.incrementConnexions();
 		Date date = new Date();
 		user.setLastConnection(date);
 		this.userRepository.save(user);
 		if(ipAddress != "127.0.0.1" || ipAddress != "0:0:0:0:0:0:0:1") {
-			Connection connection = new Connection(date, user.getId(), user.getUsername(), geoIp);
-			System.err.println(connection);
-			System.err.println(this.connectionRepository.insert(connection));
-		} else {
-			geoIp = geoipService.getGeoIp("83.173.67.13");
+			Connection connection = new Connection(date, user.getId(), request.getHeader("originURL"), user.getUsername(),  geoIp);
+			this.connectionRepository.insert(connection);
 		}
-		return ResponseEntity.ok(new JwtResponse(user.getId(),jwt, user.getConnexions(), apiWatchUserDetails.getUsername(),user.getEmail(), apiWatchUserDetails.getAuthorities(),geoIp.getCountry(), user.getUserPref()));
+		//public JwtResponse(String idUser, String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country, UserPref userPref, String lang)
+		return ResponseEntity.ok(new JwtResponse(user.getId(), jwt, user.getConnexions(), apiWatchUserDetails.getUsername(),user.getEmail(), apiWatchUserDetails.getAuthorities(),geoIp.getCountry(), user.getUserPref(), user.getUserPref().getLang()));
 	}
 
 	/**
@@ -160,16 +181,13 @@ public class AuthRestApiController {
 	 * @return
 	 */
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest, HttpServletRequest request) {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest, HttpServletRequest request, Boolean bmSignup) {
 		log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :"+signUpRequest.getPassword()+" email:" + signUpRequest.getEmail());
 		//
 		//Login credential = new Login(signUpRequest.getUsername(),encoder.encode(signUpRequest.getPassword()));
-		String credential = encoder.encode(signUpRequest.getPassword());
 		//
-		log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :" + credential);
 		//Search if user already exit
-		System.err.println(signUpRequest.getEmail());
-		if (userRepository.existsByEmail(signUpRequest.getUsername())) {
+		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
 					HttpStatus.BAD_REQUEST);
 		}
@@ -179,30 +197,25 @@ public class AuthRestApiController {
 					HttpStatus.BAD_REQUEST);
 		}
 		/** **/
-		//public User(String id, Date createdAt, Login login, String phone, String email, long connexions,Date lastConnection, String fullName, String position, String city, int levelUser, String country)
-		//                    String id, Date createdAt, String username, String password, String phone, String email, long connexions,Date lastConnection, String fullName, String position, String city, int levelUser, String country
-		// Creating user's account
-		User user = new User(GregorianCalendar.getInstance().getTime(),signUpRequest.getUsername(), credential,signUpRequest.getEmail(),new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)));
-		//search country by ip
-		String ipAddress = ((WebAuthenticationDetails)SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
-		//String ipAddress = request.getRemoteAddr();
-		if (ipAddress.equals("127.0.0.1"))
-			ipAddress="87.100.21.93";
-		log.debug(" remote ip :"+ ipAddress);
-		//
-		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
-		//
-		user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("FR") ? "D/M/Y h:m" : "Y-M-D h:m", geoIp.getLanguages(), geoIp.getCountry().equals("FR") ? "METRIC" : "IMPERIAL"));
-		user.setCity(geoIp.getCity());
-		// save user
-		userRepository.insert(user);
-		//
+		String ipAddress = request.getRemoteAddr();
+		GeoIp geoIp = null;
+		try{
+			geoIp = geoipService.getGeoIp(ipAddress);
+		}
+		catch (Exception e) {
+			geoIp = geoipService.getGeoIp("73.31.36.97");
+		}
+		this.signupService.setUserId(null);
+		User user = this.signupService.newUser(signUpRequest, false, geoIp);
+		user.incrementConnexions();
+		Date date = new Date();
+		user.setLastConnection(date);
+		this.userRepository.save(user);
 		return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
 	}
 	
 	@PostMapping("/reset")
 	public void sendMail(@RequestBody String email)  throws MessagingException {
-		System.err.println(email);
 		User user = this.userRepository.findUserByEmail(email);
 		if (user != null) {
 			String newPassword = this.passwordGenerator.getPassword();

@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera;
 
 import java.text.DateFormat;
@@ -11,22 +24,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.mellisphera.controllers.DailyWeatherController;
-import com.mellisphera.controllers.WeatherAPIController;
 import com.mellisphera.entities.Apiary;
 import com.mellisphera.repositories.ApiaryRepository;
-import com.mellisphera.repositories.HourlyWeatherRepository;
-import com.mellisphera.weather.HourlyWeather;
-import com.mellisphera.weather.WeatherAPI;
+
 
 @Component
 public class ScheduledTasks {
-
-	@Autowired private HourlyWeatherRepository HourlyWeatherRepository;
-	@Autowired private ApiaryRepository apiaryRepository;
-	
-	@Autowired private WeatherAPIController WeatherController;
-	@Autowired private DailyWeatherController DailyWeatherController;
 	
     private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
 
@@ -45,37 +48,32 @@ public class ScheduledTasks {
    
     // this function update the value of weather in apiaries in the DB
     //HOURLY WEATHER
-    @Scheduled(cron = "0 0 * * * *")
-    public void apiaryWeatherNow() {
-    	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    	
-	    List<Apiary> apiaries = this.apiaryRepository.findAll();
-	   	
-	    log.info("The time is now {}", dateFormat.format(new Date()));
-	    
-	    //for each apiary request actualweather on OWM and save into HourlyWeather collection
-	    for(Apiary ap: apiaries) {
-	    	  WeatherAPI weather = new WeatherAPI();
-	    	  HourlyWeather h= new HourlyWeather();
-	    	  
-	    	  //WARNING : getcodepostal is actually the city name 
-	    	  weather = this.WeatherController.getActualWeather(ap.getVille());
-	    	  System.out.println("ID : "+ap.getId() + " | City : " + weather.getName()+ "|  Temp :"+ weather.getMain().getTemp());
-	    	  h.setWeather(weather);
-	    	  h.setIdApiary(ap.getId());
-	    	  h.setRecordDate(new Date());
-	    	  
-	    	  
-	    	  this.HourlyWeatherRepository.save(h);
-	    	  
-	    }	
-   	}
-    //DAILY WEATHER
-    //Fires at 11 PM every day:
-    @Scheduled(cron = "0 0 23 * * *")
-    public void dailyWeather() {
-    	DailyWeatherController.dailyWeatherCompute();
-   	}
+//    @Scheduled(cron = "0 0 * * * *")
+//    public void apiaryWeatherNow() {
+//    	DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//    	
+//	    List<Apiary> apiaries = this.apiaryRepository.findAll();
+//	   	
+//	    log.info("The time is now {}", dateFormat.format(new Date()));
+//	    
+//	    //for each apiary request actualweather on OWM and save into HourlyWeather collection
+//	    for(Apiary ap: apiaries) {
+//	    	  WeatherAPI weather = new WeatherAPI();
+//	    	  HourlyWeather h= new HourlyWeather();
+//	    	  
+//	    	  //WARNING : getcodepostal is actually the city name 
+//	    	  weather = this.WeatherController.getActualWeather(ap.getVille());
+//	    	  System.out.println("ID : "+ap.getId() + " | City : " + weather.getName()+ "|  Temp :"+ weather.getMain().getTemp());
+//	    	  h.setWeather(weather);
+//	    	  h.setIdApiary(ap.getId());
+//	    	  h.setRecordDate(new Date());
+//	    	  
+//	    	  
+//	    	  this.HourlyWeatherRepository.save(h);
+//	    	  
+//	    }	
+//   	}
+
     
     
     // store results of averageDailyTemperaturePerApiary in DailyWeather 

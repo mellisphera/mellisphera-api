@@ -1,95 +1,83 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.entities.bm;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BmSensor implements Serializable{
-	
-	/*
-	 * "uuid": "7nm4q6cUkY9gzoK5L3MatRvAbQJlxyGu",
-	"created": "2018-10-12 17:31:42",
-	"device_id": "42:15:0C",
-	"data_last_received": "2019-04-10 12:25:22",
-	"is_api_linked": "1",
-	"name": "42:15:0C"
 
-	 */
-	@JsonProperty("uuid")
-	private String uuid;
-	@JsonProperty("created")
-	private String created;
-	@JsonProperty("device_id")
-	private String deviceId;
-	@JsonProperty("data_last_received")
-	private String dataLastReceived;
-	@JsonProperty("name")
-	private String name;
-	@JsonProperty("is_api_linked")
-	private int isApiLinked;
-	
-	public BmSensor() {
-		
-	}
-	public BmSensor(String uuid, String created, String deviceId, String dataLastReceived, int isApiLinked, String name) {
-		this.uuid = uuid;
-		this.created = created;
-		this.deviceId = deviceId;
-		this.name = name;
-		this.dataLastReceived = dataLastReceived;
-		this.isApiLinked = isApiLinked;
+	@JsonProperty("device")
+	private BmDevice device;
+	@JsonProperty("hivePositionId")
+	private String hivePositionId;
+	@JsonProperty("deviceLocationId")
+	private String deviceLocationId;
+	@JsonProperty("start")
+	private long start;
+
+	public BmSensor(BmDevice device, String hivePositionId, long start) {
+		this.device = device;
+		this.hivePositionId = hivePositionId;
+		this.start = start;
 	}
 
-	public String getUuid() {
-		return uuid;
+	public BmSensor(){}
+	public BmDevice getDevice() {
+		return device;
 	}
 
-	
-	public String getName() {
-		return name;
+	public void setDevice(BmDevice device) {
+		this.device = device;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getHivePositionId() {
+		return hivePositionId;
 	}
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
+	public void setHivePositionId(String hivePositionId) {
+		this.hivePositionId = hivePositionId;
 	}
 
-	public String getCreated() {
-		return created;
+	public long getStart() {
+		return start;
 	}
 
-	public void setCreated(String created) {
-		this.created = created;
+	public String getDeviceLocationId() {
+		return deviceLocationId;
 	}
 
-	public String getDeviceId() {
-		return deviceId;
+	public void setDeviceLocationId(String deviceLocationId) {
+		this.deviceLocationId = deviceLocationId;
 	}
 
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
+	public void setStart(long start) {
+		this.start = start;
 	}
 
-	public String getDataLastReceived() {
-		return dataLastReceived;
+	@Override
+	public String toString() {
+		return "BmSensor{" +
+				"device=" + device +
+				", hivePositionId='" + hivePositionId + '\'' +
+				", deviceLocationId='" + deviceLocationId + '\'' +
+				", start=" + start +
+				'}';
 	}
-
-	public void setDataLastReceived(String dataLastReceived) {
-		this.dataLastReceived = dataLastReceived;
-	}
-
-	public int getisApiLinked() {
-		return isApiLinked;
-	}
-
-	public void setIsApiLinked(int isApiLinked) {
-		this.isApiLinked = isApiLinked;
-	}
-	
-	
-	
 }

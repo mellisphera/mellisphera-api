@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.entities;
 
 import java.util.Date;
@@ -19,7 +32,7 @@ public class Record {
 	private Float temp_ext;
 	private Float temp_int;
 	private Float weight;
-	private String idHive;
+	private String hiveId;
 	private Long timestamp;
 	
 	
@@ -29,7 +42,7 @@ public class Record {
 
 	public Record(String id, Float battery_ext, Float battery_int, Float humidity_ext, Float humidity_int,
 			Date recordDate, Float weight_icome, String recordsType, String sensorRef, Float temp_ext, Float temp_int,
-			Float weight, String idHive, Long timestamp) {
+			Float weight, String hiveId, Long timestamp) {
 		super();
 		this.id = id;
 		this.battery_ext = battery_ext;
@@ -43,10 +56,15 @@ public class Record {
 		this.temp_ext = temp_ext;
 		this.temp_int = temp_int;
 		this.weight = weight;
-		this.idHive = idHive;
+		this.hiveId = hiveId;
                 this.timestamp = timestamp;
 	}
 
+	public Record(Date recordDate, Float weight) {
+		this.recordDate = recordDate;
+		this.weight = weight;
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -174,13 +192,13 @@ public class Record {
 	}
 
 
-	public String getIdHive() {
-		return idHive;
+	public String gethiveId() {
+		return hiveId;
 	}
 
 
-	public void setIdHive(String idHive) {
-		this.idHive = idHive;
+	public void sethiveId(String hiveId) {
+		this.hiveId = hiveId;
 	}
 	
 	

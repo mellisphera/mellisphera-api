@@ -1,5 +1,21 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.controllers;
 
+import com.mellisphera.security.entities.BmAuth;
+import com.mellisphera.security.message.response.JwtResponse;
+import com.mellisphera.security.service.BmServiceImpl;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -39,6 +55,8 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    BmServiceImpl bmAuthService;
 	
     @Autowired
     private ConnectionRepository connectionRepository;
@@ -46,6 +64,7 @@ public class UserController {
     public UserController() {
 
     }
+
 
     public UserController(UserRepository userRepository, ConnectionRepository connectionRepository) {
         this.userRepository = userRepository;
@@ -66,7 +85,21 @@ public class UserController {
         for (User e : Users) {
             names.add(e.getUsername());
         }
+
         return names;
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("adminLogin/{userId}")
+    public JwtResponse loginFromAdmin(@PathVariable String userId) {
+        User user = this.userRepository.findById(userId).get();
+        return new JwtResponse(user.getId(), null, user.getConnexions(), user.getUsername(),user.getEmail(), null,null, user.getUserPref(), user.getUserPref().getLang());
+    }
+
+    @GetMapping("/update/{userId}")
+    public void getChangeLogByUserId(@PathVariable String userId) {
+        User user = this.userRepository.findById(userId).get();
+        this.bmAuthService.getChangeLog(user.getId(), user.getUsername(), user.getUserPref().getLang().toUpperCase());
     }
     
     @GetMapping("/createdAt")
@@ -76,7 +109,6 @@ public class UserController {
         List<User> todayUsers = new ArrayList<>();
         //System.out.println("Today date : "+ nowAsISO );
 
-        System.out.println("new Date().getDate(): " + df.format(new Date()));
         for (User e : Users) {
             //System.out.println("e.getCreatedAt.getDate(): " + df.format(e.getCreatedAt()));
             //System.out.println("USERNAME : " + e.getUsername());
@@ -97,5 +129,11 @@ public class UserController {
     public Optional<User> getById(@PathVariable("id") String id) {
         Optional<User> User = this.userRepository.findById(id);
         return User;
+    }
+    @GetMapping("/check/{userId}")
+    public void checkDataForUser(@PathVariable String userId){
+        BmAuth userData = this.bmAuthService.getUserData(userId);
+
+
     }
 }

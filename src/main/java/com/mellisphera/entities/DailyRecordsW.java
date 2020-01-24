@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.entities;
 
 import java.util.Date;
@@ -9,7 +22,7 @@ public class DailyRecordsW {
 
 	private String id;
 	private Date recordDate;
-	private String idHive;
+	private String hiveId;
 	private float temp_ext_min;
 	private float temp_ext_max;
 	private float weight_min;
@@ -27,13 +40,13 @@ public class DailyRecordsW {
 		
 	}
 	
-	public DailyRecordsW(String id, Date recordDate, String idHive, float temp_ext_min, float temp_ext_max,
+	public DailyRecordsW(String id, Date recordDate, String hiveId, float temp_ext_min, float temp_ext_max,
 			float weight_min, float weight_max, float weight_gain, float weight_income_gain, float weight_foragingbees,
 			float weight_hive, float weight_colony, float weight_filling_rate, Long timestamp, String sensorRef) {
 		super();
 		this.id = id;
 		this.recordDate = recordDate;
-		this.idHive = idHive;
+		this.hiveId = hiveId;
 		this.temp_ext_min = temp_ext_min;
 		this.temp_ext_max = temp_ext_max;
 		this.weight_min = weight_min;
@@ -89,12 +102,12 @@ public class DailyRecordsW {
 		this.recordDate = recordDate;
 	}
 	
-	public String getIdHive() {
-		return idHive;
+	public String gethiveId() {
+		return hiveId;
 	}
 	
-	public void setIdHive(String idHive) {
-		this.idHive = idHive;
+	public void sethiveId(String hiveId) {
+		this.hiveId = hiveId;
 	}
 	
 	
@@ -219,7 +232,7 @@ public class DailyRecordsW {
 
 	@Override
 	public String toString() {
-		return "DailyRecordsW [id=" + id + ", recordDate=" + recordDate + ", idHive=" + idHive + ", temp_ext_min="
+		return "DailyRecordsW [id=" + id + ", recordDate=" + recordDate + ", hiveId=" + hiveId + ", temp_ext_min="
 				+ temp_ext_min + ", temp_ext_max=" + temp_ext_max + ", weight_min=" + weight_min + ", weight_max="
 				+ weight_max + ", weight_gain=" + weight_gain + ", weight_income_gain=" + weight_income_gain
 				+ ", weight_foragingbees=" + weight_foragingbees + ", weight_hive=" + weight_hive + ", weight_colony="

@@ -1,3 +1,16 @@
+/* Copyright 2018-present Mellisphera
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */ 
+
+
+
 package com.mellisphera.entities;
 
 import java.util.ArrayList;
@@ -15,17 +28,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 @Document(collection = "User")
 public class User {
 	@Id
-	private String id;
+	private String _id;
 	private Date createdAt;
-	//private Login login;
 	private String username;
 	private String password;
-	private String phone;
 	private String email;
 	private long connexions;
 	private Date lastConnection;
-	private String country;
-	private String city;
 	private UserPref userPref;
 
 	// ADD for spring security compatibility
@@ -39,46 +48,40 @@ public class User {
 		this.roles = roles;
 	}
 
-	public User(String id, Date createdAt, String username, String password, String phone, String email, long connexions,
-			Date lastConnection, String fullName, String position, String city, String country, UserPref userPref) {
+	public User(String id, Date createdAt, String username, String password, String email, long connexions,
+			Date lastConnection, UserPref userPref) {
 		super();
-		this.id = id;
+		this._id = id;
 		this.createdAt = createdAt;
 		//this.login = login;
 		this.username = username;
 		this.password = password;
-		this.phone = phone;
 		this.email = email;
 		this.connexions = connexions;
 		this.lastConnection = lastConnection;
-		this.country = country;
-		this.city = city;
 		this.userPref = userPref;
 
 	}
 	
-	public User( Date createdAt, String username, String password, String email, Set<String> roles) {
+	public User(String _id,  Date createdAt, String username, String password, String email, Set<String> roles) {
 		super();
 		this.createdAt = createdAt;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.roles = roles;
-
+		this._id = _id;
 	}
 	public User(Boolean fail) {
 		super();
-		this.id = null;
+		this._id = null;
 		this.createdAt = null;
 		//this.login = null;
 		this.username = null;
 		this.password = null;
-		this.phone = null;
 		this.email = null;
 		this.connexions = 0;
 		this.lastConnection = null;
-		this.country = null;
-		this.city = null;
 	}
 	
 	public String getUsername() {
@@ -112,32 +115,18 @@ public class User {
 	}
 
 	public String getId() {
-		return id;
+		return _id;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this._id = id;
 	}
 
 	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public String getCountry() {
-		return country;
-	}
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
 /**
 	public void setLogin(Login login) {
 		this.login = login;
@@ -148,14 +137,6 @@ public class User {
 **/
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
 	}
 
 	public String getEmail() {
@@ -186,12 +167,18 @@ public class User {
 		return this.lastConnection;
 	}
 
-	
-
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", createdAt=" + createdAt + ", username=" + username + ", password="
-				+ password + ", phone=" + phone + ", email=" + email + ", connexions=" + connexions + "]";
+		return "User{" +
+				"id='" + _id + '\'' +
+				", createdAt=" + createdAt +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", email='" + email + '\'' +
+				", connexions=" + connexions +
+				", lastConnection=" + lastConnection +
+				", userPref=" + userPref +
+				", roles=" + roles +
+				'}';
 	}
-
 }
