@@ -26,8 +26,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.mellisphera.repositories.SensorRepository;
 import com.mellisphera.service.Unit;
 import com.mellisphera.service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +65,8 @@ import org.springframework.http.ResponseEntity;
 public class RecordController {
 		
 	@Autowired private RecordRepository recordRepository;
+	@Autowired private SensorRepository sensorRepository;
+
 	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	@Autowired private UnitService unitService;
@@ -85,17 +89,16 @@ public class RecordController {
     	return records;
     }
     
-    @GetMapping("/hive/{hiveId}/{start}/{end}")
-    public ResponseEntity<?> getByhiveId(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end){
+    @GetMapping("/hive/{hiveId}/{start}/{end}/{unit}/{userId}")
+    public Map<String, List<Record>> getByhiveId(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end, @PathVariable String userId, @PathVariable Unit unit){
         Sort sort = new Sort(Direction.DESC, "timestamp");
-        List<Record> rec = null;
-        rec = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, new Date(start), new Date(end), sort);
-        if(rec != null) {
-        	return new ResponseEntity<>(rec, HttpStatus.OK);
-        }
-        else {
-        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
-        }
+        List<Sensor> sensorUser = this.sensorRepository.findSensorByUserId((userId));
+        Map<String, List<Record>> mapData = new HashMap<>();
+        List<Record> record = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, new Date(start), new Date(end), sort);
+        sensorUser.forEach(_sensor -> {
+            mapData.put(_sensor.getSensorRef(), record.parallelStream().filter(_rec -> _rec.getSensorRef().equals(_sensor.getSensorRef())).collect(Collectors.toList()));
+        });
+        return mapData;
         
     }
     
@@ -146,7 +149,7 @@ public class RecordController {
         else {
         	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
         }
-        
+
     }
     @GetMapping("/hint/{hiveId}/{start}/{end}")
     public ResponseEntity<?> getHUmidityByHive(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end){
