@@ -13,48 +13,34 @@ limitations under the License. */
 
 package com.mellisphera.controllers;
 
-import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Formatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.mellisphera.repositories.SensorRepository;
 import com.mellisphera.service.Unit;
 import com.mellisphera.service.UnitService;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.sym.Name;
-import com.mellisphera.entities.Apiary;
-import com.mellisphera.entities.Hive;
 import com.mellisphera.entities.Record;
-import com.mellisphera.entities.Sensor;
 import com.mellisphera.entities.SimpleSeries;
-import com.mellisphera.entities.User;
 import com.mellisphera.repositories.RecordRepository;
 
-import java.util.Comparator;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
@@ -66,16 +52,13 @@ public class RecordController {
 		
 	@Autowired private RecordRepository recordRepository;
 	@Autowired private SensorRepository sensorRepository;
+    private final MongoTemplate mongoTemplate;
 
 	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	@Autowired private UnitService unitService;
-    public RecordController() {
-	    }
-
-    public RecordController(RecordRepository recordRepository) {
-	        this.recordRepository = recordRepository;
-	        //this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    public RecordController(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
     }
     
     @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
@@ -89,25 +72,33 @@ public class RecordController {
     	return records;
     }
     
-    @GetMapping("/hive/{hiveId}/{start}/{end}/{unit}/{userId}")
-    public Map<String, List<Record>> getByhiveId(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end, @PathVariable String userId, @PathVariable Unit unit){
+    @GetMapping("/hive/{hiveId}/{start}/{end}")
+    public List<DBObject> getByhiveId(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end){
         Sort sort = new Sort(Direction.DESC, "timestamp");
-        List<Sensor> sensorUser = this.sensorRepository.findSensorByUserId((userId));
-        Map<String, List<Record>> mapData = new HashMap<>();
-        List<Record> record = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, new Date(start), new Date(end), sort);
-        sensorUser.forEach(_sensor -> {
-            mapData.put(_sensor.getSensorRef(), record.parallelStream().filter(_rec -> _rec.getSensorRef().equals(_sensor.getSensorRef())).map(_data -> {
-                _data.setTemp_ext(this.unitService.convertTempFromUsePref(_data.getTemp_ext(), unit));
-                _data.setTemp_int(this.unitService.convertTempFromUsePref(_data.getTemp_int(), unit));
-                _data.setWeight(this.unitService.convertWeightFromUserPref(_data.getWeight(), unit));
-                _data.setWeight_icome(this.unitService.convertWeightFromUserPref(_data.getWeight_icome(), unit));
-                return _data;
-            }).collect(Collectors.toList()));
-        });
-        return mapData;
-        
+        Criteria filter = Criteria.where("recordDate").gte(new Date(start)).lt(new Date(end));
+
+        Aggregation aggregate;
+        aggregate = Aggregation.newAggregation(
+                Aggregation.match(filter),
+                Aggregation.sort(sort),
+                Aggregation.match(Criteria.where("hiveId").is(hiveId)),
+                Aggregation.group("sensorRef").addToSet(new BasicDBObject(){
+                    {
+                        put("recordDate", "$recordDate");
+                        put("temp_int", "$temp_int");
+                        put("weight", "$weight");
+                        put("humidity_int", "$humidity_int");
+                        put("humidity_ext", "$humidity_ext");
+                        put("temp_text", "$temp_ext");
+                        put("sensorRef", "$sensorRef");
+                        //put("battery_int", "$battery_int");
+                    }
+                }).as("values")
+        );
+        AggregationResults<DBObject> aggregateRes = this.mongoTemplate.aggregate(aggregate, "Record", DBObject.class);
+        return aggregateRes.getMappedResults();
     }
-    
+
     @GetMapping("/weight/{hiveId}/{start}/{end}/{unit}")
     public ResponseEntity<?> getWeightByHive(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end, @PathVariable Unit unit){
         Sort sort = new Sort(Direction.DESC, "timestamp");
@@ -121,9 +112,9 @@ public class RecordController {
         else {
         	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
         }
-        
+
     }
-    
+
     @GetMapping("/temp_int/{hiveId}/{start}/{end}/{unit}")
     public ResponseEntity<?> getTempByHive(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end, @PathVariable Unit unit){
         Sort sort = new Sort(Direction.DESC, "timestamp");
