@@ -74,13 +74,10 @@ public class RecordController {
     
     @GetMapping("/hive/{hiveId}/{start}/{end}")
     public List<DBObject> getByhiveId(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end){
-        Sort sort = new Sort(Direction.DESC, "timestamp");
         Criteria filter = Criteria.where("recordDate").gte(new Date(start)).lt(new Date(end));
-
         Aggregation aggregate;
         aggregate = Aggregation.newAggregation(
                 Aggregation.match(filter),
-                Aggregation.sort(sort),
                 Aggregation.match(Criteria.where("hiveId").is(hiveId)),
                 Aggregation.group("sensorRef").addToSet(new BasicDBObject(){
                     {
