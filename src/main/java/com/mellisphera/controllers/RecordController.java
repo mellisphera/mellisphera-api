@@ -73,7 +73,7 @@ public class RecordController {
     }
     
     @GetMapping("/hive/{hiveId}/{start}/{end}")
-    public List<DBObject> getByhiveId(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end){
+    public List<DBObject> getByHiveId(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end){
         Criteria filter = Criteria.where("recordDate").gte(new Date(start)).lt(new Date(end));
         Aggregation aggregate;
         aggregate = Aggregation.newAggregation(
