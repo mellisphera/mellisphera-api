@@ -38,7 +38,7 @@ public class SharingService {
 	@Autowired private ApiaryRepository apiaryRepository;
 	@Autowired private ShareRepository shareRepository;	
 
-	private static final String ID_DEMO_APIARY = "UjpRybCZ2IXFOf8hx4dJGo9PnH0Qs5Bc";
+	private static final String ID_DEMO_APIARY = "OIBwW52KK8hG6jq4S9Lx";
 	private static final String EXCEPTION_MSG = "Demo apiary not found";
 	private static final String EXCEPTION_USER = "User not found";
 	private static final String NAME_DEMO_APIARY_FR = "Rucher démo";
