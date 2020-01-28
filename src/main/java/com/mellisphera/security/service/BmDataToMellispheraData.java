@@ -71,7 +71,7 @@ public class BmDataToMellispheraData {
             newNote.setDescription(new String(byteStr, "UTF-8").replaceAll ("<.*?>", ""));
         }
         catch (UnsupportedEncodingException e) {
-            newNote.setDescription(bmNote.getDescription());
+            newNote.setDescription(bmNote.getDescription().replaceAll ("<.*?>", ""));
         }
         return newNote;
     }
