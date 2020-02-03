@@ -98,7 +98,7 @@ public class BmServiceImpl implements BmService {
 	@Override
 	public void saveBmData(BmAuth bmData, String username, String countryCode) {
 		try{
-			this.userId = bmData.getPayload().getApiaries()[0].getUserId();
+			this.userId = bmData.getPayload().getUserId();
 			for(BmApiary bmApiary: bmData.getPayload().getApiaries()) {
 				try {
 					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username, countryCode));

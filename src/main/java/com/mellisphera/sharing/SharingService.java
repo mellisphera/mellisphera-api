@@ -58,19 +58,20 @@ public class SharingService {
 			throw new ApiaryDemoNotFoundException(EXCEPTION_MSG);
 		}
 		try {
-
-			User newUser = this.getNewUser(idNewUser);
-			if (newUser.getUserPref().getLang().equals("fr")) {
-				demoApiary.setName(NAME_DEMO_APIARY_FR);
-			} else if (newUser.getUserPref().getLang().equals("es")) {
-				demoApiary.setName(NAME_DEMO_APIARY_ES);
-			} else {
-				demoApiary.setName(NAME_DEMO_APIARY_EN);
+			if (this.shareRepository.findSharingApiaryByUserId(idNewUser) == null) {
+				User newUser = this.getNewUser(idNewUser);
+				if (newUser.getUserPref().getLang().equals("fr")) {
+					demoApiary.setName(NAME_DEMO_APIARY_FR);
+				} else if (newUser.getUserPref().getLang().equals("es")) {
+					demoApiary.setName(NAME_DEMO_APIARY_ES);
+				} else {
+					demoApiary.setName(NAME_DEMO_APIARY_EN);
+				}
+				ArrayList<Apiary> apiaryList = new ArrayList<Apiary>();
+				apiaryList.add(demoApiary);
+				ShareApiary onSharing = new ShareApiary(null, newUser.getId(), apiaryList);
+				this.shareRepository.insert(onSharing);
 			}
-			ArrayList<Apiary> apiaryList = new ArrayList<Apiary>();
-			apiaryList.add(demoApiary);
-			ShareApiary onSharing = new ShareApiary(null, newUser.getId(), apiaryList);
-			this.shareRepository.insert(onSharing);
 		}
 		catch(UserNotFoundException e) {
 			e.printStackTrace();
