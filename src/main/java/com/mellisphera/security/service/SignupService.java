@@ -66,6 +66,7 @@ public class SignupService {
         //log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :" + credential);
         User user = new User(this.userId, GregorianCalendar.getInstance().getTime(),signUpRequest.getUsername(), credential,signUpRequest.getEmail(),new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)));
         String ipAddress = ((WebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
+        System.out.println(user);
         if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1"))
             ipAddress="87.100.21.93";
         user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("US") ? DATE_EN: DATE_FR, this.getLangByGeoipLangage(geoIp.getCountry()), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL, WEATHER_SOURCE[0], WEATHER_SOURCE, false));
@@ -73,14 +74,14 @@ public class SignupService {
         User newUser = this.userRepository.insert(user);
         if (!bmSignup) {
             LogEvents logEventsBmAuth = new LogEvents(null, new Date(), newUser.getId(), signUpRequest.getEmail(), LogType.INSCRIPTION, null);
-            try{
-                this.sharingService.addDemoApiaryNewUser(newUser.getId());
-            } catch (ApiaryDemoNotFoundException e) {
-                System.err.println(e.getMessage());
-            }
             this.logRepoitory.insert(logEventsBmAuth);
         }
 
+        try{
+            this.sharingService.addDemoApiaryNewUser(newUser.getId());
+        } catch (ApiaryDemoNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
         this.setAlertUser(user, geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL);
         return newUser;
     }
