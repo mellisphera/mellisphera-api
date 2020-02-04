@@ -17,7 +17,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,21 +44,16 @@ import com.mellisphera.repositories.CurrentDailyWeatherRepository;
 public class CurrentDailyWeatherController {
 	
 	@Autowired private CurrentDailyWeatherRepository dailyWearherRepository;
-	public CurrentDailyWeatherController() {
-		
+	private MongoTemplate mongoTemplate;
+	public CurrentDailyWeatherController(MongoTemplate mongoTemplate) {
+		this.mongoTemplate = mongoTemplate;
 	}
-	
+
+
 	@PostMapping("apiary/{apiaryId}/{weatherSource}")
 	public List<SimpleSeries> getCurrentDailyWeatherByApiary(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource) {
 		return this.dailyWearherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().filter(_elt -> _elt.get_origin().contains(weatherSource)).map(_elt -> {
 			return new SimpleSeries(_elt.getDate(), new Object[] {_elt.getWeather(), _elt.getMain()}, _elt.get_origin());
-		}).collect(Collectors.toList());
-	}
-	
-	@PostMapping("rain/apiary/{apiaryId}/{weatherSource}")
-	public List<SimpleSeries> getRainCurrentDailyWeatherByApiary(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource) {
-		return this.dailyWearherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().filter(_elt -> _elt.get_origin().contains(weatherSource)).map(_elt -> {
-			return new SimpleSeries(_elt.getDate(),  new Object[] {_elt.getRain(), _elt.getSnow()}, _elt.get_origin());
 		}).collect(Collectors.toList());
 	}
 
