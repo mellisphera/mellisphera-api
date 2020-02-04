@@ -19,11 +19,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,9 +49,9 @@ public class DailyRecordsTHController {
 	@Autowired private HiveController hiveController;
 	@Autowired private DailyRecordsTHRepository dailyRecordsTHRepository;
 	@Autowired private HivesRepository hivesRepository;
-
-	public DailyRecordsTHController(DailyRecordsTHRepository dailyRecordsTHRepository) {
-		this.dailyRecordsTHRepository = dailyRecordsTHRepository;
+	private MongoTemplate mongoTemplate;
+	public DailyRecordsTHController(MongoTemplate mongoTemplate) {
+		this.mongoTemplate = mongoTemplate;
 	}
 
 	@RequestMapping(value="/all", method = RequestMethod.GET, produces={"application/json"})
@@ -97,6 +104,26 @@ public class DailyRecordsTHController {
 		Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsTHRepository.findByHiveIdAndRecordDateBetween(hiveId, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
 				.getRecordDate(), _daily.getTemp_int_max(), _daily.getSensorRef())).collect(Collectors.toList());
+	}
+
+	@GetMapping("/tMax/test/{hiveId}/{start}/{end}")
+	public List<DBObject> getTempMax(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end) {
+		Sort sort = new Sort(Direction.DESC, "timestamp");
+		Criteria filter = Criteria.where("recordDate").gte(new Date(start)).lt(new Date(end));
+		Aggregation aggregate;
+		aggregate = Aggregation.newAggregation(
+				Aggregation.match(filter),
+				Aggregation.match(Criteria.where("hiveId").is(hiveId)),
+				Aggregation.group("sensorRef").addToSet(new BasicDBObject(){
+					{
+						put("recordDate", "$recordDate");
+						put("temp_int_max", "$temp_int_max");
+						put("sensorRef", "$sensorRef");
+					}
+				}).as("values")
+		);
+		AggregationResults<DBObject> aggregateRes = this.mongoTemplate.aggregate(aggregate, "DailyRecordsTH", DBObject.class);
+		return aggregateRes.getMappedResults();
 	}
 	@PostMapping("hInt/{hiveId}")
 	public List<SimpleSeries> getHintByHive(@RequestBody Date[] range, @PathVariable String hiveId){
