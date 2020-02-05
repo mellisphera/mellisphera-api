@@ -101,12 +101,12 @@ public class BmServiceImpl implements BmService {
 			this.userId = bmData.getPayload().getUserId();
 			for(BmApiary bmApiary: bmData.getPayload().getApiaries()) {
 				try {
-					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username, countryCode));
+					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username, countryCode, false));
 				}
 				catch (Exception e) {
 					System.out.println("error key apiary");
 					this.apiaryRepository.deleteById(bmApiary.getApiaryId());
-					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username, countryCode));
+					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username, countryCode, false));
 				}
 				for(BmHive bmHive: Arrays.stream(bmApiary.getHives()).sorted(Comparator.comparing(BmHive::getName)).collect(Collectors.toList())) {
 					try {
@@ -277,7 +277,7 @@ public class BmServiceImpl implements BmService {
 			}
 			if (change.getPayload().getApiaryUpdate() != null) {
 				for (BmApiaryUpdated apiaryUpdate: change.getPayload().getApiaryUpdate()) {
-					this.apiaryRepository.save(this.bmToMellispheraData.getNewApiary(apiaryUpdate.getUpdatedData(), username, countryCode));
+					this.apiaryRepository.save(this.bmToMellispheraData.getNewApiary(apiaryUpdate.getUpdatedData(), username, countryCode, true));
 				}
 			}
 			if (change.getPayload().getHiveUpdate() != null) {

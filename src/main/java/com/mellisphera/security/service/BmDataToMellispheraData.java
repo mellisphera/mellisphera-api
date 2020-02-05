@@ -19,6 +19,7 @@ import com.mellisphera.entities.Note;
 import com.mellisphera.entities.Sensor;
 import com.mellisphera.entities.bm.*;
 import com.mellisphera.entities.bm.changeLog.BmHiveUpdated;
+import com.mellisphera.repositories.ApiaryRepository;
 import com.mellisphera.repositories.HivesRepository;
 import com.mellisphera.repositories.SensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class BmDataToMellispheraData {
 
     @Autowired private SensorRepository sensorRepository;
     @Autowired private HivesRepository hiveRepository;
+    @Autowired private ApiaryRepository apiaryRepository;
     private static int xPos = 0;
     private static int yPos = 15;
     private static  String PREFIX_BACKGROUND_DIRECTORY = "./assets/imageClient/";
@@ -203,7 +205,7 @@ public class BmDataToMellispheraData {
     }
 
 
-    Apiary getNewApiary(BmApiary bmApiary, String username, String countryCode) {
+    Apiary getNewApiary(BmApiary bmApiary, String username, String countryCode, Boolean update) {
         Apiary newApiary = new Apiary();
         newApiary.set_id(bmApiary.getApiaryId());
         newApiary.setZipCode(bmApiary.getZipCode());
@@ -215,13 +217,18 @@ public class BmDataToMellispheraData {
         newApiary.setPrivateApiary(bmApiary.getPrivateApiary());
         newApiary.setCountryCode(bmApiary.getCountryCode());
         newApiary.setUsername(username);
-        String photos;
-        if (countryCode.equals("FR")) {
-            photos = BACKGROUND_APIARY_FR[this.getRandomValue(BACKGROUND_APIARY_FR.length)];
+        if (!update) {
+            String photos;
+            if (countryCode.equals("FR")) {
+                photos = BACKGROUND_APIARY_FR[this.getRandomValue(BACKGROUND_APIARY_FR.length)];
+            } else {
+                photos = BACKGROUND_APIARY_EN[this.getRandomValue(BACKGROUND_APIARY_EN.length)];
+            }
+            newApiary.setPhoto(photos);
         } else {
-            photos = BACKGROUND_APIARY_EN[this.getRandomValue(BACKGROUND_APIARY_EN.length)];
+            Apiary oldApiary = this.apiaryRepository.findById(bmApiary.getApiaryId()).get();
+            newApiary.setPhoto(oldApiary.getPhoto());
         }
-        newApiary.setPhoto(photos);
         return newApiary;
     }
 
