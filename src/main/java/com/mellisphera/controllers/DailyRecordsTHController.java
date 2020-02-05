@@ -166,6 +166,13 @@ public class DailyRecordsTHController {
 		return aggregateRes.getMappedResults();
 	}
 
+	@PostMapping("brood/old/{hiveId}")
+	public List<SimpleSeries> getBroodByHive(@RequestBody Date[] range, @PathVariable String hiveId){
+		Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.dailyRecordsTHRepository.findByHiveIdAndRecordDateBetween(hiveId, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
+				.getRecordDate(), _daily.getBrood(), _daily.getSensorRef())).collect(Collectors.toList());
+	}
+
 	@GetMapping("/tMin/{hiveId}/{start}/{end}")
 	public List<DBObject> getTMinByHive(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end){
 		Sort sort = new Sort(Direction.DESC, "timestamp");

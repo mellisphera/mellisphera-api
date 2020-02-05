@@ -57,6 +57,7 @@ public class BmDataToMellispheraData {
 
     Note getNewNote(BmNote bmNote, String userId) {
         byte[] byteStr = bmNote.getDescription().getBytes();
+        System.out.println(bmNote.getDescription());
         Note newNote =  new Note(bmNote.getNoteId(),
                 this.convertTimestampToDate(bmNote.getCreateDate()),
                 bmNote.getType(),
@@ -71,6 +72,7 @@ public class BmDataToMellispheraData {
             newNote.setDescription(new String(byteStr, "UTF-8").replaceAll ("<.*?>", ""));
         }
         catch (UnsupportedEncodingException e) {
+            System.out.println("erreur encoding");
             newNote.setDescription(bmNote.getDescription().replaceAll ("<.*?>", ""));
         }
         return newNote;

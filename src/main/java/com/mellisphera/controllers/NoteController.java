@@ -58,10 +58,12 @@ public class NoteController {
             value = new String(ptext, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             //
+            System.out.println("erreur d'encodage");
             value = observation.getDescription();
         }
+        System.out.println(value);
         BmNoteCreate createNote = this.bmService.postNote(new BmNote(
-                observation.getDescription(),
+                value,
                 new String[]{},
                 observation.getHiveId(),
                 observation.getApiaryId(),
