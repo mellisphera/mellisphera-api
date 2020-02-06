@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.mellisphera.service.UnitService;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class CurrentDailyWeatherController {
 	
 	@Autowired private CurrentDailyWeatherRepository dailyWearherRepository;
 	private MongoTemplate mongoTemplate;
+	@Autowired  private UnitService unitService;
 	public CurrentDailyWeatherController(MongoTemplate mongoTemplate) {
 		this.mongoTemplate = mongoTemplate;
 	}
@@ -57,8 +59,15 @@ public class CurrentDailyWeatherController {
 		}).collect(Collectors.toList());
 	}
 
-	@PostMapping("tExt/apiary/{apiaryId}/{weatherSource}")
-	public List<SimpleSeries> getTempMax(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource) {
+	@PostMapping("rain/apiary/{apiaryId}/{weatherSource}")
+	public List<SimpleSeries> getRainCurrentDailyWeatherByApiary(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource) {
+		return this.dailyWearherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().filter(_elt -> _elt.get_origin().contains(weatherSource)).map(_elt -> {
+			return new SimpleSeries(_elt.getDate(),  new Object[] {_elt.getRain(), _elt.getSnow()}, _elt.get_origin());
+		}).collect(Collectors.toList());
+	}
+
+	@PostMapping("tExt/apiary/{apiaryId}/{weatherSource}/{unit}")
+	public List<SimpleSeries> getTempMax(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource, @PathVariable String unit) {
 		return this.dailyWearherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().filter(_elt -> _elt.get_origin().contains(weatherSource)).map(_elt -> {
 			return new SimpleSeries(_elt.getDate(), _elt.getMain(), _elt.get_origin());
 		}).collect(Collectors.toList());
