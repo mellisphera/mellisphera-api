@@ -217,7 +217,7 @@ public class BmServiceImpl implements BmService {
 	public BmNoteCreate postNote(BmNote bmNote){
 		String urlRequest = this.bmUrl +  "notes";
 		this.header = new HttpHeaders();
-		// this.header.add("Content-Type", "application/json");
+		this.header.add("Content-Type", "application/json");
 		this.header.add("license_key", this.licenceKey);
 		Gson gson = new Gson();
 		String noteJson = gson.toJson(bmNote);
