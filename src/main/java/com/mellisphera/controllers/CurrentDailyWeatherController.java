@@ -66,8 +66,8 @@ public class CurrentDailyWeatherController {
 		}).collect(Collectors.toList());
 	}
 
-	@PostMapping("tExt/apiary/{apiaryId}/{weatherSource}/{unit}")
-	public List<SimpleSeries> getTempMax(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource, @PathVariable String unit) {
+	@PostMapping("tExt/apiary/{apiaryId}/{weatherSource}")
+	public List<SimpleSeries> getTempMax(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource) {
 		return this.dailyWearherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().filter(_elt -> _elt.get_origin().contains(weatherSource)).map(_elt -> {
 			return new SimpleSeries(_elt.getDate(), _elt.getMain(), _elt.get_origin());
 		}).collect(Collectors.toList());
