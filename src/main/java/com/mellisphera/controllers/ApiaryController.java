@@ -120,7 +120,7 @@ public class ApiaryController {
     }*/
    
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
-    @RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
+    @PostMapping("")
     public Apiary insert(@RequestBody Apiary apiary){
 		if (!apiary.getPhoto().contains("background_draw_color")) {
 			ImageTool imageTool = new ImageTool(apiary.getPhoto(), apiary.getUserId());
