@@ -26,7 +26,12 @@ import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
+import com.mongodb.DBObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -56,15 +61,14 @@ public class SensorController {
 	@Autowired private SensorRepository sensorRepository;
 	@Autowired private HivesRepository hivesRepository;
 	@Autowired private ApiaryRepository apiaryRepository;
-	public SensorController() {
+	private final static String APIARY_DEMO = "OIBwW52KK8hG6jq4S9Lx";
+	private MongoTemplate mongoTemplate;
+
+	public SensorController(MongoTemplate mongoTemplate) {
+		this.mongoTemplate = mongoTemplate;
 	}
 
-	public SensorController(SensorRepository sensorRepository) {
-		this.sensorRepository = sensorRepository;
-		//this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-	}
 
-	
 	@RequestMapping(value = "", method = RequestMethod.POST, produces={"application/json"})
 	public Sensor insert(@RequestBody Sensor sensor){
 		if (sensor.getHiveId() != null) {
@@ -102,13 +106,12 @@ public class SensorController {
 	public Sensor checkSensor(@PathVariable String reference) {
 		return this.sensorRepository.findSensorsBySensorRef(reference);
 	}
-	@RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces={"application/json"})
+	@GetMapping("/{userId}")
 	public List<Sensor> getUserSensors(@PathVariable String userId){
-		// liste les capteurs pour un user
-		return this.sensorRepository.findSensorByUserId(userId).stream().filter(_sensor -> _sensor.getDeviceLocation() != null).collect(Collectors.toList());
-	}
-	
-	private Boolean checkIfHiveHaveSensor(Hive hive) {
-		return !this.sensorRepository.findSensorByHiveId(hive.get_id()).isEmpty();
+		Aggregation aggregation = Aggregation.newAggregation(
+				Aggregation.match(new Criteria().orOperator(Criteria.where("userId").is(userId), Criteria.where("apiaryId").is(APIARY_DEMO)).and("deviceLocation").exists(true))
+		);
+		AggregationResults<Sensor> aggregationResults = this.mongoTemplate.aggregate(aggregation, "Sensor", Sensor.class);
+		return aggregationResults.getMappedResults();
 	}
 }
