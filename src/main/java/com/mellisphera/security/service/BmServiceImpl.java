@@ -97,7 +97,6 @@ public class BmServiceImpl implements BmService {
 
 	@Override
 	public void saveBmData(BmAuth bmData, String username, String countryCode) {
-		System.out.println(bmData);
 		try{
 			this.userId = bmData.getPayload().getUserId();
 			for(BmApiary bmApiary: bmData.getPayload().getApiaries()) {
@@ -187,7 +186,6 @@ public class BmServiceImpl implements BmService {
 				HttpMethod.GET,
 				entity,
 				BmAuth.class);
-		System.out.println(response.getBody());
 		if (response.getBody() != null) {
 			this.saveChangeLog(response.getBody(), username, userId, countryCode);
 		} else {

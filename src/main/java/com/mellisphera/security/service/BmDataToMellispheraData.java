@@ -81,11 +81,6 @@ public class BmDataToMellispheraData {
 
     Hive getNewHive(BmHive bmHive, String username, String userId) {
         Hive newHive = new Hive();
-        int apiaryLocationLength = bmHive.getApiaryLocation().length;
-        if (apiaryLocationLength >= 1) {
-            ApiaryLocation lastLocation = bmHive.getApiaryLocation()[apiaryLocationLength - 1];
-            newHive.setApiaryId(lastLocation.getApiaryId());
-        }
         newHive.set_id(bmHive.getHiveId());
         if (xPos >= 90) {
             yPos += 25;
@@ -95,7 +90,6 @@ public class BmDataToMellispheraData {
         newHive.setHivePosX(xPos);
         newHive.setUserId(userId);
         newHive.setDescription(bmHive.getDescription());
-        newHive.setApiaryLocation(bmHive.getApiaryLocation());
         newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
         newHive.setHidden(bmHive.getHidden());
         newHive.setDataLastReceived(this.convertTimestampToDate(bmHive.getDataLastReceived()));
@@ -120,19 +114,8 @@ public class BmDataToMellispheraData {
 
     public Hive updateHiveChangeLog(Hive hive, BmHive bmHive) {
         hive.setName(bmHive.getName());
-        int apiaryLocationLength = bmHive.getApiaryLocation().length;
-        if (apiaryLocationLength >= 1) {
-            ApiaryLocation lastLocation;
-            if (apiaryLocationLength == 1) {
-                lastLocation  = bmHive.getApiaryLocation()[0];
-            } else {
-                lastLocation = bmHive.getApiaryLocation()[apiaryLocationLength - 1];
-            }
-            hive.setApiaryId(lastLocation.getApiaryId());
-        }
         hive.setHidden(bmHive.getHidden());
         hive.setDescription(bmHive.getDescription());
-        hive.setApiaryLocation(bmHive.getApiaryLocation());
 
         return hive;
     }
