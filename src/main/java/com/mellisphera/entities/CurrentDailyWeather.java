@@ -143,12 +143,12 @@ public class CurrentDailyWeather {
 	}
 
 
-	public String getapiaryId() {
+	public String getApiaryId() {
 		return apiaryId;
 	}
 
 
-	public void setapiaryId(String apiaryId) {
+	public void setApiaryId(String apiaryId) {
 		this.apiaryId = apiaryId;
 	}
 
