@@ -97,11 +97,7 @@ public class BmDataToMellispheraData {
         newHive.setHivePosX(xPos);
         newHive.setUserId(userId);
         newHive.setDescription(bmHive.getDescription());
-<<<<<<< HEAD
         newHive.setApiaryLocation(bmHive.getApiaryLocation());
-=======
-        newHive.setApiaryId(bmHive.getApiaryId());
->>>>>>> 05f1d90 (fix description prod)
         newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
         newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setHidden(bmHive.getHidden());
