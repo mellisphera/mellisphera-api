@@ -13,6 +13,7 @@ limitations under the License. */
 
 package com.mellisphera.entities;
 
+import com.mellisphera.entities.bm.ApiaryLocation;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -22,22 +23,38 @@ import java.util.Date;
 @Document(collection = "Hive")
 public class Hive {
 
-		@Id
-		private String _id;
-		private String name ;
-		private String description;
-		private String username;
-		private String apiaryId;
-		private String userId;
-		private Boolean hidden;
-		private Date dataLastReceived;
-		private Date createDate;
-		private float hivePosX;
-		private float hivePosY;
+	@Id
+	private String _id;
+	private String name ;
+	private String description;
+	private String username;
+	private String apiaryId;
+	private String userId;
+	private Boolean hidden;
+	private Date dataLastReceived;
+	private Date createDate;
+	private float hivePosX;
+	private float hivePosY;
+	private ApiaryLocation[] apiaryLocation;
 
-		public Hive() {
-			super();
-		}
+
+	public Hive() {}
+
+
+	public Hive(String _id, String name, String description, String username, String apiaryId, String userId, Boolean hidden, Date dataLastReceived, Date createDate, float hivePosX, float hivePosY, ApiaryLocation[] apiaryLocation) {
+		this._id = _id;
+		this.name = name;
+		this.description = description;
+		this.username = username;
+		this.apiaryId = apiaryId;
+		this.userId = userId;
+		this.hidden = hidden;
+		this.dataLastReceived = dataLastReceived;
+		this.createDate = createDate;
+		this.hivePosX = hivePosX;
+		this.hivePosY = hivePosY;
+		this.apiaryLocation = apiaryLocation;
+	}
 
 	public String get_id() {
 		return _id;
@@ -125,6 +142,14 @@ public class Hive {
 
 	public void setHivePosY(float hivePosY) {
 		this.hivePosY = hivePosY;
+	}
+
+	public ApiaryLocation[] getApiaryLocation() {
+		return apiaryLocation;
+	}
+
+	public void setApiaryLocation(ApiaryLocation[] apiaryLocation) {
+		this.apiaryLocation = apiaryLocation;
 	}
 
 	@Override

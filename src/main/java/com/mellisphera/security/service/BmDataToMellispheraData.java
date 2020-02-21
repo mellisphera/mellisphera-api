@@ -13,22 +13,20 @@ limitations under the License. */
 
 package com.mellisphera.security.service;
 
-import com.mellisphera.entities.Apiary;
-import com.mellisphera.entities.Hive;
-import com.mellisphera.entities.Note;
-import com.mellisphera.entities.Sensor;
+import com.mellisphera.entities.*;
 import com.mellisphera.entities.bm.*;
 import com.mellisphera.entities.bm.changeLog.BmHiveUpdated;
-import com.mellisphera.repositories.ApiaryRepository;
-import com.mellisphera.repositories.HivesRepository;
-import com.mellisphera.repositories.SensorRepository;
+import com.mellisphera.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.NoSuchElementException;
-import java.util.Random;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BmDataToMellispheraData {
@@ -36,6 +34,9 @@ public class BmDataToMellispheraData {
     @Autowired private SensorRepository sensorRepository;
     @Autowired private HivesRepository hiveRepository;
     @Autowired private ApiaryRepository apiaryRepository;
+    @Autowired private CurrentDailyWeatherRepository currentDailyWeatherRepository;
+    @Autowired private CurrentHourlyWeatherRepository currentHourlyWeatherRepository;
+    private MongoTemplate mongoTemplate;
     private static int xPos = 0;
     private static int yPos = 15;
     private static  String PREFIX_BACKGROUND_DIRECTORY = "./assets/imageClient/";
@@ -54,7 +55,8 @@ public class BmDataToMellispheraData {
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_GREEN.png",
             PREFIX_BACKGROUND_DIRECTORY + "apiary_picture_default_FR_RED.png"
     };
-    public BmDataToMellispheraData() {
+    public BmDataToMellispheraData(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
     }
 
     Note getNewNote(BmNote bmNote, String userId) {
@@ -81,6 +83,11 @@ public class BmDataToMellispheraData {
 
     Hive getNewHive(BmHive bmHive, String username, String userId) {
         Hive newHive = new Hive();
+        int apiaryLocationLength = bmHive.getApiaryLocation().length;
+        if (apiaryLocationLength >= 1) {
+            ApiaryLocation lastLocation = bmHive.getApiaryLocation()[apiaryLocationLength - 1];
+            newHive.setApiaryId(lastLocation.getApiaryId());
+        }
         newHive.set_id(bmHive.getHiveId());
         if (xPos >= 90) {
             yPos += 25;
@@ -90,6 +97,7 @@ public class BmDataToMellispheraData {
         newHive.setHivePosX(xPos);
         newHive.setUserId(userId);
         newHive.setDescription(bmHive.getDescription());
+        newHive.setApiaryLocation(bmHive.getApiaryLocation());
         newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
         newHive.setHidden(bmHive.getHidden());
         newHive.setDataLastReceived(this.convertTimestampToDate(bmHive.getDataLastReceived()));
@@ -114,10 +122,53 @@ public class BmDataToMellispheraData {
 
     public Hive updateHiveChangeLog(Hive hive, BmHive bmHive) {
         hive.setName(bmHive.getName());
+        int apiaryLocationLength = bmHive.getApiaryLocation().length;
+        ApiaryLocation lastLocation;
+        if (apiaryLocationLength >= 1) {
+            if (apiaryLocationLength == 1) {
+                lastLocation = bmHive.getApiaryLocation()[0];
+            } else {
+                lastLocation = bmHive.getApiaryLocation()[apiaryLocationLength - 1];
+            }
+            hive.setApiaryId(lastLocation.getApiaryId());
+            this.affectSensor(hive);
+            bmHive.getApiaryLocation()[0].setStart(bmHive.getCreateDate());
+            this.affectWeather(Arrays.copyOfRange(bmHive.getApiaryLocation(), 0, apiaryLocationLength - 1));
+        }
+        hive.setApiaryLocation(bmHive.getApiaryLocation());
         hive.setHidden(bmHive.getHidden());
         hive.setDescription(bmHive.getDescription());
 
         return hive;
+    }
+
+    private void affectWeather(ApiaryLocation[] apiaryLocation) {
+        for (ApiaryLocation location: apiaryLocation) {
+            System.out.println(location);
+            Aggregation aggregateDaily = Aggregation.newAggregation(
+                    Aggregation.match(Criteria.where("date").gte(new Date(location.getStart())).lt(new Date(location.getEnd())))
+            );
+            List<CurrentDailyWeather> currentDailyWeathers = this.mongoTemplate.aggregate(aggregateDaily, "CurrentDailyWeather", CurrentDailyWeather.class).getMappedResults();
+            currentDailyWeathers.forEach(_weather -> _weather.setApiaryId(location.getApiaryId()));
+            this.currentDailyWeatherRepository.saveAll(currentDailyWeathers);
+
+            Aggregation aggregateHourly = Aggregation.newAggregation(
+                    Aggregation.match(Criteria.where("date").gte(new Date(location.getStart())).lt(new Date(location.getEnd())))
+            );
+            List<CurrentHourlyWeather> currentHourlyWeathers = this.mongoTemplate.aggregate(aggregateHourly, "CurrentHourlyWeather", CurrentHourlyWeather.class).getMappedResults();
+            currentHourlyWeathers.forEach(_elt -> _elt.setapiaryId(location.getApiaryId()));
+            this.currentHourlyWeatherRepository.saveAll(currentHourlyWeathers);
+
+        }
+    }
+
+    private void affectSensor(Hive hiveUpdate) {
+        System.out.println(hiveUpdate);
+        List<Sensor> sensors = this.sensorRepository.findSensorByHiveId(hiveUpdate.get_id());
+        sensors.forEach(_sensor -> {
+            _sensor.setApiaryId(hiveUpdate.getApiaryId());
+            this.sensorRepository.save(_sensor);
+        });
     }
 
     Sensor getNewSensorFromFirstConnection(BmSensor bmSensor, String userId, BmHive bmHive) {

@@ -49,13 +49,14 @@ public class BmHive implements Serializable{
 	private String description;
 	@JsonProperty("notes")
 	private BmNote[] notes;
+	@JsonProperty("apiaryLocations")
+	private ApiaryLocation[] apiaryLocation;
 
 	public BmHive() {
 
 	}
 
-
-	public BmHive(String hiveId, String apiaryId, long createDate, String name, Boolean hidden, long dataLastReceived, BmSensor[] devices, String description, BmNote[] notes) {
+	public BmHive(String hiveId, String apiaryId, long createDate, String name, Boolean hidden, long dataLastReceived, BmSensor[] devices, String description, BmNote[] notes, ApiaryLocation[] apiaryLocation) {
 		this.hiveId = hiveId;
 		this.apiaryId = apiaryId;
 		this.createDate = createDate;
@@ -65,14 +66,7 @@ public class BmHive implements Serializable{
 		this.devices = devices;
 		this.description = description;
 		this.notes = notes;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+		this.apiaryLocation = apiaryLocation;
 	}
 
 	public String getHiveId() {
@@ -131,6 +125,14 @@ public class BmHive implements Serializable{
 		this.devices = devices;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public BmNote[] getNotes() {
 		return notes;
 	}
@@ -139,19 +141,12 @@ public class BmHive implements Serializable{
 		this.notes = notes;
 	}
 
+	public ApiaryLocation[] getApiaryLocation() {
+		return apiaryLocation;
+	}
 
-
-	@Override
-	public String toString() {
-		return "BmHive{" +
-				"hiveId='" + hiveId + '\'' +
-				", apiaryId='" + apiaryId + '\'' +
-				", createDate=" + createDate +
-				", name='" + name + '\'' +
-				", hidden=" + hidden +
-				", dataLastReceived=" + dataLastReceived +
-				", devices=" + Arrays.toString(devices) +
-				", notes=" + Arrays.toString(notes) +
-				'}';
+	public void setApiaryLocation(ApiaryLocation[] apiaryLocation) {
+		this.apiaryLocation = apiaryLocation;
 	}
 }
+
