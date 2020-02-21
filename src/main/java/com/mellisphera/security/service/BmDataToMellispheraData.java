@@ -90,7 +90,9 @@ public class BmDataToMellispheraData {
         newHive.setHivePosX(xPos);
         newHive.setUserId(userId);
         newHive.setDescription(bmHive.getDescription());
+        newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
+        newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setHidden(bmHive.getHidden());
         newHive.setDataLastReceived(this.convertTimestampToDate(bmHive.getDataLastReceived()));
         newHive.setName(bmHive.getName());
