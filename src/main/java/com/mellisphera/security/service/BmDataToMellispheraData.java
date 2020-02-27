@@ -98,7 +98,9 @@ public class BmDataToMellispheraData {
         newHive.setUserId(userId);
         newHive.setDescription(bmHive.getDescription());
         newHive.setApiaryLocation(bmHive.getApiaryLocation());
+        newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
+        newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setHidden(bmHive.getHidden());
         newHive.setDataLastReceived(this.convertTimestampToDate(bmHive.getDataLastReceived()));
         newHive.setName(bmHive.getName());
@@ -144,7 +146,6 @@ public class BmDataToMellispheraData {
 
     private void affectWeather(ApiaryLocation[] apiaryLocation) {
         for (ApiaryLocation location: apiaryLocation) {
-            System.out.println(location);
             Aggregation aggregateDaily = Aggregation.newAggregation(
                     Aggregation.match(Criteria.where("date").gte(new Date(location.getStart())).lt(new Date(location.getEnd())))
             );
@@ -230,6 +231,9 @@ public class BmDataToMellispheraData {
                 sensor.setApiaryId(null);
                 System.out.println(sensor);
             }
+        } catch (NoSuchElementException except) {
+            sensor.setHiveId(null);
+            sensor.setApiaryId(null);
         }
         sensor.setCreateDate(this.convertTimestampToDate(bmDevice.getCreateDate()));
         sensor.setDataLastReceived(this.convertTimestampToDate(bmDevice.getDataLastReceived()));
