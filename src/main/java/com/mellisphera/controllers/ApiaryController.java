@@ -91,7 +91,7 @@ public class ApiaryController {
 	    return apiaries;
     }
     
-	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN') or hasRole('TEST')")
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces={"application/json"})
     public List<Apiary> getAllUserApiaries(@PathVariable String userId, HttpServletResponse response){
     	List<Apiary> userApiaries=this.apiaryRepository.findApiaryByUserId(userId).stream().filter(_apiary -> !_apiary.getHidden()).collect(Collectors.toList());

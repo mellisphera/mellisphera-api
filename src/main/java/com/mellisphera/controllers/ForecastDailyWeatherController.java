@@ -30,7 +30,7 @@ import com.mellisphera.entities.SimpleSeries;
 import com.mellisphera.repositories.ForecastDailyWeatherRepository;
 
 @RestController
-@PreAuthorize("hasRole('PREMIUM') or hasRole('STANDARD') or hasRole('ADMIN')")
+@PreAuthorize("hasRole('PREMIUM') or hasRole('STANDARD') or hasRole('ADMIN')  or hasRole('TEST')")
 @RequestMapping("/forecastDailyWeather")
 public class ForecastDailyWeatherController {
 

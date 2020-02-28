@@ -40,7 +40,7 @@ import com.mellisphera.repositories.CurrentDailyWeatherRepository;
 
 
 @RestController
-@PreAuthorize("hasRole('PREMIUM') or hasRole('STANDARD') or hasRole('ADMIN')")
+@PreAuthorize("hasRole('PREMIUM') or hasRole('STANDARD') or hasRole('ADMIN')  or hasRole('TEST')")
 @RequestMapping("/dailyWeather")
 public class CurrentDailyWeatherController {
 	

@@ -45,7 +45,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-//@TODO enum { "ROLE_ADMIN", "ROLE_STANDARD", "ROLE_PREMIUM" }
+//@TODO enum { "ROLE_ADMIN", "ROLE_STANDARD", "ROLE_PREMIUM" "ROLE TEST"}
 @Service
 @RestController
 @RequestMapping("/user")

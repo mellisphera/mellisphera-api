@@ -30,6 +30,7 @@ import com.mellisphera.security.service.BmServiceImpl;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -47,9 +48,9 @@ public class NoteController {
     public NoteController() {
 	    }
 
-    
-    
-    
+
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STANDARD') or hasRole('PREMIUM')")
     @PostMapping("/insert")
     public Note insert(@RequestBody Note observation){
         String value = "";
@@ -99,12 +100,14 @@ public class NoteController {
         List<Note> reportsL = this.noteRepository.findByHiveIdAndOpsDateBetween(idHive, range[0], range[1]);
         return reportsL;
     }
-    
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STANDARD') or hasRole('PREMIUM')")
     @DeleteMapping("/{id}")
 	 public void delete(@PathVariable("id") String id){
 	    this.noteRepository.deleteById(id);
 	 }
-    
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STANDARD') or hasRole('PREMIUM')")
     @PutMapping("/update/{id}")
     public void update(@PathVariable("id") String id, @RequestBody Note note){
         try{
