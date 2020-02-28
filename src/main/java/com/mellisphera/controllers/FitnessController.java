@@ -21,7 +21,7 @@ import java.util.List;
 public class FitnessController {
 
     @Autowired private FitnessRepository fitnessRepository;
-    private final static String APIARY_DEMO = "OIBwW52KK8hG6jq4S9Lx";
+    private final static String APIARY_DEMO = "SV6gUir5CX95dLKRHRTI";
 
     private MongoTemplate mongoTemplate;
     public FitnessController(MongoTemplate mongoTemplate) {
