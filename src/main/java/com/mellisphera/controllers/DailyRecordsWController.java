@@ -49,6 +49,7 @@ import com.mellisphera.repositories.DailyRecordsWRepository;
 @Service
 @RestController
 @RequestMapping("/dailyRecordsW")
+@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN') or hasRole('TEST')")
 public class DailyRecordsWController {
 
 	@Autowired

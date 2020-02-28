@@ -43,16 +43,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/hives")
 public class HiveController {
 
-	@Autowired
-    private HivesRepository hivesRepository;
+	@Autowired private HivesRepository hivesRepository;
     @Autowired private ShareRepository shareRepository;
     @Autowired private SensorRepository sensorRepository;
 	
     public HiveController() {
-    }
-    
-    public HiveController(HivesRepository hivesRepository) {
-    	this.hivesRepository = hivesRepository;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -60,7 +55,7 @@ public class HiveController {
     public List<Hive> getAll(){
         return this.hivesRepository.findAll();
     }
-    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN') or hasRole('TEST')")
     @RequestMapping(value = "/username/{apiaryId}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllUserHives(@PathVariable String apiaryId){
     	return this.hivesRepository.findHiveByApiaryId(apiaryId).stream().filter(_hive -> !_hive.getHidden()).collect(Collectors.toList());
@@ -73,7 +68,7 @@ public class HiveController {
 	    return hiveById;
     }
     
-    @PreAuthorize("hasRole('ADMIN') or hasRole('STANDARD')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STANDARD') or hasRole('TEST')")
     @RequestMapping(value="/{userId}", method = RequestMethod.GET, produces={"application/json"})
     public List<Hive> getAllByUsername(@PathVariable String userId){
         List<Hive> hiveUser = this.hivesRepository.findHiveByUserId(userId).stream().filter(_hive -> !_hive.getHidden()).collect(Collectors.toList());

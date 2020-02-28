@@ -30,6 +30,7 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,7 @@ import com.mellisphera.repositories.HivesRepository;
 
 @Service
 @RestController
+@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN') or hasRole('TEST')")
 @RequestMapping("/dailyRecordsTH")
 public class DailyRecordsTHController {
 
@@ -49,6 +51,7 @@ public class DailyRecordsTHController {
 	@Autowired private HiveController hiveController;
 	@Autowired private DailyRecordsTHRepository dailyRecordsTHRepository;
 	@Autowired private HivesRepository hivesRepository;
+
 	private MongoTemplate mongoTemplate;
 	public DailyRecordsTHController(MongoTemplate mongoTemplate) {
 		this.mongoTemplate = mongoTemplate;
@@ -77,7 +80,6 @@ public class DailyRecordsTHController {
         Date end = range[1];
         return this.dailyRecordsTHRepository.findByHiveIdAndRecordDateBetween(hiveId, start, end, sort);
 	}
-	
 	@RequestMapping(value = "/apiary/{idApiary}", method = RequestMethod.POST, produces={"application/json"})
 	public List<DailyRecordsTH> getByApiary(@PathVariable String idApiary, @RequestBody Date[] range){
 		List<Hive> hives = this.hiveController.getAllUserHives(idApiary);
