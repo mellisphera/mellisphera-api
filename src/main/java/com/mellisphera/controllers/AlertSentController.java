@@ -51,7 +51,7 @@ public class AlertSentController {
 	
 	@GetMapping("/apiary/hiveAllert/{idApiary}/{start}/{end}")
 	public List<AlertSent> getHiveAlertByApiary(@PathVariable String idApiary, @PathVariable long start, @PathVariable long end) {
-		return this.alertSentRepository.findByApiaryIdAndOpsDateBetween(idApiary, new Date(start), new Date(end)).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
+		return this.alertSentRepository.findByApiaryIdAndOpsDateBetween(idApiary, new Date(start), new Date(end));
 	}
 	
 	@PutMapping("/update/{id}")
@@ -70,7 +70,7 @@ public class AlertSentController {
 	}
 	@PostMapping("/between/hive/{idHive}")
 	public List<AlertSent> getHiveAlert(@PathVariable String idHive, @RequestBody Date[] range) {
-		return this.alertSentRepository.findByHiveIdAndOpsDateBetween(idHive, range[0], range[1]).stream().filter(_alertSent -> _alertSent.getLoc().equals("Hive")).collect(Collectors.toList());
+		return this.alertSentRepository.findByHiveIdAndOpsDateBetween(idHive, range[0], range[1]);
 	}
 
 	@PostMapping("/between/apiary/{idApiary}")
