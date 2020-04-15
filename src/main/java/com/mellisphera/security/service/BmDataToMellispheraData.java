@@ -251,7 +251,7 @@ public class BmDataToMellispheraData {
             return "T2";
         } else if (prefix.equals("42")) {
             return "T_HR";
-        } else if (prefix.equals("43")) {
+        } else if (prefix.equals("43") || prefix.equals("49") || prefix.equals("52")  ) {
             return "WEIGHT";
         } else {
             return "ALIEN";
