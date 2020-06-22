@@ -55,6 +55,7 @@ public class ApiaryController {
     @Autowired private UserRepository userRepository;
     @Autowired private ShareRepository shareRepository;
     @Autowired private JwtProvider tokenProvider;
+	@Autowired private ImageTool imageTool;
     @Autowired private SensorRepository sensorRepository;
     
     @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
@@ -123,7 +124,7 @@ public class ApiaryController {
     @PostMapping("")
     public Apiary insert(@RequestBody Apiary apiary){
 		if (!apiary.getPhoto().contains("background_draw_color")) {
-			ImageTool imageTool = new ImageTool(apiary.getPhoto(), apiary.getUserId());
+			this.imageTool.setConf(apiary.getPhoto(), apiary.getUserId());
 			imageTool.convertToFile();
 			apiary.setPhoto(imageTool.getPathClient());
 		}
@@ -145,7 +146,7 @@ public class ApiaryController {
     public void update(@PathVariable("id") String id, @RequestBody Apiary apiary){
 		Apiary lastApiary = this.apiaryRepository.findById(id).get();
 		if (!lastApiary.getPhoto().equals(apiary.getPhoto())) {
-			ImageTool imageTool = new ImageTool(apiary.getPhoto(), apiary.getUserId());
+			this.imageTool.setConf(apiary.getPhoto(), apiary.getUserId());
 			imageTool.convertToFile();
 			apiary.setPhoto(imageTool.getPathClient());
 		}
@@ -165,7 +166,7 @@ public class ApiaryController {
     @RequestMapping(value = "/update/background/{idApiary}", method = RequestMethod.PUT)
     public void updateBackground(@PathVariable String idApiary ,@RequestBody String imgB64) {
     	Apiary apiary = this.apiaryRepository.findById(idApiary).get();
-		ImageTool imageTool = new ImageTool(imgB64, apiary.getUserId());
+		this.imageTool.setConf(imgB64, apiary.getUserId());
 		imageTool.convertToFile();
 		apiary.setPhoto(imageTool.getPathClient());
     	this.apiaryRepository.save(apiary);
