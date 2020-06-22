@@ -21,15 +21,12 @@ public class ImageTool {
     private String userId;
     private String fileName;
     private String pathFile;
-    public ImageTool(String base64, String userId){
+    public void setConf(String base64, String userId){
         this.base64 = base64.split(",");
         this.userId = userId;
-	this.server_path = "/apiwatch/production/imgClient/";
+	    //this.server_path = "/apiwatch/production/imgClient/";
         this.getExtension();
-
     }
-
-    public ImageTool(){}
 
 
    private void getExtension() {
@@ -51,7 +48,7 @@ public class ImageTool {
         this.fileName = this.userId + "-" + new Date().getTime() + "." + this.extension;
         this.pathFile = this.server_path + this.fileName;
         File file = new File(this.pathFile);
-        System.out.println(this.pathFile);
+        System.out.println(pathFile);
 	try{
             BufferedImage bufferedImg = ImageIO.read(new ByteArrayInputStream(data));
             ImageIO.write(bufferedImg, this.extension, file);
