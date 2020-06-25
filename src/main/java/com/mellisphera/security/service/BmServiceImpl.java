@@ -36,6 +36,7 @@ import org.springframework.web.client.RestTemplate;
 import com.mellisphera.security.entities.BmAuth;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -162,7 +163,9 @@ public class BmServiceImpl implements BmService {
 	public Object putNote(BmNote bmNote){
 		String urlRequest = this.bmUrl + "notes";
 		this.header = new HttpHeaders();
-        //this.header.add("Content-Type", "application/json");
+		this.header.add("Content-Type", "application/json;charset=UTF-8");
+		this.header.add("Accept-Charset", "UTF-8");
+		this.header.add("charset", "UTF-8");
         this.header.add("license_key", this.licenceKey);
 		Gson gson = new Gson();
 		String noteJson = gson.toJson(bmNote);
@@ -217,7 +220,9 @@ public class BmServiceImpl implements BmService {
 	public BmNoteCreate postNote(BmNote bmNote){
 		String urlRequest = this.bmUrl +  "notes";
 		this.header = new HttpHeaders();
-		this.header.add("Content-Type", "application/json");
+		this.header.add("Content-Type", "application/json;charset=UTF-8");
+		this.header.add("Accept-Charset", "UTF-8");
+		this.header.add("charset", "UTF-8");
 		this.header.add("license_key", this.licenceKey);
 		Gson gson = new Gson();
 		String noteJson = gson.toJson(bmNote);
