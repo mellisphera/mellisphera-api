@@ -35,10 +35,24 @@ public class GeoipServiceImpl implements GeopIpService {
 
     @Override
     public GeoIp getGeoIp(String ip) {
+        GeoIp geoIp =null;
         RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
-        GeoIp geoIp = restTemplate.getForObject(geoIpUrl + ip + "/json", GeoIp.class);
-        if(geoIp != null)
-            log.debug(" Geoip :" + geoIp.toString());
+
+        try {
+            geoIp = restTemplate.getForObject(geoIpUrl + ip + "/json", GeoIp.class);
+            if(geoIp != null)
+                log.debug(" Geoip :" + geoIp.toString());
+
+            if(geoIp==null || geoIp.getCity()==null){
+                geoIp = getGeoIp("73.31.36.97");
+            }
+        }
+
+        catch (Exception e){
+            geoIp = getGeoIp("73.31.36.97");
+            return geoIp;
+        }
+
         return geoIp;
     }
 

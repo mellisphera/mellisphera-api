@@ -120,16 +120,9 @@ public class AuthRestApiController {
 		String jwt = null;
 		User user = null;
 		String ipAddress = request.getRemoteAddr();
-		GeoIp geoIp = null;
-		try{
-			geoIp = geoipService.getGeoIp(ipAddress);
-		}
-		catch (Exception e) {
-			geoIp = geoipService.getGeoIp("73.31.36.97");
-		}
-		if(geoIp.getCity() == null) {
-			geoIp = geoipService.getGeoIp("83.173.67.13");
-		}
+		GeoIp geoIp = geoipService.getGeoIp(ipAddress);
+
+
 		try {
 			authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
