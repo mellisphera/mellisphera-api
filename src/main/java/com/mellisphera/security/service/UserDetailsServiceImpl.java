@@ -45,12 +45,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public ApiWatchUserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		// load user and build the principal
 		User user = userRepository.findUserByEmail(email);
-		log.debug(" Load User :"+ user.toString());
-		// 
-		if(user == null)
+
+		if(user == null) {
 			throw  new UsernameNotFoundException("User Not Found with -> username : " + email);
-		else 
+		}
+		else {
+			log.debug(" Load User :"+ user.toString());
 			return ApiWatchUserDetails.build(user);
+		}
 	}
 
 }
