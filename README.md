@@ -4,7 +4,9 @@
 
 #### Configurations
 
-Open the `application.properties` file and set your own configurations.
+Open the `src/main/resources/application.properties` file and set your own configurations.
+Email us and we'll send you a template file.
+
 
 #### Prerequisites
 
