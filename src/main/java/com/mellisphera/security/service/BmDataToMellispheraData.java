@@ -249,9 +249,10 @@ public class BmDataToMellispheraData {
         String prefix = ref.split(":")[0];
         if (prefix.equals("41") || prefix.equals("47")) {
             return "T2";
-        } else if (prefix.equals("42")) {
+        } else if (prefix.equals("42") || prefix.equals("56")) {
             return "T_HR";
-        } else if (prefix.equals("43") || prefix.equals("49") || prefix.equals("52")  ) {
+        } else if (prefix.equals("43") || prefix.equals("49") || prefix.equals("57") || prefix.equals("58")) {
+            /* précedament il y avait le 52, avec 3 devices dans la db, je l'ai supprimé car il est devenu subhub*/ 
             return "WEIGHT";
         } else {
             return "ALIEN";
