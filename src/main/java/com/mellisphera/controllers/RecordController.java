@@ -134,7 +134,7 @@ public class RecordController {
         Sort sort = new Sort(Direction.DESC, "timestamp");
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
         data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, new Date(start),new Date(end), sort).stream()
-        		.filter(_filter  -> _filter.getSensorRef().contains("43") || _filter.getSensorRef().contains("49") || _filter.getSensorRef().contains("52")).map(record -> {
+        		.filter(_filter  -> _filter.getSensorRef().contains("43") || _filter.getSensorRef().contains("49") || _filter.getSensorRef().contains("57") || _filter.getSensorRef().contains("58")).map(record -> {
         	return new SimpleSeries(record.getRecordDate(), this.unitService.convertTempFromUsePref(record.getTemp_ext(), unit), record.getSensorRef());
         }).collect(Collectors.toList());
         if(data != null) {
@@ -150,7 +150,7 @@ public class RecordController {
         Sort sort = new Sort(Direction.DESC, "timestamp");
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
         data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, new Date(start), new Date(end), sort).stream()
-        		.filter(_filter  -> _filter.getSensorRef().contains("42")).map(record -> {
+        		.filter(_filter  -> _filter.getSensorRef().contains("42") || _filter.getSensorRef().contains("56")).map(record -> {
         	return new SimpleSeries(record.getRecordDate(), record.getHumidity_int(), record.getSensorRef());
         }).collect(Collectors.toList());
         if(data != null) {
@@ -167,7 +167,7 @@ public class RecordController {
         Sort sort = new Sort(Direction.DESC, "timestamp");
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
         data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, new Date(start), new Date(end), sort).stream()
-        		.filter(_filter  -> _filter.getSensorRef().contains("43")).map(record -> {
+        		.filter(_filter  -> _filter.getSensorRef().contains("43") || _filter.getSensorRef().contains("49") || _filter.getSensorRef().contains("57") || _filter.getSensorRef().contains("58")).map(record -> {
         	return new SimpleSeries(record.getRecordDate(), record.getBattery_ext(), record.getSensorRef());
         }).collect(Collectors.toList());
         if(data != null) {
@@ -184,7 +184,7 @@ public class RecordController {
         Sort sort = new Sort(Direction.DESC, "timestamp");
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
         data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, new Date(start), new Date(end), sort).stream()
-        		.filter(_filter  -> _filter.getSensorRef().contains("42") || _filter.getSensorRef().contains("41") || _filter.getSensorRef().contains("39") ||  _filter.getSensorRef().contains("B5")).map(record -> {
+        		.filter(_filter  -> _filter.getSensorRef().contains("42") || _filter.getSensorRef().contains("41") || _filter.getSensorRef().contains("47") || _filter.getSensorRef().contains("56") || _filter.getSensorRef().contains("39") ||  _filter.getSensorRef().contains("B5")).map(record -> {
         	return new SimpleSeries(record.getRecordDate(), record.getBattery_int(), record.getSensorRef());
         }).collect(Collectors.toList());
         if(data != null) {
