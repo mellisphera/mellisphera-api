@@ -100,7 +100,8 @@ public class RecordController {
     public ResponseEntity<?> getWeightByHive(@PathVariable String hiveId, @PathVariable long start, @PathVariable long end, @PathVariable Unit unit){
         Sort sort = new Sort(Direction.DESC, "timestamp");
         List<SimpleSeries> data = new ArrayList<SimpleSeries>();
-        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, new Date(start),new Date(end), sort).stream().filter(_filter  ->  _filter.getSensorRef().contains("43") || _filter.getSensorRef().contains("49") || _filter.getSensorRef().contains("57") || _filter.getSensorRef().contains("58")).map(record -> {
+        data = this.recordRepository.findByHiveIdAndRecordDateBetween(hiveId, new Date(start),new Date(end), sort).stream()
+                .filter(_filter  ->  _filter.getSensorRef().contains("43") || _filter.getSensorRef().contains("49") || _filter.getSensorRef().contains("57") || _filter.getSensorRef().contains("58")).map(record -> {
         	return new SimpleSeries(record.getRecordDate(), this.unitService.convertWeightFromUserPref(record.getWeight(), unit), record.getSensorRef());
         }).collect(Collectors.toList());
         if(data != null) {
@@ -174,7 +175,7 @@ public class RecordController {
         	return new ResponseEntity<>(data, HttpStatus.OK);
         }
         else {
-        	return new ResponseEntity<>("Aucunetemp_ext donnée", HttpStatus.NOT_FOUND);
+        	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
         }
         
     }
