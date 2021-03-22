@@ -138,4 +138,18 @@ public class DailyRecordsWController {
 				.getRecordDate(), _daily.getWeight_max(), _daily.getSensorRef())).collect(Collectors.toList());
 	}
 	
+	@PostMapping("weightMin/{hiveId}")
+	public List<SimpleSeries> getWeightMinByHive(@RequestBody Date[] range, @PathVariable String hiveId){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.dailyRecordsWRepository.findByHiveIdAndRecordDateBetween(hiveId, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
+				.getRecordDate(), _daily.getWeight_min(), _daily.getSensorRef())).collect(Collectors.toList());
+	}
+	
+	@PostMapping("weightIncomeGain/{hiveId}")
+	public List<SimpleSeries> getWeightIncomeGainByHive(@RequestBody Date[] range, @PathVariable String hiveId){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.dailyRecordsWRepository.findByHiveIdAndRecordDateBetween(hiveId, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
+				.getRecordDate(), _daily.getWeight_income_gain() , _daily.getSensorRef())).collect(Collectors.toList());
+	}
+	
 }
