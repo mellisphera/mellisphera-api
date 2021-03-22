@@ -33,7 +33,7 @@ import com.mellisphera.repositories.ShareRepository;
 import com.mellisphera.repositories.UserRepository;
 import com.mellisphera.security.jwt.JwtAuthTokenFilter;
 import com.mellisphera.security.jwt.JwtProvider;
-import sun.misc.BASE64Decoder;
+import java.util.Base64;
 
 import java.util.HashMap;
 import java.util.List;
