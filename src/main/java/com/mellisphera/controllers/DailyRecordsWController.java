@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.annotation.Resource;
+import javax.annotation.Resources;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +59,7 @@ public class DailyRecordsWController {
 	private DailyRecordsWRepository dailyRecordsWRepository;
 	@Autowired HiveController hiveController;
 	private MongoTemplate mongoTemplate;
+
 
 	public DailyRecordsWController(MongoTemplate mongoTemplate) {
 		this.mongoTemplate = mongoTemplate;
