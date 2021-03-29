@@ -14,6 +14,7 @@ limitations under the License. */
 package com.mellisphera.entities;
 
 import java.util.Arrays;
+import java.util.Date;
 
 public class UserPref {
 	
@@ -24,6 +25,7 @@ public class UserPref {
 	private String[] availableSource;
 	private Boolean weatherStation;
 	private String unitSystem;
+	private Date dateRef;
 	
 	public UserPref(String timeZone, String timeFormat, String lang, String unitSystem, String weatherSource, String[] availableSource, Boolean weatherStation) {
 		super();
@@ -92,6 +94,14 @@ public class UserPref {
 		this.availableSource = availableSource;
 	}
 
+	public void setDateRef(Date ref){
+		this.dateRef = ref;
+	}
+
+	public Date getDateRef(){
+		return this.dateRef;
+	}
+
 	@Override
 	public String toString() {
 		return "UserPref{" +
@@ -101,6 +111,7 @@ public class UserPref {
 				", weatherSource='" + weatherSource + '\'' +
 				", availableSource=" + Arrays.toString(availableSource) +
 				", unitSystem='" + unitSystem + '\'' +
+				", dateRef='" + dateRef + '\'' + 
 				'}';
 	}
 }
