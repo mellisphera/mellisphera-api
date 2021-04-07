@@ -9,28 +9,30 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. */ 
 
-
-
 package com.mellisphera.repositories;
 
 import java.util.List;
+import java.util.Date;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 
-import com.mellisphera.entities.Apiary;
+import com.mellisphera.entities.InspApiary;
 
 @Service
 @Repository
-public interface ApiaryRepository  extends MongoRepository<Apiary ,String>{
-
-	Apiary findApiaryBy_id(String _id);
+public interface InspApiaryRepository extends MongoRepository<InspApiary ,String>{
 	
-	List<Apiary> findApiaryByUsername(String username);
+	InspApiary findInspApiaryBy_id(String _id);
 
-	List<Apiary> findApiaryByUserId(String userId);
+	List<InspApiary> findInspApiaryByApiaryId(String apiaryId);
+
+    List<InspApiary> findInspApiaryByApiaryIdAndDate(String apiaryId, Date date);
+
+    List<InspApiary> findInspApiaryByApiaryIdAndDateBetween(String apiaryId, Date start, Date end, Sort sort);
 
 
 }
-
