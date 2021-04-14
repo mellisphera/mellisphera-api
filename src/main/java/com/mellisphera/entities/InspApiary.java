@@ -15,6 +15,8 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+//import InspTaskObs;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -25,19 +27,22 @@ public class InspApiary {
     private String _id;
     private Date date;
     private String apiaryId;
-    private String[] tasks;
+    private Object[] tasks;
+    private Object[] obs;
     private String notes;
     private String todo;
 
     public InspApiary() {}
 
-    public InspApiary(String _id, Date date, String apiaryId, String[] tasks, String notes, String todo){
+    public InspApiary(String _id, Date date, String apiaryId, Object[] tasks, Object[] obsv, String notes, String todo){
         this._id = _id;
         this.date = date;
         this.apiaryId = apiaryId;
         this.tasks = tasks.clone();
+        this.obs = obsv.clone();
         this.notes = notes;
         this.todo = todo;
+        System.out.println(tasks);
     }
 
     public String get_id(){
@@ -52,8 +57,12 @@ public class InspApiary {
         return this.apiaryId;
     }
 
-    public String[] getTasks(){
+    public Object[] getTasks(){
         return this.tasks;
+    }
+
+    public Object[] getObs(){
+        return this.obs;
     }
 
     public String getNotes(){
@@ -76,8 +85,12 @@ public class InspApiary {
         this.apiaryId = apiaryId;
     }
 
-    public void setTasks(String[] tasks){
+    public void setTasks(Object[] tasks){
         this.tasks = tasks.clone();
+    }
+
+    public void setObs(Object[] obsv){
+        this.obs = obsv.clone();
     }
 
     public void setNotes(String notes){
@@ -88,7 +101,7 @@ public class InspApiary {
         this.todo = todo;
     }
 
-    @Override
+    /*@Override
 	public String toString() {
         String res;
         res = "InspApiary{" +
@@ -97,8 +110,13 @@ public class InspApiary {
               ", apiaryId='" + apiaryId + '\'';
 
         res += ", tasks=[ ";
-        for(String s : tasks){
-            res += "'" + s + "' ,";
+        for(InspTaskObs s : tasks){
+            res += "'{ name: " + s.getName() + ", img: "+ s.getImg() + "}' ,";
+        }
+        res += " ]";
+        res += ", obs=[ ";
+        for(InspTaskObs s : obs){
+            res += "'{ name: " + s.getName() + ", img: "+ s.getImg() + "}' ,";
         }
         res += " ]";
         res += ", notes='" + notes + '\'' +
@@ -106,5 +124,5 @@ public class InspApiary {
                '}';
 		return res;
 	}
-
+*/
 }
