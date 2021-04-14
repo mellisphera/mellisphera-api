@@ -26,6 +26,8 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+//import com.mellisphera.entities.InspTaskObs;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -38,19 +40,21 @@ public class InspHive {
     private Date date;
     private String apiaryId;
     private String hiveId;
-    private String[] tasks;
+    private Object[] tasks;
+    private Object[] obs;
     private String notes;
     private String todo;
 
     public InspHive() {}
 
-    public InspHive(String _id, String inspId, Date date, String apiaryId, String hiveId, String[] tasks, String notes, String todo){
+    public InspHive(String _id, String inspId, Date date, String apiaryId, String hiveId, Object[] tasks, Object[] obsv, String notes, String todo){
         this._id = _id;
         this.inspId = inspId;
         this.date = date;
         this.apiaryId = apiaryId;
         this.hiveId = hiveId;
         this.tasks = tasks.clone();
+        this.obs = obsv.clone();
         this.notes = notes;
         this.todo = todo;
     }
@@ -71,8 +75,12 @@ public class InspHive {
         return this.apiaryId;
     }
 
-    public String[] getTasks(){
+    public Object[] getTasks(){
         return this.tasks;
+    }
+
+    public Object[] getObs(){
+        return this.obs;
     }
 
     public String getNotes(){
@@ -103,8 +111,12 @@ public class InspHive {
         this.hiveId = hiveId;
     }
 
-    public void setTasks(String[] tasks){
+    public void setTasks(Object[] tasks){
         this.tasks = tasks.clone();
+    }
+
+    public void setObs(Object[] obsv){
+        this.obs = obsv.clone();
     }
 
     public void setNotes(String notes){
@@ -115,7 +127,7 @@ public class InspHive {
         this.todo = todo;
     }
 
-    @Override
+   /* @Override
 	public String toString() {
         String res;
         res = "InspApiary{" +
@@ -126,14 +138,19 @@ public class InspHive {
               ", hiveId='" + hiveId + '\'';
 
         res += ", tasks=[";
-        for(String s : tasks){
-            res += ",   '" + s + '\'';
+        for(Object s : tasks){
+            res += "'{ name: " + s.getName() + ", img: "+ s.getImg() + "}' ,";
         }
         res += "  ]";
+        res += ", obs=[ ";
+        for(Object s : obs){
+            res += "'{ name: " + s.getName() + ", img: "+ s.getImg() + "}' ,";
+        }
+        res += " ]";
         res += ", notes='" + notes + '\'' +
                ", todo='" + todo + '\'' +
                '}';
 		return res;
-	}
+	}*/
 
 }

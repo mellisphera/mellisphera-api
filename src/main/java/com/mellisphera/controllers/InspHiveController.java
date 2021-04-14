@@ -70,6 +70,7 @@ public class InspHiveController {
 
     @GetMapping(value = "/hiveId/{hiveId}")
     public List<InspHive> getInspHiveByHiveId(@PathVariable String hiveId){
+        System.out.println(this.inspHiveRepository.findInspHiveByHiveId(hiveId));
     	return this.inspHiveRepository.findInspHiveByHiveId(hiveId);
     }
 
@@ -90,8 +91,8 @@ public class InspHiveController {
         Apiary a = this.apiaryRepository.findApiaryBy_id(inspHive.getApiaryId());
         inspHive.setInspId(a.get_id());
         System.out.println(inspHive);
-        return inspHive;
-    	//return this.inspHiveRepository.insert(inspHive);
+        //return inspHive;
+    	return this.inspHiveRepository.insert(inspHive);
     }
 
 
