@@ -30,7 +30,7 @@ public interface InspApiaryRepository extends MongoRepository<InspApiary ,String
 
 	List<InspApiary> findInspApiaryByApiaryId(String apiaryId);
 
-    List<InspApiary> findInspApiaryByApiaryIdAndDate(String apiaryId, Date date);
+    InspApiary findInspApiaryByApiaryIdAndDate(String apiaryId, Date date);
 
     List<InspApiary> findInspApiaryByApiaryIdAndDateBetween(String apiaryId, Date start, Date end, Sort sort);
 
