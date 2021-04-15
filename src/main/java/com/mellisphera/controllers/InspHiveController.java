@@ -88,7 +88,7 @@ public class InspHiveController {
     @PostMapping("")
     public InspHive insert(@RequestBody InspHive inspHive){
         System.out.println("bonjour hive");
-        Apiary a = this.apiaryRepository.findApiaryBy_id(inspHive.getApiaryId());
+        InspApiary a = this.inspApiaryRepository.findInspApiaryByApiaryIdAndDate(inspHive.getApiaryId(), inspHive.getDate());
         inspHive.setInspId(a.get_id());
         System.out.println(inspHive);
         //return inspHive;

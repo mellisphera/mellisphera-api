@@ -47,7 +47,7 @@ public class InspApiaryController {
     }
 
     @PostMapping(value = "/apiaryId/date/{apiaryId}")
-    public List<InspApiary> getInspApiaryByApiaryIdAndDate(@PathVariable String apiaryId, @RequestBody Date date){
+    public InspApiary getInspApiaryByApiaryIdAndDate(@PathVariable String apiaryId, @RequestBody Date date){
     	return this.inspApiaryRepository.findInspApiaryByApiaryIdAndDate(apiaryId, date);
     }
 
