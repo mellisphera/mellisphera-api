@@ -87,13 +87,16 @@ public class InspHiveController {
 
     @PostMapping("")
     public InspHive insert(@RequestBody InspHive inspHive){
-        System.out.println("bonjour hive");
         InspApiary a = this.inspApiaryRepository.findInspApiaryByApiaryIdAndDate(inspHive.getApiaryId(), inspHive.getDate());
         inspHive.setInspId(a.get_id());
-        System.out.println(inspHive);
         //return inspHive;
     	return this.inspHiveRepository.insert(inspHive);
     }
 
+    @PostMapping(value = "/event")
+    public InspHive insertEvent(@RequestBody InspHive inspHive){
+        //return inspHive;
+    	return this.inspHiveRepository.insert(inspHive);
+    }
 
 }
