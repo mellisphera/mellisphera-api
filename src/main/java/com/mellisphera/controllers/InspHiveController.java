@@ -70,7 +70,6 @@ public class InspHiveController {
 
     @GetMapping(value = "/hiveId/{hiveId}")
     public List<InspHive> getInspHiveByHiveId(@PathVariable String hiveId){
-        System.out.println(this.inspHiveRepository.findInspHiveByHiveId(hiveId));
     	return this.inspHiveRepository.findInspHiveByHiveId(hiveId);
     }
 
@@ -97,6 +96,12 @@ public class InspHiveController {
     public InspHive insertEvent(@RequestBody InspHive inspHive){
         //return inspHive;
     	return this.inspHiveRepository.insert(inspHive);
+    }
+
+    @PostMapping(value = "/event/delete")
+    public InspHive deleteEvent(@RequestBody InspHive inspHive){
+        //return inspHive;
+    	return this.inspHiveRepository.deleteById(inspHive._id);
     }
 
 }
