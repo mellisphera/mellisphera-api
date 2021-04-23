@@ -30,6 +30,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 @Service
 @RestController
 @RequestMapping("/inspHive")
@@ -69,7 +74,7 @@ public class InspHiveController {
     }
 
     @GetMapping(value = "/hiveId/{hiveId}")
-    public List<InspHive> getInspHiveByHiveId(@PathVariable String hiveId){
+    public List<InspHive> getInspHiveByHiveId(@PathVariable String hiveId){        
     	return this.inspHiveRepository.findInspHiveByHiveId(hiveId);
     }
 
@@ -99,9 +104,9 @@ public class InspHiveController {
     }
 
     @PostMapping(value = "/event/delete")
-    public InspHive deleteEvent(@RequestBody InspHive inspHive){
-        //return inspHive;
-    	return this.inspHiveRepository.deleteById(inspHive._id);
+    public void deleteEvent(@RequestBody String[] inspHiveId){
+        List<String> ids = Arrays.asList(inspHiveId);
+    	this.inspHiveRepository.deleteBy_idIn(ids);
     }
 
 }

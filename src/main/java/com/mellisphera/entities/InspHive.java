@@ -75,6 +75,10 @@ public class InspHive {
         return this.apiaryId;
     }
 
+    public String getHiveId(){
+        return this.hiveId;
+    }
+
     public Object[] getTasks(){
         return this.tasks;
     }
