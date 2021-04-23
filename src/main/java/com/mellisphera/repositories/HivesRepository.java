@@ -26,7 +26,8 @@ import com.mellisphera.entities.Hive;
 @Repository
 public interface HivesRepository  extends MongoRepository<Hive ,String>{
 
-	
+	Hive findHiveBy_id(String _id);
+
 	List<Hive> findHiveByUsername(String username);
 
 	List<Hive> findHiveByUserId(String userId);

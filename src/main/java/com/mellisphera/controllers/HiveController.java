@@ -67,6 +67,14 @@ public class HiveController {
     	Hive hiveById = this.hivesRepository.findById(idHive).get();
 	    return hiveById;
     }
+
+    @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN') or hasRole('TEST')")
+    @GetMapping(value = "/hiveId/{idHive}")
+    public Hive getHiveById(@PathVariable String idHive){
+    	Hive hiveById = this.hivesRepository.findHiveBy_id(idHive);
+        System.out.println(hiveById.toString());
+	    return hiveById;
+    }
     
     @PreAuthorize("hasRole('ADMIN') or hasRole('STANDARD') or hasRole('TEST')")
     @RequestMapping(value="/{userId}", method = RequestMethod.GET, produces={"application/json"})

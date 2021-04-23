@@ -42,4 +42,6 @@ public interface InspHiveRepository  extends MongoRepository<InspHive ,String>{
 
     List<InspHive> findInspHiveByHiveIdAndDateBetween(String hiveId, Date start, Date end, Sort sort);
 
+    void deleteBy_idIn(List<String> ids);
+
 }
