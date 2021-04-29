@@ -17,6 +17,8 @@ import com.mellisphera.entities.*;
 import com.mellisphera.entities.bm.*;
 import com.mellisphera.entities.bm.changeLog.BmHiveUpdated;
 import com.mellisphera.repositories.*;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -288,6 +290,30 @@ public class BmDataToMellispheraData {
                 newApiary.setPhoto(BACKGROUND_APIARY_EN[this.getRandomValue((BACKGROUND_APIARY_EN.length))]);
                 this.apiaryRepository.insert(newApiary);
             }
+        }
+        try{
+            Apiary aux = this.apiaryRepository.findApiaryBy_id(bmApiary.getApiaryId());
+            if(aux.getWeatherStation() == null){
+                WeatherStation ws = new WeatherStation();
+                ws.setActivated(false);
+                ws.setStationId(null);
+                ws.setKey(null);
+                ws.setSecret(null);
+
+                newApiary.setWeatherStation(ws);
+            }
+            else{
+                newApiary.setWeatherStation(aux.getWeatherStation());
+            }
+        }
+        catch(Exception e){
+            WeatherStation ws = new WeatherStation();
+            ws.setActivated(false);
+            ws.setStationId(null);
+            ws.setKey(null);
+            ws.setSecret(null);
+
+            newApiary.setWeatherStation(ws);
         }
         return newApiary;
     }

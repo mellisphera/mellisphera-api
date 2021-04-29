@@ -28,7 +28,6 @@ public class UserPref {
 	private Date dateRef;
 	
 	public UserPref(String timeZone, String timeFormat, String lang, String unitSystem, String weatherSource, String[] availableSource, Boolean weatherStation) {
-		super();
 		this.timeZone = timeZone;
 		this.timeFormat = timeFormat;
 		this.lang = lang;
