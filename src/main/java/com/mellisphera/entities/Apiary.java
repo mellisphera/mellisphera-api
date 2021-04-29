@@ -13,8 +13,6 @@ limitations under the License. */
 
 package com.mellisphera.entities;
 
-import java.io.File;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -39,13 +37,14 @@ public class Apiary {
 	private Date dataLastReceived;
 	private String username; 
 	private List<User> sharedWith;
+	private WeatherStation weatherStation;
 	
 	
 	public Apiary() {
 		super();
 	}
 
-	public Apiary(String _id, String name, String description, String zipCode, Boolean privateApiary, String city, String userId, Date createDate, String countryCode, String photo, Date dataLastReceived, String username, List<User> sharedWith, Boolean hidden) {
+	public Apiary(String _id, String name, String description, String zipCode, boolean privateApiary, String city, String userId, Date createDate, String countryCode, String photo, Date dataLastReceived, String username, List<User> sharedWith, boolean hidden, Object ws) {
 		this._id = _id;
 		this.name = name;
 		this.hidden = hidden;
@@ -60,6 +59,7 @@ public class Apiary {
 		this.dataLastReceived = dataLastReceived;
 		this.username = username;
 		this.sharedWith = sharedWith;
+		this.weatherStation = (WeatherStation) ws;
 	}
 
 	public String get_id() {
@@ -172,5 +172,17 @@ public class Apiary {
 
 	public void setHidden(Boolean hidden) {
 		this.hidden = hidden;
+	}
+
+	public WeatherStation getWeatherStation(){
+		return this.weatherStation;
+	}
+
+	public void setWeatherStation(Object ws){
+		this.weatherStation = (WeatherStation) ws;
+	}
+
+	public void setWeatherStation(WeatherStation ws){
+		this.weatherStation = ws;
 	}
 }

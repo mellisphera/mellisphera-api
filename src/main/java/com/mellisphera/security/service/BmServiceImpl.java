@@ -190,9 +190,10 @@ public class BmServiceImpl implements BmService {
 				entity,
 				BmAuth.class);
 		if (response.getBody() != null) {
+			System.out.println(response.getBody().toString());
 			this.saveChangeLog(response.getBody(), username, userId, countryCode);
 		} else {
-			System.err.println("Aucune mise à jours");
+			System.err.println("Aucune mise à jour du ChangeLog pour " + username);
 		}
 	}
 

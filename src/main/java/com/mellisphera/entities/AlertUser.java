@@ -16,6 +16,7 @@ package com.mellisphera.entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,10 +33,11 @@ public class AlertUser {
     private String frequency;
     /* Key: alertId, value: Conf */
     private Map<String , AlertConf> alertConf;
+    private Date lastSend;
 
     public AlertUser(){}
 
-    public AlertUser(String userId, String[] availableFrequency, int dayFrequency, String[] email, Boolean emailEnable, String frequency, Map<String, AlertConf> alertConf) {
+    public AlertUser(String userId, String[] availableFrequency, int dayFrequency, String[] email, Boolean emailEnable, String frequency, Map<String, AlertConf> alertConf, Date lastSend) {
         this._id = _id;
         this.userId = userId;
         this.availableFrequency = availableFrequency;
@@ -44,6 +46,7 @@ public class AlertUser {
         this.emailEnable = emailEnable;
         this.frequency = frequency;
         this.alertConf = alertConf;
+        this.lastSend = lastSend;
     }
 
     public String get_id() {
@@ -108,5 +111,13 @@ public class AlertUser {
 
     public void setAlertConf(Map<String, AlertConf> alertConf) {
         this.alertConf = alertConf;
+    }
+
+    public Date getLastSend(){
+        return this.lastSend;
+    }
+
+    public void setLastSend(Date date){
+        this.lastSend = date;
     }
 }
