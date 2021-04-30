@@ -59,9 +59,6 @@ public class InspApiaryController {
 
     @PostMapping("")
     public InspApiary insert(@RequestBody InspApiary inspApiary){
-        System.out.println("bonjour");
-        System.out.println(inspApiary);
-        //return inspApiary;
     	return this.inspApiaryRepository.insert(inspApiary);
     }
 
