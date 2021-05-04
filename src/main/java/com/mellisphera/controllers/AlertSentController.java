@@ -13,11 +13,14 @@ limitations under the License. */
 
 package com.mellisphera.controllers;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.mellisphera.entities.AlertSent;
+
+import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,6 +79,12 @@ public class AlertSentController {
 	@PostMapping("/between/apiary/{idApiary}")
 	public List<AlertSent> getApiaryAlert(@PathVariable String idApiary, @RequestBody Date[] range) {
 		return this.alertSentRepository.findByApiaryIdAndOpsDateBetween(idApiary, range[0], range[1]).stream().filter(_alertSent -> _alertSent.getLoc().equals("Apiary")).collect(Collectors.toList());
+	}
+
+	@PostMapping("/delete")
+	public void deleteAlertSent(@RequestBody String[] inspIds){
+		List<String> ids = Arrays.asList(inspIds);
+		this.alertSentRepository.deleteBy_idIn(ids);
 	}
 
 	private Date convertTimestampToDate(long time){
