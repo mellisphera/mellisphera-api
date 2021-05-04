@@ -72,7 +72,6 @@ public class HiveController {
     @GetMapping(value = "/hiveId/{idHive}")
     public Hive getHiveById(@PathVariable String idHive){
     	Hive hiveById = this.hivesRepository.findHiveBy_id(idHive);
-        System.out.println(hiveById.toString());
 	    return hiveById;
     }
     

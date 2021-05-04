@@ -45,11 +45,11 @@ public interface InspectionRepository extends MongoRepository<Inspection ,String
 
     List<Inspection> findInspectionByCreateDate(Date createDate);
 
-    List<Inspection> findInspectionByCreateDateAndDateBetween(Date create_start, Date create_end, Sort sort);
+    List<Inspection> findInspectionByCreateDateBetween(Date create_start, Date create_end, Sort sort);
 
     List<Inspection> findInspectionByOpsDate(Date opsDate);
     
-    List<Inspection> findInspectionByOpsDateAndDateBetween(Date ops_start, Date ops_end, Sort sort);
+    List<Inspection> findInspectionByOpsDateBetween(Date ops_start, Date ops_end, Sort sort);
 
     List<Inspection> findInspectionByHiveId(String hiveId);
 

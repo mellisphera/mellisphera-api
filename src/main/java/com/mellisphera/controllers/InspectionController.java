@@ -81,7 +81,7 @@ public class InspectionController {
     @PostMapping(value = "/createdate/between/")
     public List<Inspection> getInspectionByCreateDateBetween(@RequestBody Date[] createDate){
     	Sort sort = new Sort(Direction.DESC, "timestamp");
-        return this.inspectionRepository.findInspectionByCreateDateAndDateBetween(createDate[0], createDate[1], sort);
+        return this.inspectionRepository.findInspectionByCreateDateBetween(createDate[0], createDate[1], sort);
     }
 
     @GetMapping(value = "/opsdate/{date}")
@@ -92,7 +92,7 @@ public class InspectionController {
     @PostMapping(value = "/opsdate/between")
     public List<Inspection> getInspectionByOpsDateAndDateBetween(@RequestBody Date[] opsDate){
     	Sort sort = new Sort(Direction.DESC, "timestamp");
-        return this.inspectionRepository.findInspectionByOpsDateAndDateBetween(opsDate[0], opsDate[1], sort);
+        return this.inspectionRepository.findInspectionByOpsDateBetween(opsDate[0], opsDate[1], sort);
     }
 
     @GetMapping(value = "/hiveid/{hiveId}")

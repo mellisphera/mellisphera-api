@@ -29,4 +29,5 @@ public interface AlertSentRepository extends MongoRepository<AlertSent, String>{
 
 	public List<AlertSent> findByApiaryIdAndOpsDateBetween(String apiaryId, Date start, Date end);
 
+	void deleteBy_idIn(List<String> ids);
 }
