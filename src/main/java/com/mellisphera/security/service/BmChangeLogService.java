@@ -38,6 +38,7 @@ public class BmChangeLogService {
     @Autowired private HivesRepository hiveRepository;
     @Autowired private SensorRepository sensorRepository;
     @Autowired private NoteRepository noteRepository;
+    @Autowired private InspectionRepository inspectionRepository;
     @Autowired private UserRepository userRepository;
 
     public BmChangeLogService() {}
@@ -87,6 +88,17 @@ public class BmChangeLogService {
                 this.noteRepository.save(_newNote);
             } else {
                 this.noteRepository.insert(_newNote);
+            }
+        });
+    }
+
+    public void saveInspectionFromBmNote(BmNote[] bmNote, String userId) {
+        Arrays.stream(bmNote).map(_note -> this.bmToMellispheraData.getNewInspection(_note, userId)).collect(Collectors.toList()).forEach(_newInsp -> {
+            boolean inspExist = this.inspectionRepository.findById(_newInsp.get_id()).isPresent();
+            if (inspExist) {
+                this.inspectionRepository.save(_newInsp);
+            } else {
+                this.inspectionRepository.insert(_newInsp);
             }
         });
     }
