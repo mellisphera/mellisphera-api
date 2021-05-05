@@ -29,6 +29,8 @@ public interface InspectionRepository extends MongoRepository<Inspection ,String
 
     Inspection findInspectionBy_id(String _id);
 
+    List<Inspection> findInspectionsByUserId(String userId);
+
     List<Inspection> findInspectionByApiaryInspId(String apiaryInspId);
 
     List<Inspection> findInspectionByApiaryInspIdAndCreateDateBetween(String apiaryInspId, Date create_start, Date create_end, Sort sort);

@@ -60,6 +60,7 @@ public class BmServiceImpl implements BmService {
     @Autowired private HivesRepository hiveRepository;
     @Autowired private SensorRepository sensorRepository;
     @Autowired private NoteRepository noteRepository;
+	@Autowired private InspectionRepository inspectionRepository;
     @Autowired private UserRepository userRepository;
 
     @Autowired private BmDataToMellispheraData 	bmToMellispheraData;
@@ -252,6 +253,7 @@ public class BmServiceImpl implements BmService {
 			}
 			if (change.getPayload().getBmNoteCreate() != null) {
 				this.changeLogService.saveNoteFromBmNote(change.getPayload().getBmNoteCreate(), userId);
+				this.changeLogService.saveInspectionFromBmNote(change.getPayload().getBmNoteCreate(), userId);
 			}
 			if (change.getPayload().getBmHiveCreate() != null) {
 				this.changeLogService.saveHiveFromBmHive(change.getPayload().getBmHiveCreate(), username, userId);
@@ -279,6 +281,7 @@ public class BmServiceImpl implements BmService {
 			if (change.getPayload().getNoteDelete() != null) {
 				for (String id: change.getPayload().getNoteDelete()) {
 					this.noteRepository.deleteById(id);
+					this.inspectionRepository.deleteById(id);
 				}
 			}
 			if (change.getPayload().getApiaryUpdate() != null) {
@@ -300,6 +303,7 @@ public class BmServiceImpl implements BmService {
 			if (change.getPayload().getNoteUpdate() != null) {
 				for (BmNoteUpdated noteUpdated: change.getPayload().getNoteUpdate()) {
 					this.noteRepository.save(this.bmToMellispheraData.getNewNote(noteUpdated.getUpdatedData(), userId));
+					this.inspectionRepository.save(this.bmToMellispheraData.getNewInspection(noteUpdated.getUpdatedData(), userId));
 				}
 			}
 			this.deleteChangeLog(change.getPayload().getModified(), change.getPayload().getUserId());

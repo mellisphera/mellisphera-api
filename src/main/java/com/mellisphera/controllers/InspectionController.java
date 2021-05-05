@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Comparator;
 
 import com.mellisphera.entities.Inspection;
 import com.mellisphera.repositories.InspectionRepository;
@@ -32,6 +33,13 @@ public class InspectionController {
     @GetMapping(value = "/_id/{_id}")
     public Inspection getInspectionById(@PathVariable String _id){
     	return this.inspectionRepository.findInspectionBy_id(_id);
+    }
+
+    @GetMapping(value = "/user/{userId}")
+    public List<Inspection> getInspectionsByUser(@PathVariable String userId){
+        List<Inspection> inspByApiary = this.inspectionRepository.findInspectionsByUserId(userId);
+        inspByApiary.sort(Comparator.comparing(o -> o.getOpsDate()));
+        return inspByApiary;
     }
 
     @GetMapping(value = "/apiaryinspid/{apiaryInspId}")
@@ -144,6 +152,16 @@ public class InspectionController {
     @PostMapping("/insert/event/hive")
     public Inspection insertHiveEvent(@RequestBody Inspection eventHive){
     	return this.inspectionRepository.insert(eventHive);
+    }
+
+    @PostMapping("/update")
+    public Inspection updateInsp(@PathVariable String _id, @RequestBody Inspection inspection){
+        Inspection i = this.inspectionRepository.findInspectionBy_id(_id);
+        inspection.setApiaryInspId(i.getApiaryInspId());
+        inspection.setObs(i.getObs());
+        inspection.setTasks(i.getTasks());
+        inspection.setTodo(i.getTodo());
+        return this.inspectionRepository.save(inspection);
     }
 
     @PostMapping("/delete/hive")

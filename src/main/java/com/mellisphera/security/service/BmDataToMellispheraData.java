@@ -83,6 +83,27 @@ public class BmDataToMellispheraData {
         return newNote;
     }
 
+    Inspection getNewInspection(BmNote bmNote, String userId) {
+        byte[] byteStr = bmNote.getDescription().getBytes();
+        Inspection newInsp = new Inspection();
+        newInsp.set_id(bmNote.getNoteId());
+        newInsp.setApiaryId(bmNote.getApiaryId());
+        newInsp.setHiveId(bmNote.getHiveId());
+        newInsp.setUserId(userId);
+        newInsp.setCreateDate( this.convertTimestampToDate(bmNote.getCreateDate()) );
+        newInsp.setOpsDate( this.convertTimestampToDate(bmNote.getOpsDate()) );
+        newInsp.setType(bmNote.getType());
+        newInsp.setTags(bmNote.getTags());
+        try{
+            newInsp.setDescription(new String(byteStr, "UTF-8").replaceAll ("<.*?>", ""));
+        }
+        catch (UnsupportedEncodingException e) {
+            System.out.println("erreur encoding");
+            newInsp.setDescription(bmNote.getDescription().replaceAll ("<.*?>", ""));
+        }
+        return newInsp;
+    }
+
     Hive getNewHive(BmHive bmHive, String username, String userId) {
         Hive newHive = new Hive();
         int apiaryLocationLength = bmHive.getApiaryLocation().length;
