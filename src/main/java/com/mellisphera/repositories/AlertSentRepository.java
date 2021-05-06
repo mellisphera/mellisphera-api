@@ -18,6 +18,7 @@ import java.util.List;
 
 import com.mellisphera.entities.AlertSent;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.domain.Sort;
 
 public interface AlertSentRepository extends MongoRepository<AlertSent, String>{
 	
@@ -25,9 +26,9 @@ public interface AlertSentRepository extends MongoRepository<AlertSent, String>{
 	
 	public List<AlertSent> findByHiveId(String hiveid);
 	
-	public List<AlertSent> findByHiveIdAndOpsDateBetween(String hiveId, Date start, Date end);
+	public List<AlertSent> findByHiveIdAndOpsDateBetween(String hiveId, Date start, Date end, Sort sort);
 
-	public List<AlertSent> findByApiaryIdAndOpsDateBetween(String apiaryId, Date start, Date end);
+	public List<AlertSent> findByApiaryIdAndOpsDateBetween(String apiaryId, Date start, Date end, Sort sort);
 
 	void deleteBy_idIn(List<String> ids);
 }
