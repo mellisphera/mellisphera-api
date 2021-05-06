@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 
 import com.mellisphera.repositories.AlertSentRepository;
 
@@ -54,7 +56,8 @@ public class AlertSentController {
 	
 	@GetMapping("/apiary/hiveAllert/{idApiary}/{start}/{end}")
 	public List<AlertSent> getHiveAlertByApiary(@PathVariable String idApiary, @PathVariable long start, @PathVariable long end) {
-		return this.alertSentRepository.findByApiaryIdAndOpsDateBetween(idApiary, new Date(start), new Date(end));
+		Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.alertSentRepository.findByApiaryIdAndOpsDateBetween(idApiary, new Date(start), new Date(end), sort);
 	}
 	
 	@PutMapping("/update/{id}")
@@ -73,12 +76,14 @@ public class AlertSentController {
 	}
 	@PostMapping("/between/hive/{idHive}")
 	public List<AlertSent> getHiveAlert(@PathVariable String idHive, @RequestBody Date[] range) {
-		return this.alertSentRepository.findByHiveIdAndOpsDateBetween(idHive, range[0], range[1]);
+		Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.alertSentRepository.findByHiveIdAndOpsDateBetween(idHive, range[0], range[1], sort);
 	}
 
 	@PostMapping("/between/apiary/{idApiary}")
 	public List<AlertSent> getApiaryAlert(@PathVariable String idApiary, @RequestBody Date[] range) {
-		return this.alertSentRepository.findByApiaryIdAndOpsDateBetween(idApiary, range[0], range[1]).stream().filter(_alertSent -> _alertSent.getLoc().equals("Apiary")).collect(Collectors.toList());
+		Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.alertSentRepository.findByApiaryIdAndOpsDateBetween(idApiary, range[0], range[1], sort).stream().filter(_alertSent -> _alertSent.getLoc().equals("Apiary")).collect(Collectors.toList());
 	}
 
 	@PostMapping("/delete")
