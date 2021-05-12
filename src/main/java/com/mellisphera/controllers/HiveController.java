@@ -89,6 +89,14 @@ public class HiveController {
         }
         return hiveUser;
     }
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STANDARD') or hasRole('TEST')")
+    @GetMapping(value="/hives/{apiaryId}")
+    public List<Hive> getHivesByApiaryId(@PathVariable String apiaryId){
+        return this.hivesRepository.findHiveByApiaryId(apiaryId);
+    }
+
+
     @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @PostMapping
     public Hive insert(@RequestBody Hive Hive){
