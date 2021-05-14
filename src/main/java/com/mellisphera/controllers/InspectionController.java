@@ -12,10 +12,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Arrays;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Comparator;
 
 import com.mellisphera.entities.Inspection;
@@ -136,6 +141,24 @@ public class InspectionController {
     public List<Inspection> getInspectionByTypeAndOpsDateBetween(@PathVariable String type, @RequestBody Date[] opsDate){
     	Sort sort = new Sort(Direction.DESC, "timestamp");
         return this.inspectionRepository.findInspectionByTypeAndOpsDateBetween(type, opsDate[0], opsDate[1], sort);
+    }
+
+    @PostMapping(value = "/filter/{apiaryId}")
+    public List<Inspection> getInspectionsByFilters(@PathVariable String apiaryId, @RequestBody ObjectNode body){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        List<String> hiveIds = new ObjectMapper().convertValue(body.get("hiveIds"), ArrayList.class);
+        List<String> opsRange = new ObjectMapper().convertValue(body.get("opsRange"), ArrayList.class);
+        List<String> types = new ObjectMapper().convertValue(body.get("types"), ArrayList.class);
+
+        Date start = Date.from( Instant.parse(opsRange.get(0)) );
+        Date end = Date.from( Instant.parse(opsRange.get(1)) );
+        
+        return this.inspectionRepository.findInspectionByApiaryIdAndOpsDateBetween(apiaryId, start, end, sort)
+                                        .stream()
+                                        .filter(_insp -> hiveIds.contains(_insp.getHiveId()) || _insp.getHiveId() == null)
+                                        .filter(_insp -> types.contains(_insp.getType()))
+                                        .collect(Collectors.toList());
+        
     }
 
     @PostMapping("/insert/apiary")
