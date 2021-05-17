@@ -14,11 +14,11 @@ limitations under the License. */
 package com.mellisphera.controllers;
 
 import java.util.Arrays;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.mellisphera.entities.AlertSent;
 
 import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.mellisphera.entities.AlertSent;
 import com.mellisphera.repositories.AlertSentRepository;
 
 @Service
@@ -84,6 +87,26 @@ public class AlertSentController {
 	public List<AlertSent> getApiaryAlert(@PathVariable String idApiary, @RequestBody Date[] range) {
 		Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.alertSentRepository.findByApiaryIdAndOpsDateBetween(idApiary, range[0], range[1], sort).stream().filter(_alertSent -> _alertSent.getLoc().equals("Apiary")).collect(Collectors.toList());
+	}
+
+	@PostMapping("/filter/{apiaryId}")
+	public List<AlertSent> getAlertsByFilters(@PathVariable String apiaryId, @RequestBody ObjectNode body){
+		Sort sort = new Sort(Direction.DESC, "timestamp");
+		List<String> hiveIds = new ObjectMapper().convertValue(body.get("hiveIds"), ArrayList.class);
+		List<String> opsRange = new ObjectMapper().convertValue(body.get("opsRange"), ArrayList.class);
+		List<String> pictos = new ObjectMapper().convertValue(body.get("pictos"), ArrayList.class);
+		List<String> locations = new ObjectMapper().convertValue(body.get("loc"), ArrayList.class);
+		
+		Date start = Date.from( Instant.parse(opsRange.get(0)) );
+        Date end = Date.from( Instant.parse(opsRange.get(1)) );
+
+		return this.alertSentRepository.findByApiaryIdAndOpsDateBetween(apiaryId, start, end, sort)
+                                        .stream()
+                                        .filter(_alert -> hiveIds.contains(_alert.getHiveId()) || _alert.getHiveId() == null)
+                                        .filter(_alert -> pictos.contains(_alert.getIcon()))
+										.filter(_alert -> locations.contains(_alert.getLoc()))
+                                        .collect(Collectors.toList());
+	
 	}
 
 	@PostMapping("/delete")
