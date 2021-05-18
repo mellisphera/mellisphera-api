@@ -100,8 +100,6 @@ public class AlertSentController {
 		Date start = Date.from( Instant.parse(opsRange.get(0)) );
         Date end = Date.from( Instant.parse(opsRange.get(1)) );
 
-		System.out.println(locations.toString());
-
 		return this.alertSentRepository.findByApiaryIdAndOpsDateBetween(apiaryId, start, end, sort)
                                         .stream()
                                         .filter(_alert -> hiveIds.contains(_alert.getHiveId()) || _alert.getHiveId() == null)

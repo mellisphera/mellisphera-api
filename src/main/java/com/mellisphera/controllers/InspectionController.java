@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
+import com.mellisphera.entities.InspTaskObs;
 import com.mellisphera.entities.Inspection;
 import com.mellisphera.repositories.InspectionRepository;
 
@@ -149,6 +150,8 @@ public class InspectionController {
         List<String> hiveIds = new ObjectMapper().convertValue(body.get("hiveIds"), ArrayList.class);
         List<String> opsRange = new ObjectMapper().convertValue(body.get("opsRange"), ArrayList.class);
         List<String> types = new ObjectMapper().convertValue(body.get("types"), ArrayList.class);
+        List<String> pictos = new ObjectMapper().convertValue(body.get("pictos"), ArrayList.class);
+        Boolean showEmpty = new ObjectMapper().convertValue(body.get("empty"),Boolean.class);
 
         Date start = Date.from( Instant.parse(opsRange.get(0)) );
         Date end = Date.from( Instant.parse(opsRange.get(1)) );
@@ -157,6 +160,21 @@ public class InspectionController {
                                         .stream()
                                         .filter(_insp -> hiveIds.contains(_insp.getHiveId()) || _insp.getHiveId() == null)
                                         .filter(_insp -> types.contains(_insp.getType()))
+                                        .filter(_insp -> {
+                                            boolean found = false;
+                                            if(showEmpty && (_insp.getObs() == null || _insp.getObs().length == 0) ){
+                                                return true;
+                                            }
+                                            if(_insp.getObs() != null && _insp.getObs().length > 0){
+                                                for(InspTaskObs obs : _insp.getObs()){
+                                                    if(pictos.contains(obs.getName())){
+                                                        found = true;
+                                                    }
+                                                }
+                                                return found;
+                                            }
+                                            return false;
+                                        })
                                         .collect(Collectors.toList());
         
     }
