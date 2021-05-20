@@ -109,6 +109,11 @@ public class AlertSentController {
 	
 	}
 
+	@PutMapping("/update")
+	public AlertSent updateAlert(@RequestBody AlertSent alert){
+		return this.alertSentRepository.save(alert);
+	}
+
 	@PostMapping("/delete")
 	public void deleteAlertSent(@RequestBody String[] inspIds){
 		List<String> ids = Arrays.asList(inspIds);
