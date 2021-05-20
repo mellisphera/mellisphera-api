@@ -199,10 +199,6 @@ public class InspectionController {
     @PutMapping("/update/{_id}")
     public Inspection updateInsp(@PathVariable String _id, @RequestBody Inspection inspection){
         Inspection i = this.inspectionRepository.findInspectionBy_id(_id);
-        //inspection.setApiaryInspId(i.getApiaryInspId());
-        //inspection.setObs(i.getObs());
-        //inspection.setTasks(i.getTasks());
-        //inspection.setTodo(i.getTodo());
         return this.inspectionRepository.save(inspection);
     }
 
