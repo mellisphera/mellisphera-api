@@ -90,7 +90,7 @@ public class DailyRecordsWController {
 	public List<SimpleSeries> getWeightIcomeWByHive(@PathVariable String hiveId, @RequestBody Date[] range) {
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsWRepository.findByHiveIdAndRecordDateBetween(hiveId, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
-				.getRecordDate(), _daily.getWeight_income_gain(), _daily.getSensorRef())).collect(Collectors.toList());
+				.getRecordDate(), _daily.getWeight_income_gain(), _daily.getSensorRef(), _daily.getPosition())).collect(Collectors.toList());
 	}
 	
 	
@@ -107,6 +107,7 @@ public class DailyRecordsWController {
 						put("recordDate", "$recordDate");
 						put("temp_ext_min", "$temp_ext_min");
 						put("sensorRef", "$sensorRef");
+						put("position", "$position");
 					}
 				}).as("values")
 		);
@@ -127,6 +128,7 @@ public class DailyRecordsWController {
 						put("recordDate", "$recordDate");
 						put("temp_ext_max", "$temp_ext_max");
 						put("sensorRef", "$sensorRef");
+						put("position", "$position");
 					}
 				}).as("values")
 		);
@@ -139,21 +141,21 @@ public class DailyRecordsWController {
 	public List<SimpleSeries> getWeightByHive(@RequestBody Date[] range, @PathVariable String hiveId){
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsWRepository.findByHiveIdAndRecordDateBetween(hiveId, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
-				.getRecordDate(), _daily.getWeight_max(), _daily.getSensorRef())).collect(Collectors.toList());
+				.getRecordDate(), _daily.getWeight_max(), _daily.getSensorRef(), _daily.getPosition())).collect(Collectors.toList());
 	}
 	
 	@PostMapping("weightMin/{hiveId}")
 	public List<SimpleSeries> getWeightMinByHive(@RequestBody Date[] range, @PathVariable String hiveId){
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsWRepository.findByHiveIdAndRecordDateBetween(hiveId, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
-				.getRecordDate(), _daily.getWeight_min(), _daily.getSensorRef())).collect(Collectors.toList());
+				.getRecordDate(), _daily.getWeight_min(), _daily.getSensorRef(), _daily.getPosition())).collect(Collectors.toList());
 	}
 	
 	@PostMapping("weightIncomeGain/{hiveId}")
 	public List<SimpleSeries> getWeightIncomeGainByHive(@RequestBody Date[] range, @PathVariable String hiveId){
         Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsWRepository.findByHiveIdAndRecordDateBetween(hiveId, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
-				.getRecordDate(), _daily.getWeight_income_gain() , _daily.getSensorRef())).collect(Collectors.toList());
+				.getRecordDate(), _daily.getWeight_income_gain() , _daily.getSensorRef(), _daily.getPosition())).collect(Collectors.toList());
 	}
 	
 }

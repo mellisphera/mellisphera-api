@@ -23,6 +23,7 @@ public class DailyRecordsTH {
 	private String id;
 	private Date recordDate;
 	private String hiveId;
+	private String position;
 	private float humidity_int_min;
 	private float humidity_int_max;
 	private float temp_int_min;
@@ -41,13 +42,14 @@ public class DailyRecordsTH {
 
 	}
 
-	public DailyRecordsTH(String id, Date recordDate, String hiveId, float humidity_int_min, float humidity_int_max,
+	public DailyRecordsTH(String id, Date recordDate, String hiveId, String position, float humidity_int_min, float humidity_int_max,
 			float temp_int_min, float temp_int_max, float temp_int_moy, float temp_int_stddev, String status,
 			String trend, float r_int_text, Long timestamp, Double brood, String sensorRef) {
 		super();
 		this.id = id;
 		this.recordDate = recordDate;
 		this.hiveId = hiveId;
+		this.position = position;
 		this.humidity_int_min = humidity_int_min;
 		this.humidity_int_max = humidity_int_max;
 		this.temp_int_min = temp_int_min;
@@ -125,6 +127,14 @@ public class DailyRecordsTH {
 
 	public void sethiveId(String hiveId) {
 		this.hiveId = hiveId;
+	}
+
+	public String getPosition(){
+		return position;
+	}
+
+	public void setPosition(String pos){
+		this.position = pos;
 	}
 
 	public float getHumidity_int_min() {

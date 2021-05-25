@@ -19,11 +19,19 @@ public class SimpleSeries {
 	private Date date;
 	private Object value;
 	private String sensorRef;
-	
-	public SimpleSeries(Date date, Object value, String sensorRef) {
+	private String position;
+
+	public SimpleSeries(Date date, Object value, String sensorRef){
 		this.date = date;
 		this.value = value;
 		this.sensorRef = sensorRef;
+	}
+	
+	public SimpleSeries(Date date, Object value, String sensorRef, String position) {
+		this.date = date;
+		this.value = value;
+		this.sensorRef = sensorRef;
+		this.position = position;
 	}
 	
 	
@@ -58,5 +66,11 @@ public class SimpleSeries {
 		this.value = value;
 	}
 	
-	
+	public String getPosition(){
+		return this.position;
+	}
+
+	public void setPosition(String pos){
+		this.position = pos;
+	}
 }
