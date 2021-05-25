@@ -23,6 +23,7 @@ public class DailyRecordsW {
 	private String id;
 	private Date recordDate;
 	private String hiveId;
+	private String position;
 	private float temp_ext_min;
 	private float temp_ext_max;
 	private float weight_min;
@@ -40,13 +41,14 @@ public class DailyRecordsW {
 		
 	}
 	
-	public DailyRecordsW(String id, Date recordDate, String hiveId, float temp_ext_min, float temp_ext_max,
+	public DailyRecordsW(String id, Date recordDate, String hiveId, String position, float temp_ext_min, float temp_ext_max,
 			float weight_min, float weight_max, float weight_gain, float weight_income_gain, float weight_foragingbees,
 			float weight_hive, float weight_colony, float weight_filling_rate, Long timestamp, String sensorRef) {
 		super();
 		this.id = id;
 		this.recordDate = recordDate;
 		this.hiveId = hiveId;
+		this.position = position;
 		this.temp_ext_min = temp_ext_min;
 		this.temp_ext_max = temp_ext_max;
 		this.weight_min = weight_min;
@@ -110,7 +112,14 @@ public class DailyRecordsW {
 		this.hiveId = hiveId;
 	}
 	
-	
+	public String getPosition(){
+		return position;
+	}
+
+	public void setPosition(String pos){
+		this.position = pos;
+	}
+
 	public float getTemp_int_min() {
 		return temp_ext_min;
 	}
@@ -236,7 +245,7 @@ public class DailyRecordsW {
 				+ temp_ext_min + ", temp_ext_max=" + temp_ext_max + ", weight_min=" + weight_min + ", weight_max="
 				+ weight_max + ", weight_gain=" + weight_gain + ", weight_income_gain=" + weight_income_gain
 				+ ", weight_foragingbees=" + weight_foragingbees + ", weight_hive=" + weight_hive + ", weight_colony="
-				+ weight_colony + ", weight_filling_rate=" + weight_filling_rate + "]";
+				+ weight_colony + ", weight_filling_rate=" + weight_filling_rate + ", position =" + position + "]";
 	}
 	
 	

@@ -121,6 +121,7 @@ public class DailyRecordsTHController {
 						put("recordDate", "$recordDate");
 						put("temp_int_max", "$temp_int_max");
 						put("sensorRef", "$sensorRef");
+						put("position", "$position");
 					}
 				}).as("values")
 		);
@@ -141,6 +142,7 @@ public class DailyRecordsTHController {
 						put("recordDate", "$recordDate");
 						put("humidity_int_max", "$humidity_int_max");
 						put("sensorRef", "$sensorRef");
+						put("position", "$position");
 					}
 				}).as("values")
 		);
@@ -161,6 +163,7 @@ public class DailyRecordsTHController {
 						put("recordDate", "$recordDate");
 						put("brood", "$brood");
 						put("sensorRef", "$sensorRef");
+						put("position", "$position");
 					}
 				}).as("values")
 		);
@@ -172,7 +175,7 @@ public class DailyRecordsTHController {
 	public List<SimpleSeries> getBroodByHive(@RequestBody Date[] range, @PathVariable String hiveId){
 		Sort sort = new Sort(Direction.DESC, "timestamp");
 		return this.dailyRecordsTHRepository.findByHiveIdAndRecordDateBetween(hiveId, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
-				.getRecordDate(), _daily.getBrood(), _daily.getSensorRef())).collect(Collectors.toList());
+				.getRecordDate(), _daily.getBrood(), _daily.getSensorRef(), _daily.getPosition())).collect(Collectors.toList());
 	}
 
 	@GetMapping("/tMin/{hiveId}/{start}/{end}")
@@ -188,6 +191,7 @@ public class DailyRecordsTHController {
 						put("recordDate", "$recordDate");
 						put("temp_int_min", "$temp_int_min");
 						put("sensorRef", "$sensorRef");
+						put("position", "$position");
 					}
 				}).as("values")
 		);
