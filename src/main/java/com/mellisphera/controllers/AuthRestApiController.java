@@ -39,6 +39,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -106,6 +107,10 @@ public class AuthRestApiController {
     BmServiceImpl bmAuthService;
 	
 	@Autowired JavaMailSender emailSender;
+
+	@Value("${changelog.update}")
+    private Boolean changeLogUpdate;
+
 	/**
 	 * 
 	 * @param loginRequest
@@ -129,7 +134,10 @@ public class AuthRestApiController {
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			user = this.userRepository.findUserByEmail(loginRequest.getEmail());
 
-			this.bmAuthService.getChangeLog(user.getId(), user.getUsername(),geoIp.getCountry());
+			if(changeLogUpdate){
+				this.bmAuthService.getChangeLog(user.getId(), user.getUsername(),geoIp.getCountry());
+			}
+			
 
 		}
 		catch(AuthenticationException e) {
