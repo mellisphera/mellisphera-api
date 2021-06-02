@@ -135,6 +135,7 @@ public class AuthRestApiController {
 			user = this.userRepository.findUserByEmail(loginRequest.getEmail());
 
 			if(changeLogUpdate){
+				System.out.println("Getting changelog");
 				this.bmAuthService.getChangeLog(user.getId(), user.getUsername(),geoIp.getCountry());
 			}
 			

@@ -16,10 +16,10 @@ public class InspCat {
     private String customLabel;
 
 
-    public InspCat(String name, String img, String type,
-                   String applies[], String[] seasons,
-                   boolean custom, String customLabel                
-    ){
+    public InspCat(){}
+
+    public InspCat(String _id, String name, String img, String type, String applies[], String[] seasons, boolean custom, String customLabel){
+        this._id = _id;
         this.name = name;
         this.img = img;
         this.type = type;
@@ -29,9 +29,8 @@ public class InspCat {
         this.customLabel = customLabel;
     }
 
-    public InspCat(String name, String img, String type,
-                   String applies[], String[] seasons               
-    ){
+    public InspCat(String _id, String name, String img, String type, String applies[], String[] seasons){
+        this._id = _id;
         this.name = name;
         this.img = img;
         this.type = type;
