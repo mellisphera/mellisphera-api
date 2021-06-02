@@ -35,14 +35,4 @@ public class InspCatController {
     	return this.inspCatRepository.findInspCatByType(type);
     }
 
-    @PostMapping(value = "/applies")
-    public List<InspCat> getInspCatByApplies(@RequestBody String[] applies){
-    	return this.inspCatRepository.findInspCatByApply(applies);
-    }
-
-    @PostMapping(value = "/seasons")
-    public List<InspCat> getInspCatBySeasons(@RequestBody String[] seasons){
-    	return this.inspCatRepository.findInspCatbySeasons(seasons);
-    }
-
 }

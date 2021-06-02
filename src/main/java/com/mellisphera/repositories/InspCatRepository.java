@@ -12,13 +12,7 @@ import com.mellisphera.entities.InspCat;
 @Service
 @Repository
 public interface InspCatRepository extends MongoRepository<InspCat ,String>{
-    
-    List<InspCat> findAll();
 
     List<InspCat> findInspCatByType(String type);
-
-    List<InspCat> findInspCatByApply(String[] applies);
-
-    List<InspCat> findInspCatbySeasons(String[] seasons);
 
 }

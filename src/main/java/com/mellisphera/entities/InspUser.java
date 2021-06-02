@@ -10,7 +10,10 @@ public class InspUser {
     private String idUser;
     private InspCat[] inspConf;
 
-    private InspUser(String idUser, Object[] inspConf){
+    public InspUser(){}
+
+    private InspUser(String _id, String idUser, Object[] inspConf){
+        this._id = _id;
         this.idUser = idUser;
         this.inspConf = (InspCat[]) inspConf;
     }
