@@ -40,6 +40,18 @@ public class InspCat {
         this.customLabel = null;
     }
 
+
+    public InspCat( InspCat inspcat ){
+        this._id = inspcat._id;
+        this.name = inspcat.getName();
+        this.img = inspcat.getImg();
+        this.type = inspcat.getType();
+        this.applies = inspcat.getApplies().clone();
+        this.seasons = inspcat.getSeasons().clone();
+        this.custom = inspcat.getCustom();
+        this.customLabel = inspcat.getCustomLabel();
+    }
+
     public String get_id(){
         return this._id;
     }
