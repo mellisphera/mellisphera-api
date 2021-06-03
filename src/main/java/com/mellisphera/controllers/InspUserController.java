@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import com.mellisphera.entities.InspUser;
+import com.mellisphera.entities.InspConf;
+import com.mellisphera.entities.InspCat;
 import com.mellisphera.repositories.InspUserRepository;
 
 @Service
 @RestController
-@RequestMapping("/inspCat")
+@RequestMapping("/inspUser")
 @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN') or hasRole('TEST')")
 public class InspUserController {
 
@@ -45,7 +47,7 @@ public class InspUserController {
     	return this.inspUserRepository.insert(inspUser);
     }
 
-    @PutMapping("/update")
+    @PostMapping("/update")
     public InspUser updateInspUser(@RequestBody InspUser inspUser){
     	return this.inspUserRepository.save(inspUser);
     }

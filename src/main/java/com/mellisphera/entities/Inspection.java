@@ -167,4 +167,18 @@ public class Inspection{
     public void setTodo(String todo){
         this.todo = todo;
     }
+
+    @Override
+    public String toString(){
+        return "Inspection : { \n" +
+        "  _id : " + this.get_id() + ", \n" +
+        "  userId : " + this.getUserId() + ", \n" +
+        "  apiaryId : " + this.getApiaryId() + ", \n" +
+        "  hiveId : " + this.getHiveId() + ", \n" +
+        "  createDate : " + this.getCreateDate().toString() + ", \n" +
+        "  opsDate : " + this.getOpsDate().toString() + ", \n" +
+        "  description : " + this.getDescription() + ", \n" +
+        "  todo : " + this.getTodo() + ", \n" +
+        " }";
+    }
 }

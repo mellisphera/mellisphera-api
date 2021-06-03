@@ -20,6 +20,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
@@ -44,7 +45,8 @@ public class InspectionController {
 
     @GetMapping(value = "/user/{userId}")
     public List<Inspection> getInspectionsByUser(@PathVariable String userId){
-        List<Inspection> inspByApiary = this.inspectionRepository.findInspectionsByUserId(userId);
+        List<Inspection> list = this.inspectionRepository.findInspectionsByUserId(userId);
+        List<Inspection> inspByApiary = list.stream().filter(o -> o.getOpsDate() != null).collect(Collectors.toList());
         inspByApiary.sort(Comparator.comparing(o -> o.getOpsDate()));
         return inspByApiary;
     }
