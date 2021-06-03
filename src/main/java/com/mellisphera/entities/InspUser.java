@@ -8,34 +8,34 @@ public class InspUser {
     @Id
     private String _id;
     private String idUser;
-    private InspCat[] inspConf;
+    private InspConf[] inspConf;
 
     public InspUser(){}
 
-    private InspUser(String _id, String idUser, Object[] inspConf){
+    public InspUser(String _id, String idUser, Object[] inspConf){
         this._id = _id;
         this.idUser = idUser;
-        this.inspConf = (InspCat[]) inspConf;
+        this.inspConf = (InspConf[]) inspConf;
     }
 
-    private String get_id(){
+    public String get_id(){
         return this._id;
     }
 
-    private String getIdUser(){
+    public String getIdUser(){
         return this.idUser;
     }
 
-    private void setIdUser(String idUser){
+    public void setIdUser(String idUser){
         this.idUser = idUser;
     }
 
-    private InspCat[] getInspCat(){
+    public InspConf[] getInspConf(){
         return this.inspConf;
     }
 
-    private void setInspCat(Object[] inspConf){
-        this.inspConf = (InspCat[]) inspConf;
+    public void setInspConf(InspConf[] inspConf){
+        this.inspConf = inspConf;
     }
 
 }
