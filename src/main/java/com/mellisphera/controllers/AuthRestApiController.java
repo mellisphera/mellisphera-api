@@ -118,8 +118,8 @@ public class AuthRestApiController {
 	 */
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest, HttpServletRequest request) {
-		log.debug(" Sign Up : username :" + loginRequest.getEmail() + " password:" + loginRequest.getPassword());
-		//
+		log.debug("Sign Up : username :" + loginRequest.getEmail() + " password:" + loginRequest.getPassword());
+		
 		ApiWatchUserDetails apiWatchUserDetails = null;
 		Authentication authentication = null;
 		String jwt = null;
