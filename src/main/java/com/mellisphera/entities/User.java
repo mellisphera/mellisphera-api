@@ -35,6 +35,7 @@ public class User {
 	private String email;
 	private long connexions;
 	private Date lastConnection;
+	private boolean active;
 	private UserPref userPref;
 
 	// ADD for spring security compatibility
@@ -46,6 +47,22 @@ public class User {
 
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
+	}
+
+	public User(String id, Date createdAt, String username, String password, String email, long connexions,
+			Date lastConnection, boolean active, UserPref userPref) {
+		super();
+		this._id = id;
+		this.createdAt = createdAt;
+		//this.login = login;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.connexions = connexions;
+		this.lastConnection = lastConnection;
+		this.active = active;
+		this.userPref = userPref;
+
 	}
 
 	public User(String id, Date createdAt, String username, String password, String email, long connexions,
@@ -147,6 +164,14 @@ public class User {
 		this.email = email;
 	}
 
+	public boolean getActive(){
+		return this.active;
+	}
+
+	public void setActive(boolean act){
+		this.active = act;
+	}
+
 	public long getConnexions() {
 		return connexions;
 	}
@@ -166,6 +191,8 @@ public class User {
 	public Date getLastConnection() {
 		return this.lastConnection;
 	}
+
+
 
 	@Override
 	public String toString() {
