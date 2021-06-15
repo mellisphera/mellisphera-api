@@ -188,8 +188,8 @@ public class InspectionController {
 
     @PostMapping("/insert/insp/hive")
     public Inspection insertHiveInsp(@RequestBody Inspection inspHive){
-        Inspection apiInsp = this.inspectionRepository.findInspectionByApiaryIdAndCreateDate(inspHive.getApiaryId(), inspHive.getCreateDate());
-        inspHive.setApiaryInspId(apiInsp.get_id());
+        //Inspection apiInsp = this.inspectionRepository.findInspectionByApiaryIdAndCreateDate(inspHive.getApiaryId(), inspHive.getCreateDate());
+        //inspHive.setApiaryInspId(apiInsp.get_id());
     	return this.inspectionRepository.insert(inspHive);
     }
 
