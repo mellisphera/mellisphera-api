@@ -168,13 +168,17 @@ public class AuthRestApiController {
 		user.incrementConnexions();
 		Date date = new Date();
 		user.setLastConnection(date);
+		if(!user.getActive()){
+			System.out.println(user.getUsername() + " has been reactivated.");
+			user.setActive(true);
+		}
 		this.userRepository.save(user);
 		if(ipAddress != "127.0.0.1" || ipAddress != "0:0:0:0:0:0:0:1") {
 			Connection connection = new Connection(date, user.getId(), request.getHeader("originURL"), user.getUsername(),  geoIp);
 			this.connectionRepository.insert(connection);
 		}
 		//public JwtResponse(String idUser, String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country, UserPref userPref, String lang)
-		return ResponseEntity.ok(new JwtResponse(user.getId(), jwt, user.getConnexions(), apiWatchUserDetails.getUsername(),user.getEmail(), apiWatchUserDetails.getAuthorities(),geoIp.getCountry(), user.getUserPref(), user.getUserPref().getLang()));
+		return ResponseEntity.ok(new JwtResponse(user.getId(), jwt, user.getConnexions(), apiWatchUserDetails.getUsername(),user.getEmail(), apiWatchUserDetails.getAuthorities(),geoIp.getCountry(), user.getUserPref(), user.getUserPref().getLang(), user.getActive()));
 	}
 
 	/**
