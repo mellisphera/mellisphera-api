@@ -29,9 +29,10 @@ public class JwtResponse {
 	private String country;
 	private UserPref userPref;
 	private String idUser;
+	private boolean active;
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public JwtResponse(String idUser, String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country, UserPref userPref, String lang) {
+	public JwtResponse(String idUser, String accessToken, Long connexions, String username, String email, Collection<? extends GrantedAuthority> authorities, String country, UserPref userPref, String lang, boolean active) {
 		this.lang = lang;
 		this.token = accessToken;
 		this.username = username;
@@ -41,6 +42,7 @@ public class JwtResponse {
 		this.country = country;
 		this.idUser = idUser;
 		this.userPref = userPref;
+		this.active = active;
 	}
 
 	public String getToken() {
@@ -137,6 +139,14 @@ public class JwtResponse {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public boolean getActive(){
+		return this.active;
+	}
+
+	public void setActive(boolean active){
+		this.active = active;
 	}
 
 	public Collection<? extends GrantedAuthority> getAuthorities() {
