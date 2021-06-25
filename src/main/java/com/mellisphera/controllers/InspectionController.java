@@ -1,6 +1,7 @@
 package com.mellisphera.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,6 +41,9 @@ public class InspectionController {
 
     @Autowired private InspectionRepository inspectionRepository;
     @Autowired private BmServiceImpl bmService;
+
+    @Value("${changelog.update}")
+    private Boolean changeLogUpdate;
 
     public InspectionController(){}
 
@@ -188,7 +192,8 @@ public class InspectionController {
 
     @PostMapping("/insert/apiary")
     public Inspection insertApiaryInsp(@RequestBody Inspection inspApiary){
-        this.bmService.postNote(new BmNote(
+        if(changeLogUpdate){
+            this.bmService.postNote(new BmNote(
                     inspApiary.getDescription(),
                     new String[]{},
                     null,
@@ -196,12 +201,14 @@ public class InspectionController {
                     inspApiary.getOpsDate().getTime()/1000,
                     inspApiary.getType(),
                     inspApiary.getCreateDate().getTime() / 1000));
+        }
     	return this.inspectionRepository.insert(inspApiary);
     }
 
     @PostMapping("/insert/insp/hive")
     public Inspection insertHiveInsp(@RequestBody Inspection inspHive){
-        this.bmService.postNote(new BmNote(
+        if(changeLogUpdate){
+            this.bmService.postNote(new BmNote(
                     inspHive.getDescription(),
                     new String[]{},
                     inspHive.getHiveId(),
@@ -209,12 +216,14 @@ public class InspectionController {
                     inspHive.getOpsDate().getTime()/1000,
                     inspHive.getType(),
                     inspHive.getCreateDate().getTime() / 1000));
+        }
     	return this.inspectionRepository.insert(inspHive);
     }
 
     @PostMapping("/insert/event/hive")
     public Inspection insertHiveEvent(@RequestBody Inspection eventHive){
-        this.bmService.postNote(new BmNote(
+        if(changeLogUpdate){
+            this.bmService.postNote(new BmNote(
                     eventHive.getDescription(),
                     new String[]{},
                     eventHive.getHiveId(),
@@ -222,21 +231,24 @@ public class InspectionController {
                     eventHive.getOpsDate().getTime()/1000,
                     eventHive.getType(),
                     eventHive.getCreateDate().getTime() / 1000));
+        }
     	return this.inspectionRepository.insert(eventHive);
     }
 
     @PutMapping("/update/{_id}")
     public Inspection updateInsp(@PathVariable String _id, @RequestBody Inspection inspection){
         Inspection i = this.inspectionRepository.findInspectionBy_id(_id);
-        this.bmService.putNote(new BmNote(
-                    inspection.get_id(),
-                    inspection.getDescription(),
-                    new String[]{},
-                    inspection.getHiveId(),
-                    inspection.getApiaryId(),
-                    inspection.getOpsDate().getTime()/1000,
-                    inspection.getType(),
-                    inspection.getCreateDate().getTime() / 1000));
+        if(changeLogUpdate){
+            this.bmService.putNote(new BmNote(
+                inspection.get_id(),
+                inspection.getDescription(),
+                new String[]{},
+                inspection.getHiveId(),
+                inspection.getApiaryId(),
+                inspection.getOpsDate().getTime()/1000,
+                inspection.getType(),
+                inspection.getCreateDate().getTime() / 1000));
+        }
         return this.inspectionRepository.save(inspection);
     }
 
