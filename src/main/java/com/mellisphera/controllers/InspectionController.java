@@ -28,6 +28,10 @@ import com.mellisphera.entities.InspTaskObs;
 import com.mellisphera.entities.Inspection;
 import com.mellisphera.repositories.InspectionRepository;
 
+import com.mellisphera.entities.bm.BmNote;
+import com.mellisphera.entities.bm.BmNoteCreate;
+import com.mellisphera.security.service.BmServiceImpl;
+
 @Service
 @RestController
 @RequestMapping("/inspection")
@@ -35,6 +39,7 @@ import com.mellisphera.repositories.InspectionRepository;
 public class InspectionController {
 
     @Autowired private InspectionRepository inspectionRepository;
+    @Autowired private BmServiceImpl bmService;
 
     public InspectionController(){}
 
@@ -183,24 +188,55 @@ public class InspectionController {
 
     @PostMapping("/insert/apiary")
     public Inspection insertApiaryInsp(@RequestBody Inspection inspApiary){
+        this.bmService.postNote(new BmNote(
+                    inspApiary.getDescription(),
+                    new String[]{},
+                    null,
+                    inspApiary.getApiaryId(),
+                    inspApiary.getOpsDate().getTime()/1000,
+                    inspApiary.getType(),
+                    inspApiary.getCreateDate().getTime() / 1000));
     	return this.inspectionRepository.insert(inspApiary);
     }
 
     @PostMapping("/insert/insp/hive")
     public Inspection insertHiveInsp(@RequestBody Inspection inspHive){
-        //Inspection apiInsp = this.inspectionRepository.findInspectionByApiaryIdAndCreateDate(inspHive.getApiaryId(), inspHive.getCreateDate());
-        //inspHive.setApiaryInspId(apiInsp.get_id());
+        this.bmService.postNote(new BmNote(
+                    inspHive.getDescription(),
+                    new String[]{},
+                    inspHive.getHiveId(),
+                    inspHive.getApiaryId(),
+                    inspHive.getOpsDate().getTime()/1000,
+                    inspHive.getType(),
+                    inspHive.getCreateDate().getTime() / 1000));
     	return this.inspectionRepository.insert(inspHive);
     }
 
     @PostMapping("/insert/event/hive")
     public Inspection insertHiveEvent(@RequestBody Inspection eventHive){
+        this.bmService.postNote(new BmNote(
+                    eventHive.getDescription(),
+                    new String[]{},
+                    eventHive.getHiveId(),
+                    eventHive.getApiaryId(),
+                    eventHive.getOpsDate().getTime()/1000,
+                    eventHive.getType(),
+                    eventHive.getCreateDate().getTime() / 1000));
     	return this.inspectionRepository.insert(eventHive);
     }
 
     @PutMapping("/update/{_id}")
     public Inspection updateInsp(@PathVariable String _id, @RequestBody Inspection inspection){
         Inspection i = this.inspectionRepository.findInspectionBy_id(_id);
+        this.bmService.putNote(new BmNote(
+                    inspection.get_id(),
+                    inspection.getDescription(),
+                    new String[]{},
+                    inspection.getHiveId(),
+                    inspection.getApiaryId(),
+                    inspection.getOpsDate().getTime()/1000,
+                    inspection.getType(),
+                    inspection.getCreateDate().getTime() / 1000));
         return this.inspectionRepository.save(inspection);
     }
 

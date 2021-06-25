@@ -85,9 +85,10 @@ public class BmDataToMellispheraData {
 
     Inspection getNewInspection(BmNote bmNote, String userId) {
         byte[] byteStr = bmNote.getDescription().getBytes();
+        Hive tmp = this.hiveRepository.findHiveBy_id(bmNote.getHiveId());
         Inspection newInsp = new Inspection();
         newInsp.set_id(bmNote.getNoteId());
-        newInsp.setApiaryId(bmNote.getApiaryId());
+        newInsp.setApiaryId(tmp.getApiaryId());
         newInsp.setHiveId(bmNote.getHiveId());
         newInsp.setUserId(userId);
         newInsp.setCreateDate( this.convertTimestampToDate(bmNote.getCreateDate()) );
