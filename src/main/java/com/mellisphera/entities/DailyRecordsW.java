@@ -29,6 +29,7 @@ public class DailyRecordsW {
 	private float weight_min;
 	private float weight_max;
 	private float weight_gain;
+	private float weight_23f;
 	private float weight_income_gain;
 	private float weight_foragingbees;
 	private float weight_hive;
@@ -42,7 +43,7 @@ public class DailyRecordsW {
 	}
 	
 	public DailyRecordsW(String id, Date recordDate, String hiveId, String position, float temp_ext_min, float temp_ext_max,
-			float weight_min, float weight_max, float weight_gain, float weight_income_gain, float weight_foragingbees,
+			float weight_min, float weight_max, float weight_23f, float weight_gain, float weight_income_gain, float weight_foragingbees,
 			float weight_hive, float weight_colony, float weight_filling_rate, Long timestamp, String sensorRef) {
 		super();
 		this.id = id;
@@ -53,6 +54,7 @@ public class DailyRecordsW {
 		this.temp_ext_max = temp_ext_max;
 		this.weight_min = weight_min;
 		this.weight_max = weight_max;
+		this.weight_23f = weight_23f;
 		this.weight_gain = weight_gain;
 		this.weight_income_gain = weight_income_gain;
 		this.weight_foragingbees = weight_foragingbees;
@@ -136,108 +138,85 @@ public class DailyRecordsW {
 		this.temp_ext_max = temp_ext_max;
 	}
 
-        public Long getTimestamp(){
-            return this.timestamp;
-        }
+    public Long getTimestamp(){
+        return this.timestamp;
+    }
 
 	public float getWeight_min() {
 		return weight_min;
 	}
 
-
-
 	public void setWeight_min(float weight_min) {
 		this.weight_min = weight_min;
 	}
-
-
 
 	public float getWeight_max() {
 		return weight_max;
 	}
 
-
-
 	public void setWeight_max(float weight_max) {
 		this.weight_max = weight_max;
 	}
 
+	public float getWeight_23f(){
+		return this.weight_23f;
+	}
 
+	public void setWeight_23f(float w){
+		this.weight_23f = w;
+	}
 
 	public float getWeight_gain() {
 		return weight_gain;
 	}
 
-
-
 	public void setWeight_gain(float weight_gain) {
 		this.weight_gain = weight_gain;
 	}
-
-
 
 	public float getWeight_income_gain() {
 		return weight_income_gain;
 	}
 
-
-
 	public void setWeight_income_gain(float weight_income_gain) {
 		this.weight_income_gain = weight_income_gain;
 	}
-
-
 
 	public float getWeight_foragingbees() {
 		return weight_foragingbees;
 	}
 
-
-
 	public void setWeight_foragingbees(float weight_foragingbees) {
 		this.weight_foragingbees = weight_foragingbees;
 	}
-
-
 
 	public float getWeight_hive() {
 		return weight_hive;
 	}
 
-
-
 	public void setWeight_hive(float weight_hive) {
 		this.weight_hive = weight_hive;
 	}
-
-
 
 	public float getWeight_colony() {
 		return weight_colony;
 	}
 
-
-
 	public void setWeight_colony(float weight_colony) {
 		this.weight_colony = weight_colony;
 	}
-
-
 
 	public float getWeight_filling_rate() {
 		return weight_filling_rate;
 	}
 
-
-
 	public void setWeight_filling_rate(float weight_filling_rate) {
 		this.weight_filling_rate = weight_filling_rate;
 	}
         
-        public void setTimestamp(Long newTimestamp){
-            this.timestamp = timestamp;
-        }
-
+	public void setTimestamp(Long newTimestamp){
+        this.timestamp = timestamp;
+    }
 
 	@Override
 	public String toString() {
