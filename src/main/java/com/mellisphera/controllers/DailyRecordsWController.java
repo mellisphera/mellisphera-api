@@ -157,5 +157,12 @@ public class DailyRecordsWController {
 		return this.dailyRecordsWRepository.findByHiveIdAndRecordDateBetween(hiveId, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
 				.getRecordDate(), _daily.getWeight_income_gain() , _daily.getSensorRef(), _daily.getPosition())).collect(Collectors.toList());
 	}
+
+	@PostMapping("weight23f/{hiveId}")
+	public List<SimpleSeries> getWeight23fByHive(@RequestBody Date[] range, @PathVariable String hiveId){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.dailyRecordsWRepository.findByHiveIdAndRecordDateBetween(hiveId, range[0], range[1], sort).stream().map(_daily -> new SimpleSeries(_daily
+				.getRecordDate(), _daily.getWeight_23f(), _daily.getSensorRef(), _daily.getPosition())).collect(Collectors.toList());
+	}
 	
 }
