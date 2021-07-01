@@ -147,6 +147,7 @@ public class AuthRestApiController {
 			if (!bmAuth.getCode().equals("200")) {
 				throw new UsernameNotFoundException("Login incorrecte");
 			} else {
+				System.out.println("create new user");
 				String username = loginRequest.getEmail().split("@")[0];
 
 				this.bmAuthService.saveBmData(bmAuth, username,geoIp.getCountry());

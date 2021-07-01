@@ -239,15 +239,29 @@ public class InspectionController {
     public Inspection updateInsp(@PathVariable String _id, @RequestBody Inspection inspection){
         Inspection i = this.inspectionRepository.findInspectionBy_id(_id);
         if(changeLogUpdate){
-            this.bmService.putNote(new BmNote(
-                inspection.get_id(),
-                inspection.getDescription(),
-                new String[]{},
-                inspection.getHiveId(),
-                inspection.getApiaryId(),
-                inspection.getOpsDate().getTime()/1000,
-                inspection.getType(),
-                inspection.getCreateDate().getTime() / 1000));
+            try{
+                this.bmService.putNote(new BmNote(
+                    inspection.get_id(),
+                    inspection.getDescription(),
+                    new String[]{},
+                    inspection.getHiveId(),
+                    inspection.getApiaryId(),
+                    inspection.getOpsDate().getTime()/1000,
+                    inspection.getType(),
+                    inspection.getCreateDate().getTime() / 1000));
+            }
+            catch(Exception e){
+                this.bmService.postNote(new BmNote(
+                    inspection.get_id(),
+                    inspection.getDescription(),
+                    new String[]{},
+                    inspection.getHiveId(),
+                    inspection.getApiaryId(),
+                    inspection.getOpsDate().getTime()/1000,
+                    inspection.getType(),
+                    inspection.getCreateDate().getTime() / 1000));
+            }
+            
         }
         return this.inspectionRepository.save(inspection);
     }
