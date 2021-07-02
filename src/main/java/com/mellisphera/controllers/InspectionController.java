@@ -190,8 +190,15 @@ public class InspectionController {
         
     }
 
-    @PostMapping("/insert/apiary")
+    @PostMapping("/insert/insp/apiary")
     public Inspection insertApiaryInsp(@RequestBody Inspection inspApiary){
+        Inspection i = this.inspectionRepository.insert(inspApiary);
+        i.setApiaryInspId(i.get_id());
+    	return this.inspectionRepository.save(i);
+    }
+
+    @PostMapping("/insert/event/apiary")
+    public Inspection insertApiaryEvent(@RequestBody Inspection inspApiary){
         if(changeLogUpdate){
             this.bmService.postNote(new BmNote(
                     inspApiary.getDescription(),
@@ -207,16 +214,6 @@ public class InspectionController {
 
     @PostMapping("/insert/insp/hive")
     public Inspection insertHiveInsp(@RequestBody Inspection inspHive){
-        if(changeLogUpdate){
-            this.bmService.postNote(new BmNote(
-                    inspHive.getDescription(),
-                    new String[]{},
-                    inspHive.getHiveId(),
-                    inspHive.getApiaryId(),
-                    inspHive.getOpsDate().getTime()/1000,
-                    inspHive.getType(),
-                    inspHive.getCreateDate().getTime() / 1000));
-        }
     	return this.inspectionRepository.insert(inspHive);
     }
 
@@ -235,8 +232,14 @@ public class InspectionController {
     	return this.inspectionRepository.insert(eventHive);
     }
 
-    @PutMapping("/update/{_id}")
+    @PutMapping("/update/insp/{_id}")
     public Inspection updateInsp(@PathVariable String _id, @RequestBody Inspection inspection){
+        Inspection i = this.inspectionRepository.findInspectionBy_id(_id);
+        return this.inspectionRepository.save(inspection);
+    }
+
+    @PutMapping("/update/event/{_id}")
+    public Inspection updateEvent(@PathVariable String _id, @RequestBody Inspection inspection){
         Inspection i = this.inspectionRepository.findInspectionBy_id(_id);
         if(changeLogUpdate){
             try{
