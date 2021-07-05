@@ -43,6 +43,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mellisphera.entities.Apiary;
 import com.mellisphera.entities.DailyRecordsTH;
 import com.mellisphera.entities.DailyRecordsW;
 import com.mellisphera.entities.Hive;
@@ -80,10 +81,32 @@ public class DailyRecordsWController {
 		return this.dailyRecordsWRepository.findDailyRecordsWByHiveId(hiveId);
 	}
 	
-	@PostMapping("/apiary/{idApiary}")
-	public List<List<DailyRecordsW>> getDailyRecordsWByApiary(@PathVariable String idApiary, @RequestBody Date[] range) {
+	@RequestMapping(value = "/last/{hiveId}" , method = RequestMethod.POST, produces={"application/json"})
+    public List<DailyRecordsW> getLastDailyRecord(@PathVariable String hiveId, @RequestBody Date [] range){
         Sort sort = new Sort(Direction.DESC, "timestamp");
-		return this.hiveController.getAllUserHives(idApiary).stream().map(hive -> this.dailyRecordsWRepository.findByHiveIdAndRecordDateBetween(hive.get_id(), range[0], range[1], sort)).collect(Collectors.toList());
+        Date start  = range[0];
+        Date end = range[1];
+        return this.dailyRecordsWRepository.findByHiveIdAndRecordDateBetween(hiveId, start, end, sort);
+	}
+
+	@PostMapping("/apiary/{idApiary}")
+	public List<DailyRecordsW> getDailyRecordsWByApiary(@PathVariable String idApiary, @RequestBody Date[] range) {
+        List<Hive> hives = this.hiveController.getAllUserHives(idApiary);
+		List<DailyRecordsW> dailyRecW = new ArrayList<>();
+		for(Hive h : hives) {
+			try{
+				List<DailyRecordsW> rec = this.getLastDailyRecord(h.get_id(), range);
+				dailyRecW.add(rec.get(rec.size() - 1));
+			}
+			catch(ArrayIndexOutOfBoundsException e){
+			   // e.printStackTrace();
+			}
+			catch(IndexOutOfBoundsException err){
+				//err.printStackTrace();
+			}
+
+		}	
+		return dailyRecW;
 	}
 	
 	@PostMapping("/hive/between/{hiveId}")
