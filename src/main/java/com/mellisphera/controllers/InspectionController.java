@@ -255,7 +255,6 @@ public class InspectionController {
             }
             catch(Exception e){
                 this.bmService.postNote(new BmNote(
-                    inspection.get_id(),
                     inspection.getDescription(),
                     new String[]{},
                     inspection.getHiveId(),
