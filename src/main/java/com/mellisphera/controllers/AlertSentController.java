@@ -105,6 +105,7 @@ public class AlertSentController {
                                         .filter(_alert -> hiveIds.contains(_alert.getHiveId()) || _alert.getHiveId() == null)
                                         .filter(_alert -> pictos.contains(_alert.getIcon()))
 										.filter(_alert -> locations.contains(_alert.getLoc()))
+										.filter(_alert -> pictos.contains(_alert.getIcon().toLowerCase()))
                                         .collect(Collectors.toList());
 	
 	}

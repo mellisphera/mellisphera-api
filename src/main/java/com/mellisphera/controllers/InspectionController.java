@@ -161,46 +161,24 @@ public class InspectionController {
         List<String> hiveIds = new ObjectMapper().convertValue(body.get("hiveIds"), ArrayList.class);
         List<String> opsRange = new ObjectMapper().convertValue(body.get("opsRange"), ArrayList.class);
         List<String> types = new ObjectMapper().convertValue(body.get("types"), ArrayList.class);
-        List<String> pictos = new ObjectMapper().convertValue(body.get("pictos"), ArrayList.class);
         Boolean showEmpty = new ObjectMapper().convertValue(body.get("empty"),Boolean.class);
 
         Date start = Date.from( Instant.parse(opsRange.get(0)) );
-        Date end = Date.from( Instant.parse(opsRange.get(1)) );
-        
+        Date end = Date.from( Instant.parse(opsRange.get(1)) );      
+    
         return this.inspectionRepository.findInspectionByApiaryIdAndOpsDateBetween(apiaryId, start, end, sort)
                                         .stream()
                                         .filter(_insp -> hiveIds.contains(_insp.getHiveId()) || _insp.getHiveId() == null)
                                         .filter(_insp -> types.contains(_insp.getType()))
-                                        .filter(_insp -> {
-                                            boolean found = false;
-                                            if(showEmpty && (_insp.getObs() == null || _insp.getObs().length == 0) ){
-                                                return true;
-                                            }
-                                            if(_insp.getObs() != null && _insp.getObs().length > 0){
-                                                for(InspTaskObs obs : _insp.getObs()){
-                                                    if(pictos.contains(obs.getName())){
-                                                        found = true;
-                                                    }
-                                                }
-                                                return found;
-                                            }
-                                            return false;
-                                        })
                                         .collect(Collectors.toList());
         
     }
 
     @PostMapping("/insert/insp/apiary")
     public Inspection insertApiaryInsp(@RequestBody Inspection inspApiary){
-        Inspection i = this.inspectionRepository.insert(inspApiary);
-        i.setApiaryInspId(i.get_id());
-    	return this.inspectionRepository.save(i);
-    }
-
-    @PostMapping("/insert/event/apiary")
-    public Inspection insertApiaryEvent(@RequestBody Inspection inspApiary){
+        BmNoteCreate createNote = null;
         if(changeLogUpdate){
-            this.bmService.postNote(new BmNote(
+            createNote = this.bmService.postNote(new BmNote(
                     inspApiary.getDescription(),
                     new String[]{},
                     null,
@@ -209,18 +187,50 @@ public class InspectionController {
                     inspApiary.getType(),
                     inspApiary.getCreateDate().getTime() / 1000));
         }
+        inspApiary.set_id(createNote.getBmNote().getNoteId());
+        inspApiary.setApiaryInspId(createNote.getBmNote().getNoteId());
+    	return this.inspectionRepository.save(inspApiary);
+    }
+
+    @PostMapping("/insert/event/apiary")
+    public Inspection insertApiaryEvent(@RequestBody Inspection inspApiary){
+        BmNoteCreate createNote = null;
+        if(changeLogUpdate){
+            createNote = this.bmService.postNote(new BmNote(
+                    inspApiary.getDescription(),
+                    new String[]{},
+                    null,
+                    inspApiary.getApiaryId(),
+                    inspApiary.getOpsDate().getTime()/1000,
+                    inspApiary.getType(),
+                    inspApiary.getCreateDate().getTime() / 1000));
+            inspApiary.set_id(createNote.getBmNote().getNoteId());
+        }
     	return this.inspectionRepository.insert(inspApiary);
     }
 
     @PostMapping("/insert/insp/hive")
     public Inspection insertHiveInsp(@RequestBody Inspection inspHive){
+        BmNoteCreate createNote = null;
+        if(changeLogUpdate){
+            createNote = this.bmService.postNote(new BmNote(
+                    inspHive.getDescription(),
+                    new String[]{},
+                    inspHive.getHiveId(),
+                    inspHive.getApiaryId(),
+                    inspHive.getOpsDate().getTime()/1000,
+                    inspHive.getType(),
+                    inspHive.getCreateDate().getTime() / 1000));
+            inspHive.set_id(createNote.getBmNote().getNoteId());
+        }
     	return this.inspectionRepository.insert(inspHive);
     }
 
     @PostMapping("/insert/event/hive")
     public Inspection insertHiveEvent(@RequestBody Inspection eventHive){
+        BmNoteCreate createNote = null;
         if(changeLogUpdate){
-            this.bmService.postNote(new BmNote(
+            createNote = this.bmService.postNote(new BmNote(
                     eventHive.getDescription(),
                     new String[]{},
                     eventHive.getHiveId(),
@@ -228,6 +238,7 @@ public class InspectionController {
                     eventHive.getOpsDate().getTime()/1000,
                     eventHive.getType(),
                     eventHive.getCreateDate().getTime() / 1000));
+            eventHive.set_id(createNote.getBmNote().getNoteId());
         }
     	return this.inspectionRepository.insert(eventHive);
     }
@@ -235,12 +246,7 @@ public class InspectionController {
     @PutMapping("/update/insp/{_id}")
     public Inspection updateInsp(@PathVariable String _id, @RequestBody Inspection inspection){
         Inspection i = this.inspectionRepository.findInspectionBy_id(_id);
-        return this.inspectionRepository.save(inspection);
-    }
-
-    @PutMapping("/update/event/{_id}")
-    public Inspection updateEvent(@PathVariable String _id, @RequestBody Inspection inspection){
-        Inspection i = this.inspectionRepository.findInspectionBy_id(_id);
+        BmNoteCreate createNote = null;
         if(changeLogUpdate){
             try{
                 this.bmService.putNote(new BmNote(
@@ -254,7 +260,31 @@ public class InspectionController {
                     inspection.getCreateDate().getTime() / 1000));
             }
             catch(Exception e){
-                this.bmService.postNote(new BmNote(
+                createNote = (BmNoteCreate) this.bmService.postNote(new BmNote(
+                    inspection.getDescription(),
+                    new String[]{},
+                    inspection.getHiveId(),
+                    inspection.getApiaryId(),
+                    inspection.getOpsDate().getTime()/1000,
+                    inspection.getType(),
+                    inspection.getCreateDate().getTime() / 1000));
+                
+                inspection.set_id(createNote.getBmNote().getNoteId());
+                inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+            }
+            
+        }
+        return this.inspectionRepository.save(inspection);
+    }
+
+    @PutMapping("/update/event/{_id}")
+    public Inspection updateEvent(@PathVariable String _id, @RequestBody Inspection inspection){
+        Inspection i = this.inspectionRepository.findInspectionBy_id(_id);
+        BmNoteCreate createNote = null;
+        if(changeLogUpdate){
+            try{
+                this.bmService.putNote(new BmNote(
+                    inspection.get_id(),
                     inspection.getDescription(),
                     new String[]{},
                     inspection.getHiveId(),
@@ -263,7 +293,19 @@ public class InspectionController {
                     inspection.getType(),
                     inspection.getCreateDate().getTime() / 1000));
             }
-            
+            catch(Exception e){
+                createNote = (BmNoteCreate) this.bmService.postNote(new BmNote(
+                    inspection.getDescription(),
+                    new String[]{},
+                    inspection.getHiveId(),
+                    inspection.getApiaryId(),
+                    inspection.getOpsDate().getTime()/1000,
+                    inspection.getType(),
+                    inspection.getCreateDate().getTime() / 1000));
+                
+                inspection.set_id(createNote.getBmNote().getNoteId());
+                inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+            }
         }
         return this.inspectionRepository.save(inspection);
     }

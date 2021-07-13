@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 public class InspCat {
     @Id
     private String _id;
+    private int code;
     private String name;
     private String img;
     private String type;
@@ -18,8 +19,9 @@ public class InspCat {
 
     public InspCat(){}
 
-    public InspCat(String _id, String name, String img, String type, String applies[], String[] seasons, boolean custom, String customLabel){
+    public InspCat(String _id, int code, String name, String img, String type, String applies[], String[] seasons, boolean custom, String customLabel){
         this._id = _id;
+        this.code = code;
         this.name = name;
         this.img = img;
         this.type = type;
@@ -29,8 +31,9 @@ public class InspCat {
         this.customLabel = customLabel;
     }
 
-    public InspCat(String _id, String name, String img, String type, String applies[], String[] seasons){
+    public InspCat(String _id, int code, String name, String img, String type, String applies[], String[] seasons){
         this._id = _id;
+        this.code = code;
         this.name = name;
         this.img = img;
         this.type = type;
@@ -43,6 +46,7 @@ public class InspCat {
 
     public InspCat( InspCat inspcat ){
         this._id = inspcat._id;
+        this.code = inspcat.getCode();
         this.name = inspcat.getName();
         this.img = inspcat.getImg();
         this.type = inspcat.getType();
@@ -54,6 +58,14 @@ public class InspCat {
 
     public String get_id(){
         return this._id;
+    }
+
+    public int getCode(){
+        return this.code;
+    }
+
+    public void setCode(int code){
+        this.code = code;
     }
 
     public String getName(){
