@@ -10,7 +10,7 @@ Email us and we'll send you a template file.
 
 #### Prerequisites
 
-- Java 8
+- Java 11
 - Maven > 3.0
 
 #### Using the terminal
