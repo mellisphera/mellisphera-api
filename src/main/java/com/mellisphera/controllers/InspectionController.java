@@ -186,9 +186,9 @@ public class InspectionController {
                     inspApiary.getOpsDate().getTime()/1000,
                     inspApiary.getType(),
                     inspApiary.getCreateDate().getTime() / 1000));
+            inspApiary.set_id(createNote.getBmNote().getNoteId());
+            inspApiary.setApiaryInspId(createNote.getBmNote().getNoteId());
         }
-        inspApiary.set_id(createNote.getBmNote().getNoteId());
-        inspApiary.setApiaryInspId(createNote.getBmNote().getNoteId());
     	return this.inspectionRepository.save(inspApiary);
     }
 
