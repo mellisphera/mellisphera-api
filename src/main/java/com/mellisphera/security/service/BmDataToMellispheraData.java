@@ -126,6 +126,7 @@ public class BmDataToMellispheraData {
         newHive.setUserId(userId);
         newHive.setDescription(bmHive.getDescription());
         newHive.setApiaryLocation(bmHive.getApiaryLocation());
+        newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
         newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setHidden(bmHive.getHidden());
@@ -173,7 +174,6 @@ public class BmDataToMellispheraData {
 
     private void affectWeather(ApiaryLocation[] apiaryLocation) {
         for (ApiaryLocation location: apiaryLocation) {
-            System.out.println(location);
             Aggregation aggregateDaily = Aggregation.newAggregation(
                     Aggregation.match(Criteria.where("date").gte(new Date(location.getStart())).lt(new Date(location.getEnd())))
             );
