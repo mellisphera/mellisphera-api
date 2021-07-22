@@ -20,11 +20,15 @@ import org.springframework.data.domain.Sort.Direction;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
+
+import com.mellisphera.entities.Hive;
 
 @RestController
 @RequestMapping("/fitness")
 public class FitnessController {
 
+    @Autowired private HiveController hiveController;
     @Autowired private FitnessRepository fitnessRepository;
     private final static String APIARY_DEMO = "SV6gUir5CX95dLKRHRTI";
 
@@ -48,4 +52,31 @@ public class FitnessController {
         Sort sort = new Sort(Direction.DESC, "timestamp");
         return this.fitnessRepository.findByHiveIdAndDateBetween(hiveId, range[0], range[1], sort);
     }
+
+    @PostMapping("/daily/apiary/{apiaryId}")
+    public List<Fitness> getFitnessByApiaryId(@PathVariable String apiaryId, @RequestBody Date[] range){
+        List<Hive> hives = this.hiveController.getAllUserHives(apiaryId);
+		List<Fitness> dailyFitness = new ArrayList<>();
+		for(Hive h : hives) {
+                    try{
+                    	List<Fitness> rec = this.getLastDailyRecord(h.get_id(), range);
+                    	dailyFitness.add(rec.get(rec.size() - 1));
+                    }
+                    catch(ArrayIndexOutOfBoundsException e){
+                       // e.printStackTrace();
+                    }
+                    catch(IndexOutOfBoundsException err){
+                        //err.printStackTrace();
+                    }
+
+		}
+		
+		return dailyFitness;
+    }
+
+    @PostMapping("/last/{hiveId}")
+    public List<Fitness> getLastDailyRecord(@PathVariable String hiveId, @RequestBody Date [] range){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        return this.fitnessRepository.findByHiveIdAndDateBetween(hiveId, range[0], range[1], sort);
+	}
 }
