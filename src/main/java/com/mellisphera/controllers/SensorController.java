@@ -114,4 +114,9 @@ public class SensorController {
 		AggregationResults<Sensor> aggregationResults = this.mongoTemplate.aggregate(aggregation, "Sensor", Sensor.class);
 		return aggregationResults.getMappedResults();
 	}
+
+	@GetMapping("/apiary/{apiaryId}")
+	public List<Sensor> getApiarySensors(@PathVariable String apiaryId){
+		return this.sensorRepository.findSensorByApiaryId(apiaryId);
+	}
 }
