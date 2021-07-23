@@ -97,7 +97,7 @@ public class BmChangeLogService {
         Arrays.stream(bmNote).map(_note -> this.bmToMellispheraData.getNewInspection(_note, userId)).collect(Collectors.toList()).forEach(_newInsp -> {
             boolean inspExist = this.inspectionRepository.findById(_newInsp.get_id()).isPresent();
             if (inspExist) {
-                Inspection i = this.inspectionRepository.findById(_newInsp.get_id());
+                Inspection i = this.inspectionRepository.findInspectionBy_id(_newInsp.get_id());
                 _newInsp.setUserId(i.getUserId());
                 _newInsp.setApiaryInspId(i.getApiaryInspId());
                 _newInsp.setTasks(i.getTasks());

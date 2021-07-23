@@ -36,6 +36,7 @@ public class BmDataToMellispheraData {
     @Autowired private SensorRepository sensorRepository;
     @Autowired private HivesRepository hiveRepository;
     @Autowired private ApiaryRepository apiaryRepository;
+    @Autowired private InspectionRepository inspectionRepository;
     @Autowired private CurrentDailyWeatherRepository currentDailyWeatherRepository;
     @Autowired private CurrentHourlyWeatherRepository currentHourlyWeatherRepository;
     private MongoTemplate mongoTemplate;
@@ -105,6 +106,14 @@ public class BmDataToMellispheraData {
         catch (UnsupportedEncodingException e) {
             System.out.println("erreur encoding");
             newInsp.setDescription(bmNote.getDescription().replaceAll ("<.*?>", ""));
+        }
+        if(this.inspectionRepository.findById(newInsp.get_id()).isPresent()){
+            Inspection i = this.inspectionRepository.findInspectionBy_id(newInsp.get_id());
+            newInsp.setUserId(i.getUserId());
+            newInsp.setApiaryInspId(i.getApiaryInspId());
+            newInsp.setTasks(i.getTasks());
+            newInsp.setObs(i.getObs());
+            newInsp.setTodo(i.getTodo());
         }
         return newInsp;
     }
