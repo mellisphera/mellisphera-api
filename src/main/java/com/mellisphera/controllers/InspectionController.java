@@ -217,7 +217,7 @@ public class InspectionController {
                     inspHive.getDescription(),
                     new String[]{},
                     inspHive.getHiveId(),
-                    inspHive.getApiaryId(),
+                    null,
                     inspHive.getOpsDate().getTime()/1000,
                     inspHive.getType(),
                     inspHive.getCreateDate().getTime() / 1000));
@@ -234,7 +234,7 @@ public class InspectionController {
                     eventHive.getDescription(),
                     new String[]{},
                     eventHive.getHiveId(),
-                    eventHive.getApiaryId(),
+                    null,
                     eventHive.getOpsDate().getTime()/1000,
                     eventHive.getType(),
                     eventHive.getCreateDate().getTime() / 1000));
@@ -248,30 +248,59 @@ public class InspectionController {
         Inspection i = this.inspectionRepository.findInspectionBy_id(_id);
         BmNoteCreate createNote = null;
         if(changeLogUpdate){
-            try{
-                this.bmService.putNote(new BmNote(
-                    inspection.get_id(),
-                    inspection.getDescription(),
-                    new String[]{},
-                    inspection.getHiveId(),
-                    inspection.getApiaryId(),
-                    inspection.getOpsDate().getTime()/1000,
-                    inspection.getType(),
-                    inspection.getCreateDate().getTime() / 1000));
+            if(i.getType().equals("apiary")){
+                try{
+                    this.bmService.putNote(new BmNote(
+                        inspection.get_id(),
+                        inspection.getDescription(),
+                        new String[]{},
+                        null,
+                        inspection.getApiaryId(),
+                        inspection.getOpsDate().getTime()/1000,
+                        inspection.getType(),
+                        inspection.getCreateDate().getTime() / 1000));
+                }
+                catch(Exception e){
+                    createNote = (BmNoteCreate) this.bmService.postNote(new BmNote(
+                        inspection.getDescription(),
+                        new String[]{},
+                        null,
+                        inspection.getApiaryId(),
+                        inspection.getOpsDate().getTime()/1000,
+                        inspection.getType(),
+                        inspection.getCreateDate().getTime() / 1000));
+                    
+                    inspection.set_id(createNote.getBmNote().getNoteId());
+                    inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+                }
             }
-            catch(Exception e){
-                createNote = (BmNoteCreate) this.bmService.postNote(new BmNote(
-                    inspection.getDescription(),
-                    new String[]{},
-                    inspection.getHiveId(),
-                    inspection.getApiaryId(),
-                    inspection.getOpsDate().getTime()/1000,
-                    inspection.getType(),
-                    inspection.getCreateDate().getTime() / 1000));
-                
-                inspection.set_id(createNote.getBmNote().getNoteId());
-                inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+            else{
+                try{
+                    this.bmService.putNote(new BmNote(
+                        inspection.get_id(),
+                        inspection.getDescription(),
+                        new String[]{},
+                        inspection.getHiveId(),
+                        null,
+                        inspection.getOpsDate().getTime()/1000,
+                        inspection.getType(),
+                        inspection.getCreateDate().getTime() / 1000));
+                }
+                catch(Exception e){
+                    createNote = (BmNoteCreate) this.bmService.postNote(new BmNote(
+                        inspection.getDescription(),
+                        new String[]{},
+                        inspection.getHiveId(),
+                        null,
+                        inspection.getOpsDate().getTime()/1000,
+                        inspection.getType(),
+                        inspection.getCreateDate().getTime() / 1000));
+                    
+                    inspection.set_id(createNote.getBmNote().getNoteId());
+                    inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+                }
             }
+            
             
         }
         return this.inspectionRepository.save(inspection);
@@ -282,29 +311,57 @@ public class InspectionController {
         Inspection i = this.inspectionRepository.findInspectionBy_id(_id);
         BmNoteCreate createNote = null;
         if(changeLogUpdate){
-            try{
-                this.bmService.putNote(new BmNote(
-                    inspection.get_id(),
-                    inspection.getDescription(),
-                    new String[]{},
-                    inspection.getHiveId(),
-                    inspection.getApiaryId(),
-                    inspection.getOpsDate().getTime()/1000,
-                    inspection.getType(),
-                    inspection.getCreateDate().getTime() / 1000));
+            if(i.getType().equals("apiary")){
+                try{
+                    this.bmService.putNote(new BmNote(
+                        inspection.get_id(),
+                        inspection.getDescription(),
+                        new String[]{},
+                        null,
+                        inspection.getApiaryId(),
+                        inspection.getOpsDate().getTime()/1000,
+                        inspection.getType(),
+                        inspection.getCreateDate().getTime() / 1000));
+                }
+                catch(Exception e){
+                    createNote = (BmNoteCreate) this.bmService.postNote(new BmNote(
+                        inspection.getDescription(),
+                        new String[]{},
+                        null,
+                        inspection.getApiaryId(),
+                        inspection.getOpsDate().getTime()/1000,
+                        inspection.getType(),
+                        inspection.getCreateDate().getTime() / 1000));
+                    
+                    inspection.set_id(createNote.getBmNote().getNoteId());
+                    inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+                }
             }
-            catch(Exception e){
-                createNote = (BmNoteCreate) this.bmService.postNote(new BmNote(
-                    inspection.getDescription(),
-                    new String[]{},
-                    inspection.getHiveId(),
-                    inspection.getApiaryId(),
-                    inspection.getOpsDate().getTime()/1000,
-                    inspection.getType(),
-                    inspection.getCreateDate().getTime() / 1000));
-                
-                inspection.set_id(createNote.getBmNote().getNoteId());
-                inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+            else{
+                try{
+                    this.bmService.putNote(new BmNote(
+                        inspection.get_id(),
+                        inspection.getDescription(),
+                        new String[]{},
+                        inspection.getHiveId(),
+                        null,
+                        inspection.getOpsDate().getTime()/1000,
+                        inspection.getType(),
+                        inspection.getCreateDate().getTime() / 1000));
+                }
+                catch(Exception e){
+                    createNote = (BmNoteCreate) this.bmService.postNote(new BmNote(
+                        inspection.getDescription(),
+                        new String[]{},
+                        inspection.getHiveId(),
+                        null,
+                        inspection.getOpsDate().getTime()/1000,
+                        inspection.getType(),
+                        inspection.getCreateDate().getTime() / 1000));
+                    
+                    inspection.set_id(createNote.getBmNote().getNoteId());
+                    inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+                }
             }
         }
         return this.inspectionRepository.save(inspection);
