@@ -14,6 +14,7 @@ limitations under the License. */
 package com.mellisphera.security.service;
 
 import com.mellisphera.entities.Hive;
+import com.mellisphera.entities.Inspection;
 import com.mellisphera.entities.Note;
 import com.mellisphera.entities.Swarm;
 import com.mellisphera.entities.bm.BmApiary;
@@ -96,7 +97,15 @@ public class BmChangeLogService {
         Arrays.stream(bmNote).map(_note -> this.bmToMellispheraData.getNewInspection(_note, userId)).collect(Collectors.toList()).forEach(_newInsp -> {
             boolean inspExist = this.inspectionRepository.findById(_newInsp.get_id()).isPresent();
             if (inspExist) {
+                Inspection i = this.inspectionRepository.findById(_newInsp.get_id());
+                _newInsp.setUserId(i.getUserId());
+                _newInsp.setApiaryInspId(i.getApiaryInspId());
+                _newInsp.setTasks(i.getTasks());
+                _newInsp.setObs(i.getObs());
+                _newInsp.setTodo(i.getTodo());
                 this.inspectionRepository.save(_newInsp);
+
+
             } else {
                 this.inspectionRepository.insert(_newInsp);
             }
