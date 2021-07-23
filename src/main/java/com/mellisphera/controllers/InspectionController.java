@@ -217,7 +217,7 @@ public class InspectionController {
                     inspHive.getDescription(),
                     new String[]{},
                     inspHive.getHiveId(),
-                    inspApiary.getApiaryId(),
+                    inspHive.getApiaryId(),
                     inspHive.getOpsDate().getTime()/1000,
                     inspHive.getType(),
                     inspHive.getCreateDate().getTime() / 1000));
@@ -234,7 +234,7 @@ public class InspectionController {
                     eventHive.getDescription(),
                     new String[]{},
                     eventHive.getHiveId(),
-                    inspApiary.getApiaryId(),
+                    eventHive.getApiaryId(),
                     eventHive.getOpsDate().getTime()/1000,
                     eventHive.getType(),
                     eventHive.getCreateDate().getTime() / 1000));
