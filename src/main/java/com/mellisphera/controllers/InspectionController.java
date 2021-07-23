@@ -271,7 +271,9 @@ public class InspectionController {
                         inspection.getCreateDate().getTime() / 1000));
                     
                     inspection.set_id(createNote.getBmNote().getNoteId());
-                    inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+                    if(inspection.getApiaryInspId() != null){
+                        inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+                    }
                 }
             }
             else{
@@ -281,7 +283,7 @@ public class InspectionController {
                         inspection.getDescription(),
                         new String[]{},
                         inspection.getHiveId(),
-                        null,
+                        inspection.getApiaryId(),
                         inspection.getOpsDate().getTime()/1000,
                         inspection.getType(),
                         inspection.getCreateDate().getTime() / 1000));
@@ -291,13 +293,15 @@ public class InspectionController {
                         inspection.getDescription(),
                         new String[]{},
                         inspection.getHiveId(),
-                        null,
+                        inspection.getApiaryId(),
                         inspection.getOpsDate().getTime()/1000,
                         inspection.getType(),
                         inspection.getCreateDate().getTime() / 1000));
                     
                     inspection.set_id(createNote.getBmNote().getNoteId());
-                    inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+                    if(inspection.getApiaryInspId() != null){
+                        inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+                    }
                 }
             }
             
@@ -334,7 +338,9 @@ public class InspectionController {
                         inspection.getCreateDate().getTime() / 1000));
                     
                     inspection.set_id(createNote.getBmNote().getNoteId());
-                    inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+                    if(inspection.getApiaryInspId() != null){
+                        inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+                    }
                 }
             }
             else{
@@ -344,7 +350,7 @@ public class InspectionController {
                         inspection.getDescription(),
                         new String[]{},
                         inspection.getHiveId(),
-                        null,
+                        inspection.getApiaryId(),
                         inspection.getOpsDate().getTime()/1000,
                         inspection.getType(),
                         inspection.getCreateDate().getTime() / 1000));
@@ -354,13 +360,15 @@ public class InspectionController {
                         inspection.getDescription(),
                         new String[]{},
                         inspection.getHiveId(),
-                        null,
+                        inspection.getApiaryId(),
                         inspection.getOpsDate().getTime()/1000,
                         inspection.getType(),
                         inspection.getCreateDate().getTime() / 1000));
                     
                     inspection.set_id(createNote.getBmNote().getNoteId());
-                    inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+                    if(inspection.getApiaryInspId() != null){
+                        inspection.setApiaryInspId(createNote.getBmNote().getNoteId());
+                    }
                 }
             }
         }
