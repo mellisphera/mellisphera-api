@@ -217,7 +217,7 @@ public class InspectionController {
                     inspHive.getDescription(),
                     new String[]{},
                     inspHive.getHiveId(),
-                    null,
+                    inspApiary.getApiaryId(),
                     inspHive.getOpsDate().getTime()/1000,
                     inspHive.getType(),
                     inspHive.getCreateDate().getTime() / 1000));
@@ -234,7 +234,7 @@ public class InspectionController {
                     eventHive.getDescription(),
                     new String[]{},
                     eventHive.getHiveId(),
-                    null,
+                    inspApiary.getApiaryId(),
                     eventHive.getOpsDate().getTime()/1000,
                     eventHive.getType(),
                     eventHive.getCreateDate().getTime() / 1000));
@@ -253,7 +253,7 @@ public class InspectionController {
                     this.bmService.putNote(new BmNote(
                         inspection.get_id(),
                         inspection.getDescription(),
-                        new String[]{},
+                        inspection.getTags(),
                         null,
                         inspection.getApiaryId(),
                         inspection.getOpsDate().getTime()/1000,
@@ -263,7 +263,7 @@ public class InspectionController {
                 catch(Exception e){
                     createNote = (BmNoteCreate) this.bmService.postNote(new BmNote(
                         inspection.getDescription(),
-                        new String[]{},
+                        inspection.getTags(),
                         null,
                         inspection.getApiaryId(),
                         inspection.getOpsDate().getTime()/1000,
@@ -281,7 +281,7 @@ public class InspectionController {
                     this.bmService.putNote(new BmNote(
                         inspection.get_id(),
                         inspection.getDescription(),
-                        new String[]{},
+                        inspection.getTags(),
                         inspection.getHiveId(),
                         inspection.getApiaryId(),
                         inspection.getOpsDate().getTime()/1000,
@@ -291,7 +291,7 @@ public class InspectionController {
                 catch(Exception e){
                     createNote = (BmNoteCreate) this.bmService.postNote(new BmNote(
                         inspection.getDescription(),
-                        new String[]{},
+                        inspection.getTags(),
                         inspection.getHiveId(),
                         inspection.getApiaryId(),
                         inspection.getOpsDate().getTime()/1000,
@@ -320,7 +320,7 @@ public class InspectionController {
                     this.bmService.putNote(new BmNote(
                         inspection.get_id(),
                         inspection.getDescription(),
-                        new String[]{},
+                        inspection.getTags(),
                         null,
                         inspection.getApiaryId(),
                         inspection.getOpsDate().getTime()/1000,
@@ -330,7 +330,7 @@ public class InspectionController {
                 catch(Exception e){
                     createNote = (BmNoteCreate) this.bmService.postNote(new BmNote(
                         inspection.getDescription(),
-                        new String[]{},
+                        inspection.getTags(),
                         null,
                         inspection.getApiaryId(),
                         inspection.getOpsDate().getTime()/1000,
@@ -348,7 +348,7 @@ public class InspectionController {
                     this.bmService.putNote(new BmNote(
                         inspection.get_id(),
                         inspection.getDescription(),
-                        new String[]{},
+                        inspection.getTags(),
                         inspection.getHiveId(),
                         inspection.getApiaryId(),
                         inspection.getOpsDate().getTime()/1000,
@@ -358,7 +358,7 @@ public class InspectionController {
                 catch(Exception e){
                     createNote = (BmNoteCreate) this.bmService.postNote(new BmNote(
                         inspection.getDescription(),
-                        new String[]{},
+                        inspection.getTags(),
                         inspection.getHiveId(),
                         inspection.getApiaryId(),
                         inspection.getOpsDate().getTime()/1000,
