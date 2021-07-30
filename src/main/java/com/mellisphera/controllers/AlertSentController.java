@@ -96,7 +96,7 @@ public class AlertSentController {
 		List<String> opsRange = new ObjectMapper().convertValue(body.get("opsRange"), ArrayList.class);
 		List<String> pictos = new ObjectMapper().convertValue(body.get("pictos"), ArrayList.class);
 		List<String> locations = new ObjectMapper().convertValue(body.get("loc"), ArrayList.class);
-		
+
 		Date start = Date.from( Instant.parse(opsRange.get(0)) );
         Date end = Date.from( Instant.parse(opsRange.get(1)) );
 
@@ -105,7 +105,6 @@ public class AlertSentController {
                                         .filter(_alert -> hiveIds.contains(_alert.getHiveId()) || _alert.getHiveId() == null)
                                         .filter(_alert -> pictos.contains(_alert.getIcon()))
 										.filter(_alert -> locations.contains(_alert.getLoc()))
-										.filter(_alert -> pictos.contains(_alert.getIcon().toLowerCase()))
                                         .collect(Collectors.toList());
 	
 	}
