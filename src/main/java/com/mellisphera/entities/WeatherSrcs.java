@@ -2,7 +2,6 @@ package com.mellisphera.entities;
 
 import java.util.Date;
 
-import com.mellisphera.entities.WeatherConfig;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,11 +17,13 @@ public class WeatherSrcs {
     private String source;
     private Date begin;
     private Date end;
-    private WeatherConfig config;
+    private String stationId;
+    private String APIKey;
+    private String APISecret;
 
     public WeatherSrcs(){}
 
-    public WeatherSrcs(String _id, String apiaryId, String apiaryName, String userId, String userName, String source, Date begin, Date end, Object wg){
+    public WeatherSrcs(String _id, String apiaryId, String apiaryName, String userId, String userName, String source, Date begin, Date end, String stationId, String APIKey, String APISecret){
         this._id = _id;
         this.apiaryId = apiaryId;
         this.apiaryName = apiaryName;
@@ -31,7 +32,9 @@ public class WeatherSrcs {
         this.source = source;
         this.begin = begin;
         this.end = end;
-        this.config = (WeatherConfig) wg;
+        this.stationId = stationId;
+        this.APIKey = APIKey;
+        this.APISecret = APISecret;
     }
 
     public String get_id(){
@@ -98,11 +101,27 @@ public class WeatherSrcs {
         this.end = end;
     }
 
-    public WeatherConfig getConfig(){
-        return this.config;
+    public String getStationId(){
+        return this.stationId;
     }
 
-    public void setConfig(WeatherConfig wg){
-        this.config = wg;
+    public void setStationId(String stationId){
+        this.stationId = stationId;
+    }
+
+    public String getAPIKey(){
+        return this.APIKey;
+    }
+
+    public void setAPIKey(String APIKey){
+        this.APIKey = APIKey;
+    }
+
+    public String getAPISecret(){
+        return this.APISecret;
+    }
+
+    public void setAPISecret(String APISecret){
+        this.APISecret = APISecret;
     }
 }

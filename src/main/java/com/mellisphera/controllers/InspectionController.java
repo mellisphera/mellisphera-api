@@ -210,20 +210,24 @@ public class InspectionController {
     }
 
     @PostMapping("/insert/insp/hive")
-    public Inspection insertHiveInsp(@RequestBody Inspection inspHive){
-        BmNoteCreate createNote = null;
-        if(changeLogUpdate){
-            createNote = this.bmService.postNote(new BmNote(
-                    inspHive.getDescription(),
-                    new String[]{},
-                    inspHive.getHiveId(),
-                    inspHive.getApiaryId(),
-                    inspHive.getOpsDate().getTime()/1000,
-                    inspHive.getType(),
-                    inspHive.getCreateDate().getTime() / 1000));
-            inspHive.set_id(createNote.getBmNote().getNoteId());
+    public Inspection[] insertHiveInsp(@RequestBody Inspection[] inspHive){
+        //List<Inspection> arr = new ArrayList<Inspection>();
+        for(Inspection i : inspHive){
+            BmNoteCreate createNote = null;
+            if(changeLogUpdate){
+                createNote = this.bmService.postNote(new BmNote(
+                        i.getDescription(),
+                        new String[]{},
+                        i.getHiveId(),
+                        i.getApiaryId(),
+                        i.getOpsDate().getTime()/1000,
+                        i.getType(),
+                        i.getCreateDate().getTime() / 1000));
+                i.set_id(createNote.getBmNote().getNoteId());
+            }
+            this.inspectionRepository.insert(i);
         }
-    	return this.inspectionRepository.insert(inspHive);
+    	return inspHive;
     }
 
     @PostMapping("/insert/event/hive")

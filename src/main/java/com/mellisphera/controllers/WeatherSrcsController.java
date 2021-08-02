@@ -14,7 +14,6 @@ limitations under the License. */
 package com.mellisphera.controllers;
 
 import com.mellisphera.entities.WeatherSrcs;
-import com.mellisphera.entities.WeatherConfig;
 import com.mellisphera.repositories.WeatherSrcsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
