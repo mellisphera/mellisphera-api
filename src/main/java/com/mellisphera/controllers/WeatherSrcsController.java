@@ -61,16 +61,23 @@ public class WeatherSrcsController {
 
     @PostMapping("/apiaryId/between/{apiaryId}")
     public List<WeatherSrcs> findByApiaryIdAndDateBetween(@PathVariable String apiaryId, @RequestBody Date[] range){
-	    return this.wSRepository.findWSrcsByApiaryId(apiaryId).stream().filter(
-            _ws -> _ws.getBegin().before(range[1]) || _ws.getEnd().after(range[0])
-        ).collect(Collectors.toList());
+	    return this.wSRepository.findWSrcsByApiaryId(apiaryId)
+                                .stream().filter(_ws -> !( (_ws.getEnd() != null && _ws.getEnd().before(range[0])) || (_ws.getStart().after(range[1])) ) )
+                                .collect(Collectors.toList());
     }
 
     @PostMapping("/userId/between/{userId}")
     public List<WeatherSrcs> findByUserIdAndDateBetween(@PathVariable String userId, @RequestBody Date[] range){
-	    return this.wSRepository.findWSrcsByUserId(userId).stream().filter(
-            _ws -> _ws.getBegin().before(range[1]) || _ws.getEnd().after(range[0])
-        ).collect(Collectors.toList());
+	    return this.wSRepository.findWSrcsByUserId(userId)
+                                .stream().filter(_ws -> !( (_ws.getEnd() != null && _ws.getEnd().before(range[0])) || (_ws.getStart().after(range[1])) ) )
+                                .collect(Collectors.toList());
+    }
+
+    @PostMapping("/current/userId/{userId}")
+    public List<WeatherSrcs> findCurrentByUserId(@PathVariable String userId){
+        return this.wSRepository.findWSrcsByUserId(userId)
+                                .stream().filter(_ws -> _ws.getEnd() == null)
+                                .collect(Collectors.toList());
     }
 
     @PostMapping("insert")

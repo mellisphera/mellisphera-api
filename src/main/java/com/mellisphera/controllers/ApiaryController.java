@@ -123,6 +123,7 @@ public class ApiaryController {
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @PostMapping("")
     public Apiary insert(@RequestBody Apiary apiary){
+		//System.out.println(apiary);
 		if (!apiary.getPhoto().contains("background_draw_color")) {
 			this.imageTool.setConf(apiary.getPhoto(), apiary.getUserId());
 			imageTool.convertToFile();
@@ -144,6 +145,7 @@ public class ApiaryController {
 	@PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public void update(@PathVariable("id") String id, @RequestBody Apiary apiary){
+		//System.out.print(apiary);
 		Apiary lastApiary = this.apiaryRepository.findById(id).get();
 		if (!lastApiary.getPhoto().equals(apiary.getPhoto())) {
 			this.imageTool.setConf(apiary.getPhoto(), apiary.getUserId());

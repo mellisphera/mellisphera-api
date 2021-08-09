@@ -14,8 +14,9 @@ public class WeatherSrcs {
     private String apiaryName;
     private String userId;
     private String userName;
-    private String source;
-    private Date begin;
+    private String sourceId;
+    private String sourceType;
+    private Date start;
     private Date end;
     private String stationId;
     private String APIKey;
@@ -23,14 +24,15 @@ public class WeatherSrcs {
 
     public WeatherSrcs(){}
 
-    public WeatherSrcs(String _id, String apiaryId, String apiaryName, String userId, String userName, String source, Date begin, Date end, String stationId, String APIKey, String APISecret){
+    public WeatherSrcs(String _id, String apiaryId, String apiaryName, String userId, String userName, String sourceId, String sourceType, Date start, Date end, String stationId, String APIKey, String APISecret){
         this._id = _id;
         this.apiaryId = apiaryId;
         this.apiaryName = apiaryName;
         this.userId = userId;
         this.userName= userName;
-        this.source = source;
-        this.begin = begin;
+        this.sourceId = sourceId;
+        this.sourceType = sourceType;
+        this.start = start;
         this.end = end;
         this.stationId = stationId;
         this.APIKey = APIKey;
@@ -77,20 +79,28 @@ public class WeatherSrcs {
         this.userName = userName;
     }
 
-    public String getSource(){
-        return this.source;
+    public String getSourceId(){
+        return this.sourceId;
     }
 
-    public void setSource(String source){
-        this.source = source;
+    public void setSourceId(String sourceId){
+        this.sourceId = sourceId;
     }
 
-    public Date getBegin(){
-        return this.begin;
+    public String getSourceType(){
+        return this.sourceType;
     }
 
-    public void setBegin(Date begin){
-        this.begin = begin;
+    public void setSourceType(String sourceType){
+        this.sourceType = sourceType;
+    }
+
+    public Date getStart(){
+        return this.start;
+    }
+
+    public void setStart(Date start){
+        this.start = start;
     }
 
     public Date getEnd(){

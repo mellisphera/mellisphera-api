@@ -13,19 +13,22 @@ limitations under the License. */
 
 package com.mellisphera.repositories;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-
-import com.mellisphera.entities.Record;
-
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-public interface RecordRepository  extends MongoRepository<Record,String> {
-    
-    public List<Record> findRecordByHiveId(String hiveId, Sort sort);
-    
-    public List<Record> findByHiveIdAndRecordDateBetween(String hiveId, Date start, Date end, Sort sort);
+import com.mellisphera.entities.CurrentIndex;
 
-    public List<Record> findBySensorRefAndRecordDateBetween(String sensorRef, Date start, Date end, Sort sort);
+@Service
+@Repository
+public interface CurrentIndexRepository extends MongoRepository<CurrentIndex ,String>{
+
+	public List<CurrentIndex> findByApiaryIdAndDateBetween(String idApiary, Date start, Date end, Sort sort);
+
+	public List<CurrentIndex> findByApiaryIdAndSensorRefAndDateBetween(String idApiary, String sensor, Date start, Date end, Sort sort);
+
 }
