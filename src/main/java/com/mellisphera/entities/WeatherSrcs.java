@@ -19,12 +19,12 @@ public class WeatherSrcs {
     private Date start;
     private Date end;
     private String stationId;
-    private String APIKey;
-    private String APISecret;
+    private String key;
+    private String secret;
 
     public WeatherSrcs(){}
 
-    public WeatherSrcs(String _id, String apiaryId, String apiaryName, String userId, String userName, String sourceId, String sourceType, Date start, Date end, String stationId, String APIKey, String APISecret){
+    public WeatherSrcs(String _id, String apiaryId, String apiaryName, String userId, String userName, String sourceId, String sourceType, Date start, Date end, String stationId, String key, String secret){
         this._id = _id;
         this.apiaryId = apiaryId;
         this.apiaryName = apiaryName;
@@ -35,8 +35,8 @@ public class WeatherSrcs {
         this.start = start;
         this.end = end;
         this.stationId = stationId;
-        this.APIKey = APIKey;
-        this.APISecret = APISecret;
+        this.key = key;
+        this.secret = secret;
     }
 
     public String get_id(){
@@ -119,19 +119,19 @@ public class WeatherSrcs {
         this.stationId = stationId;
     }
 
-    public String getAPIKey(){
-        return this.APIKey;
+    public String getKey(){
+        return this.key;
     }
 
-    public void setAPIKey(String APIKey){
-        this.APIKey = APIKey;
+    public void setKey(String key){
+        this.key = key;
     }
 
-    public String getAPISecret(){
-        return this.APISecret;
+    public String getSecret(){
+        return this.secret;
     }
 
-    public void setAPISecret(String APISecret){
-        this.APISecret = APISecret;
+    public void setSecret(String secret){
+        this.secret = secret;
     }
 }
