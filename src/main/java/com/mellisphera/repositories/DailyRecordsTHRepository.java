@@ -35,5 +35,6 @@ public interface DailyRecordsTHRepository extends MongoRepository<DailyRecordsTH
 	List<DailyRecordsTH> findOneLastDailyRecordsTHByHiveId(String hiveId);
 	
     List<DailyRecordsTH> findByHiveIdAndRecordDateBetween(String hiveId, Date start, Date end, Sort sort);
+	List<DailyRecordsTH> findBySensorRefAndRecordDateBetween(String sensorRef, Date start, Date end, Sort sort);
 
 }
