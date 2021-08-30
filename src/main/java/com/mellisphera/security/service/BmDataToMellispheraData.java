@@ -291,7 +291,9 @@ public class BmDataToMellispheraData {
         } else if (prefix.equals("43") || prefix.equals("49") || prefix.equals("57") || prefix.equals("58")) {
             /* précedament il y avait le 52, avec 3 devices dans la db, je l'ai supprimé car il est devenu subhub*/ 
             return "WEIGHT";
-        } else {
+        } else if(prefix.equals("52") || prefix.equals("54") || prefix.equals("60")){
+            return "HUB";
+        } else{
             return "ALIEN";
         }
     }
@@ -309,6 +311,8 @@ public class BmDataToMellispheraData {
         newApiary.setPrivateApiary(bmApiary.getPrivateApiary());
         newApiary.setCountryCode(bmApiary.getCountryCode());
         newApiary.setUsername(username);
+        newApiary.setLat(bmApiary.getLat());
+        newApiary.setLon(bmApiary.getLon());
         if (!update) {
             String photos;
             if (countryCode.equals("FR")) {
