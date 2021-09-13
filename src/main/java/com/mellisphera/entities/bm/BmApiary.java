@@ -45,9 +45,9 @@ public class BmApiary implements Serializable{
 	private BmHive[] hives;
 	@JsonProperty("notes")
 	private BmNote[] notes;
-	@JsonProperty("lat")
+	@JsonProperty("latitude")
 	private float lat;
-	@JsonProperty("lon")
+	@JsonProperty("longitude")
 	private float lon;
 
 	
