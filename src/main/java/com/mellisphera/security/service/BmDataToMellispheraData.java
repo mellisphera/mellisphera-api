@@ -36,6 +36,7 @@ public class BmDataToMellispheraData {
     @Autowired private SensorRepository sensorRepository;
     @Autowired private HivesRepository hiveRepository;
     @Autowired private ApiaryRepository apiaryRepository;
+    @Autowired private InspectionRepository inspectionRepository;
     @Autowired private CurrentDailyWeatherRepository currentDailyWeatherRepository;
     @Autowired private CurrentHourlyWeatherRepository currentHourlyWeatherRepository;
     private MongoTemplate mongoTemplate;
@@ -106,6 +107,14 @@ public class BmDataToMellispheraData {
             System.out.println("erreur encoding");
             newInsp.setDescription(bmNote.getDescription().replaceAll ("<.*?>", ""));
         }
+        if(this.inspectionRepository.findById(newInsp.get_id()).isPresent()){
+            Inspection i = this.inspectionRepository.findInspectionBy_id(newInsp.get_id());
+            newInsp.setUserId(i.getUserId());
+            newInsp.setApiaryInspId(i.getApiaryInspId());
+            newInsp.setTasks(i.getTasks());
+            newInsp.setObs(i.getObs());
+            newInsp.setTodo(i.getTodo());
+        }
         return newInsp;
     }
 
@@ -126,6 +135,7 @@ public class BmDataToMellispheraData {
         newHive.setUserId(userId);
         newHive.setDescription(bmHive.getDescription());
         newHive.setApiaryLocation(bmHive.getApiaryLocation());
+        newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setCreateDate(this.convertTimestampToDate(bmHive.getCreateDate()));
         newHive.setApiaryId(bmHive.getApiaryId());
         newHive.setHidden(bmHive.getHidden());
@@ -173,7 +183,6 @@ public class BmDataToMellispheraData {
 
     private void affectWeather(ApiaryLocation[] apiaryLocation) {
         for (ApiaryLocation location: apiaryLocation) {
-            System.out.println(location);
             Aggregation aggregateDaily = Aggregation.newAggregation(
                     Aggregation.match(Criteria.where("date").gte(new Date(location.getStart())).lt(new Date(location.getEnd())))
             );
@@ -282,7 +291,9 @@ public class BmDataToMellispheraData {
         } else if (prefix.equals("43") || prefix.equals("49") || prefix.equals("57") || prefix.equals("58")) {
             /* précedament il y avait le 52, avec 3 devices dans la db, je l'ai supprimé car il est devenu subhub*/ 
             return "WEIGHT";
-        } else {
+        } else if(prefix.equals("52") || prefix.equals("54") || prefix.equals("60")){
+            return "HUB";
+        } else{
             return "ALIEN";
         }
     }
@@ -300,6 +311,8 @@ public class BmDataToMellispheraData {
         newApiary.setPrivateApiary(bmApiary.getPrivateApiary());
         newApiary.setCountryCode(bmApiary.getCountryCode());
         newApiary.setUsername(username);
+        newApiary.setLat(bmApiary.getLat());
+        newApiary.setLon(bmApiary.getLon());
         if (!update) {
             String photos;
             if (countryCode.equals("FR")) {

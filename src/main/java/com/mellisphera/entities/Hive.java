@@ -35,13 +35,14 @@ public class Hive {
 	private Date createDate;
 	private float hivePosX;
 	private float hivePosY;
+	private String color;
 	private ApiaryLocation[] apiaryLocation;
 
 
 	public Hive() {}
 
 
-	public Hive(String _id, String name, String description, String username, String apiaryId, String userId, Boolean hidden, Date dataLastReceived, Date createDate, float hivePosX, float hivePosY, ApiaryLocation[] apiaryLocation) {
+	public Hive(String _id, String name, String description, String username, String apiaryId, String userId, Boolean hidden, Date dataLastReceived, Date createDate, float hivePosX, float hivePosY, String color, ApiaryLocation[] apiaryLocation) {
 		this._id = _id;
 		this.name = name;
 		this.description = description;
@@ -53,6 +54,7 @@ public class Hive {
 		this.createDate = createDate;
 		this.hivePosX = hivePosX;
 		this.hivePosY = hivePosY;
+		this.color = color;
 		this.apiaryLocation = apiaryLocation;
 	}
 
@@ -142,6 +144,14 @@ public class Hive {
 
 	public void setHivePosY(float hivePosY) {
 		this.hivePosY = hivePosY;
+	}
+
+	public String getColor(){
+		return this.color;
+	}
+
+	public void setColor(String color){
+		this.color = color;
 	}
 
 	public ApiaryLocation[] getApiaryLocation() {

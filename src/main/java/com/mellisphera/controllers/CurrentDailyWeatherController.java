@@ -59,6 +59,13 @@ public class CurrentDailyWeatherController {
 		}).collect(Collectors.toList());
 	}
 
+	@PostMapping("daily/apiary/{apiaryId}/{weatherSource}")
+	public List<SimpleSeries> getCurrentDailyWeatherByApiaryIdAndDateBetween(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource) {
+		return this.dailyWearherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().filter(_elt -> _elt.get_origin().contains(weatherSource)).map(_elt -> {
+			return new SimpleSeries(_elt.getDate(), new Object[] {_elt.getWeather(), _elt.getMain()}, _elt.get_origin());
+		}).collect(Collectors.toList());
+	}
+
 	@PostMapping("rain/apiary/{apiaryId}/{weatherSource}")
 	public List<SimpleSeries> getRainCurrentDailyWeatherByApiary(@PathVariable String apiaryId, @RequestBody Date[] range, @PathVariable String weatherSource) {
 		return this.dailyWearherRepository.findByApiaryIdAndDateBetween(apiaryId, range[0], range[1]).stream().filter(_elt -> _elt.get_origin().contains(weatherSource)).map(_elt -> {

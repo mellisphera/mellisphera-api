@@ -13,19 +13,16 @@ limitations under the License. */
 
 package com.mellisphera.repositories;
 
+import java.util.List;
+
+import com.mellisphera.entities.WeatherSrcs;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.mellisphera.entities.Record;
+public interface WeatherSrcsRepository extends MongoRepository<WeatherSrcs, String> {
 
-import java.util.Date;
-import java.util.List;
-import org.springframework.data.domain.Sort;
+    WeatherSrcs findWSrcsBy_id(String _id);
+    List<WeatherSrcs> findWSrcsByApiaryId(String apiaryId);
+    List<WeatherSrcs> findWSrcsByUserId(String userId);
 
-public interface RecordRepository  extends MongoRepository<Record,String> {
-    
-    public List<Record> findRecordByHiveId(String hiveId, Sort sort);
-    
-    public List<Record> findByHiveIdAndRecordDateBetween(String hiveId, Date start, Date end, Sort sort);
-
-    public List<Record> findBySensorRefAndRecordDateBetween(String sensorRef, Date start, Date end, Sort sort);
+    void deleteBy_idIn(List<String> ids);
 }

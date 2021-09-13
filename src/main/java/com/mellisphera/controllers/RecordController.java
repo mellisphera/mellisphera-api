@@ -31,6 +31,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -195,5 +196,11 @@ public class RecordController {
         	return new ResponseEntity<>("Aucune donnée", HttpStatus.NOT_FOUND);
         }
         
+    }
+
+    @PostMapping("/sensor/between/{sensorRef}")
+    public List<Record> getRecordsBySensorRefAndDateBetween(@PathVariable String sensorRef, @RequestBody Date[] range){
+        Sort sort = new Sort(Direction.DESC, "timestamp");
+        return this.recordRepository.findBySensorRefAndRecordDateBetween(sensorRef, range[0], range[1], sort);
     }
 }

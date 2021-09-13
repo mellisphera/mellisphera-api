@@ -199,6 +199,12 @@ public class DailyRecordsTHController {
 		return aggregateRes.getMappedResults();
 	}
 	
+
+	@PostMapping("/sensor/{sensorRef}")
+	public List<DailyRecordsTH> getByHiveAndDateBetween(@PathVariable String sensorRef, @RequestBody Date[] range){
+		Sort sort = new Sort(Direction.DESC, "timestamp");
+		return this.dailyRecordsTHRepository.findBySensorRefAndRecordDateBetween(sensorRef, range[0], range[1], sort);
+	}
 	
 
 }

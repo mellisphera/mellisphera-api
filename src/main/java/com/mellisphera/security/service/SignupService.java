@@ -69,7 +69,7 @@ public class SignupService {
         System.out.println(user);
         if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1"))
             ipAddress="87.100.21.93";
-        user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("US") ? DATE_EN: DATE_FR, this.getLangByGeoipLangage(geoIp.getCountry()), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL, WEATHER_SOURCE[0], WEATHER_SOURCE, false));
+        user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("US") ? DATE_EN: DATE_FR, this.getLangByGeoipLangage(geoIp.getCountry()), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL));
         user.setLastConnection(new Date());
         User newUser = this.userRepository.insert(user);
         if (!bmSignup) {

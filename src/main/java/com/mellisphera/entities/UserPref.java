@@ -21,20 +21,17 @@ public class UserPref {
 	private String timeZone;
 	private String timeFormat;
 	private String lang;
-	private String weatherSource;
+	/*private String weatherSource;
 	private String[] availableSource;
-	private Boolean weatherStation;
+	private Boolean weatherStation;*/
 	private String unitSystem;
 	private Date dateRef;
 	
-	public UserPref(String timeZone, String timeFormat, String lang, String unitSystem, String weatherSource, String[] availableSource, Boolean weatherStation) {
+	public UserPref(String timeZone, String timeFormat, String lang, String unitSystem) {
 		this.timeZone = timeZone;
 		this.timeFormat = timeFormat;
 		this.lang = lang;
 		this.unitSystem = unitSystem;
-		this.weatherSource = weatherSource;
-		this.availableSource = availableSource;
-		this.weatherStation = weatherStation;
 	}
 
 	public String getTimeZone() {
@@ -69,30 +66,6 @@ public class UserPref {
 		this.unitSystem = unitSystem;
 	}
 
-	public String getWeatherSource() {
-		return weatherSource;
-	}
-
-	public void setWeatherSource(String weatherSource) {
-		this.weatherSource = weatherSource;
-	}
-
-	public String[] getAvailableSource() {
-		return availableSource;
-	}
-
-	public Boolean getWeatherStation() {
-		return weatherStation;
-	}
-
-	public void setWeatherStation(Boolean weatherStation) {
-		this.weatherStation = weatherStation;
-	}
-
-	public void setAvailableSource(String[] availableSource) {
-		this.availableSource = availableSource;
-	}
-
 	public void setDateRef(Date ref){
 		this.dateRef = ref;
 	}
@@ -107,8 +80,6 @@ public class UserPref {
 				"timeZone='" + timeZone + '\'' +
 				", timeFormat='" + timeFormat + '\'' +
 				", lang='" + lang + '\'' +
-				", weatherSource='" + weatherSource + '\'' +
-				", availableSource=" + Arrays.toString(availableSource) +
 				", unitSystem='" + unitSystem + '\'' +
 				", dateRef='" + dateRef + '\'' + 
 				'}';

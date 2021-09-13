@@ -57,7 +57,7 @@ public class Record {
 		this.temp_int = temp_int;
 		this.weight = weight;
 		this.hiveId = hiveId;
-                this.timestamp = timestamp;
+        this.timestamp = timestamp;
 	}
 
 	public Record(Date recordDate, Double weight) {

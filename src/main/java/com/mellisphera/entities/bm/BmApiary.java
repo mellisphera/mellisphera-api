@@ -45,12 +45,17 @@ public class BmApiary implements Serializable{
 	private BmHive[] hives;
 	@JsonProperty("notes")
 	private BmNote[] notes;
+	@JsonProperty("latitude")
+	private float lat;
+	@JsonProperty("longitude")
+	private float lon;
+
 	
 	public BmApiary() {
 		
 	}
 
-	public BmApiary(String apiaryId, String userId, long createDate, String name, String zipCode, String countryCode, Boolean privateApiary, Boolean hidden, long dataLastReceived, BmHive[] hives, BmNote[] notes) {
+	public BmApiary(String apiaryId, String userId, long createDate, String name, String zipCode, String countryCode, Boolean privateApiary, Boolean hidden, long dataLastReceived, BmHive[] hives, BmNote[] notes, float lat, float lon) {
 		this.apiaryId = apiaryId;
 		this.createDate = createDate;
 		this.name = name;
@@ -62,6 +67,8 @@ public class BmApiary implements Serializable{
 		this.dataLastReceived = dataLastReceived;
 		this.hives = hives;
 		this.notes = notes;
+		this.lat = lat;
+		this.lon = lon;
 	}
 
 	public String getApiaryId() {
@@ -152,6 +159,22 @@ public class BmApiary implements Serializable{
 
 	public void setNotes(BmNote[] notes) {
 		this.notes = notes;
+	}
+
+	public float getLat(){
+		return this.lat;
+	}
+
+	public void setLat(float lat){
+		this.lat = lat;
+	}
+	
+	public float getLon(){
+		return this.lon;
+	}
+
+	public void setLon(float lon){
+		this.lon = lon;
 	}
 
 	@Override
