@@ -38,15 +38,15 @@ public class Apiary {
 	private String username; 
 	private List<User> sharedWith;
 	private WeatherStation weatherStation;
-	private float lat;
-	private float lon;
+	private double lat;
+	private double lon;
 	
 	
 	public Apiary() {
 		super();
 	}
 
-	public Apiary(String _id, String name, String description, String zipCode, boolean privateApiary, String city, String userId, Date createDate, String countryCode, String photo, Date dataLastReceived, String username, List<User> sharedWith, boolean hidden, Object ws, float lat, float lon) {
+	public Apiary(String _id, String name, String description, String zipCode, boolean privateApiary, String city, String userId, Date createDate, String countryCode, String photo, Date dataLastReceived, String username, List<User> sharedWith, boolean hidden, Object ws, double lat, double lon) {
 		this._id = _id;
 		this.name = name;
 		this.hidden = hidden;
@@ -190,19 +190,19 @@ public class Apiary {
 		this.weatherStation = ws;
 	}
 
-	public float getLat(){
+	public double getLat(){
 		return this.lat;
 	}
 
-	public void setLat(float lat){
+	public void setLat(double lat){
 		this.lat = lat;
 	}
 
-	public float getLon(){
+	public double getLon(){
 		return this.lon;
 	}
 
-	public void setLon(float lon){
+	public void setLon(double lon){
 		this.lon = lon;
 	}
 }
