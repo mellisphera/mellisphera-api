@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.lang.Math;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mellisphera.entities.Note;
@@ -46,16 +47,16 @@ public class BmApiary implements Serializable{
 	@JsonProperty("notes")
 	private BmNote[] notes;
 	@JsonProperty("latitude")
-	private float lat;
+	private double lat;
 	@JsonProperty("longitude")
-	private float lon;
+	private double lon;
 
 	
 	public BmApiary() {
 		
 	}
 
-	public BmApiary(String apiaryId, String userId, long createDate, String name, String zipCode, String countryCode, Boolean privateApiary, Boolean hidden, long dataLastReceived, BmHive[] hives, BmNote[] notes, float lat, float lon) {
+	public BmApiary(String apiaryId, String userId, long createDate, String name, String zipCode, String countryCode, Boolean privateApiary, Boolean hidden, long dataLastReceived, BmHive[] hives, BmNote[] notes, double lat, double lon) {
 		this.apiaryId = apiaryId;
 		this.createDate = createDate;
 		this.name = name;
@@ -67,8 +68,8 @@ public class BmApiary implements Serializable{
 		this.dataLastReceived = dataLastReceived;
 		this.hives = hives;
 		this.notes = notes;
-		this.lat = lat;
-		this.lon = lon;
+		this.lat = Math.round(lat*1000.0)/1000.0;
+		this.lon = Math.round(lon*1000.0)/1000.0;
 	}
 
 	public String getApiaryId() {
@@ -161,20 +162,20 @@ public class BmApiary implements Serializable{
 		this.notes = notes;
 	}
 
-	public float getLat(){
+	public double getLat(){
 		return this.lat;
 	}
 
-	public void setLat(float lat){
-		this.lat = lat;
+	public void setLat(double lat){
+		this.lat = Math.round(lat*1000.0)/1000.0;
 	}
 	
-	public float getLon(){
+	public double getLon(){
 		return this.lon;
 	}
 
-	public void setLon(float lon){
-		this.lon = lon;
+	public void setLon(double lon){
+		this.lon = Math.round(lon*1000.0)/1000.0;
 	}
 
 	@Override
