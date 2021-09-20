@@ -45,7 +45,7 @@ public class JwtProvider {
     private String jwtSecret;
 
     @Value("${apiwatch.app.security.jwtExpiration}")
-    private int jwtExpiration;
+    private long jwtExpiration;
 
     @Value("${mellisphera.app.public_token}")
     private String publicJwt ;
