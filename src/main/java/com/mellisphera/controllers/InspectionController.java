@@ -25,7 +25,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
-import com.mellisphera.entities.InspTaskObs;
+import com.mellisphera.entities.InspEvents;
 import com.mellisphera.entities.Inspection;
 import com.mellisphera.repositories.InspectionRepository;
 

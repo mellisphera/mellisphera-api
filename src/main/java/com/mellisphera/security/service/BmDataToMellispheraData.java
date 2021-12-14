@@ -111,8 +111,7 @@ public class BmDataToMellispheraData {
             Inspection i = this.inspectionRepository.findInspectionBy_id(newInsp.get_id());
             newInsp.setUserId(i.getUserId());
             newInsp.setApiaryInspId(i.getApiaryInspId());
-            newInsp.setTasks(i.getTasks());
-            newInsp.setObs(i.getObs());
+            newInsp.setEvents(i.getEvents());
             newInsp.setTodo(i.getTodo());
         }
         return newInsp;
