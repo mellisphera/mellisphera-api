@@ -1,12 +1,12 @@
 package com.mellisphera.entities;
 
-public class InspTaskObs {
+public class InspEvents {
     private String name;
     private String img;
 
-     public InspTaskObs(){}
+     public InspEvents(){}
 
-     public InspTaskObs(String n, String i){
+     public InspEvents(String n, String i){
          this.name = n;
          this.img = i;
      }

@@ -100,8 +100,7 @@ public class BmChangeLogService {
                 Inspection i = this.inspectionRepository.findInspectionBy_id(_newInsp.get_id());
                 _newInsp.setUserId(i.getUserId());
                 _newInsp.setApiaryInspId(i.getApiaryInspId());
-                _newInsp.setTasks(i.getTasks());
-                _newInsp.setObs(i.getObs());
+                _newInsp.setEvents(i.getEvents());
                 _newInsp.setTodo(i.getTodo());
                 this.inspectionRepository.save(_newInsp);
 

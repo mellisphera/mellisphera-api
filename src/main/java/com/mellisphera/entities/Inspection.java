@@ -19,8 +19,7 @@ public class Inspection{
     private String type;
     private String[] tags;
     private String description;
-    private InspTaskObs[] tasks;
-    private InspTaskObs[] obs; 
+    private InspEvents[] events;
     private String todo;
     
 
@@ -30,7 +29,7 @@ public class Inspection{
         String _id, String apiaryInspId, String apiaryId,
         String userId, Date createDate, Date opsDate,
         String hiveId, String type, String[] tags,
-        String description, Object[] tasks, Object[] obs, String todo
+        String description, Object[] events, String todo
     ){
 
         this._id = _id;
@@ -43,8 +42,7 @@ public class Inspection{
         this.type = type;
         this.tags = tags;
         this.description = description;
-        this.tasks = (InspTaskObs[]) tasks;
-        this.obs = (InspTaskObs[]) obs;
+        this.events = (InspEvents[]) events;
         this.todo = todo;
     }
 
@@ -59,8 +57,7 @@ public class Inspection{
         this.type = i.getType();
         this.tags = i.getTags();
         this.description = i.getDescription();
-        this.tasks = i.getTasks();
-        this.obs = i.getObs();
+        this.events = i.getEvents();
         this.todo = i.getTodo();
     }
 
@@ -144,20 +141,12 @@ public class Inspection{
         this.description = description;
     }
 
-    public InspTaskObs[] getTasks(){
-        return this.tasks;
+    public InspEvents[] getEvents(){
+        return this.events;
     }
 
-    public void setTasks(InspTaskObs[] tasks){
-        this.tasks = tasks;
-    }
-
-    public InspTaskObs[] getObs(){
-        return this.obs;
-    }
-
-    public void setObs(InspTaskObs[] obs){
-        this.obs = obs;
+    public void setEvents(InspEvents[] events){
+        this.events = events;
     }
 
     public String getTodo(){

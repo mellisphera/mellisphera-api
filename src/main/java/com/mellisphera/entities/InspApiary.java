@@ -15,7 +15,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
-//import InspTaskObs;
+//import InspEvents;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -27,22 +27,20 @@ public class InspApiary {
     private String _id;
     private Date date;
     private String apiaryId;
-    private Object[] tasks;
-    private Object[] obs;
+    private Object[] events;
     private String notes;
     private String todo;
 
     public InspApiary() {}
 
-    public InspApiary(String _id, Date date, String apiaryId, Object[] tasks, Object[] obsv, String notes, String todo){
+    public InspApiary(String _id, Date date, String apiaryId, Object[] events, String notes, String todo){
         this._id = _id;
         this.date = date;
         this.apiaryId = apiaryId;
-        this.tasks = tasks.clone();
-        this.obs = obsv.clone();
+        this.events = events.clone();
         this.notes = notes;
         this.todo = todo;
-        System.out.println(tasks);
+        System.out.println(events);
     }
 
     public String get_id(){
@@ -57,12 +55,8 @@ public class InspApiary {
         return this.apiaryId;
     }
 
-    public Object[] getTasks(){
-        return this.tasks;
-    }
-
-    public Object[] getObs(){
-        return this.obs;
+    public Object[] getEvents(){
+        return this.events;
     }
 
     public String getNotes(){
@@ -85,12 +79,8 @@ public class InspApiary {
         this.apiaryId = apiaryId;
     }
 
-    public void setTasks(Object[] tasks){
-        this.tasks = tasks.clone();
-    }
-
-    public void setObs(Object[] obsv){
-        this.obs = obsv.clone();
+    public void setEvents(Object[] events){
+        this.events = events.clone();
     }
 
     public void setNotes(String notes){
@@ -109,8 +99,8 @@ public class InspApiary {
               ", date='" + date + '\'' +
               ", apiaryId='" + apiaryId + '\'';
 
-        res += ", tasks=[ ";
-        for(InspTaskObs s : tasks){
+        res += ", events=[ ";
+        for(InspTaskObs s : events){
             res += "'{ name: " + s.getName() + ", img: "+ s.getImg() + "}' ,";
         }
         res += " ]";
