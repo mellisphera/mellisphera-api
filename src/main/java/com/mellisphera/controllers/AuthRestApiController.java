@@ -134,7 +134,7 @@ public class AuthRestApiController {
 			user = this.userRepository.findUserByEmail(loginRequest.getEmail());
 
 			if(changeLogUpdate){
-				System.out.println("Getting changelog");
+				System.out.println("Getting changelog for " + user.getUsername());
 				this.bmAuthService.getChangeLog(user.getId(), user.getUsername(),geoIp.getCountry());
 			}
 			log.info("User : " + user.getUsername() + " has been authenticated");
@@ -144,10 +144,9 @@ public class AuthRestApiController {
 			// e.printStackTrace();
 			BmAuth bmAuth = bmAuthService.getBmAuth(loginRequest.getEmail(), loginRequest.getPassword());
 			if (!bmAuth.getCode().equals("200")) {
-				log.debug("Login incorrect ! (" + loginRequest.getEmail() + ")");
-				throw new UsernameNotFoundException("Login incorrect");
-			} else {
-				System.out.println("create new user");
+				log.debug(loginRequest.getEmail() + " not found in MBM");
+				throw new UsernameNotFoundException(loginRequest.getEmail() + " not found in MBM");
+			} else { // if user is found in MBM create user in our database
 				String username = loginRequest.getEmail().split("@")[0];
 
 				this.bmAuthService.saveBmData(bmAuth, username,geoIp.getCountry());
@@ -160,7 +159,8 @@ public class AuthRestApiController {
 				authentication = authenticationManager.authenticate(
 						new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
-				log.warn("Error: create new user");
+				log.info("Create new user : " + username);
+				System.out.println("Create new user : " + username);
 			}
 
 		}
@@ -171,8 +171,8 @@ public class AuthRestApiController {
 		Date date = new Date();
 		user.setLastConnection(date);
 		if(!user.getActive()){
-			System.out.println(user.getUsername() + " has been reactivated.");
 			user.setActive(true);
+			System.out.println(user.getUsername() + " has been activated.");
 		}
 		this.userRepository.save(user);
 		if(ipAddress != "127.0.0.1" || ipAddress != "0:0:0:0:0:0:0:1") {
@@ -190,7 +190,6 @@ public class AuthRestApiController {
 	 */
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest, HttpServletRequest request, Boolean bmSignup) {
-		log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :"+signUpRequest.getPassword()+" email:" + signUpRequest.getEmail());
 		//
 		//Login credential = new Login(signUpRequest.getUsername(),encoder.encode(signUpRequest.getPassword()));
 		//
