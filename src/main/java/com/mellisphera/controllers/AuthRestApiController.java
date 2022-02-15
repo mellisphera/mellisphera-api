@@ -118,7 +118,6 @@ public class AuthRestApiController {
 	 */
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest, HttpServletRequest request) {
-		log.debug("Sign Up : username :" + loginRequest.getEmail() + " password:" + loginRequest.getPassword());
 		
 		ApiWatchUserDetails apiWatchUserDetails = null;
 		Authentication authentication = null;
@@ -138,14 +137,15 @@ public class AuthRestApiController {
 				System.out.println("Getting changelog");
 				this.bmAuthService.getChangeLog(user.getId(), user.getUsername(),geoIp.getCountry());
 			}
+			log.info("User : " + user.getUsername() + " has been authenticated");
 			
-
 		}
 		catch(AuthenticationException e) {
 			// e.printStackTrace();
 			BmAuth bmAuth = bmAuthService.getBmAuth(loginRequest.getEmail(), loginRequest.getPassword());
 			if (!bmAuth.getCode().equals("200")) {
-				throw new UsernameNotFoundException("Login incorrecte");
+				log.debug("Login incorrect ! (" + loginRequest.getEmail() + ")");
+				throw new UsernameNotFoundException("Login incorrect");
 			} else {
 				System.out.println("create new user");
 				String username = loginRequest.getEmail().split("@")[0];
@@ -160,6 +160,7 @@ public class AuthRestApiController {
 				authentication = authenticationManager.authenticate(
 						new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
+				log.warn("Error: create new user");
 			}
 
 		}
