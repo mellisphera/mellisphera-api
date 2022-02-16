@@ -40,7 +40,6 @@ public class InspApiary {
         this.events = events.clone();
         this.notes = notes;
         this.todo = todo;
-        System.out.println(events);
     }
 
     public String get_id(){

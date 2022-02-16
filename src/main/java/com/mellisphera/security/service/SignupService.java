@@ -37,7 +37,7 @@ import java.util.*;
 
 @Service
 public class SignupService {
-    public static Log log = LogFactory.getLog(AuthRestApiController.class);
+    public static Log log = LogFactory.getLog(SignupService.class);
 
     @Autowired private UserRepository userRepository;
     @Autowired private GeoipServiceImpl geoipService;
@@ -66,7 +66,6 @@ public class SignupService {
         //log.debug(" Sign Up : username :"+ signUpRequest.getUsername() +" password :" + credential);
         User user = new User(this.userId, GregorianCalendar.getInstance().getTime(),signUpRequest.getUsername(), credential,signUpRequest.getEmail(),new HashSet<>(Arrays.asList(SET_INITIAL_ROLE)));
         String ipAddress = ((WebAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getRemoteAddress();
-        System.out.println(user);
         if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1"))
             ipAddress="87.100.21.93";
         user.setUserPref(new UserPref(geoIp.getTimeZone(), geoIp.getCountry().equals("US") ? DATE_EN: DATE_FR, this.getLangByGeoipLangage(geoIp.getCountry()), geoIp.getCountry().equals("FR") ? METRIC: IMPERIAL));

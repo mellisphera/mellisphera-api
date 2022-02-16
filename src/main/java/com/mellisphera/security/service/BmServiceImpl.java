@@ -32,6 +32,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.mellisphera.security.entities.BmAuth;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -55,6 +57,8 @@ public class BmServiceImpl implements BmService {
     private HttpHeaders header;
 
     private String userId;
+	
+	public static Log log = LogFactory.getLog(BmServiceImpl.class);
     
     @Autowired private ApiaryRepository apiaryRepository;
     @Autowired private HivesRepository hiveRepository;
@@ -106,7 +110,7 @@ public class BmServiceImpl implements BmService {
 					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username, countryCode, false));
 				}
 				catch (Exception e) {
-					System.out.println("error key apiary");
+					log.error("Apiary MBM n'existe pas sur Mellisphera :", e);
 					this.apiaryRepository.deleteById(bmApiary.getApiaryId());
 					this.apiaryRepository.insert(this.bmToMellispheraData.getNewApiary(bmApiary, username, countryCode, false));
 				}
@@ -191,10 +195,10 @@ public class BmServiceImpl implements BmService {
 				entity,
 				BmAuth.class);
 		if (response.getBody() != null) {
-			System.out.println(response.getBody().toString());
 			this.saveChangeLog(response.getBody(), username, userId, countryCode);
+			log.info("Mise à jour du ChangeLog effectué pour " + username);
 		} else {
-			System.out.println("Aucune mise à jour du ChangeLog pour " + username);
+			log.info("Aucune mise à jour du ChangeLog pour " + username);
 		}
 	}
 

@@ -133,11 +133,12 @@ public class AuthRestApiController {
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			user = this.userRepository.findUserByEmail(loginRequest.getEmail());
 
+			log.info("User : " + user.getUsername() + " has been authenticated");
+
 			if(changeLogUpdate){
-				System.out.println("Getting changelog for " + user.getUsername());
+				log.info("Getting changelog for " + user.getUsername());
 				this.bmAuthService.getChangeLog(user.getId(), user.getUsername(),geoIp.getCountry());
 			}
-			log.info("User : " + user.getUsername() + " has been authenticated");
 			
 		}
 		catch(AuthenticationException e) {
@@ -160,7 +161,6 @@ public class AuthRestApiController {
 						new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 				log.info("Create new user : " + username);
-				System.out.println("Create new user : " + username);
 			}
 
 		}
@@ -172,7 +172,7 @@ public class AuthRestApiController {
 		user.setLastConnection(date);
 		if(!user.getActive()){
 			user.setActive(true);
-			System.out.println(user.getUsername() + " has been activated.");
+			log.info(user.getUsername() + " has been activated.");
 		}
 		this.userRepository.save(user);
 		if(ipAddress != "127.0.0.1" || ipAddress != "0:0:0:0:0:0:0:1") {

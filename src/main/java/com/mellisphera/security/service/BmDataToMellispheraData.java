@@ -29,9 +29,13 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 @Service
 public class BmDataToMellispheraData {
+	
+	public static Log log = LogFactory.getLog(BmDataToMellispheraData.class);
 
     @Autowired private SensorRepository sensorRepository;
     @Autowired private HivesRepository hiveRepository;
@@ -78,7 +82,7 @@ public class BmDataToMellispheraData {
             newNote.setDescription(new String(byteStr, "UTF-8").replaceAll ("<.*?>", ""));
         }
         catch (UnsupportedEncodingException e) {
-            System.out.println("erreur encoding");
+            log.error("Erreur d'encodage :", e);
             newNote.setDescription(bmNote.getDescription().replaceAll ("<.*?>", ""));
         }
         return newNote;
@@ -104,7 +108,7 @@ public class BmDataToMellispheraData {
             newInsp.setDescription(new String(byteStr, "UTF-8").replaceAll ("<.*?>", ""));
         }
         catch (UnsupportedEncodingException e) {
-            System.out.println("erreur encoding");
+            log.error("Erreur d'encodage :", e);
             newInsp.setDescription(bmNote.getDescription().replaceAll ("<.*?>", ""));
         }
         if(this.inspectionRepository.findById(newInsp.get_id()).isPresent()){
@@ -200,7 +204,6 @@ public class BmDataToMellispheraData {
     }
 
     private void affectSensor(Hive hiveUpdate) {
-        System.out.println(hiveUpdate);
         List<Sensor> sensors = this.sensorRepository.findSensorByHiveId(hiveUpdate.get_id());
         sensors.forEach(_sensor -> {
             _sensor.setApiaryId(hiveUpdate.getApiaryId());
@@ -245,7 +248,6 @@ public class BmDataToMellispheraData {
                                 hive.get_id(),
                                 bmDevice.getCurrentLocation().getHivePositionId(),
                                 bmDevice.getCurrentLocation().getStart()));
-                System.out.println(sensor);
             }
             else{
                 sensor.setHiveId(null);
@@ -265,7 +267,6 @@ public class BmDataToMellispheraData {
             catch (IllegalArgumentException ex) {
                 sensor.setHiveId(null);
                 sensor.setApiaryId(null);
-                System.out.println(sensor);
             }
         } catch (NoSuchElementException except) {
             sensor.setHiveId(null);

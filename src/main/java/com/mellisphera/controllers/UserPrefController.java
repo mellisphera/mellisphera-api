@@ -31,12 +31,15 @@ import com.mellisphera.entities.User;
 import com.mellisphera.entities.UserPref;
 import com.mellisphera.repositories.UserRepository;
 import com.mongodb.lang.Nullable;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 @Service
 @RestController
 @RequestMapping("/userPref")
 @PreAuthorize("hasRole('STANDARD') or hasRole('PREMIUM') or hasRole('ADMIN')")
 public class UserPrefController {
+    public static Log log = LogFactory.getLog(UserPrefController.class);
 
 	@Autowired UserRepository userRepository;
 	@Autowired PasswordEncoder encoder;
@@ -50,14 +53,15 @@ public class UserPrefController {
 		User user = this.userRepository.findUserByUsername(username);
 		user.setUserPref(userPref);
 		this.userRepository.save(user);
+		log.info("Username updated for user :" + username);
 	}
 	
     @PutMapping("/updatePassword/{idUser}")
     public void changePassword(@PathVariable String idUser, @RequestBody String newPassword) {
-		System.out.println("update pw");
     	User user = this.userRepository.findById(idUser).get();
     	user.setPassword(this.encoder.encode(newPassword));
     	this.userRepository.save(user);
+		log.info("Passord updated for user id :" + idUser);
     }
 
 	@GetMapping("/{username}")
@@ -68,13 +72,12 @@ public class UserPrefController {
 
 	@PutMapping("/updateRefDate/{username}")
 	public void updateRefDate(@PathVariable String username, @Nullable @RequestBody Date date){
-		System.out.println("Sending to mongodb");
 		User user = this.userRepository.findUserByUsername(username);
 		UserPref user_pref = user.getUserPref();
 		user_pref.setDateRef(date);
 		user.setUserPref(user_pref);
-		System.out.println(user_pref);
 		this.userRepository.save(user);
+		log.info("RefDate updated for user :" + username);
 	}
 
 }

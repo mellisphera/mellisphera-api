@@ -82,7 +82,6 @@ public class WeatherSrcsController {
 
     @PostMapping("insert")
     public WeatherSrcs insert(@RequestBody WeatherSrcs ws){
-        System.out.println(ws);
 	    return this.wSRepository.insert(ws);
     }
 

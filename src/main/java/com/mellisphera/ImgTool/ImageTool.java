@@ -48,7 +48,6 @@ public class ImageTool {
         this.fileName = this.userId + "-" + new Date().getTime() + "." + this.extension;
         this.pathFile = this.server_path + this.fileName;
         File file = new File(this.pathFile);
-        System.out.println(pathFile);
 	try{
             BufferedImage bufferedImg = ImageIO.read(new ByteArrayInputStream(data));
             ImageIO.write(bufferedImg, this.extension, file);

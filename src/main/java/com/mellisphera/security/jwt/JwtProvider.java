@@ -79,7 +79,6 @@ public class JwtProvider {
     public boolean validateJwtToken(String authToken) {
         try {
             if (authToken.equals(publicJwt)) {
-                System.out.println("PUBLIC TOKEN");
                 return true;
             }
         	log.debug("Token :"+authToken);

@@ -91,9 +91,7 @@ public class CurrentDailyWeatherController {
 	public long getWindMeanValueByApiary(@PathVariable String apiaryId, @PathVariable long start, @PathVariable long end){
 		long sumValue;
 		List<CurrentDailyWeather> weather = this.dailyWearherRepository.findByApiaryIdAndDateBetween(apiaryId, new Date(start), new Date(end));
-		System.out.println(weather.size());
 		sumValue = weather.stream().mapToLong(_elt -> (long) _elt.getWind().get("maxSpeed")).sum();
-		System.out.println(new Date(start));
 		if (sumValue == 0) {
 			return 0;
 		} else {
