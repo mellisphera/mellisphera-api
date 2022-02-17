@@ -194,7 +194,7 @@ public class BmServiceImpl implements BmService {
 			System.out.println(response.getBody().toString());
 			this.saveChangeLog(response.getBody(), username, userId, countryCode);
 		} else {
-			System.err.println("Aucune mise à jour du ChangeLog pour " + username);
+			System.out.println("Aucune mise à jour du ChangeLog pour " + username);
 		}
 	}
 
